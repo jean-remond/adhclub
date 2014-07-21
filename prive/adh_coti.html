@@ -1,0 +1,43 @@
+[(#REM)<-- 
+ * Plugin adh_club : Adherent Club pour Spip 2.1
+ * Licence GPL (c) 2011-2012 Jean Remond
+ 
+ * Liste pour gestion des cotisations disponibles pour le Club.
+-->]
+
+#SET{self,#SELF|parametre_url{debut_cotis|tri,''}}
+#FORMULAIRE_RECHERCHE{#GET{self}}
+<B_cotis>
+<p class='pagination'>[(#PAGINATION) | ]
+	<a href='[(#GET{self}|parametre_url{tri,titre})]'><:adhclub:par_titre:></a> |
+	<a href='[(#GET{self}|parametre_url{tri,id_saison})]'><:adhclub:par_saison:></a> 
+</p>
+<ul class='liste_items'>
+	<BOUCLE_cotis(ADHCOTIS){par #ENV{tri,titre}}{inverse}{pagination 10}{recherche ?}>
+		<li class='item coti[ (#ID_COTI|adhclub_acces_coti|?{ok,interdit})]'><h3>#TITRE</h3>
+			<span class='contenu'>
+				<BOUCLE_saison(ADHSAISONS){id_saison=#ID_SAISON}{0,1}>
+					#TITRE
+				</BOUCLE_saison>
+				- [(#COMPLEMENT|=={oui}|?{<:adhclub:coti_complement:>,<:adhclub:coti_principale:>})]
+				- <:adhclub:coti_mnt:> = #MNT_COTIS
+				[ - (#ID_COTI|adhclub_auteurs_ds_1coti|count) <:adhclub:auteurs:>]
+			</span>
+			<span class='descriptif'>#DESCRIPTIF</span>
+			<p class='actions'>
+				[(#AUTORISER{modifier,adhcoti,#ID_COTI}) <span class='lien_modifier'>&#91;<a href='[(#URL_ECRIRE{cotis_edit,id_coti=#ID_COTI}|parametre_url{retour,#SELF})]'><:bouton_modifier:></a>&#93;</span>]
+				[(#AUTORISER{supprimer,adhcoti,#ID_COTI})<span class='lien_supprimer'>&#91;<a href='#URL_ACTION_AUTEUR{supprimer_adhcoti,#ID_COTI,#SELF}' onclick="return confirm('<:adhclub:confirmer_supprimer_coti:>');"><:adhclub:icone_supprimer_coti:></a>&#93;</span>]
+			</p>
+		</li>
+	</BOUCLE_cotis>
+
+</ul>
+<p class='pagination'>[(#PAGINATION) | ]
+	<a href='[(#GET{self}|parametre_url{tri,titre})]'><:adhclub:par_titre:></a> |
+	<a href='[(#GET{self}|parametre_url{tri,id_saison})]'><:adhclub:par_saison:></a> 
+</p>
+
+</B_cotis>
+
+	<:adhclub:info_aucun_coti:>
+<//B_cotis>

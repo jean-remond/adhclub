@@ -1,0 +1,41 @@
+/**
+ * Plugin adh_club : Adherent Club pour Spip 2.1
+ * Licence GPL (c) 2011-2012 Jean Remond
+ *
+ */
+/*  -----------------------------------------------------------
+	Styles specifiques au plugin adh_club.
+	-----------------------------------------------------------	*/
+/*	-----------------------------------------------------------
+	JR-12/03/2013-Ajout des criteres niveau relatif.
+	JR-02/01/20132-Creation du CSS.
+	-----------------------------------------------------------	*/
+
+
+/*  -----------------------------------------------------------
+	adhclub - Styles permettant les saisies cote a cote
+	-----------------------------------------------------------	*/
+.formulaire_adh_i3_recherche .editer {
+       float: left;
+}
+.formulaire_adh_i3_recherche  .editer_techbase {
+       clear: left;
+}
+.formulaire_adh_i3_recherche  .editer_encadrant {
+       clear: right;
+       margin-left: 10px;
+}
+.formulaire_adh_i3_recherche  .editer_niveau {
+       clear: left;
+}
+.formulaire_adh_i3_recherche  .editer_niv_rel {
+       clear: right;
+       margin-left: 10px;
+}
+.formulaire_adh_i3_recherche  .editer_valeur {
+       clear: left;
+}
+.formulaire_adh_i3_recherche  .editer_case {
+       clear: right;
+       margin-left: 10px;
+}

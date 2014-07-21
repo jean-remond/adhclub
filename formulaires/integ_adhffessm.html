@@ -1,0 +1,67 @@
+[(#REM) <--
+----------------------------------------------
+ * Plugin adh_club : Adherent Club pour Spip 2.1
+ * Licence GPL (c) 2011-2012 Jean Remond
+----------------------------------------------
+Formulaire d'integration des donnees de la table adhffessms 
+	vers les tables auteurs (et auteurs_elargis).
+Le formulaire permet de capter la reference de regroupement des dossiers 
+	et selectionne la cotisation et l'assurance qui vont etre affectees par defaut 
+    a chaque adherent present dans la table adhffessms.
+A faire :
+	- Chaque adherent va etre presente dans un formulaire modifiable avant validation.
+Fait
+	- Apres integration, la table adhffessms sera videe.
+----------------------------------------------
+JR-17/01/2012-Creation du formulaire.
+-->] 
+
+
+
+<h2><:adhclub:ffessm_validation:></h2>
+
+
+<div class="formulaire_spip formulaire_editer formulaire_editer_integ_adhffessm" id="formulaire_editer_integ_adhffessm-id">
+	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV*{message_ok})</p>]
+	[<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
+
+	<form method='post' action='#ENV{action}' enctype='multipart/form-data'><div>
+		[(#REM) declarer les hidden qui declencheront le service du formulaire 
+		parametre : url d'action ]
+		#ACTION_FORMULAIRE{#ENV{action}}
+
+	  <ul>
+
+		<input type="hidden" name='id_saison' value='#ENV{id_saison}' />
+
+        [(#SAISIE{input,ref_saisie,obligatoire=oui}
+            {label=<:adhclub:ref_saisie:>}
+			{explication=<:adhclub:ref_saisie_exp:>}
+            )]
+
+
+		[(#REM) A partir de la table 'ADHCOTIS'.]
+		#SET{datascoti,#ARRAY}
+		<BOUCLE_saison(ADHSAISONS){id_saison}{encours='oui'}>
+		<B_cotis>
+		<BOUCLE_cotis(ADHCOTIS){id_saison}>
+		        #SET{datascoti, #GET{datascoti}|array_merge{#ARRAY{Saison #_saison:TITRE : #TITRE,#ID_COTI}}}
+		</BOUCLE_cotis>
+			#SET{datascoti, #GET{datascoti}|array_flip} 
+		</B_cotis>
+		</BOUCLE_saison>
+		</B_saison>
+
+		[(#SAISIE{selection, id_coti, obligatoire=oui}
+			{label=<:adhclub:ffessm_coti:>}
+			{explication=<:adhclub:ffessm_coti_exp:>}
+			{datas=#GET{datascoti}}
+		)]
+
+	  </ul>
+	  [(#REM) ajouter les saisies supplementaires : extra et autre, a cet endroit ]
+	  <!--extra-->
+	  <p class='boutons'><input type='submit' class='submit' value='<:adhclub:bouton_valider_ffessm:>' /></p>
+	</div></form>
+	
+</div>

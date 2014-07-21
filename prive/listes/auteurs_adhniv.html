@@ -1,0 +1,56 @@
+[(#REM)<--
+/**
+ * Plugin adh_club : Adherent Club pour Spip 2.1
+ * Licence GPL (c) 2011-2012 Jean Remond
+ *
+ */
+-->] 
+<B_auteurs>
+<h3>#GRAND_TOTAL auteurs selectionn&eacute;</h3>
+[(#GRAND_TOTAL|>{3}|oui)
+<span class='actions'><a href='#URL_ACTION_AUTEUR{retirer_adhniv,#ID_NIVEAU-auteur--1,#SELF}'
+onclick="return confirm('<:adhclub:confirmer_retirer_auteurs|texte_script:>');"><:adhclub:info_retirer_auteurs:></a></span>
+]
+[<p class="pagination">(#PAGINATION{page})</p>]
+<ul class='liste_items liste_auteurs'>
+	<BOUCLE_auteurs(AUTEURS){id_niveau ?}{pagination 12}{par nom_famille, prenom}{tout}>
+	<li class='item'>[(#ENV{editable}|et{#ID_NIVEAU}|oui)
+	[(#AUTORISER{retirer_adhniv,auteur,#ID_AUTEUR}|oui)
+	<span class='actions'><a class='ajax' 
+href='#URL_ACTION_AUTEUR{retirer_adhniv,#ID_NIVEAU|concat{'-auteur-',#ID_AUTEUR},#SELF}'
+onclick="return confirm('<:adhclub:confirmer_retirer_auteur_niveau|texte_script:>');"
+title='<:adhclub:info_retirer_auteur_niveau|attribut_html:>'><img src='#EVAL{_DIR_IMG_PACK}croix-rouge.gif' alt='<:adhclub:info_retirer_niveau|attribut_html:>' /></a></span>
+	]
+	]
+	<a href="[(#URL_ECRIRE{auteur_infos,id_auteur=#ID_AUTEUR}|parametre_url{retour,#SELF})]"><img
+	 src="[(#STATUT|icone_auteur_12)]" alt="" height="12" width="12" /> #NOM_FAMILLE #PRENOM</a>
+	</li>
+	</BOUCLE_auteurs>
+</ul>
+</B_auteurs>
+<h3><:adhclub:info_aucun_auteur_niveau:></h3>
+<//B_auteurs>
+
+<B_autres_auteurs>
+<h3>Ajouter des auteurs</h3>
+[(#GRAND_TOTAL|>{3}|oui)
+<span class='actions'><a href='#URL_ACTION_AUTEUR{affecter_adhniv,#ID_NIVEAU-auteur--1,#SELF}'
+onclick="return confirm('<:adhclub:confirmer_ajouter_auteurs|texte_script:>');"><:adhclub:info_ajouter_auteurs:></a></span>
+]
+[<p class="pagination">(#PAGINATION{page})</p>]
+<ul class='liste_items liste_autres_auteurs'>
+	<BOUCLE_autres_auteurs(AUTEURS){!id_niveau=#ENV{id_niveau}}{pagination 12}{par nom_famille, prenom}{tout}>
+	<li class='item'>[(#ENV{editable}|et{#ID_NIVEAU}|oui)
+	[(#AUTORISER{affecter_adhniv,auteur,#ID_AUTEUR}|oui)
+	<span class='actions'><a class='ajax' 
+href='#URL_ACTION_AUTEUR{affecter_adhniv,#ID_NIVEAU|concat{'-auteur-',#ID_AUTEUR},#SELF}'
+title='<:adhclub:info_ajouter_auteur|attribut_html:>'><img src='#CHEMIN{img_pack/list-add-12.png}' alt='<:adhclub:info_ajouter_auteur|attribut_html:>' /></a></span>
+	]
+	]
+	<a href="[(#URL_ECRIRE{auteur_infos,id_auteur=#ID_AUTEUR}|parametre_url{retour,#SELF})]"><img
+	 src="[(#STATUT|icone_auteur_12)]" alt="" height="12" width="12" /> #NOM_FAMILLE #PRENOM</a>
+	</li>
+	</BOUCLE_autres_auteurs>
+</ul>
+</B_autres_auteurs>
+<//B_autres_auteurs>

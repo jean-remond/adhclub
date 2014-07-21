@@ -1,0 +1,21 @@
+[(#REM) <--
+----------------------------------------------
+ * Plugin adh_club : Adherent Club pour Spip 2.1
+ * Licence GPL (c) 2011-2012 Jean Remond
+----------------------------------------------
+Formulaire de selection d'une cotisation parmi 
+    celles de(s) saison(s) encours.
+----------------------------------------------
+-->]
+<B_saison>
+<select[ name='(#ENV{name})'][ id='(#ENV{id})'] size='1'>
+<option value='x'><:adhclub:selectionner_une_coti:></option>
+<BOUCLE_saison(ADHSAISONS){encours='oui'}{par titre}{inverse}>
+    <B_adhcotis>
+    <BOUCLE_adhcotis(ADHCOTIS){id_saison}{!id_auteur=#ID_AUTEUR}{par titre}>[
+    (#AUTORISER{affecter_adhcoti,auteur,#ID_AUTEUR,'',#ARRAY{id_coti,#ID_COTI}}|oui)<option value='#ID_COTI'>Saison #_saison:TITRE : #TITRE</option>
+    ]</BOUCLE_adhcotis>
+    </B_adhcotis>
+</BOUCLE_saison>
+</select>
+</B_saison>

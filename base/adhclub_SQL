@@ -1,0 +1,11 @@
+Liste des niveaux :
+-----------------
+SELECT grp.id_groupe, grp.titre, mot.id_mot, mot.titre,
+niv.id_niveau, niv.titre, niv.rangtrombi 
+FROM spip_adhnivs as niv, 
+spip_mots as mot, 
+spip_groupes_mots as grp 
+WHERE grp.titre = "Niveau_Technique" 
+AND grp.id_groupe = mot.id_groupe 
+AND mot.id_mot = niv.techbase 
+ORDER BY mot.titre, niv.rangtrombi

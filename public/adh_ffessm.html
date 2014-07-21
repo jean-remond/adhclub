@@ -1,0 +1,59 @@
+#CACHE{60}
+
+[(#REM) <--
+----------------------------------------------
+ * Plugin adh_club : Adherent Club pour Spip 2.1
+ * Licence GPL (c) 2011-2012 Jean Remond
+----------------------------------------------
+Liste des adherents qui doivent être integres dans le site. 
+	Les donnees ont ete importees dans la table adhffessms via csv-import.
+Cette liste permet un controle avant integration des donnees. 
+Elle est appelee dans un article par Crochet public/adh_ffessm- Fleche spip.php?page=public/adh_ffessm Crochet_ferme .
+----------------------------------------------
+JR-12/01/2012-Creation du squelette.
+-->] 
+
+<B_1ffessm>
+<BOUCLE_1ffessm(ADHFFESSMS){0,1}>
+
+        [(#REM) Stockage du titre de la saison pour charger le formulaire integration ]
+        #SET{saison_ffessm, #SAISON}
+        
+</BOUCLE_1ffessm>
+<//BOUCLE_1ffessm>
+
+	<div class="liste-articles">
+	<B_ffessm>
+
+		#FORMULAIRE_INTEG_ADHFFESSM{#GET{saison_ffessm}}
+
+		<h2 class="invisible"><:adhclub:ffessm_liste:></h2>
+
+		<h2><:adhclub:ffessm_liste:></h2>
+
+		[<p class="pagination">(#PAGINATION)</p>]
+	<BOUCLE_ffessm(ADHFFESSMS){par licence}{pagination 10}>
+
+		<div class="spip_doc_descriptif">
+            #CIVILITE &nbsp #PRENOM &nbsp #NOM 
+            &nbsp ( &nbsp [(#EMAIL)] &nbsp )
+            #SOUSCRIPTION  -
+            #SAISON <br />
+            [(#REM) #TYPE - ]
+            #LICENCE - #ASSURANCE<br />
+            #ADRESSE1[ - (#ADRESSE2)]
+            &nbsp #CP &nbsp #VILLE - (#PAYS)<br />
+            <br />
+        </div>
+        
+	</BOUCLE_ffessm>
+		[<p class="pagination">(#PAGINATION)</p>]
+	<//BOUCLE_ffessm>
+	</B_ffessm>
+    	<p> <:adhclub:ffessm_vide:></p>
+	<//B_ffessm>
+
+</B_1ffessm>
+    <p> <:adhclub:ffessm_vide:></p>
+<//B_1ffessm>
+

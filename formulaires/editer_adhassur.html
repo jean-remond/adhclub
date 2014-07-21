@@ -1,0 +1,84 @@
+<div class="formulaire_spip formulaire_editer formulaire_editer_adhassur formulaire_editer_adhassur-#ENV{id_assur,nouveau}">
+	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV*{message_ok})</p>]
+	[<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
+	[(#ENV{editable})
+	<form method='post' action='#ENV{action}' enctype='multipart/form-data'><div>
+		[(#REM) declarer les hidden qui declencheront le service du formulaire 
+		parametre : url d'action ]
+		#ACTION_FORMULAIRE{#ENV{action}}
+		<input type='hidden' name='id_assur' value='#ID_ASSUR' />
+	  <ul>
+
+		<li>
+		[(#SAISIE{input, titre, obligatoire=oui, 
+			label=<:adhclub:assur_titre:>, 
+			explication=<:adhclub:assur_titre_exp:>,
+			maxlength=25}
+		)]
+		</li>
+
+		<li>
+		[(#SAISIE{textarea, descriptif,
+			label=<:adhclub:descriptif:>, 
+			rows=3}
+		)]
+		</li>
+
+		<li>
+		[(#SAISIE{input, mnt_assur, obligatoire=oui, 
+			label=<:adhclub:mnt_assur:>, 
+			maxlength=7}
+		)]
+		</li>
+
+		[(#REM) gestion de la saison ]
+		#SET{datassaisa,#ARRAY}
+		<?php
+
+		//if (($id_assur = intval('[(#ID_ASSUR)]')) AND (!$qui['statut']=='0minirezo')) {
+		if ($id_assur = intval('[(#ID_ASSUR)]')) { 
+		?>
+
+			[(#REM) JR-18/10/2012-Si ENV editable sur le formulaire, il ne faut pas de boucle interne !! ]
+			[(#REM) JR-25/06/2012-Si maj assurance, alors saison en affichage seul ]
+			<B_aff_saisons>
+			<BOUCLE_aff_saisons(ADHSAISONS){id_saison=#ID_SAISON}{0,1}>
+				#SET{datassaisa, #GET{datassaisa}|array_merge{#ARRAY{Saison:#TITRE,#ID_SAISON}}}
+			</BOUCLE_aff_saisons>
+				#SET{datassaisa, #GET{datassaisa}|array_flip} 
+			</B_aff_saisons>
+
+		<?php 
+		}else{
+		?>
+
+			[(#REM) JR-25/06/2012-Si creation assurance, alors saison en selection ]
+			[(#REM) Proposition Saison a partir de la table 'ADHSAISONS'. ]
+			<B_saisons>
+			<BOUCLE_saisons(ADHSAISONS){par saison_deb}{inverse}{0,3}>
+				#SET{datassaisa, #GET{datassaisa}|array_merge{#ARRAY{Saison:#TITRE,#ID_SAISON}}}
+			</BOUCLE_saisons>
+				#SET{datassaisa, #GET{datassaisa}|array_flip}
+			</B_saisons>
+
+		<?php
+		}
+		?>
+
+
+			<li>
+				[(#SAISIE{selection, id_saison, obligatoire=oui,
+					label=<:adhclub:assur_saison:>,
+					explication=<:adhclub:assur_saison_exp:>,
+					datas=#GET{datassaisa}}
+				)]
+			</li>
+
+
+	  </ul>
+	  [(#REM) ajouter les saisies supplementaires : extra et autre, a cet endroit ]
+	  <!--extra-->
+	  <p class='boutons'><input type='submit' class='submit' value='[(#ID_ASSUR|intval|?{<:bouton_enregistrer:>,<:bouton_ajouter:>})]' /></p>
+	</div></form>
+	]
+</div>

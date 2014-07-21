@@ -1,0 +1,27 @@
+[(#REM) <-- Plugin adh_club : Adherent Club pour Spip 2.1
+ * Licence GPL (c) 2011-2012 Jean Remond
+ *	( tres vilement pompe de inscription3 par cmtmt2003, kent1, BoOz and co
+ *	Licence (c) 2007-2012 - Distribue sous licence GNU/GPL v3)
+ * D'apres incription3 Version : 3.0.15 SVN (6342), module prive/formulaires/inscription3_recherche_cas.html
+----------------------------------------------
+Recherche des auteurs basee sur les champs de la liste utilisateur de inscription3. 
+----------------------------------------------
+JR-03/01/2013-Creation du squelette pour specifier la class du li afin de travailler les css.
+-->] 
+
+<li class="editer editer_case saisie_selection">
+	<label for="case"><:inscription3:recherche_case:></label>
+	<select name="case" id="case">
+		<BOUCLE_recherchefields(POUR){tableau #CONFIG{inscription3}}{valeur = 'on'}>
+		[(#CLE|match{_table}|oui)
+			[(#SET{cle,[(#CLE|replace{'_table',''})]})]
+			[(#GET{cle}|=={#ENV{case}}|oui)
+				<option value='#GET{cle}' selected="selected">[(#VAL{inscription3:label_}|concat{#GET{cle}}|_T)]</option>
+			]
+			[(#GET{cle}|=={#ENV{case}}|non)
+				<option value='#GET{cle}'>[(#VAL{inscription3:label_}|concat{#GET{cle}}|_T)]</option>
+			]
+		]
+		</BOUCLE_recherchefields>
+	</select>
+</li>

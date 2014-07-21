@@ -1,0 +1,33 @@
+[(#REM) <-- 
+ * Plugin adh_club : Adherent Club pour Spip 2.1
+ * Licence GPL (c) 2011-2012 Jean Remond
+-->] 
+
+#SET{self,#SELF|parametre_url{debut_saisons|tri,''}}
+#FORMULAIRE_RECHERCHE{#GET{self}}
+<B_saisons>
+<p class='pagination'>[(#PAGINATION) | ]<a href='[(#GET{self}|parametre_url{tri,titre})]'><:adhclub:par_titre:></a> 
+</p>
+<ul class='liste_items'>
+    <BOUCLE_saisons(ADHSAISONS){par #ENV{tri,titre}}{pagination 10}{recherche ?}>
+        <li class='item saison'>
+            <h3>#TITRE</h3>
+            <span class='contenu'>[(#ID_SAISON|adhclub_coti_ds_saisons|count) <:adhclub:cotis:>]
+            </span>
+            <span class='contenu'>[(#ID_SAISON|adhclub_assurs_ds_1saison|count) <:adhclub:assurs:>]
+            </span>
+            <span class='descriptif'>#DESCRIPTIF</span>
+            <p class='actions'>
+                [(#AUTORISER{modifier,adhsaison,#ID_SAISON})	<span class='lien_modifier'>&#91;<a href='[(#URL_ECRIRE{saisons_edit,id_saison=#ID_SAISON}|parametre_url{retour,#SELF})]'><:bouton_modifier:></a>&#93;</span>]
+                [(#AUTORISER{supprimer,adhsaison,#ID_SAISON})<span class='lien_supprimer'>&#91;<a href='#URL_ACTION_AUTEUR{supprimer_adhsaison,#ID_SAISON,#SELF}' onclick="return confirm('<:adhclub:confirmer_supprimer_saison:>');"><:adhclub:icone_supprimer_saison:></a>&#93;</span>]
+            </p>
+        </li>
+
+    </BOUCLE_saisons>
+</ul>
+	<p class='pagination'>[(#PAGINATION) | ]</p>
+
+</B_saisons>
+
+    <:adhclub:info_aucun_saison:>
+<//B_saisons>

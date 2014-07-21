@@ -1,0 +1,22 @@
+#CACHE{60}
+
+[(#REM) <--
+----------------------------------------------
+ * Plugin adh_club : Adherent Club pour Spip 2.1
+ * Licence GPL (c) 2011-2012 Jean Remond
+----------------------------------------------
+Recherche et liste des adherents pour transmettre un courriel pour l'article. 
+
+Cette liste permet de filtrer et selectionner les adherents candidats. 
+Elle est appelee dans un squelette article par dieseMODELE{adh_mailtous_art}.
+----------------------------------------------
+JR-06/12/2012-Creation du squelette.
+-->] 
+[(#ENV{id_article}|?{' ',''})<a 
+	href='[(#URL_PAGE{public/adh_tous}
+		|parametre_url{'type_objet',"article"}
+		|parametre_url{'id_objet',#ENV{id_article}}
+		)]' 
+	title='<:adhclub:mailer_envoi:>'>
+	<img src='#CHEMIN{img_pack/mail_22.png}' width='24' height='24' alt='<:adhclub:mailer_envoi:>' />
+</a>]

@@ -1,0 +1,264 @@
+#CACHE{7*24*60*60}
+[(#REM) <-- base spip 2.1.12 -->] 
+[(#REM) <--
+
+ * Plugin adh_club : Adherent Club pour Spip 2.1
+ * Licence GPL (c) 2011-2012 Jean Remond
+
+JR-15/04/2012-Revue test des Mot_cle via php.
+-->] 
+
+<BOUCLE_rubrique_principal(RUBRIQUES) {id_rubrique}>
+[(#REM) #SET{mot_rubrique, #TITRE_MOT} ]
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="#LANG" lang="#LANG" dir="#LANG_DIR">
+
+<head>
+<title>[(#TITRE|textebrut) - ][(#NOM_SITE_SPIP|textebrut)]</title>
+[<meta name="description" content="(#INTRODUCTION|couper{150}|textebrut)" />]
+<INCLURE{fond=inc-head}>
+[(#REM) Lien vers le flux RSS de la rubrique ]
+<link rel="alternate" type="application/rss+xml" title="<:syndiquer_rubrique:>" href="[(#URL_PAGE{backend}|parametre_url{id_rubrique,#ID_RUBRIQUE})]" />
+</head>
+
+<body class="page_rubrique" >
+
+<div id="page">
+
+	[(#REM) Entete de la page + titre du site ]
+	<INCLURE{fond=inc-entete}>
+
+	<div id="conteneur">
+
+	
+		[(#REM) Menu de navigation laterale ]
+		<div id="navigation">
+
+			[(#REM) JR-18/01/2009-Affichage du logo dans #navigation. ]
+			<INCLURE{fond=inc-logonav}>
+			[(#REM) JR-09/12/2008-Mini calendrier des evenements ]
+			<br />
+			<div class="calendar">
+			#CALENDRIER_MINI{#ENV{date},'date',#SELF}
+			</div>
+
+			[(#REM) Menu de navigation par rubriques ]
+			<INCLURE{fond=inc-rubriques}{id_rubrique}>
+
+			[(#REM) Menu de navigation mots-cles ]
+			[(#REM) JR-04/04/2009-Liste des Mots des groupes "Squelette.." pour les soustraire a l'affichage. ]
+			<BOUCLE_motinvisible(MOTS) {type==^[Squelette]} {doublons LstMots}>
+				[(#REM) <h3 class="titre"><a href="#URL_MOT">[(#TITRE)]</a></h3> ]
+			</BOUCLE_motinvisible>
+
+			<B_mots>
+			<div class="divers">
+				<h2 class="menu-titre"><:mots_clefs:></h2>
+				<ul>
+					<BOUCLE_mots(MOTS) {id_rubrique} {par titre}{doublons LstMots}>
+					<li><a href="#URL_MOT" rel="tag">#TITRE</a></li>
+					</BOUCLE_mots>
+				</ul>
+			</div>
+			</B_mots>
+
+		</div><!-- fin navigation -->
+
+	
+		[(#REM) Contenu principal : contenu de la rubrique ]
+		<div id="contenu">
+
+			[(#REM) Fil d'Ariane ]
+			<div id="hierarchie"><a href="#URL_SITE_SPIP"><:accueil_site:></a><BOUCLE_ariane(HIERARCHIE){id_rubrique}> &gt; <a href="#URL_RUBRIQUE">[(#TITRE|supprimer_numero|couper{80})]</a></BOUCLE_ariane>[ &gt; (#TITRE|supprimer_numero|couper{80})]</div>
+
+			<div class="cartouche">
+				[(#LOGO_RUBRIQUE||image_reduire{200,200})]
+				<h1 class="#EDIT{titre} titre">[(#TITRE|supprimer_numero)]</h1>
+				[<p><small><:dernier_ajout:> : (#DATE|affdate_jourcourt).</small></p>]
+			</div>
+
+			[<div class="#EDIT{texte} chapo">(#TEXTE)</div>]
+
+			<br class="nettoyeur" />
+			
+			<div class="contre-encart">
+
+				[(#REM) JR-04/02/2009-Liste des Articles qualifies "Invisible" pour les soustraire a l'affichage. ]
+				<BOUCLE_invisible(ARTICLES) {titre_mot=Invisible} {doublons LstArticles}>
+					[(#REM) <h3 class="titre"><a href="#URL_ARTICLE">[(#TITRE|supprimer_numero)]</a></h3> ]
+				</BOUCLE_invisible>
+
+				[(#REM) JR-27/02/2009-Article Intro de la rubrique ]
+				<B_article_intro>
+				<div class="liste-articles">
+					<h2 class="invisible"><:articles_rubrique:></h2>
+					<ul>
+						<BOUCLE_article_intro(ARTICLES) {id_rubrique}{titre_mot=Intro_rubrique}{par date} {inverse} {0,1} {doublons LstArticles}>
+					   <li>
+						#DEBUT_SURLIGNE
+							[(#LOGO_ARTICLE||image_reduire{200,200})]
+							[<p class="#EDIT{surtitre} surtitre">(#SURTITRE)</p>]
+							<h3 class="#EDIT{titre} titre"><a href="#URL_ARTICLE">[(#TITRE|supprimer_numero)]</a></h3>
+							[<p class="#EDIT{soustitre} soustitre">(#SOUSTITRE)</p>]
+							[(#REM) JR-04/01/2009-Suppression date maj article <small>[(#DATE|affdate_jourcourt)][, <:par_auteur:> (#LESAUTEURS)]</small> ]
+						#FIN_SURLIGNE
+
+						#DEBUT_SURLIGNE
+							[<div class="#EDIT{chapo} chapo">(#CHAPO)</div>]
+							<br class="nettoyeur" />
+							[<p class="#EDIT{hyperlien} lien"><:voir_en_ligne:> : <a href="(#URL_SITE)" class="spip_out">[(#NOM_SITE|sinon{[(#URL_SITE|couper{80})]})]</a></p>]
+							[<div class="#EDIT{texte} texte">(#TEXTE|image_reduire{520,0})</div>]
+						#FIN_SURLIGNE
+						
+						</li>
+						</BOUCLE_article_intro>
+					</ul>
+				</div>
+				</B_article_intro>
+
+
+				[(#REM) Documents joints a la rubrique ]
+				<B_documents_joints>
+				<div id="documents_joints">
+					<h2><:titre_documents_joints:></h2>
+					<ul>
+						<BOUCLE_documents_joints(DOCUMENTS) {id_rubrique} {mode=document} {par num titre, date} {doublons LstDocuments}>
+						<li>
+							<div class="spip_doc_titre"><a href="#URL_DOCUMENT" title="<:bouton_telecharger:>" type="#MIME_TYPE">[(#TITRE|sinon{<:info_document:>})]</a> <small>(#TYPE_DOCUMENT[ - (#TAILLE|taille_en_octets)])</small></div>
+							[<div class="spip_doc_descriptif">(#DESCRIPTIF)</div>]
+						</li>
+						</BOUCLE_documents_joints>
+					</ul>
+				</div>
+				</B_documents_joints>
+
+
+				[(#REM) JR-27/02/2009-Affiche un plan de la rubrique
+						-------------------------------------------- ]
+				<B_sous_rubriques>
+				<div class="rubriques">
+					[(#REM) JR-17/01/2009<h2 class="menu-titre"><:sous_rubriques:></h2> ]
+					<ul>
+						<BOUCLE_sous_rubriques(RUBRIQUES) {id_parent} {par num titre, titre}>
+						<li>
+							<a href="#URL_RUBRIQUE">[(#TITRE|supprimer_numero)]</a>
+
+							[(#REM) Une boucle recursive pour le mini plan]
+							<B_miniplan>
+							<ul>
+								<BOUCLE_miniplan(RUBRIQUES) {id_parent} {par num titre, titre}>
+								<li>
+									<a href="#URL_RUBRIQUE">[(#TITRE|supprimer_numero)]</a>
+									<BOUCLE_m2(BOUCLE_miniplan)></BOUCLE_m2>
+								</li>
+								</BOUCLE_miniplan>
+							</ul>
+							</B_miniplan>
+
+						</li>
+						</BOUCLE_sous_rubriques>
+					</ul>
+					</div>
+				</B_sous_rubriques>
+
+				[(#REM) JR-02/03/2009-appels pour la liste des articles suivant le type souhaite. ]
+				[(#REM) JR-15/04/2012-Revue test des Mot_cle via php. ]
+				<BOUCLE_test_aff(MOTS) {id_rubrique}>
+
+				<?php 
+   				$titremot = '[(#TITRE|texte_script)]'; 
+				switch($titremot) {
+				// JR-08/03/2009-Liste des articles format Introduction avec evenments trie par nom.
+				case 'lst_in_dt_ae';
+				?> 
+					<INCLURE{fond=inc_la_in_dt, id_rubrique, aff_evt='oui', doublons=#DOUBLONS{articles, LstArticles}}>
+				<?php 
+				break;
+				// Liste Art Trombinoscope base sur adhnivs descrip niveau trie par nom.
+				case 'adh_tn_nm_nv';
+				?> 
+					<INCLURE{fond=public/adh_trombi_nm, id_rubrique, aff_spe='niv', doublons=#DOUBLONS{articles, LstArticles}}>
+				<?php 
+				break;
+				// Liste Art Trombinoscope base sur adhnivs descrip special trie par nom.
+				case 'adh_tn_nm_sp';
+				?> 
+					<INCLURE{fond=public/adh_trombi_nm, id_rubrique, aff_spe='spe', doublons=#DOUBLONS{articles, LstArticles}}>
+				<?php 
+				break;
+				// JR-03/01/2012-Ajout rubrique Annniversaires.
+				case 'lst_an_nm';
+				?> 
+                    <INCLURE{fond=inc_anniv}>
+				<?php 
+				break;
+				// JR-17/01/2012-Ajout rubrique integration FFESSM.
+				case 'adh_ges_ffessm';
+				?> 
+                    <INCLURE{fond=public/adh_ffessm}{env}>
+				<?php 
+				break;
+				}
+				?> 
+
+				</BOUCLE_test_aff>
+				<//B_test_aff>
+
+
+
+			</div><!-- fin contre-encart -->
+
+			<div class="encart">
+
+				[(#REM) Breves du secteur ]
+				<B_breves>
+				<div class="breves">
+					#ANCRE_PAGINATION
+					<h2 class="menu-titre"><:breves:></h2>
+					[<p class="pagination">(#PAGINATION)</p>]
+					<ul>
+				        [(#REM) JR-21/12/2011-Liste que des Breves publiees. ]
+						<BOUCLE_breves(BREVES) {id_secteur} {par date}{inverse} {pagination 5}{statut=publie}>
+						<li>[(#DATE|affdate_court) &ndash; ]<a href="#URL_BREVE">#TITRE</a></li>
+						</BOUCLE_breves>
+					</ul>
+				</div>
+				</B_breves>
+
+        [(#REM) Sites de la rubrique ]
+        <B_sites>
+        <div class="menu">
+            <h2><:sur_web:></h2>
+            <ul>
+                <BOUCLE_sites(SITES) {id_rubrique} {par nom_site}>
+                <li>
+					<a href="[(#ID_SYNDIC|generer_url_entite{site,'','',#CONNECT})]">#NOM_SITE</a>
+                    <B_syndic>
+                    <ul>
+                        <BOUCLE_syndic(SYNDIC_ARTICLES) {id_syndic} {age<180} {par date}{inverse} {0,3}>
+                        <li><a href="#URL_ARTICLE" class="spip_out">#TITRE</a></li>
+                        </BOUCLE_syndic>
+                    </ul>
+                    </B_syndic>
+                </li>
+                </BOUCLE_sites>
+            </ul>
+        </div>
+
+				[(#REM) JR-25/12/2011-Supprimer Proposer un site. 
+				#FORMULAIRE_SITE ]
+
+			</div><!-- fin encart -->
+
+			[<div class="notes"><h2><:info_notes:></h2>(#NOTES)</div>]
+		</div><!-- fin contenu -->
+
+	</div><!-- fin conteneur -->
+
+	[(#REM) Pied de page ]
+	<INCLURE{fond=inc-pied}{skel=#SQUELETTE}>
+
+</div><!-- fin page -->
+</body>
+</html>
+</BOUCLE_rubrique_principal>

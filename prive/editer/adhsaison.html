@@ -1,0 +1,13 @@
+[(#REM) <--
+ * Plugin adh_club : Adherent Club pour Spip 2.1
+ * Licence GPL (c) 2011-2012 Jean Remond
+-->] 
+
+<div class='cadre-formulaire-editer'>
+	<div class="entete-formulaire">
+		#ENV**{icone_retour}
+		[<h1>(#ENV{new}|intval|?{<:adhclub:modifier_saison:>,<:adhclub:creer_saison:>})</h1>]
+		[<h1>(#ENV{new}|intval|?{##ENV{new}})</h1>]
+	</div>
+	#FORMULAIRE_EDITER_ADHSAISON{#ENV{new},#ENV{redirect}}
+</div>

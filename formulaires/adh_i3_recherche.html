@@ -1,0 +1,146 @@
+[(#REM) <-- Plugin adh_club : Adherent Club pour Spip 2.1
+ * Licence GPL (c) 2011-2012 Jean Remond
+ *	( tres vilement pompe de inscription3 par cmtmt2003, kent1, BoOz and co
+ *	Licence (c) 2007-2012 - Distribue sous licence GNU/GPL v3)
+ * D'apres incription3 Version : 3.0.15 SVN (6342), module formulaires/inscription3_recherche.html
+----------------------------------------------
+Recherche des auteurs basee sur les criteres inscription3 et adhclub. 
+----------------------------------------------
+JR-07/04/2013-Tester si l’espace est public ou prive pour Bt export sur prive slt.
+JR-12/03/2013-Ajout des criteres niveau relatif.
+JR-11/01/2013-Ajout des criteres adh_club.
+JR-12/08/2012-Creation du squelette.
+-->] 
+
+<div class="formulaire_spip ajax formulaire_#FORM" id="formulaire_adh_i3_recherche">
+
+	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV*{message_ok})</p>]
+	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV*{destinataires})</p>]
+	[<div class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</div>]
+
+[(#ENV{editable})
+	<form action='#ENV{action}' method='post'><div>
+
+		#ACTION_FORMULAIRE{#ENV{action}}
+
+		<ul>
+			<li class="fieldset">
+			<fieldset>
+				<h3 class="legend"><:adhclub:recherche_utilisateurs_adh:></h3>
+				<ul>
+				
+					[(#REM) gestion de la saison ]
+					#SET{datassaisr,#ARRAY}
+					<B_saisons>
+					<BOUCLE_saisons(ADHSAISONS){par titre}>
+	        			#SET{datassaisr, #GET{datassaisr}|array_merge{#ARRAY{Saison:#TITRE,#ID_SAISON}}}
+					</BOUCLE_saisons>
+						#SET{datassaisr, #GET{datassaisr}|array_flip} 
+					</B_saisons>
+
+					[(#SAISIE{selection, id_saison, obligatoire=non}
+						{label=<:adhclub:rech_saison:>}
+						{datas=#GET{datassaisr}}
+           				{disable}
+					)]
+
+
+					[(#REM) sur le site http://www.spip-contrib.net/Reference-des-saisies en date du 23/04/2011 par par Fred Montessinos.]
+					[(#REM) A partir du mot_cle 'Niveau_Technique'.]
+					#SET{datastechbase,#ARRAY}
+					<B_techbase>
+					<BOUCLE_techbase(MOTS){type='Niveau_Technique'}>
+		        			#SET{datastechbase, #GET{datastechbase}|array_merge{#ARRAY{#TITRE,#ID_MOT}}}
+					</BOUCLE_techbase>
+						#SET{datastechbase, #GET{datastechbase}|array_flip}      
+					</B_techbase>
+
+					[(#SAISIE{selection, techbase, obligatoire=non}
+						{label=<:adhclub:niveau_techbase:>}
+						{datas=#GET{datastechbase}}
+					)]
+       
+        
+					[(#REM) A partir du mot_cle 'Niveau_Encadrement'.]
+					#SET{datasencad,#ARRAY}
+					<B_encad>
+					<BOUCLE_encad(MOTS){type='Niveau_Encadrement'}>
+		        		#SET{datasencad, #GET{datasencad}|array_merge{#ARRAY{#TITRE,#ID_MOT}}}
+					</BOUCLE_encad>
+						#SET{datasencad, #GET{datasencad}|array_flip}      
+					</B_encad>
+
+					[(#SAISIE{selection, encadrant, obligatoire=non}
+						{label=<:adhclub:niveau_encadrant:>}
+						{datas=#GET{datasencad}}
+					)]
+        
+
+					[(#REM) A partir des 'Niveaux'.]
+					#SET{datasniv,#ARRAY}
+					<B_niv>
+					<BOUCLE_niv(ADHNIVS){par num titre}>
+		        		#SET{datasniv, #GET{datasniv}|array_merge{#ARRAY{#TITRE,#ID_NIVEAU}}}
+					</BOUCLE_niv>
+						#SET{datasniv, #GET{datasniv}|array_flip}      
+					</B_niv>
+
+					[(#SAISIE{selection, niveau, obligatoire=non}
+						{label=<:adhclub:niveau:>}
+						{datas=#GET{datasniv}}
+					)]
+
+
+					[(#REM) Relation des 'Niveaux'.]
+					#SET{datasniv_rel,
+						#ARRAY{'egal','Egal',
+							'supegal','Sup&eacute;rieur',
+							'infegal','Inf&eacute;rieur'}
+						}
+
+					[(#SAISIE{selection, niv_rel, obligatoire=non}
+						{label=<:adhclub:niveau_rel:>}
+						{datas=#GET{datasniv_rel}}
+					)]
+
+						<li class="editer editer_valeur saisie_input">
+							<label for="valeur"><:adhclub:recherche_valeur:></label>
+							<input class="text" type="text" name="valeur" id="valeur" value="[(#ENV{valeur})]" />
+						</li>
+						<INCLURE{fond=formulaires/adh_i3_recherche_cas}{case}>
+					</ul>
+				</fieldset>
+			</li>
+		</ul>
+		<p class="boutons">
+			<input type="submit" class="submit" name="rechercher" value="<:info_rechercher:>" />
+
+		[(#ENV{id_saison}|ou{#ENV{techbase}}|ou{#ENV{encadrant}}|ou{#ENV{valeur}}|ou{#ENV{niveau}}|oui)
+			<input type="submit" class="submit" name="afficher_tous" value="<:adhclub:afficher_tous:>" />
+			]
+		</p>
+
+		[(#REM) <--
+		JR-26/01/2012-Completer acces a adh_auteur_recherche avec autres criteres.
+		--> ]
+		[(#ENV{id_saison}|ou{#ENV{techbase}}|ou{#ENV{encadrant}}|ou{#ENV{valeur}}|ou{#ENV{niveau}}|oui)
+			<INCLURE{fond=prive/adh_auteur_recherche}{ajax}{ordre}{env}>
+		]
+		[(#ENV{id_saison}|ou{#ENV{techbase}}|ou{#ENV{encadrant}}|ou{#ENV{valeur}}|ou{#ENV{niveau}}|non)
+			<INCLURE{fond=prive/table_adherent_auteur}{ajax}{ordre}{env}>
+		]
+
+		<p class="boutons">
+			[(#REM) <--
+				JR-07/04/2013-Tester si l'espace est public ou prive pour Bt export sur prive slt.
+			--> ]
+			[(#REM|test_espace_prive|oui) 
+				<input type="submit" class="submit" name="exporter_liste" value="<:adhclub:exporter_user_select:>" />
+			]
+			[(#ENV{type_objet}|oui)
+				#FORMULAIRE_TIPAFRIEND_FORM{env}
+			]
+		</p>
+	</div></form>
+	]
+</div>

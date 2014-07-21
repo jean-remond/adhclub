@@ -1,0 +1,105 @@
+<div class="formulaire_spip formulaire_editer formulaire_editer_adhniv formulaire_editer_adhniv-#ENV{id_niveau,nouveau}">
+	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV*{message_ok})</p>]
+	[<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
+	[(#ENV{editable})
+	<form method='post' action='#ENV{action}' enctype='multipart/form-data'><div>
+		[(#REM) declarer les hidden qui declencheront le service du formulaire 
+		parametre : url d'action ]
+		#ACTION_FORMULAIRE{#ENV{action}}
+		<input type='hidden' name='id_niveau' value='#ID_NIVEAU' />
+	  <ul>
+
+
+		<li>
+		[(#SAISIE{input, titre, obligatoire=oui, 
+			label=<:adhclub:niveau_titre:>, 
+			maxlength=25}
+		)]
+		</li>
+
+
+	    [(#ENV{id_niveau}|intval|non|et{#AUTORISER{modifier,adhniv}})
+	    <li class='editer_droit_admin'>
+	    	<div class='choix'><input type='checkbox' name='droits_admin' value='oui' id='droits_admin' checked="checked" />
+	    	<label for='droits_admin'><:adhclub:ajouter_droits_auteur:></label></div>
+	    </li>]
+
+
+		<li>
+		[(#SAISIE{textarea, descriptif,
+			label=<:adhclub:descriptif:>, 
+			rows=3}
+		)]
+		</li>
+
+
+		<li>
+		[(#REM) sur le site http://www.spip-contrib.net/Reference-des-saisies en date du 23/04/2011 par par Fred Montessinos.]
+		[(#REM) A partir du mot_cle 'Niveau_Technique'.]
+		#SET{datastechbase,#ARRAY}
+		<B_techbase>
+		<BOUCLE_techbase(MOTS){type='Niveau_Technique'}>
+		        #SET{datastechbase, #GET{datastechbase}|array_merge{#ARRAY{#TITRE,#ID_MOT}}}
+		</BOUCLE_techbase>
+			#SET{datastechbase, #GET{datastechbase}|array_flip}      
+		</B_techbase>
+
+		[(#SAISIE{selection, techbase, obligatoire=oui}
+			{label=<:adhclub:niveau_techbase:>}
+			{explication=<:adhclub:niveau_techbase_exp:>}
+			{datas=#GET{datastechbase}}
+		)]
+	    </li>
+        
+        
+		<li>
+		[(#REM) A partir du mot_cle 'Niveau_Encadrement'.]
+		#SET{datasencad,#ARRAY}
+		<B_encad>
+		<BOUCLE_encad(MOTS){type='Niveau_Encadrement'}>
+		        #SET{datasencad, #GET{datasencad}|array_merge{#ARRAY{#TITRE,#ID_MOT}}}
+		</BOUCLE_encad>
+			#SET{datasencad, #GET{datasencad}|array_flip}      
+		</B_encad>
+
+		[(#SAISIE{selection, encadrant, obligatoire=oui}
+			{label=<:adhclub:niveau_encadrant:>}
+			{explication=<:adhclub:niveau_encadrant_exp:>}
+			{datas=#GET{datasencad}}
+		)]
+	    </li>
+
+
+		<li>
+		[(#REM) A partir du mot_cle Niveau_Trombi.]
+		#SET{datastrombi,#ARRAY}
+		<B_trombi>
+		<BOUCLE_trombi(MOTS){type='Niveau_Trombi'}>
+		        #SET{datastrombi, #GET{datastrombi}|array_merge{#ARRAY{#TITRE,#ID_MOT}}}
+		</BOUCLE_trombi>
+			#SET{datastrombi, #GET{datastrombi}|array_flip}      
+		</B_trombi>
+
+		[(#SAISIE{selection, id_trombi, obligatoire=oui}
+			{label=<:adhclub:niveau_trombi:>}
+			{explication=<:adhclub:niveau_trombi_exp:>}
+			{datas=#GET{datastrombi}}
+		)]
+	    </li>
+
+
+		<li class="editer_rangtrombi obligatoire[ (#ENV**{erreurs}|table_valeur{rangtrombi}|oui)erreur]">
+			<label for="rangtrombi"><:adhclub:trombi_rang:></label>
+			[<span class='erreur_message'>(#ENV**{erreurs}|table_valeur{rangtrombi})</span>]
+			<p class='explication'><:adhclub:trombi_rang_exp:></p>
+			<input type='rangtrombi' class='rangtrombi' name='rangtrombi' id='rangtrombi' value="#ENV{rangtrombi}" />
+	    </li>
+
+
+	  </ul>
+	  [(#REM) ajouter les saisies supplementaires : extra et autre, a cet endroit ]
+	  <!--extra-->
+	  <p class='boutons'><input type='submit' class='submit' value='[(#ID_NIVEAU|intval|?{<:bouton_enregistrer:>,<:bouton_ajouter:>})]' /></p>
+	</div></form>
+	]
+</div>

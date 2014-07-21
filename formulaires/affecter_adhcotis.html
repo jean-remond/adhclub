@@ -1,0 +1,30 @@
+[(#REM)
+/**
+ * Plugin adh_club : Adherent Club pour Spip 2.1
+ * Licence GPL (c) 2011-2012 Jean Remond
+ *
+ */
+][(#INCLURE{fond=prive/listes/adhcotis_auteur}{id_auteur}{editable}{ajax})]
+<div class="formulaire_spip formulaire_editer formulaire_editer_affecter_adhcotis formulaire_editer_affecter_adhcotis-#ENV{id_auteur}">
+	<!-- <br class='bugajaxie' /> -->
+	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV*{message_ok})</p>]
+	[<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
+	[(#ENV{editable}) [
+	<form method='post' action='#ENV{action}' enctype='multipart/form-data'><div>
+		[(#REM) declarer les hidden qui declencheront le service du formulaire 
+		parametre : url d'action ]
+		#ACTION_FORMULAIRE{#ENV{action}}
+		<input name='id_auteur' value='#ID_AUTEUR' type='hidden' />
+	  <ul> 
+	    <li class="editer_adhcoti[ (#ENV**{erreurs}|table_valeur{coti}|oui)erreur]">
+		<label for="coti"><:adhclub:coti_titre_ajouter:></label>[
+		<span class='erreur_message'>(#ENV**{erreurs}|table_valeur{coti})</span>
+		](#INCLURE{fond=inc/inc-select_adhcotis}{name=coti}{id=coti}{id_auteur})
+	    </li>
+	  </ul>
+	  [(#REM) ajouter les saisies supplementaires : extra et autre, a cet endroit ]
+	  <!--extra-->
+	  <p class='boutons'><input type='submit' class='submit' value='<:adhclub:bouton_ajouter_coti:>' /></p>
+	</div></form>]
+	]
+</div>

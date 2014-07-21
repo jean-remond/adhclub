@@ -1,0 +1,38 @@
+[(#REM)<-- 
+ * Plugin adh_club : Adherent Club pour Spip 2.1
+ * Licence GPL (c) 2011-2012 Jean Remond
+-->]
+
+#SET{self,#SELF|parametre_url{debut_niveaux|tri,''}}
+#FORMULAIRE_RECHERCHE{#GET{self}}
+<B_niveaux>
+<p class='pagination'>[(#PAGINATION) | ]
+	<a href='[(#GET{self}|parametre_url{tri,titre})]'><:adhclub:par_titre:></a> |
+	<a href='[(#GET{self}|parametre_url{tri,techbase})]'><:adhclub:par_techbase:></a> |
+	<a href='[(#GET{self}|parametre_url{tri,encadrant})]'><:adhclub:par_encadrant:></a> 
+</p>
+<ul class='liste_items'>
+	<BOUCLE_niveaux(ADHNIVS){par #ENV{tri,titre}}{pagination 10}{recherche ?}>
+		<li class='item niveau[ (#ID_NIVEAU|adhclub_acces_niveau|?{ok,interdit})]'><h3>#TITRE</h3>
+			<span class='contenu'>[(#ID_NIVEAU|adhclub_auteurs_ds_1niveau|count) <:adhclub:auteurs:>]
+				&nbsp;##ID_TROMBI - #RANGTROMBI
+			</span>
+			<span class='descriptif'>#DESCRIPTIF</span>
+			<p class='actions'>
+				[(#AUTORISER{modifier,adhniv,#ID_NIVEAU})	<span class='lien_modifier'>&#91;<a href='[(#URL_ECRIRE{niveaux_edit,id_niveau=#ID_NIVEAU}|parametre_url{retour,#SELF})]'><:bouton_modifier:></a>&#93;</span>]
+				[(#AUTORISER{supprimer,adhniv,#ID_NIVEAU})<span class='lien_supprimer'>&#91;<a href='#URL_ACTION_AUTEUR{supprimer_adhniv,#ID_NIVEAU,#SELF}' onclick="return confirm('<:adhclub:confirmer_supprimer_niveau:>');"><:adhclub:icone_supprimer_niveau:></a>&#93;</span>]
+			</p>
+		</li>
+	</BOUCLE_niveaux>
+
+</ul>
+<p class='pagination'>[(#PAGINATION) | ]
+	<a href='[(#GET{self}|parametre_url{tri,titre})]'><:adhclub:par_titre:></a> |
+	<a href='[(#GET{self}|parametre_url{tri,techbase})]'><:adhclub:par_techbase:></a> |
+	<a href='[(#GET{self}|parametre_url{tri,encadrant})]'><:adhclub:par_encadrant:></a> 
+</p>
+
+</B_niveaux>
+
+	<:adhclub:info_aucun_niveau:>
+<//B_niveaux>
