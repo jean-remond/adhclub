@@ -79,7 +79,8 @@ function exec_adh_auteurs_export(){
 	adhclub_log("criteres 5= $criteres[5].", true);
 	adhclub_log("criteres 6= $criteres[6].", true);
 	adhclub_log("criteres 7= $criteres[7].", true);
-	adhclub_log("$debug1 FIN.", true);*/
+	adhclub_log("FIN $debug1.", true);
+	*/
 	
 	$retour = _request('retour');
 	
@@ -212,7 +213,7 @@ function exec_adh_auteurs_export(){
 		adhclub_log("adhwhere_l=$adhwhere_l.", true);
 		$debug3 = sql_get_select($adhselect_l, $adhfrom_l, $adhwhere_l);
 		adhclub_log("debug3=$debug3.", true);
-		adhclub_log("$debug1 FIN.", true);
+		adhclub_log("FIN $debug1.", true);
 				
 		if ($export_auteurs = sql_allfetsel($adhselect_l, $adhfrom_l, $adhwhere_l)) {
 
@@ -224,7 +225,7 @@ function exec_adh_auteurs_export(){
 					/*$debug1= "DEBUG adhclub JR : exec/adh_auteurs_export - Pt35 - ";
 					adhclub_log("$debug1.", true);
 					adhclub_log("k= $k , v= $v.", true);
-					adhclub_log("$debug1 FIN.", true);*/
+					adhclub_log("FIN $debug1.", true);*/
 			
 					$list_entete = array_merge($list_entete,array($k));
 					$list_valeur = array_merge($list_valeur,array($v));
