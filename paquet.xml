@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?><paquet
+	prefix="adhclub"
+	categorie="squelette"
+	version="3.0.1"
+	etat="dev"
+	compatibilite="[3.0.17;["
+	logo="img_pack/adhclub_128.png"
+	schema="3.0.1"
+	documentation="pas faite"
+>	
+
+	<nom>Gestion des Adhérents pour un Club</nom>
+	<!-- Gestion des donnees liees aux activites des adherents pour un club -->
+	
+	<auteur mail="jean-gabriel.remond@laposte.net">Jean-Gabriel Remond</auteur>
+
+	<licence>GNU/GLP</licence>
+	
+
+	<pipeline nom="declarer_tables_objets_sql" inclure="base/adhclub.php" />
+
+	<necessite nom="escal" />
+	<necessite nom="couteau_suisse" />
+	<!-- <necessite nom="cextras" /> -->
+	<necessite nom="facteur" />
+	<necessite nom="saisies" />
+	<necessite nom="spip_bonux" />	
+	<necessite nom="verifier" />
+	<necessite nom="yaml" />
+
+    <menu nom="adhclub" 
+    	titre="adhclub:titre_adhclub" 
+    	parent="menu_edition" 
+    	icone="img_pack/adh_club-24.gif" />
+     
+</paquet>

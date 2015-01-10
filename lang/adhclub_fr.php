@@ -1,11 +1,20 @@
 <?php
 /**
- * Plugin adh_club : Adherent Club pour Spip 2.1
- * Licence GPL (c) 2011-2012 Jean Remond
+ * Plugin adh_club : Adherent Club pour Spip 3.0
+ * Licence GPL (c) 2011-2015 Jean Remond
  *
  * This is a SPIP language file  --  Ceci est un fichier langue de SPIP
  * Encodé UTF-8 sans BOM pour utilisation des caractères accentués
  *
+ * Remarque sur le site : http://codes-sources.commentcamarche.net/faq/6-php-general-approche-des-variables
+ * 	notez bien l'utilisation de ' ' et non pas " ", 
+ * 	la différence viens du faite que " " recherche les variables a l'intérieur 
+ * 	mais pas ' ' d'ou une différence notable de vitesse.
+
+ * A faire : 
+ * 
+ * Fait :
+ * JR-10/01/2015-Creation du fichier des libelles dans adhclub.
  */
 
 if (!defined('_ECRIRE_INC_VERSION')) return;

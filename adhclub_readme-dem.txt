@@ -3,41 +3,46 @@ adh_club : Plugin de gestion non comptable d'un Club.
 ==========================
 Gestion des Adhérents pour un Club.
 ==========================
-Jean-Gabriel Remond (06/2013) 
+Jean-Gabriel Remond (01/2015) 
 
 
 ==========================
 Installation :
 ==========================
 Le plugin adh_club est developpe a l'origine avec spip 2.1.nn.
+Il est migre couarnt 01/2015 vers spip 3.0.17.
+
 Les plugins utilises directement :
 - "acces_restreint"
-- "bandeau"
-- "champs_extras2"
-- "champs_extras2_interface"
-- "champs_extras2_import_export"
-- "cfg"
+- "agenda"
+- "calendrier_mini-2.0"
+- "champs_extras"
+- "champs_extras (interface)"
+- "champs_extras (import_export)"
 - "couteau_suisse"
 - "cvs_import"
+- "escal"
 - "inscription3"
 - "saisies"
-- "spip_bonux-2"
+- "spip_bonux-3"
 - "verifier"
+- "yaml"
 
 Les autres plugins utilises sur mon site :
- - "agenda"
- - "article_pdf"
- - "crayons"
- - "facteur"
- - "fancy_box"
- - "JQuery_UI"
- - "mediatheque"
- - "menu_accordeon"
- - "menus"
- - "nivoslider"
- - "palette"
- - "pays"
- - "tipafriend"
+- "a2a
+- "crayons"
+- "duplicator"
+- "galleria"
+- "facteur"
+- "mailshot"
+- "mailsubscribers"
+- "newsletter"
+- "nivoslider"
+- "palette"
+- "pays"
+- "spip_proprietaire_s3"
+- "spipdf"
+- "supersized"
  
 
 ==========================
