@@ -1,9 +1,10 @@
-adh_club : Plugin de gestion non comptable d'un Club.
+adhclub : Plugin de gestion non comptable d'un Club.
 
 ==========================
 Gestion des Adherents pour un Club.
 ==========================
-Jean-Gabriel Remond (08/2012) 
+Jean-Gabriel Remond (08/2012)
+Révision (01/2015)
 
 Le plugin a ete cree pour satisfaire a la gestion administrative d'un club de Plongee sous-marine.
 Il n'y a pas de gestion comptable dans ce plugin.
@@ -71,16 +72,23 @@ Les fonctions principales autour de l'adherent (ou auteur de spip) :
 Installation :
 ==========================
 Le plugin adh_club est developpe a l'origine avec spip 2.1.17.
+En 2015, il est revu pour spip 3.0.xx
 Les plugins utilises :
-- "inscription3"
-- "spip_bonux"
-- "saisies"
-- "verifier"
-- "champs extras2"
-- "champs_extras2_interface"
-- "champs_extras2_import_export"
+Les plugins utilises directement :
 - "acces_restreint"
-- "Article PDF"
+- "agenda"
+- "calendrier_mini-2.0"
+- "champs_extras"
+- "champs_extras (interface)"
+- "champs_extras (import_export)"
+- "couteau_suisse"
+- "cvs_import"
+- "escal"
+- "inscription3"
+- "saisies"
+- "spip_bonux-3"
+- "verifier"
+- "yaml"
 
 
 ==========================

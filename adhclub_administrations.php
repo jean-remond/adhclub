@@ -1,8 +1,22 @@
 <?php
+/**
+ * Plugin adh_club : Adherent Club pour Spip 3.0
+ * Licence GPL (c) 2011-2015 Jean Remond
+ * pour les fonctions, variables et constantes nécessaires 
+ * aux mise en œuvre, mise à jour et mise au placard d’un plugin.
+ * 
+ */
+
+include_spip('inc/cextras');
+include_spip('base/adhclub');
+ 
 function adhclub_upgrade($nom_meta_base_version, $version_cible){
 	 
 	$maj = array();
-	$maj['create'] = array(
+
+	cextras_api_upgrade(adhclub_declarer_champs_extras(), $maj['create']);	
+
+ 	$maj['create'] = array_merge($maj['create'],
 		array('maj_tables', 
 			array('spip_adhassurs', 
 				'spip_adhcotis',
@@ -12,10 +26,11 @@ function adhclub_upgrade($nom_meta_base_version, $version_cible){
 				'spip_adhassurs_auteurs',
 				'spip_adhcotis_auteurs',
 				'spip_adhnivs_auteurs'
-			)),
+			))
 		);
-	
-/*	$maj['201410292235'] = array(
+ 	
+/*	cextras_api_upgrade(adhclub_declarer_champs_extras(), $maj['201410292235']);
+  $maj['201410292235'] = array_merge($maj['201410292235'],
     	array('maj_tables', array('spip_evinscripteurs', 'spip_evparticipants')),
 		array('sql_alter', "TABLE spip_evinscripteurs CHANGE 'statut_inscr' 'statut'"),
 		array('sql_updateq', 'spip_evinscripteurs', array('statut'=>'publie')),
@@ -36,6 +51,9 @@ function adhclub_vider_tables($nom_meta_base_version) {
 	sql_drop_table("spip_adhassurs_auteurs");
 	sql_drop_table("spip_adhcotis_auteurs");
 	sql_drop_table("spip_adhnivs_auteurs");
+
+	cextras_api_vider_tables(adhclub_declarer_champs_extras());
+
 	effacer_meta($nom_meta_base_version);
 }
 ?>

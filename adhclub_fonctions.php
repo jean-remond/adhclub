@@ -1,8 +1,10 @@
 <?php
 /**
- * Plugin adh_club : Adherent Club pour Spip 2.1
- * Licence GPL (c) 2011-2012 Jean Remond
+ * Plugin adh_club : Adherent Club pour Spip 3.0
+ * Licence GPL (c) 2011-2015 Jean Remond
+ * pour les fonctions, variables et constantes nécessaires à l’espace public.
  *
+ *  JR-10/01/2015-adaptation spip 3.0.
  *	14/03/2013-JR-Ajout critere niveau relatif ds adhclub_auteurs_ds_niveaux.
  */
 
@@ -287,7 +289,7 @@ function adhclub_auteurs_ds_niveaux($id_mot_tech=NULL, $id_mot_enc=NULL, $id_niv
 		}
 	}
 	
-	/*$debug1= "DEBUG adhclub JR : adh_club_fonctions adhclub_auteurs_ds_niveaux - Pt90 - ";
+	/*$debug1= "DEBUG adhclub JR : adhclub_fonctions adhclub_auteurs_ds_niveaux - Pt90 - ";
 	adhclub_log("$debug1.", true);
 	adhclub_log("adhfrom= implode(', ',$adhfrom).", true);
 	adhclub_log("adhwhere= implode(' AND ',$adhwhere).", true);
@@ -338,19 +340,19 @@ function adh_recherche($ou, $quoi, $table, $id_saison, $techbase, $encadrant, $n
 
 	}
 	
-	/*$debug1= "DEBUG adhclub JR : adh_club_fonctions adh_recherche - Pt90 - ";
+	/*$debug1= "DEBUG adhclub JR : adhclub_fonctions adh_recherche - Pt90 - ";
 	adhclub_log("$debug1.", true);
 	$count_auteurs = sql_countsel($adhfrom, $adhwhere, $adhgroupby, $adhlimit);
 	adhclub_log("count_auteurs=$count_auteurs.", true);
 	adhclub_log("$debug1 FIN.", true);*/
 	
-	/*$debug1= "DEBUG adhclub JR : adh_club_fonctions adh_recherche - Pt91 - ";
+	/*$debug1= "DEBUG adhclub JR : adhclub_fonctions adh_recherche - Pt91 - ";
 	adhclub_log("$debug1.", true);
 	$sql_adh_auteurs = sql_get_select($adhselect, $adhfrom, $adhwhere, $adhgroupby, $adhorderby, $adhlimit);
 	adhclub_log("sql_adh_auteurs=$sql_adh_auteurs.", true);
 	adhclub_log("$debug1 FIN.", true);*/
 	
-	/*$debug1= "DEBUG adhclub JR : adh_club_fonctions adh_recherche - Pt92 - ";
+	/*$debug1= "DEBUG adhclub JR : adhclub_fonctions adh_recherche - Pt92 - ";
 	adhclub_log("$debug1.", true);
 	$liste_adh_auteurs = sql_allfetsel('ca.id_auteur', $adhfrom, $adhwhere, $adhgroupby, $adhorderby, $adhlimit);
 	if(is_array($liste_adh_auteurs)){

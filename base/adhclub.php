@@ -169,6 +169,60 @@ $tables['spip_adhffessms'] = array(
     return $tables;
     }
 
+function adhclub_declarer_champs_extras($champs = array()){
+$champs['spip_auteurs']['certifaspirine'] = array(
+	'saisie' => 'input',//Type du champs (voir plugin Saisies)
+	'options' => array(
+		'nom' => 'certifaspirine', 
+		'label' => _T('adhclub:certifaspirine_label'), 
+		'explication' => _T('adhclub:certifaspirine_expl'),
+		'sql' => "ENUM('non', 'oui') NOT NULL DEFAULT 'non'",
+		'defaut' => 'non',// Valeur par défaut
+		'restrictions'=>array(	
+			'voir' 		=> array('auteur'=>''),//Tout le monde peut voir
+			'modifier'	=> array('auteur'=>'webmestre'))),//Seul les webmestre peuvent modifier
+	'verifier' => array()
+);
+$champs['spip_auteurs']['certiflimite'] = array(
+	'saisie' => 'input',//Type du champs (voir plugin Saisies)
+	'options' => array(
+		'nom' => 'certiflimite', 
+		'label' => _T('adhclub:certiflimite_label'), 
+		'explication' => _T('adhclub:certiflimite_expl'),
+		'sql' => "DATE NOT NULL DEFAULT '0000-00-00'",
+		'defaut' => '0000-00-00',// Valeur par défaut
+		'restrictions'=>array(	
+			'voir' 		=> array('auteur'=>''),//Tout le monde peut voir
+			'modifier'	=> array('auteur'=>'webmestre'))),//Seul les webmestre peuvent modifier
+	'verifier' => array()
+);
+$champs['spip_auteurs']['certifqualif'] = array(
+	'saisie' => 'input',//Type du champs (voir plugin Saisies)
+	'options' => array(
+		'nom' => 'certifqualif', 
+		'label' => _T('adhclub:certifqualif_label'), 
+		'explication' => _T('adhclub:certifqualif_expl'),
+		'sql' => "ENUM('non', 'oui') NOT NULL DEFAULT 'non'",
+		'defaut' => 'non',// Valeur par défaut
+		'restrictions'=>array(	
+			'voir' 		=> array('auteur'=>''),//Tout le monde peut voir
+			'modifier'	=> array('auteur'=>'webmestre'))),//Seul les webmestre peuvent modifier
+	'verifier' => array()
+);
+$champs['spip_auteurs']['email_corr'] = array(
+	'saisie' => 'input',//Type du champs (voir plugin Saisies)
+	'options' => array(
+		'nom' => 'email_corr', 
+		'label' => _T('adhclub:email_corr_label'), 
+		'sql' => "TEXT NOT NULL DEFAULT ''",
+		'defaut' => '',// Valeur par défaut
+		'restrictions'=>array(	
+			'voir' 		=> array('auteur'=>''),//Tout le monde peut voir
+			'modifier'	=> array('auteur'=>'webmestre'))),//Seul les webmestre peuvent modifier
+	'verifier' => array()
+);
+	return $champs;	
+    
 /*function adhclub_declarer_tables_interfaces($interface){
 
 	//-- Table des jointures --------------------------------------------------

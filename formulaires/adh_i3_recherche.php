@@ -1,7 +1,7 @@
 <?php
 /**
- * Plugin adh_club : Adherent Club pour Spip 2.1
- * Licence GPL (c) 2011-2012 Jean Remond
+ * Plugin adh_club : Adherent Club pour Spip 3.0
+ * Licence GPL (c) 2011-2015 Jean Remond
  *	( tres vilement pompe de inscription3 par cmtmt2003, kent1, BoOz and co
  *	Licence (c) 2007-2012 - Distribue sous licence GNU/GPL v3)
  * D'apres incription3 Version : 3.0.15 SVN (6342), module formulaires/inscription3_recherche.php
@@ -15,6 +15,7 @@
  * 
  * Fait :
  * ----
+ * JR-10/01/2015-adaptation spip 3.0.
  * JR-12/03/2013-Ajout des criteres niveau relatif.
  * JR-11/01/2013-Ajout des criteres adhclub.
  * JR-12/08/2012-Creation du squelette.

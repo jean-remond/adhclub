@@ -1,11 +1,12 @@
 <?php
 /**
- * Plugin adh_club : Adherent Club pour Spip 2.1
- * Licence GPL (c) 2011-2012 Jean Remond
+ * Plugin adh_club : Adherent Club pour Spip 3.0
+ * Licence GPL (c) 2011-2015 Jean Remond
  *
+ * JR-10/01/2015-adaptation spip 3.0.
  */
 
-include_spip("inc/adh_club");
+include_spip("inc/adhclub_autoriser");
 include_spip("inc/presentation");
 
 /**
@@ -33,7 +34,7 @@ function exec_adh_tous(){
 	
 	$contexte = array_merge($contexte,$_GET);
 	
-	$icone = _DIR_PLUGIN_ADHCLUB."img_pack/adh_club-24.png";
+	$icone = _DIR_PLUGIN_ADHCLUB."img_pack/adhclub_24.png";
 	$commencer_page = charger_fonction('commencer_page', 'inc');
 	
 	pipeline('exec_init',array('args'=>$_GET,'data'=>''));

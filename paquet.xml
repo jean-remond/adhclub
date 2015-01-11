@@ -15,9 +15,22 @@
 	<auteur mail="jean-gabriel.remond@laposte.net">Jean-Gabriel Remond</auteur>
 
 	<licence>GNU/GLP</licence>
-	
 
 	<pipeline nom="declarer_tables_objets_sql" inclure="base/adhclub.php" />
+	<pipeline nom="autoriser"
+		inclure="inc/adhclub_autoriser.php"
+	/>
+	<!-- avec plugin champs extras -->
+	<pipeline nom="declarer_champs_extras" inclure="base/adhclub.php" />
+	
+	<pipeline nom="objets_extensibles"
+		inclure="adhclub_pipelines.php"
+	/>
+	<!--avec plugin inscription3-->
+	<pipeline nom="i3_verifications_specifiques"
+		action="inscription3_i3_verifications_specifiques"
+		inclure="inc/adh_import.php"
+	/>
 
 	<necessite nom="escal" />
 	<necessite nom="couteau_suisse" />
@@ -28,9 +41,11 @@
 	<necessite nom="verifier" />
 	<necessite nom="yaml" />
 
-    <menu nom="adhclub" 
+    <menu nom="adh_tous" 
+    	action="adh_tous"
     	titre="adhclub:titre_adhclub" 
     	parent="menu_edition" 
-    	icone="img_pack/adh_club-24.gif" />
+    	icone="images/adhclub_24.png
+    	" />
      
 </paquet>

@@ -1,8 +1,9 @@
 <?php
 /**
- * Plugin adh_club : Adherent Club pour Spip 2.1
- * Licence GPL (c) 2011-2011 Jean Remond
+ * Plugin adh_club : Adherent Club pour Spip 3.0
+ * Licence GPL (c) 2011-2015 Jean Remond
  *
+ * JR-10/01/2015-adaptation spip 3.0.
  */
 
 function formulaires_affecter_adhnivs_charger_dist($id_auteur){
@@ -16,7 +17,7 @@ function formulaires_affecter_adhnivs_charger_dist($id_auteur){
 
 function formulaires_affecter_adhnivs_verifier_dist($id_auteur){
 	/* Verifier si 1 niveau est selectionne */
-	//echo "<br />.XXX debug JR : formulaire/affecter_adhnivs - formulaires_affecter_adhnivs_verifier_dist - Pt20.<br />";
+	//echo "<br />.XXX debug JR : formulaires/affecter_adhnivs - formulaires_affecter_adhnivs_verifier_dist - Pt20.<br />";
 	//$field=_request('niveau');
 	//echo "id_niveau= $field.<br />";
 	//echo "id_auteur= $id_auteur.<br />";

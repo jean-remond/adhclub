@@ -1,9 +1,10 @@
-adh_club : Plugin de gestion non comptable d'un Club.
+adhclub : Plugin de gestion non comptable d'un Club.
 
 ==========================
 Gestion des Adhérents pour un Club.
 ==========================
-Jean-Gabriel Remond (01/2015) 
+Jean-Gabriel Remond  (08/2012)
+Révision (01/2015) 
 
 
 ==========================

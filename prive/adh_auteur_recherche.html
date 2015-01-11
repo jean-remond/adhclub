@@ -1,5 +1,5 @@
-[(#REM) <-- Plugin adh_club : Adherent Club pour Spip 2.1
- * Licence GPL (c) 2011-2012 Jean Remond
+[(#REM) <-- Plugin adh_club : Adherent Club pour Spip 3.0
+ * Licence GPL (c) 2011-2015 Jean Remond
  *	( tres vilement pompe de inscription3 par cmtmt2003, kent1, BoOz and co
  *	Licence (c) 2007-2012 - Distribue sous licence GNU/GPL v3)
  * D'apres incription3 Version : 3.0.15 SVN (6342), module prive/table_adherent_auteur_recherche.html
@@ -9,6 +9,7 @@ Recherche des auteurs basee sur les criteres inscription3 et adhclub.
 	Chaque groupe de critere (saison, niveau, I3) genere 1 selection.
 	L'ensemble des selections est compare pour obtenir la liste commune des auteurs.
 ----------------------------------------------
+JR-10/01/2015-adaptation spip 3.0.
 JR-11/01/2013-Ajout des criteres adh_club.
 JR-12/08/2012-Creation du squelette.
 -->] 
@@ -53,7 +54,7 @@ JR-12/08/2012-Creation du squelette.
 	<tbody>
 	[(#REM)  <-- 
 	JR-11/01/2013-Revue de la selection des auteurs :
-		Developper les filtres correspondants dans adh_club_fonctions => critere_adh_recherche_dist
+		Developper les filtres correspondants dans adhclub_fonctions => critere_adh_recherche_dist
 	-->]
 		
 	<BOUCLE_auteurs(AUTEURS){adh_recherche}{tri #ENV{ordre,id_auteur},#ENV{desc,-1}}{pagination 20}{tout}>

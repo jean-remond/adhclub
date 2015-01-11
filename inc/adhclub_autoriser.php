@@ -1,8 +1,9 @@
 <?php
 /**
- * Plugin adh_club : Adherent Club pour Spip 2.1
- * Licence GPL (c) 2011-2012 Jean Remond
+ * Plugin adh_club : Adherent Club pour Spip 3.0
+ * Licence GPL (c) 2011-2015 Jean Remond
  *
+ *  JR-10/01/2015-adaptation spip 3.0.
  */
 
 /* pour que le pipeline ne rale pas ! */
