@@ -4,7 +4,7 @@
 	version="3.0.1"
 	etat="dev"
 	compatibilite="[3.0.17;["
-	logo="img_pack/adhclub_128.png"
+	logo="prive/themes/spip/images/adhclub_24.png"
 	schema="3.0.1"
 	documentation="pas faite"
 >	
@@ -16,16 +16,23 @@
 
 	<licence>GNU/GLP</licence>
 
+	<pipeline nom="declarer_tables_interfaces" inclure="base/adhclub.php" />
 	<pipeline nom="declarer_tables_objets_sql" inclure="base/adhclub.php" />
-	<pipeline nom="autoriser"
-		inclure="inc/adhclub_autoriser.php"
+	<pipeline nom="declarer_tables_auxiliaires" inclure="base/adhclub.php"/>
+	<pipeline nom="rechercher_liste_des_champs" inclure="public/adhclub.php" />
+
+	<!-- Les ajouts du plugin -->
+	<pipeline nom="adhclub_liste_niveaux_autorises" 
+		action="liste_niveaux_autorises"
+		inclure="inc/adh_niveau.php"
 	/>
+	<pipeline nom="ajouter_boutons" inclure="adhclub_pipelines.php" />
+	<pipeline nom="affiche_milieu" inclure="adhclub_pipelines.php" />
+	<pipeline nom="autoriser" inclure="inc/adhclub_autoriser.php" />
+
 	<!-- avec plugin champs extras -->
 	<pipeline nom="declarer_champs_extras" inclure="base/adhclub.php" />
 	
-	<pipeline nom="objets_extensibles"
-		inclure="adhclub_pipelines.php"
-	/>
 	<!--avec plugin inscription3-->
 	<pipeline nom="i3_verifications_specifiques"
 		action="inscription3_i3_verifications_specifiques"
@@ -34,7 +41,7 @@
 
 	<necessite nom="escal" />
 	<necessite nom="couteau_suisse" />
-	<!-- <necessite nom="cextras" /> -->
+	<necessite nom="cextras" compatibilite="[3.0.5;[" />
 	<necessite nom="facteur" />
 	<necessite nom="saisies" />
 	<necessite nom="spip_bonux" />	

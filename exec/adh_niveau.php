@@ -29,15 +29,15 @@ function exec_adh_niveau(){
 	echo propre(_T('adhclub:info_page_niveau'));	
 	echo fin_boite_info(true);
 	
-	$icone = _DIR_PLUGIN_ADHCLUB."img_pack/adh_club-24.gif";
+	$icone = _DIR_PLUGIN_ADHCLUB."img_pack/adhclub_24.gif";
 	$raccourcis = icone_horizontale(_T('adhclub:adhclub_icone_menu'), generer_url_ecrire("adh_tous"), $icone, "", false);
-	$icone = _DIR_PLUGIN_ADHCLUB."img_pack/adh_saison-24.gif";
+	$icone = _DIR_PLUGIN_ADHCLUB."img_pack/adh_saison_24.gif";
 	$raccourcis .= icone_horizontale(_T('adhclub:saison_icone_menu'), generer_url_ecrire("adh_saison"), $icone, "", false);
-	$icone = _DIR_PLUGIN_ADHCLUB."img_pack/adh_assur-24.gif";
+	$icone = _DIR_PLUGIN_ADHCLUB."img_pack/adh_assur_24.gif";
 	$raccourcis .= icone_horizontale(_T('adhclub:assur_icone_menu'), generer_url_ecrire("adh_assur"), $icone, "", false);
-	$icone = _DIR_PLUGIN_ADHCLUB."img_pack/adh_coti-24.gif";
+	$icone = _DIR_PLUGIN_ADHCLUB."img_pack/adh_coti_24.gif";
 	$raccourcis .= icone_horizontale(_T('adhclub:coti_icone_menu'), generer_url_ecrire("adh_coti"), $icone, "", false);
-	$icone = _DIR_PLUGIN_ADHCLUB."img_pack/adh_club-24.gif";
+	$icone = _DIR_PLUGIN_ADHCLUB."img_pack/adhclub_24.gif";
 	$raccourcis .= icone_horizontale(_T('adhclub:ffessm_icone_menu'), generer_url_ecrire("adh_import"), $icone, "", false);
 	echo bloc_des_raccourcis($raccourcis);
 	
@@ -45,7 +45,7 @@ function exec_adh_niveau(){
 	if (autoriser('modifier','adhniv'))
 		echo "<div>".icone_inline(_T('adhclub:creer_niveau'),
 		  generer_url_ecrire("niveaux_edit","new=oui"),
-		  _DIR_PLUGIN_ADHCLUB."/img_pack/adh_niveau-24.gif",
+		  _DIR_PLUGIN_ADHCLUB."/img_pack/adh_niveau_24.gif",
 		  "creer.gif",'right')."</div>";
 	
 	echo recuperer_fond('prive/adh_niveau',$_GET);
@@ -53,7 +53,7 @@ function exec_adh_niveau(){
 	if (autoriser('modifier','adhniv'))
 		echo "<div>".icone_inline(_T('adhclub:creer_niveau'),
 		  generer_url_ecrire("niveaux_edit","new=oui"),
-		  _DIR_PLUGIN_ADHCLUB."/img_pack/adh_niveau-24.gif",
+		  _DIR_PLUGIN_ADHCLUB."/img_pack/adh_niveau_24.gif",
 		  "creer.gif",'right')."</div>";
 
 	echo fin_gauche(),fin_page();

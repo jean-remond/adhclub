@@ -1,25 +1,23 @@
 [(#REM) <--
-----------------------------------------------
- * Plugin adh_club : Adherent Club pour Spip 2.1
- * Licence GPL (c) 2011-2012 Jean Remond
-----------------------------------------------
-Formulaire d'integration des donnees de la table adhffessms 
-	vers les tables auteurs (et auteurs_elargis).
-Le formulaire permet de capter la reference de regroupement des dossiers 
-	et selectionne la cotisation et l'assurance qui vont etre affectees par defaut 
-    a chaque adherent present dans la table adhffessms.
-A faire :
-	- Chaque adherent va etre presente dans un formulaire modifiable avant validation.
-Fait
-	- Apres integration, la table adhffessms sera videe.
-----------------------------------------------
-JR-17/01/2012-Creation du formulaire.
+/**
+ * Plugin adhclub : Adherent Club pour Spip 3.0
+ * Licence GPL (c) 2011-2015 Jean Remond
+ * ----------------------------------------------
+ * Formulaire d'integration des donnees de la table adhffessms 
+ * 	vers les tables auteurs (et auteurs_elargis).
+ * Le formulaire permet de capter la reference de regroupement des dossiers 
+ * 	et selectionne la cotisation et l'assurance qui vont etre affectees par defaut 
+ *     a chaque adherent present dans la table adhffessms.
+ * A faire :
+ * 	- Chaque adherent va etre presente dans un formulaire modifiable avant validation.
+ * Fait
+ * 	- Apres integration, la table adhffessms sera videe.
+ * ----------------------------------------------
+ * JR-17/01/2012-Creation du formulaire.
+ */
 -->] 
 
-
-
 <h2><:adhclub:ffessm_validation:></h2>
-
 
 <div class="formulaire_spip formulaire_editer formulaire_editer_integ_adhffessm" id="formulaire_editer_integ_adhffessm-id">
 	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV*{message_ok})</p>]

@@ -16,7 +16,12 @@ function adhclub_upgrade($nom_meta_base_version, $version_cible){
 
 	cextras_api_upgrade(adhclub_declarer_champs_extras(), $maj['create']);	
 
- 	$maj['create'] = array_merge($maj['create'],
+	$debug1= "DEBUG adhclub JR : /adhclub_administrations.php - adhclub_upgrade - Pt02 - <br />";
+	echo "<br />", $debug1;
+	echo "maj= <br />"; var_dump($maj); echo ".<br />";
+	echo "FIN ", $debug1;
+	
+ 	$maj['create'] = 
 		array('maj_tables', 
 			array('spip_adhassurs', 
 				'spip_adhcotis',
@@ -26,9 +31,14 @@ function adhclub_upgrade($nom_meta_base_version, $version_cible){
 				'spip_adhassurs_auteurs',
 				'spip_adhcotis_auteurs',
 				'spip_adhnivs_auteurs'
-			))
-		);
- 	
+			)
+ 	);
+
+	$debug1= "DEBUG adhclub JR : /adhclub_administrations.php - adhclub_upgrade - Pt99 - <br />";
+	echo "<br />", $debug1;
+	echo "maj= <br />"; var_dump($maj); echo ".<br />";
+	echo "FIN ", $debug1;
+	
 /*	cextras_api_upgrade(adhclub_declarer_champs_extras(), $maj['201410292235']);
   $maj['201410292235'] = array_merge($maj['201410292235'],
     	array('maj_tables', array('spip_evinscripteurs', 'spip_evparticipants')),
@@ -38,6 +48,7 @@ function adhclub_upgrade($nom_meta_base_version, $version_cible){
 		array('sql_alter', "TABLE spip_evparticipants CHANGE 'ref_palanquee'varchar(10)"),
     	);
 */
+
 	include_spip('base/upgrade');
 	maj_plugin($nom_meta_base_version, $version_cible, $maj);
 }

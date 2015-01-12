@@ -1,14 +1,8 @@
 <?php
-
-/***************************************************************************\
- *  SPIP, Systeme de publication pour l'internet                           *
- *                                                                         *
- * Plugin adh_club : Adherent Club pour Spip 2.1
- * Licence GPL (c) 2011-2012 Jean Remond
- *
- *  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
- *  Pour plus de details voir le fichier COPYING.txt ou l'aide en ligne.   *
-\***************************************************************************/
+/**
+ * Plugin adhclub : Adherent Club pour Spip 3.0
+ * Licence GPL (c) 2011-2015 Jean Remond
+ */
 
 if (!defined("_ECRIRE_INC_VERSION")) return;
 

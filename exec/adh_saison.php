@@ -1,7 +1,7 @@
 <?php
 /**
- * Plugin adh_club : Adherent Club pour Spip 2.1
- * Licence GPL (c) 2011-2011 Jean Remond
+ * Plugin adhclub : Adherent Club pour Spip 3.0
+ * Licence GPL (c) 2011-2015 Jean Remond
  */
 
 if (!defined("_ECRIRE_INC_VERSION")) return;
@@ -28,31 +28,35 @@ function exec_adh_saison(){
 	echo propre(_T('adhclub:info_page_saison'));	
 	echo fin_boite_info(true);
 	
-	$icone = _DIR_PLUGIN_ADHCLUB."img_pack/adh_club-24.gif";
+	$icone = _DIR_PLUGIN_ADHCLUB."images/adhclub_24.gif";
 	$raccourcis = icone_horizontale(_T('adhclub:adhclub_icone_menu'), generer_url_ecrire("adh_tous"), $icone, "", false);
-	$icone = _DIR_PLUGIN_ADHCLUB."img_pack/adh_assur-24.gif";
+	$icone = _DIR_PLUGIN_ADHCLUB."img_pack/adh_assur_24.gif";
 	$raccourcis .= icone_horizontale(_T('adhclub:assur_icone_menu'), generer_url_ecrire("adh_assur"), $icone, "", false);
-	$icone = _DIR_PLUGIN_ADHCLUB."img_pack/adh_coti-24.gif";
+	$icone = _DIR_PLUGIN_ADHCLUB."img_pack/adh_coti_24.gif";
 	$raccourcis .= icone_horizontale(_T('adhclub:coti_icone_menu'), generer_url_ecrire("adh_coti"), $icone, "", false);
-	$icone = _DIR_PLUGIN_ADHCLUB."img_pack/adh_niveau-24.gif";
+	$icone = _DIR_PLUGIN_ADHCLUB."img_pack/adh_niveau_24.gif";
 	$raccourcis .= icone_horizontale(_T('adhclub:niveau_icone_menu'), generer_url_ecrire("adh_niveau"), $icone, "", false);
-	$icone = _DIR_PLUGIN_ADHCLUB."img_pack/adh_club-24.gif";
+	$icone = _DIR_PLUGIN_ADHCLUB."img_pack/adhclub_24.gif";
 	$raccourcis .= icone_horizontale(_T('adhclub:ffessm_icone_menu'), generer_url_ecrire("adh_import"), $icone, "", false);
 	echo bloc_des_raccourcis($raccourcis);
 	
 	echo debut_droite("adh_club",true);
-	if (autoriser('modifier','adhsaison'))
+	echo coucou;
+	
+	if (autoriser('administrer','adhsaison'))
 		echo "<div>".icone_inline(_T('adhclub:creer_saison'),
 		  generer_url_ecrire("saisons_edit","new=oui"),
-		  _DIR_PLUGIN_ADHCLUB."/img_pack/adh_saison-24.gif",
+		  _DIR_PLUGIN_ADHCLUB."/img_pack/adh_saison_24.gif",
 		  "creer.gif",'right')."</div>";
-
+	echo coucou;
+	
+	
 	echo recuperer_fond('prive/adh_saison',$_GET);
 	
-	if (autoriser('modifier','adhsaison'))
+	if (autoriser('administrer','adhsaison'))
 		echo "<div>".icone_inline(_T('adhclub:creer_saison'),
 		  generer_url_ecrire("saisons_edit","new=oui"),
-		  _DIR_PLUGIN_ADHCLUB."/img_pack/adh_saison-24.gif",
+		  _DIR_PLUGIN_ADHCLUB."/img_pack/adh_saison_24.gif",
 		  "creer.gif",'right')."</div>";
 
 	echo fin_gauche(),fin_page();

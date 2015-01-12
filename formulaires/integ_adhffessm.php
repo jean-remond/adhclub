@@ -1,13 +1,12 @@
 <?php
 /**
- * Plugin adh_club : Adherent Club pour Spip 2.1
- * Licence GPL (c) 2011-2012 Jean Remond
- *
+ * Plugin adhclub : Adherent Club pour Spip 3.0
+ * Licence GPL (c) 2011-2015 Jean Remond
  *----------------------------------------------
  * Formulaire d'integration des donnees de la table adhffessms 
  *	vers les tables auteurs, auteurs_elargis et adhcotis_auteurs.
  *----------------------------------------------
-*/ 
+ */ 
 
 if (!defined("_ECRIRE_INC_VERSION")) return;
 

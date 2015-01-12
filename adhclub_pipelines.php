@@ -20,10 +20,10 @@ function adhclub_ajouter_boutons($boutons_admin) {
 	if (autoriser('administrer','adh_tous')AND
 	((function_exists('test_plugin_actif') AND !test_plugin_actif('bando')) OR !function_exists('test_plugin_actif'))) {
 		$menu = "auteurs";
-		$icone = "img_pack/adh_club-24.gif";
+		$icone = "img_pack/adhclub_24.gif";
 		if (isset($boutons_admin['bando_auteurs'])){
 			$menu = "bando_auteurs";
-			$icone = "img_pack/adh_club-24.gif";
+			$icone = "img_pack/adhclub_24.gif";
 		}
 	  // on voit le bouton dans la barre "auteurs"
 		$boutons_admin[$menu]->sousmenu['adh_tous']= new Bouton(
@@ -68,20 +68,6 @@ function adhclub_affiche_milieu($flux){
 			break;
 	}
 	return $flux;
-}
-
-
-/**
- * Permettre l'ajout de champs extras via le plugin Champs Extras 3 
- *
- * @param 
- * @return 
-**/
-function adhclub_objets_extensibles($objets){
-		array_merge($objets, array('niveau' => _T('adhclub:niveaux_pages')));
-		array_merge($objets, array('coti' => _T('adhclub:cotis_page')));
-		array_merge($objets, array('assur' => _T('adhclub:assurs_page')));
-		return $objets;
 }
 
 ?>

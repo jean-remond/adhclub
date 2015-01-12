@@ -8,11 +8,43 @@
 
 if (!defined("_ECRIRE_INC_VERSION")) return;
 
+/**
+ * Déclaration des alias de tables et filtres automatiques de champs
+ */
+function adhclub_declarer_tables_interfaces($interface){
+
+	//-- Table des tables ----------------------------------------------------
+	
+	$interface['table_des_tables']['adhassurs']='adhassurs';
+	$interface['table_des_tables']['adhcotis']='adhcotis';
+	$interface['table_des_tables']['adhnivs']='adhnivs';
+	$interface['table_des_tables']['adhsaisons']='adhsaisons';
+	$interface['table_des_tables']['adhffessms']='adhffessms';
+			
+	//-- Table des jointures --------------------------------------------------
+	//-- Associer les tables principales a leurs tables de jointures
+
+	$interface['tables_jointures']['spip_auteurs']['id_auteur'] = 'adhassurs_auteurs';
+	$interface['tables_jointures']['spip_adhassurs']['id_assur'] = 'adhassurs_auteurs';
+
+	$interface['tables_jointures']['spip_auteurs']['id_auteur'] = 'adhcotis_auteurs';
+	$interface['tables_jointures']['spip_adhcotis']['id_cotis'] = 'adhcotis_auteurs';
+
+	$interface['tables_jointures']['spip_auteurs']['id_auteur'] = 'adhnivs_auteurs';
+	$interface['tables_jointures']['spip_adhnivs']['id_niveau'] = 'adhnivs_auteurs';
+
+return $interface;
+}
+
+/**
+ * Déclaration des objets éditoriaux
+ */
 function adhclub_declarer_tables_objets_sql($tables){
 
 //-- Assurance
 $tables['spip_adhassurs'] = array(
-    'principale' => "oui",
+	'type' => 'adhassur',
+    'principale' => 'oui',
     'field'=> array(
 		"id_assur"		=> "bigint(21) NOT NULL AUTO_INCREMENT",
 		"titre"			=> "varchar(35) DEFAULT ' ' NOT NULL",
@@ -25,13 +57,19 @@ $tables['spip_adhassurs'] = array(
 		"PRIMARY KEY" => "id_assur",
 		"KEY id_saison" => "id_saison"
     	),
-    'titre' => "titre AS titre, '' AS lang",
-    'date'	=> "maj"
-    );
+	'champs_editables' => array(
+		"titre", "descriptif", "mnt_assur", "id_saison"
+		),
+	'titre' => "titre AS titre, '' AS lang",
+    'date'	=> "maj",
+	'champs_versionnes' => array(),
+	'rechercher_champs' => array()
+	);
 	
 //-- Cotisation Club
 $tables['spip_adhcotis'] = array(
-    'principale' => "oui",
+	'type' => 'adhcoti',
+	'principale' => "oui",
     'field'=> array(
 		"id_coti"		=> "bigint(21) NOT NULL AUTO_INCREMENT",
 		"titre"			=> "varchar(35) DEFAULT ' ' NOT NULL",
@@ -45,13 +83,19 @@ $tables['spip_adhcotis'] = array(
 		"PRIMARY KEY" 	=> "id_coti",
 		"KEY id_saison" => "id_saison"
     	),
-    'titre' => "titre AS titre, '' AS lang",
-    'date'	=> "maj"
-    );
+	'champs_editables' => array(
+		"titre", "descriptif", "mnt_cotis", "id_saison", "complement"
+		),
+	'titre' => "titre AS titre, '' AS lang",
+    'date'	=> "maj",
+	'champs_versionnes' => array(),
+	'rechercher_champs' => array()
+	);
 	
 //-- Niveau-Brevet
 $tables['spip_adhnivs'] = array(
-    'principale' => "oui",
+	'type' => 'adhniv',
+	'principale' => "oui",
     'field'=> array(
 		"id_niveau" 	=> "bigint(21) NOT NULL AUTO_INCREMENT",
 		"titre" 		=> "varchar(35) DEFAULT ' ' NOT NULL",
@@ -68,13 +112,19 @@ $tables['spip_adhnivs'] = array(
 		"KEY techbase"	=> "techbase",
 		"KEY encadrant" => "encadrant"
     	),
-    'titre' => "titre AS titre, '' AS lang",
-    'date'	=> "maj"
-    );
+	'champs_editables' => array(
+		"titre", "descriptif", "techbase", "encadrant", "id_trombi", "rangtrombi"
+		),
+	'titre' => "titre AS titre, '' AS lang",
+    'date'	=> "maj",
+	'champs_versionnes' => array(),
+	'rechercher_champs' => array()
+	);
 	
 //-- Saisons
 $tables['spip_adhsaisons'] = array(
-    'principale' => "oui",
+	'type' => 'adhsaison',
+	'principale' => "oui",
     'field'=> array(
 		"id_saison" 	=> "bigint(21) NOT NULL	AUTO_INCREMENT",
 		"titre" 		=> "varchar(35) DEFAULT ' ' NOT NULL",
@@ -86,59 +136,21 @@ $tables['spip_adhsaisons'] = array(
     'key' => array(
 		"PRIMARY KEY"	=> "id_saison"
     	),
-    'titre' => "titre AS titre, '' AS lang",
+	'champs_editables' => array(
+		"titre", "descriptif", "encours", "saison_deb"
+		),
+	'titre' => "titre AS titre, '' AS lang",
     'date'	=> "maj",
-	'date'	=> "saison_deb"
-    );
+	'date'	=> "saison_deb",
+	'champs_versionnes' => array(),
+	'rechercher_champs' => array()
+	);
 
-//-- Relation Assurance / Auteur		
-$tables['spip_adhassurs_auteurs'] = array(
-    'principale' => "non",
-    'field'=> array(
-		"id_assur"		=> "bigint(21) NOT NULL",
-		"id_auteur" 	=> "bigint(21) NOT NULL",
-		"maj"			=> "TIMESTAMP default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP"
-		),
-    'key' => array(
-    	"PRIMARY KEY" 	=> "id_assur, id_auteur",
-		"KEY id_auteur" => "id_auteur"
-    	)
-    );
-
-//-- Relation Cotisation Club / Auteur	
-$tables['spip_adhcotis_auteurs'] = array(
-    'principale' => "non",
-    'field'=> array(
-		"id_coti" 		=> "bigint(21) NOT NULL",
-		"id_auteur" 	=> "bigint(21) NOT NULL",
-		"ref_saisie" 	=> "varchar(10) DEFAULT ' ' NULL",
-		"maj" 			=> "TIMESTAMP default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP"
-		),
-    'key' => array(
-    	"PRIMARY KEY" 	=> "id_coti, id_auteur",
-		"KEY id_auteur" => "id_auteur",
-        "KEY ref_saisie" => "ref_saisie"
-    	)
-    );
-	
-//-- Relation Niveau-Brevet / Auteur
-$tables['spip_adhnivs_auteurs'] = array(
-    'principale' => "non",
-    'field'=> array(
-		"id_niveau" 	=> "bigint(21) NOT NULL",
-		"id_auteur" 	=> "bigint(21) NOT NULL",
-		"maj" 		=> "TIMESTAMP default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP"
-		),
-    'key' => array(
-   		"PRIMARY KEY" 	=> "id_niveau, id_auteur",
-		"KEY id_auteur" => "id_auteur"
-    	)
-    );
-	
 //-- Table de travail
 //-- Integration donnees FFESSM (format externe)
 $tables['spip_adhffessms'] = array(
-    'principale' => "non",
+	'type' => 'adhffessm',
+	'principale' => "non",
     'field'=> array(
 		"souscription" => "text(10) NOT NULL",
 		"saisie" => "text NOT NULL",
@@ -163,12 +175,70 @@ $tables['spip_adhffessms'] = array(
 		"PRIMARY KEY" => "licence"
     	),
     'titre' => "licence AS titre, '' AS lang",
-    'date'	=> "souscription"
+    'date'	=> "souscription",
+	'champs_versionnes' => array(),
+	'rechercher_champs' => array()
     );
 	
-    return $tables;
-    }
+return $tables;
+}
 
+/**
+ * Déclaration des tables secondaires (liaisons)
+ */
+function adhclub_declarer_tables_auxiliaires($tables_auxiliaires){
+     
+//-- Relation Assurance / Auteur		
+    $spip_adhassurs_auteurs =  array(
+		"id_assur"		=> "bigint(21) NOT NULL",
+		"id_auteur" 	=> "bigint(21) NOT NULL",
+		"maj"			=> "TIMESTAMP default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP"
+		);
+
+    $spip_adhassurs_auteurs_cles =  array(
+    	"PRIMARY KEY" 	=> "id_assur, id_auteur",
+		"KEY id_auteur" => "id_auteur"
+    );
+
+	$tables_auxiliaires['spip_adhassurs_auteurs'] = array(
+    'field' => &$spip_adhassurs_auteurs,
+    'key' => &$spip_adhassurs_auteurs_cles
+	);
+
+//-- Relation Cotisation Club / Auteur	
+$tables_auxiliaires['spip_adhcotis_auteurs'] = array(
+    'field'=> array(
+		"id_coti" 		=> "bigint(21) NOT NULL",
+		"id_auteur" 	=> "bigint(21) NOT NULL",
+		"ref_saisie" 	=> "varchar(10) DEFAULT ' ' NULL",
+		"maj" 			=> "TIMESTAMP default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP"
+		),
+    'key' => array(
+    	"PRIMARY KEY" 	=> "id_coti, id_auteur",
+		"KEY id_auteur" => "id_auteur",
+        "KEY ref_saisie" => "ref_saisie"
+    	)
+    );
+	
+//-- Relation Niveau-Brevet / Auteur
+$tables_auxiliaires['spip_adhnivs_auteurs'] = array(
+     'field'=> array(
+		"id_niveau" 	=> "bigint(21) NOT NULL",
+		"id_auteur" 	=> "bigint(21) NOT NULL",
+		"maj" 		=> "TIMESTAMP default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP"
+		),
+    'key' => array(
+   		"PRIMARY KEY" 	=> "id_niveau, id_auteur",
+		"KEY id_auteur" => "id_auteur"
+    	)
+    );
+	
+return $tables_auxiliaires;
+}
+
+/**
+ * Déclaration des champs extras
+ */
 function adhclub_declarer_champs_extras($champs = array()){
 $champs['spip_auteurs']['certifaspirine'] = array(
 	'saisie' => 'input',//Type du champs (voir plugin Saisies)
@@ -221,45 +291,8 @@ $champs['spip_auteurs']['email_corr'] = array(
 			'modifier'	=> array('auteur'=>'webmestre'))),//Seul les webmestre peuvent modifier
 	'verifier' => array()
 );
-	return $champs;	
-    
-/*function adhclub_declarer_tables_interfaces($interface){
 
-	//-- Table des jointures --------------------------------------------------
-	//-- Associer les tables principales a  leurs tables de jointures
-
-	$interface['tables_jointures']['spip_auteurs'][] = 'adhassurs_auteurs';
-	$interface['tables_jointures']['spip_adhassurs'][] = 'adhassurs_auteurs';
-
-	$interface['tables_jointures']['spip_auteurs'][] = 'adhcotis_auteurs';
-	$interface['tables_jointures']['spip_adhcotis'][] = 'adhcotis_auteurs';
-
-	$interface['tables_jointures']['spip_auteurs'][] = 'adhnivs_auteurs';
-	$interface['tables_jointures']['spip_adhnivs'][] = 'adhnivs_auteurs';
-
-	
-	//-- Table des tables ----------------------------------------------------
-	//-- Definir le nom des nouvelles boucles
-
-		//-- Table des garanties d'assurances
-	$interface['table_des_tables']['adhassurs']='adhassurs';
-		//-- Table des differentes cotisations
-	$interface['table_des_tables']['adhcotis']='adhcotis';
-		//-- Table des Niveaux de compÃ©tences sportives
-	$interface['table_des_tables']['adhnivs']='adhnivs';
-		//-- Table des Saisons de gestion
-	$interface['table_des_tables']['adhsaisons']='adhsaisons';
-
-		//-- Table des Donnees FFESSM
-	$interface['table_des_tables']['adhffessms']='adhffessms';
-
-		//-- Table des Saisons
-	$interface['table_date']['adhsaisons'] = 'maj';
-	$interface['table_date']['adhsaisons'] = 'saison_deb';
-	
-
-	return $interface;
+return $champs;	
 }
-*/
 
 ?>
