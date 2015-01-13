@@ -25,7 +25,7 @@ function exec_adh_saison(){
 	echo debut_gauche("adhclub",true);
 	
 	echo debut_boite_info(true);
-	echo propre(_T('adhclub:info_page_saison'));	
+	echo propre(_T('adhclub:saison_info_page'));	
 	echo fin_boite_info(true);
 	
 	$icone = _DIR_PLUGIN_ADHCLUB."images/adhclub_24.gif";
@@ -44,7 +44,7 @@ function exec_adh_saison(){
 	echo coucou;
 	
 	if (autoriser('administrer','adhsaison'))
-		echo "<div>".icone_inline(_T('adhclub:creer_saison'),
+		echo "<div>".icone_inline(_T('adhclub:saison_creer'),
 		  generer_url_ecrire("saisons_edit","new=oui"),
 		  _DIR_PLUGIN_ADHCLUB."/img_pack/adh_saison_24.gif",
 		  "creer.gif",'right')."</div>";
@@ -54,7 +54,7 @@ function exec_adh_saison(){
 	echo recuperer_fond('prive/adh_saison',$_GET);
 	
 	if (autoriser('administrer','adhsaison'))
-		echo "<div>".icone_inline(_T('adhclub:creer_saison'),
+		echo "<div>".icone_inline(_T('adhclub:saison_creer'),
 		  generer_url_ecrire("saisons_edit","new=oui"),
 		  _DIR_PLUGIN_ADHCLUB."/img_pack/adh_saison_24.gif",
 		  "creer.gif",'right')."</div>";

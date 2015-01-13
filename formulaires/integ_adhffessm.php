@@ -42,7 +42,7 @@ function formulaires_integ_adhffessm_charger_dist($titre_saison){
     $id_saison = sql_getfetsel( "id_saison", "spip_adhsaisons", $adhwhere);
  
     if (!intval($id_saison)) {
-        $erreurs['message_erreur'] = _T('adhclub:info_aucun_saison_integ',array('titre_saison'=>$titre_saison));
+        $erreurs['message_erreur'] = _T('adhclub:saison_info_aucun_integ',array('titre_saison'=>$titre_saison));
         return $erreurs;
         }
     else {

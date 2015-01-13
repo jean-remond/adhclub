@@ -19,7 +19,7 @@ function exec_saisons_edit_dist(){
 	  OR (!$new AND (!autoriser('modifier', 'adhsaison', $id_saison))) 
 	  ) {
 		include_spip('inc/minipres');
-		echo minipres(_T('adhclub:aucun_saison'));
+		echo minipres(_T('adhclub:saison_aucun'));
 	} 
 	else {
 		saisons_edit($id_saison, $new, '', $row);
@@ -31,7 +31,7 @@ function saisons_edit($id_saison, $new, $config_fonc, $row){
 	$commencer_page = charger_fonction('commencer_page', 'inc');
 	pipeline('exec_init',array('args'=>array('exec'=>'saisons_edit','id_saison'=>$id_saison),'data'=>''));
 
-	echo $commencer_page(intval($id_saison)?_T('adhclub:titre_cadre_modifier_saison'):_T('adhclub:creer_saison'), "naviguer", "saisons", 0);
+	echo $commencer_page(intval($id_saison)?_T('adhclub:saison_titre_cadre_modifier'):_T('adhclub:saison_creer'), "naviguer", "saisons", 0);
 
 	echo debut_gauche("",true);
 	//echo recuperer_fond("prive/editer/saison_assurs", $_GET);

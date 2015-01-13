@@ -9,14 +9,14 @@
 -->]
 <B_assurs>
 [(#TOTAL_BOUCLE|>{3}|oui)
-<span class='actions'><a href='#URL_ACTION_AUTEUR{retirer_adhassur,-1-auteur-#ID_AUTEUR,#SELF}'><:adhclub:info_retirer_assurs:></a></span>
+<span class='actions'><a href='#URL_ACTION_AUTEUR{retirer_adhassur,-1-auteur-#ID_AUTEUR,#SELF}'><:adhclub:assurs_info_retirer:></a></span>
 ]
 [<p class="pagination">(#PAGINATION)</p>]
 <ul class='liste_items liste_assur'>
 	<BOUCLE_assurs(ADHASSURS){id_auteur ?}{id_assur ?}{pagination 15}>
 	<li class='item'>[(#ENV{editable})
 	[(#AUTORISER{retirer_adhassur,auteur,#ID_AUTEUR}|oui)
-	<span class='actions'><a class='ajax' href='#URL_ACTION_AUTEUR{retirer_adhassur,#ID_ASSUR|concat{'-auteur-',#ID_AUTEUR},#SELF}'><img src='#EVAL{_DIR_IMG_PACK}croix-rouge.gif' alt='X' /> <:adhclub:info_retirer_assur:></a></span>
+	<span class='actions'><a class='ajax' href='#URL_ACTION_AUTEUR{retirer_adhassur,#ID_ASSUR|concat{'-auteur-',#ID_AUTEUR},#SELF}'><img src='#EVAL{_DIR_IMG_PACK}croix-rouge.gif' alt='X' /> <:adhclub:assur_info_retirer:></a></span>
 	]
 	]
 	<a href="[(#URL_ECRIRE{adhassurs_edit,id_assur=#ID_ASSUR}|parametre_url{retour,#SELF})]"><img
@@ -25,5 +25,5 @@
 	</BOUCLE_assurs>
 </ul>
 </B_assurs>
-<p><:adhclub:info_aucun_assur:></p>
+<p><:adhclub:info_assur_aucun:></p>
 <//B_assurs>

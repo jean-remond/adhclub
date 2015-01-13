@@ -10,7 +10,7 @@
 if (!defined("_ECRIRE_INC_VERSION")) return;
 
 // declarer le pipeline pour le core
-//$GLOBALS['spip_pipeline']['adhclub_liste_niveaux_autorises']='';
+$GLOBALS['spip_pipeline']['adhclub_liste_niveaux_autorises']='';
 
 if (isset($GLOBALS['meta']["adhclub_base_version"])){
 

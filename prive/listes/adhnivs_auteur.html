@@ -10,7 +10,7 @@
  */
 ]<B_niveaux>
 [(#TOTAL_BOUCLE|>{3}|oui)
-<span class='actions'><a href='#URL_ACTION_AUTEUR{retirer_adhniv,-1-auteur-#ID_AUTEUR,#SELF}'><:adhclub:info_retirer_niveaux:></a></span>
+<span class='actions'><a href='#URL_ACTION_AUTEUR{retirer_adhniv,-1-auteur-#ID_AUTEUR,#SELF}'><:adhclub:niveaux_info_retirer:></a></span>
 ]
 [<p class="pagination">(#PAGINATION)</p>]
 <ul class='liste_items liste_niveau'>
@@ -20,7 +20,7 @@
 	<span class='actions'>
 		<a class='ajax' href='#URL_ACTION_AUTEUR{retirer_adhniv,#ID_NIVEAU|concat{'-auteur-',#ID_AUTEUR},#SELF}'>
 		<img src='#EVAL{_DIR_IMG_PACK}croix-rouge.gif' alt='X' />
-		<:adhclub:info_retirer_niveau:>
+		<:adhclub:niveau_info_retirer:>
 		</a>
 	</span>
 	]
@@ -33,5 +33,5 @@
 	</BOUCLE_niveaux>
 </ul>
 </B_niveaux>
-<p><:adhclub:info_aucun_niveau:></p>
+<p><:adhclub:info_niveau_aucun:></p>
 <//B_niveaux>

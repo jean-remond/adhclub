@@ -26,7 +26,7 @@ function exec_adh_niveau(){
 	echo debut_gauche("adhclub",true);
 	
 	echo debut_boite_info(true);
-	echo propre(_T('adhclub:info_page_niveau'));	
+	echo propre(_T('adhclub:niveau_info_page'));	
 	echo fin_boite_info(true);
 	
 	$icone = _DIR_PLUGIN_ADHCLUB."img_pack/adhclub_24.gif";
@@ -43,7 +43,7 @@ function exec_adh_niveau(){
 	
 	echo debut_droite("adh_club",true);
 	if (autoriser('modifier','adhniv'))
-		echo "<div>".icone_inline(_T('adhclub:creer_niveau'),
+		echo "<div>".icone_inline(_T('adhclub:niveau_creer'),
 		  generer_url_ecrire("niveaux_edit","new=oui"),
 		  _DIR_PLUGIN_ADHCLUB."/img_pack/adh_niveau_24.gif",
 		  "creer.gif",'right')."</div>";
@@ -51,7 +51,7 @@ function exec_adh_niveau(){
 	echo recuperer_fond('prive/adh_niveau',$_GET);
 	
 	if (autoriser('modifier','adhniv'))
-		echo "<div>".icone_inline(_T('adhclub:creer_niveau'),
+		echo "<div>".icone_inline(_T('adhclub:niveau_creer'),
 		  generer_url_ecrire("niveaux_edit","new=oui"),
 		  _DIR_PLUGIN_ADHCLUB."/img_pack/adh_niveau_24.gif",
 		  "creer.gif",'right')."</div>";

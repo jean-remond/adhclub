@@ -19,7 +19,7 @@ function exec_niveaux_edit_dist(){
 	  OR (!$new AND (!autoriser('modifier', 'adhniv', $id_niveau))) 
 	  ) {
 		include_spip('inc/minipres');
-		echo minipres(_T('adhclub:aucun_niveau'));
+		echo minipres(_T('adhclub:niveau_aucun'));
 	} 
 	else {
 		niveaux_edit($id_niveau, $new, '', $row);
@@ -31,7 +31,7 @@ function niveaux_edit($id_niveau, $new, $config_fonc, $row){
 	$commencer_page = charger_fonction('commencer_page', 'inc');
 	pipeline('exec_init',array('args'=>array('exec'=>'niveaux_edit','id_niveau'=>$id_niveau),'data'=>''));
 
-	echo $commencer_page(intval($id_niveau)?_T('adhclub:titre_cadre_modifier_niveau'):_T('adhclub:creer_niveau'), "naviguer", "niveaux", 0);
+	echo $commencer_page(intval($id_niveau)?_T('adhclub:niveau_titre_cadre_modifier'):_T('adhclub:niveau_creer'), "naviguer", "niveaux", 0);
 
 	echo debut_gauche("",true);
 	echo recuperer_fond("prive/editer/niveau_auteurs", $_GET);

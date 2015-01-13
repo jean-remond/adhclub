@@ -9,7 +9,7 @@
 <h3>#GRAND_TOTAL auteurs selectionn&eacute;</h3>
 [(#GRAND_TOTAL|>{3}|oui)
 <span class='actions'><a href='#URL_ACTION_AUTEUR{retirer_adhniv,#ID_NIVEAU-auteur--1,#SELF}'
-onclick="return confirm('<:adhclub:confirmer_retirer_auteurs|texte_script:>');"><:adhclub:info_retirer_auteurs:></a></span>
+onclick="return confirm('<:adhclub:auteurs_confirmer_retirer|texte_script:>');"><:adhclub:auteurs_info_retirer:></a></span>
 ]
 [<p class="pagination">(#PAGINATION{page})</p>]
 <ul class='liste_items liste_auteurs'>
@@ -18,8 +18,8 @@ onclick="return confirm('<:adhclub:confirmer_retirer_auteurs|texte_script:>');">
 	[(#AUTORISER{retirer_adhniv,auteur,#ID_AUTEUR}|oui)
 	<span class='actions'><a class='ajax' 
 href='#URL_ACTION_AUTEUR{retirer_adhniv,#ID_NIVEAU|concat{'-auteur-',#ID_AUTEUR},#SELF}'
-onclick="return confirm('<:adhclub:confirmer_retirer_auteur_niveau|texte_script:>');"
-title='<:adhclub:info_retirer_auteur_niveau|attribut_html:>'><img src='#EVAL{_DIR_IMG_PACK}croix-rouge.gif' alt='<:adhclub:info_retirer_niveau|attribut_html:>' /></a></span>
+onclick="return confirm('<:adhclub:niveau_confirmer_retirer_auteur|texte_script:>');"
+title='<:adhclub:niveau_info_retirer_auteur|attribut_html:>'><img src='#EVAL{_DIR_IMG_PACK}croix-rouge.gif' alt='<:adhclub:niveau_info_retirer|attribut_html:>' /></a></span>
 	]
 	]
 	<a href="[(#URL_ECRIRE{auteur_infos,id_auteur=#ID_AUTEUR}|parametre_url{retour,#SELF})]"><img
@@ -28,14 +28,14 @@ title='<:adhclub:info_retirer_auteur_niveau|attribut_html:>'><img src='#EVAL{_DI
 	</BOUCLE_auteurs>
 </ul>
 </B_auteurs>
-<h3><:adhclub:info_aucun_auteur_niveau:></h3>
+<h3><:adhclub:niveau_info_aucun_auteur:></h3>
 <//B_auteurs>
 
 <B_autres_auteurs>
 <h3>Ajouter des auteurs</h3>
 [(#GRAND_TOTAL|>{3}|oui)
 <span class='actions'><a href='#URL_ACTION_AUTEUR{affecter_adhniv,#ID_NIVEAU-auteur--1,#SELF}'
-onclick="return confirm('<:adhclub:confirmer_ajouter_auteurs|texte_script:>');"><:adhclub:info_ajouter_auteurs:></a></span>
+onclick="return confirm('<:adhclub:auteurs_confirmer_ajouter|texte_script:>');"><:adhclub:auteurs_info_ajouter:></a></span>
 ]
 [<p class="pagination">(#PAGINATION{page})</p>]
 <ul class='liste_items liste_autres_auteurs'>
@@ -44,7 +44,7 @@ onclick="return confirm('<:adhclub:confirmer_ajouter_auteurs|texte_script:>');">
 	[(#AUTORISER{affecter_adhniv,auteur,#ID_AUTEUR}|oui)
 	<span class='actions'><a class='ajax' 
 href='#URL_ACTION_AUTEUR{affecter_adhniv,#ID_NIVEAU|concat{'-auteur-',#ID_AUTEUR},#SELF}'
-title='<:adhclub:info_ajouter_auteur|attribut_html:>'><img src='#CHEMIN{img_pack/list-add-12.png}' alt='<:adhclub:info_ajouter_auteur|attribut_html:>' /></a></span>
+title='<:adhclub:auteur_info_ajouter|attribut_html:>'><img src='#CHEMIN{img_pack/list-add-12.png}' alt='<:adhclub:auteur_info_ajouter|attribut_html:>' /></a></span>
 	]
 	]
 	<a href="[(#URL_ECRIRE{auteur_infos,id_auteur=#ID_AUTEUR}|parametre_url{retour,#SELF})]"><img

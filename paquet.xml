@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?><paquet
 	prefix="adhclub"
 	categorie="squelette"
-	version="3.0.1"
+	version="3.0.2"
 	etat="dev"
 	compatibilite="[3.0.17;["
 	logo="prive/themes/spip/images/adhclub_24.png"
-	schema="3.0.1"
-	documentation="pas faite"
->	
+	schema="201501131930"
+	>	
+	<!-- documentation="pas faite" -->
 
 	<nom>Gestion des Adhérents pour un Club</nom>
 	<!-- Gestion des donnees liees aux activites des adherents pour un club -->
@@ -16,17 +16,13 @@
 
 	<licence>GNU/GLP</licence>
 
-	<pipeline nom="declarer_tables_interfaces" inclure="base/adhclub.php" />
 	<pipeline nom="declarer_tables_objets_sql" inclure="base/adhclub.php" />
-	<pipeline nom="declarer_tables_auxiliaires" inclure="base/adhclub.php"/>
-	<pipeline nom="rechercher_liste_des_champs" inclure="public/adhclub.php" />
 
 	<!-- Les ajouts du plugin -->
 	<pipeline nom="adhclub_liste_niveaux_autorises" 
 		action="liste_niveaux_autorises"
 		inclure="inc/adh_niveau.php"
 	/>
-	<pipeline nom="ajouter_boutons" inclure="adhclub_pipelines.php" />
 	<pipeline nom="affiche_milieu" inclure="adhclub_pipelines.php" />
 	<pipeline nom="autoriser" inclure="inc/adhclub_autoriser.php" />
 
@@ -50,7 +46,7 @@
 
     <menu nom="adh_tous" 
     	action="adh_tous"
-    	titre="adhclub:titre_adhclub" 
+    	titre="adhclub:adhclub_titre" 
     	parent="menu_edition" 
     	icone="images/adhclub_24.png
     	" />

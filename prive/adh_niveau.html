@@ -22,7 +22,7 @@
 			<span class='descriptif'>#DESCRIPTIF</span>
 			<p class='actions'>
 				[(#AUTORISER{modifier,adhniv,#ID_NIVEAU})	<span class='lien_modifier'>&#91;<a href='[(#URL_ECRIRE{niveaux_edit,id_niveau=#ID_NIVEAU}|parametre_url{retour,#SELF})]'><:bouton_modifier:></a>&#93;</span>]
-				[(#AUTORISER{supprimer,adhniv,#ID_NIVEAU})<span class='lien_supprimer'>&#91;<a href='#URL_ACTION_AUTEUR{supprimer_adhniv,#ID_NIVEAU,#SELF}' onclick="return confirm('<:adhclub:confirmer_supprimer_niveau:>');"><:adhclub:icone_supprimer_niveau:></a>&#93;</span>]
+				[(#AUTORISER{supprimer,adhniv,#ID_NIVEAU})<span class='lien_supprimer'>&#91;<a href='#URL_ACTION_AUTEUR{supprimer_adhniv,#ID_NIVEAU,#SELF}' onclick="return confirm('<:adhclub:niveau_confirmer_supprimer:>');"><:adhclub:niveau_icone_supprimer:></a>&#93;</span>]
 			</p>
 		</li>
 	</BOUCLE_niveaux>
@@ -36,5 +36,5 @@
 
 </B_niveaux>
 
-	<:adhclub:info_aucun_niveau:>
+	<:adhclub:info_niveau_aucun:>
 <//B_niveaux>

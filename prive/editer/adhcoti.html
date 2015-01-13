@@ -7,7 +7,7 @@
 <div class='cadre-formulaire-editer'>
 	<div class="entete-formulaire">
 		#ENV**{icone_retour}
-		[<h1>(#ENV{new}|intval|?{<:adhclub:modifier_coti:>,<:adhclub:coti_creer:>})</h1>]
+		[<h1>(#ENV{new}|intval|?{<:adhclub:coti_modifier:>,<:adhclub:coti_creer:>})</h1>]
 		[<h1>(#ENV{new}|intval|?{##ENV{new}})</h1>]
 	</div>
 	#FORMULAIRE_EDITER_ADHCOTI{#ENV{new},#ENV{redirect}}
