@@ -11,19 +11,12 @@
 include_spip('base/adhclub');
  
 function adhclub_upgrade($nom_meta_base_version, $version_cible){
-	 
+
 	$maj = array();
 
-	cextras_api_upgrade(adhclub_declarer_champs_extras(), $maj['create']);	
-	
-/*	$debug1= "DEBUG adhclub JR : /adhclub_administrations.php - adhclub_upgrade - Pt02 - <br />";
-	echo "<br />", $debug1;
-	echo "maj= <br />"; var_dump($maj); echo ".<br />";
-	echo "FIN ", $debug1;
-*/
-	$maj['create'] = array_merge(
-		$maj['create'],
-		array( 
+/*	$maj['create'] = array_merge(
+		$maj['create'], */
+	$maj['create'] = array( 
 			array(
 				'maj_tables',array( 
 					'spip_adhassurs', 
@@ -36,8 +29,10 @@ function adhclub_upgrade($nom_meta_base_version, $version_cible){
 					'spip_adhnivs_auteurs'
 					)
 				)
-			)
+			//)
  		);
+
+	cextras_api_upgrade(adhclub_declarer_champs_extras(), $maj['create']);	
 	
 /*	$debug1= "DEBUG adhclub JR : /adhclub_administrations.php - adhclub_upgrade - Pt99 - <br />";
 	echo "<br />", $debug1;
