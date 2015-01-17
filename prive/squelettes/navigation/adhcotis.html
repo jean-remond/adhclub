@@ -1,0 +1,16 @@
+[(#REM) <-- 
+ * Plugin adh_club : Adherent Club pour Spip 3.0
+ * Licence GPL (c) 2011-2015 Jean Remond
+ * ----------------------------------------------
+ * Navigation sur le site prive pour les cotisations. 
+ * Bloc de navigation.
+ * ----------------------------------------------
+ * JR-17/01/2015-adaptation spip 3.0.
+ */
+-->] 
+
+#BOITE_OUVRIR{'','info'}
+	<p><:adhclub:coti_info_page:></p>
+#BOITE_FERMER
+
+	[(#INCLURE{fond=prive/inclure/adh_menu_tous, choix, choix='coti'})]

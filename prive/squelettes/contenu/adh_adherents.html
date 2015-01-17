@@ -1,29 +1,31 @@
 #CACHE{0}
 
-[(#REM) <-- Plugin adh_club : Adherent Club pour Spip 3.0
+[(#REM) <-- 
+ * Plugin adh_club : Adherent Club pour Spip 3.0
  * Licence GPL (c) 2011-2015 Jean Remond
  *	( tres vilement pompe de inscription3 par cmtmt2003, kent1, BoOz and co
  *	Licence (c) 2007-2012 - Distribue sous licence GNU/GPL v3)
  * D'apres incription3 Version : 3.0.15 SVN (6342), module prive/table_adherents.html
  ----------------------------------------------
-Liste pour gestion de la fiche des adherents sur le site public ou envoi de courriels. 
+Liste pour gestion de la fiche des adherents sur le site prive ou envoi de courriels. 
+Bloc de contenu
 ----------------------------------------------
-JR-10/01/2015-adaptation spip 3.0.
+JR-17/01/2015-adaptation spip 3.0.
 JR-15/04/2012-Integration inscription3.
 JR-02/04/2012-Creation du squelette.
 -->] 
-	[(#ENV{type_objet}|oui)
-		<h1><:adhclub:mailer_envoi:></h1>
-		<br />
-	]
+
+<h1 class="grostitre"><:adhclub:adherents_liste:></h1>
+		
+[(#ENV{type_objet}|oui)
+	<h1><:adhclub:mailer_envoi:></h1>
+	<br />
+]
 
 	[(#ENV{type_objet}|=={article}|oui)
 		<INCLURE{fond=public/inclure/adh_article}{env}>
 	]
 	
-	[(#REM) #SET{email_env,#ARRAY} ]
-	
-	#FORMULAIRE_ADH_I3_RECHERCHE{#ENV{type_objet}, #ENV{id_objet}}
-		
-<br class="nettoyeur"/>
+	#SET{email_env,#ARRAY}
 
+	#FORMULAIRE_I3_RECHERCHE{#ENV{type_objet}, #ENV{id_objet}}

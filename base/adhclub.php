@@ -5,13 +5,12 @@
  *
  */
 
-
 if (!defined("_ECRIRE_INC_VERSION")) return;
 
 /**
  * Déclaration des alias de tables et filtres automatiques de champs
  */
-/*function adhclub_declarer_tables_interfaces($interface){
+function adhclub_declarer_tables_interfaces($interface){
 
 	//-- Table des tables ----------------------------------------------------
 	
@@ -35,7 +34,7 @@ if (!defined("_ECRIRE_INC_VERSION")) return;
 
 return $interface;
 }
-*/
+
 /**
  * Déclaration des objets éditoriaux
  */
@@ -52,8 +51,9 @@ $tables['spip_adhassurs'] = array(
 		"descriptif"	=> "text",
 		"mnt_assur"		=> "float DEFAULT '0' NOT NULL",
 		"id_saison"		=> "bigint(21)",
-		"maj"			=> "TIMESTAMP default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP"
-    	),
+		"maj"			=> "TIMESTAMP default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP",
+		"statut" => "varchar(20)  DEFAULT 'prepa' NOT NULL",
+    ),
     'key' => array(
 		"PRIMARY KEY"	=> "id_assur",
 		"KEY id_saison" => "id_saison"
@@ -64,17 +64,39 @@ $tables['spip_adhassurs'] = array(
 	'champs_editables'	=> array(
 		"titre", "descriptif", "mnt_assur", "id_saison"
 		),
-	'icone_objet'	=> "images/adhclub_24.gif",
-	'texte_objet'	=> "adhclub:assur_titre",
-	'texte_objets'	=> "adhclub:assurs_titre",
-	'texte_ajouter' => 'adhclub:assur_ajouter',
-	'info_aucun_objet'	=> "adhclub:assur_aucun",
-	'texte_creer_associer' => 'adhclub:assur_creer_associer',
-	'info_1_objet'	=> 'adhclub:assur_info_1',
-	'info_nb_objets'	=> 'adhclub:assurs_info_nb',
-	'url_voir' => 'assur_edit',
-	'url_edit' => 'assur_edit',
-	'page' => false,
+	'icone_objet'			=> "images/adhclub_24.gif",
+	'texte_objet'			=> "adhclub:assur_titre",
+	'texte_objets'			=> "adhclub:assurs_titre",
+	'texte_ajouter'			=> 'adhclub:assur_ajouter',
+	'info_aucun_objet'		=> "adhclub:assur_aucun",
+	'texte_creer_associer'	=> 'adhclub:assur_creer_associer',
+	'info_1_objet'			=> 'adhclub:assur_info_1',
+	'info_nb_objets'		=> 'adhclub:assurs_info_nb',
+	'url_voir'				=> 'editer_assur',
+	'url_edit'				=> 'editer_assur',
+	'page'					=> false,
+	'statut_images' => array(
+		'prepa'=>'puce-preparer-8.png',
+		'prop'=>'puce-proposer-8.png',
+		'publie'=>'puce-publier-8.png',
+		'refuse'=>'puce-refuser-8.png',
+		'poubelle'=>'puce-supprimer-8.png',
+		),
+	'statut_titres' => array(
+		'prepa'=>'adhclub:info_statut_prepa',
+		'prop'=>'adhclub:info_statut_prop',
+		'publie'=>'adhclub:info_statut_publie',
+		'refuse'=>'adhclub:info_statut_refuse',
+		'poubelle'=>'adhclub:info_statut_poubelle',
+		),
+	'statut_textes_instituer' => array(
+		'prepa'=>'adhclub:texte_statut_prepa',
+		'prop'=>'adhclub:texte_statut_prop',
+		'publie'=>'adhclub:texte_statut_publie',
+		'refuse'=>'adhclub:texte_statut_refuse',
+		'poubelle' => 'texte_statut_poubelle',
+		),
+	'texte_changer_statut' => 'adhclub:assur_texte_changer_statut',
 	);
 	
 //-- Cotisation Club
@@ -89,8 +111,9 @@ $tables['spip_adhcotis'] = array(
 		"mnt_cotis"		=> "float DEFAULT '0' NOT NULL",
 		"id_saison" 	=> "bigint(21)",
 		"complement" 	=> "ENUM('non', 'oui') DEFAULT 'non' NOT NULL",
-		"maj"			=> "TIMESTAMP default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP"
-    	),
+		"maj"			=> "TIMESTAMP default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP",
+		"statut"		=> "varchar(20)  DEFAULT 'prepa' NOT NULL",
+    ),
     'key' => array(
 		"PRIMARY KEY" 	=> "id_coti",
 		"KEY id_saison" => "id_saison"
@@ -104,7 +127,35 @@ $tables['spip_adhcotis'] = array(
 	'icone_objet'	=> "",
 	'texte_objet'	=> "adhclub:coti_titre",
 	'texte_objets'	=> "adhclub:cotis_titre",
-	'info_aucun_objet'	=> "adhclub:coti_aucun"
+	'info_aucun_objet'	=> "adhclub:coti_aucun",
+	'texte_creer_associer'	=> 'adhclub:coti_creer_associer',
+	'info_1_objet'			=> 'adhclub:coti_info_1',
+	'info_nb_objets'		=> 'adhclub:cotis_info_nb',
+	'url_voir'				=> 'editer_coti',
+	'url_edit'				=> 'editer_coti',
+	'page'					=> false,
+	'statut_images' => array(
+		'prepa'=>'puce-preparer-8.png',
+		'prop'=>'puce-proposer-8.png',
+		'publie'=>'puce-publier-8.png',
+		'refuse'=>'puce-refuser-8.png',
+		'poubelle'=>'puce-supprimer-8.png',
+		),
+	'statut_titres' => array(
+		'prepa'=>'adhclub:info_statut_prepa',
+		'prop'=>'adhclub:info_statut_prop',
+		'publie'=>'adhclub:info_statut_publie',
+		'refuse'=>'adhclub:info_statut_refuse',
+		'poubelle'=>'adhclub:info_statut_poubelle',
+		),
+	'statut_textes_instituer' => array(
+		'prepa'=>'adhclub:texte_statut_prepa',
+		'prop'=>'adhclub:texte_statut_prop',
+		'publie'=>'adhclub:texte_statut_publie',
+		'refuse'=>'adhclub:texte_statut_refuse',
+		'poubelle' => 'texte_statut_poubelle',
+		),
+	'texte_changer_statut' => 'adhclub:coti_texte_changer_statut',
 	);
 	
 //-- Niveau-Brevet
@@ -120,8 +171,9 @@ $tables['spip_adhnivs'] = array(
 		"encadrant" 	=> "bigint(21) NOT NULL",
 		"id_trombi"		=> "bigint(21) NOT NULL",
 		"rangtrombi"    => "bigint(21) NOT NULL",
-		"maj"   		=> "TIMESTAMP default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP"
-    ),
+		"maj"   		=> "TIMESTAMP default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP",
+		"statut"		=> "varchar(20)  DEFAULT 'prepa' NOT NULL",
+	),
     'key' => array(
 		"PRIMARY KEY" 	=> "id_niveau",
 		"KEY id_trombi" => "id_trombi, rangtrombi",
@@ -137,7 +189,35 @@ $tables['spip_adhnivs'] = array(
 	'icone_objet'	=> "",
 	'texte_objet'	=> "adhclub:niveau_titre",
 	'texte_objets'	=> "adhclub:niveaux_titre",
-	'info_aucun_objet'	=> "adhclub:niveau_aucun"
+	'info_aucun_objet'	=> "adhclub:niveau_aucun",
+	'texte_creer_associer'	=> 'adhclub:niveau_creer_associer',
+	'info_1_objet'			=> 'adhclub:niveau_info_1',
+	'info_nb_objets'		=> 'adhclub:niveaux_info_nb',
+	'url_voir'				=> 'editer_niveau',
+	'url_edit'				=> 'editer_niveau',
+	'page'					=> false,
+	'statut_images' => array(
+		'prepa'=>'puce-preparer-8.png',
+		'prop'=>'puce-proposer-8.png',
+		'publie'=>'puce-publier-8.png',
+		'refuse'=>'puce-refuser-8.png',
+		'poubelle'=>'puce-supprimer-8.png',
+		),
+	'statut_titres' => array(
+		'prepa'=>'adhclub:info_statut_prepa',
+		'prop'=>'adhclub:info_statut_prop',
+		'publie'=>'adhclub:info_statut_publie',
+		'refuse'=>'adhclub:info_statut_refuse',
+		'poubelle'=>'adhclub:info_statut_poubelle',
+		),
+	'statut_textes_instituer' => array(
+		'prepa'=>'adhclub:texte_statut_prepa',
+		'prop'=>'adhclub:texte_statut_prop',
+		'publie'=>'adhclub:texte_statut_publie',
+		'refuse'=>'adhclub:texte_statut_refuse',
+		'poubelle' => 'texte_statut_poubelle',
+		),
+	'texte_changer_statut' => 'adhclub:niveau_texte_changer_statut',
 	);
 	
 //-- Saisons
@@ -151,22 +231,50 @@ $tables['spip_adhsaisons'] = array(
 		"descriptif" 	=> "text",
 		"encours" 		=> "ENUM('non', 'oui') DEFAULT 'non' NOT NULL",
 		"maj" 			=> "TIMESTAMP default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP",
-		"saison_deb"	=> "DATE"
-		),
+		"saison_deb"	=> "DATE",
+		"statut"		=> "varchar(20)  DEFAULT 'prepa' NOT NULL",
+	),
     'key' => array(
 		"PRIMARY KEY"	=> "id_saison"
     	),
 	'titre'			=> "titre AS titre, '' AS lang",
-    'date'			=> "maj",
 	'date'			=> "saison_deb",
     'editable'		=> "oui",
 	'champs_editables'	=> array(
 		"titre", "descriptif", "encours", "saison_deb"
 		),
-	'icone_objet'	=> "",
+	'icone_objet'	=> "adhsaison-24.png",
 	'texte_objet'	=> "adhclub:saison_titre",
 	'texte_objets'	=> "adhclub:saisons_titre",
-	'info_aucun_objet'	=> "adhclub:saison_aucun"
+	'info_aucun_objet'	=> "adhclub:saison_aucun",
+	'texte_creer_associer'	=> 'adhclub:saison_creer_associer',
+	'info_1_objet'			=> 'adhclub:saison_info_1',
+	'info_nb_objets'		=> 'adhclub:saisons_info_nb',
+	'url_voir'				=> 'editer_adhsaison',
+	'url_edit'				=> 'editer_adhsaison',
+	'page'					=> false,
+	'statut_images' => array(
+		'prepa'=>'puce-preparer-8.png',
+		'prop'=>'puce-proposer-8.png',
+		'publie'=>'puce-publier-8.png',
+		'refuse'=>'puce-refuser-8.png',
+		'poubelle'=>'puce-supprimer-8.png',
+		),
+	'statut_titres' => array(
+		'prepa'=>'adhclub:info_statut_prepa',
+		'prop'=>'adhclub:info_statut_prop',
+		'publie'=>'adhclub:info_statut_publie',
+		'refuse'=>'adhclub:info_statut_refuse',
+		'poubelle'=>'adhclub:info_statut_poubelle',
+		),
+	'statut_textes_instituer' => array(
+		'prepa'=>'adhclub:texte_statut_prepa',
+		'prop'=>'adhclub:texte_statut_prop',
+		'publie'=>'adhclub:texte_statut_publie',
+		'refuse'=>'adhclub:texte_statut_refuse',
+		'poubelle' => 'texte_statut_poubelle',
+		),
+	'texte_changer_statut' => 'adhclub:saison_texte_changer_statut',
 	);
 
 //-- Table de travail

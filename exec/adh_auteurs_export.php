@@ -1,17 +1,18 @@
 <?php
 /**
- * Plugin adh_club : Adherent Club pour Spip 2.1
- * Licence GPL (c) 2011-2013 Jean Remond
+ * Plugin adh_club : Adherent Club pour Spip 3.0
+ * Licence GPL (c) 2011-2015 Jean Remond
  *
  * ----------------------------------------------
  * Telechargement des donnees filtrees des auteurs. 
  * ----------------------------------------------
  * A faire :
  * -------
+ * JR-15/01/2015-Verifier utilite..
  * 
  * Fait :
  * ----
- * JR-06/08/2013-Ajout des criteres dnas fichier exporte.
+ * JR-06/08/2013-Ajout des criteres dans fichier exporte.
  * JR-22/05/2013-Creation du squelette.
  *
  */
@@ -104,9 +105,9 @@ function exec_adh_auteurs_export(){
 	
 		echo debut_gauche('',true);
 	
-		/*$raccourcis = recuperer_fond("prive/adh_menu_tous",$contexte);
+		/*$raccourcis = recuperer_fond("prive/inclure/adh_menu_tous",$contexte);
 		echo bloc_des_raccourcis($raccourcis);*/
-		echo recuperer_fond("prive/adh_menu_tous",$contexte);
+		echo recuperer_fond("prive/inclure/adh_menu_tous",$contexte);
 	
 		echo pipeline('affiche_gauche',array('args'=>array('exec'=>'adh_auteurs_export','sql_adh_auteurs'=>$sql_adh_auteurs),'data'=>''));
 	

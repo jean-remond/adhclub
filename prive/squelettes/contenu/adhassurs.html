@@ -1,0 +1,19 @@
+[(#REM) <-- 
+ * Plugin adh_club : Adherent Club pour Spip 3.0
+ * Licence GPL (c) 2011-2015 Jean Remond
+ * ----------------------------------------------
+ * Liste des assurances identifiees pour le club
+ * Bloc de contenu
+ * ----------------------------------------------
+ * JR-17/01/2015-adaptation spip 3.0.
+ * JR-17/01/2015-Creation du squelette.
+ */
+-->] 
+
+<h1 class="grostitre"><:adhclub:assurs_titre:></h1>
+		
+<INCLURE{fond=prive/objets/liste/adhassurs, par=maj, statut=#LISTE{prepa,prop,publie,refuse}, env, ajax, sinon=<:adhclub:saison_info_aucun:>}>
+
+[(#AUTORISER{creer,adhassurs})
+	[(#URL_ECRIRE{editer_adhassur,new=oui}|icone_verticale{<:adhclub:assur_creer:>,adhassurs,new,right})]
+]

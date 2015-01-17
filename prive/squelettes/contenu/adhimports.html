@@ -1,0 +1,19 @@
+[(#REM) <-- 
+ * Plugin adh_club : Adherent Club pour Spip 3.0
+ * Licence GPL (c) 2011-2015 Jean Remond
+ * ----------------------------------------------
+ * Liste des donnees a importer pour le club
+ * Bloc de contenu
+ * ----------------------------------------------
+ * JR-17/01/2015-adaptation spip 3.0.
+ * JR-17/01/2015-Creation du squelette.
+ */
+-->] 
+
+<h1 class="grostitre"><:adhclub:saisons_titre:></h1>
+		
+<INCLURE{fond=prive/objets/liste/adhimports, par=souscription, statut=#LISTE{prepa,prop,publie,refuse}, env, ajax, sinon=<:adhclub:saison_info_aucun:>}>
+
+[(#AUTORISER{creer,adhffessms})
+	[(#URL_ECRIRE{editer_adhffessm,new=oui}|icone_verticale{<:adhclub:ffessm_creer:>,adhffessms,new,right})]
+]

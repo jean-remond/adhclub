@@ -32,7 +32,7 @@ if (!autoriser('administrer','adhcoti',0)) {
 	echo propre(_T('adhclub:coti_info_page'));	
 	echo fin_boite_info(true);
 	
-	$icone = _DIR_PLUGIN_ADHCLUB."img_pack/adhclub-24.gif";
+	$icone = _DIR_PLUGIN_ADHCLUB."img_pack/adhclub_24.gif";
 	$raccourcis = icone_horizontale(_T('adhclub:adhclub_icone_menu'), generer_url_ecrire("adh_tous"), $icone, "", false);
 	$icone = _DIR_PLUGIN_ADHCLUB."img_pack/adh_saison_24.gif";
 	$raccourcis .= icone_horizontale(_T('adhclub:saison_icone_menu'), generer_url_ecrire("adh_saison"), $icone, "", false);

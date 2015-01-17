@@ -16,6 +16,7 @@
 
 	<licence>GNU/GLP</licence>
 
+	<pipeline nom="declarer_tables_interfaces" inclure="base/adhclub.php" />
 	<pipeline nom="declarer_tables_objets_sql" inclure="base/adhclub.php" />
 
 	<!-- Les ajouts du plugin -->
@@ -24,8 +25,10 @@
 		inclure="inc/adh_niveau.php"
 	/>
 	<pipeline nom="affiche_milieu" inclure="adhclub_pipelines.php" />
+    <pipeline nom="affiche_enfants" inclure="adhclub_pipelines.php" />
+    
 	<pipeline nom="autoriser" inclure="inc/adhclub_autoriser.php" />
-
+    
 	<!-- avec plugin champs extras -->
 	<pipeline nom="declarer_champs_extras" inclure="base/adhclub.php" />
 	
@@ -44,11 +47,11 @@
 	<necessite nom="verifier" />
 	<necessite nom="yaml" />
 
-    <menu nom="adh_tous" 
-    	action="adh_tous"
+	<menu nom="inscription3_adherents" titre="inscription3:icone_afficher_utilisateurs" parent="menu_activite" icone="images/inscription3-16.png" action="inscription3_adherents" />
+    <menu nom="adh_adherents" 
+    	action="adh_adherents"
     	titre="adhclub:adhclub_titre" 
     	parent="menu_edition" 
-    	icone="images/adhclub_24.png
-    	" />
+    	icone="images/adhclub_24.png" />
      
 </paquet>

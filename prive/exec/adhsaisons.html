@@ -1,0 +1,34 @@
+[(#REM) <--
+/**
+ * Plugin adhclub : Adherent Club pour Spip 3.0
+ * Licence GPL (c) 2011-2015 Jean Remond
+ * ----------------------------------------------
+ * D'apres http://programmer.spip.net/Contenu-d-un-fichier-exec,186
+ * ----------------------------------------------
+ * JR-17/01/2015-Adaptation spip 3.0.
+ * JR-17/01/2015-Creation du squelette.
+ */
+-->] 
+<BOUCLE_autoriser(CONDITION){si #AUTORISER{voir, adhsaisons}}>
+
+ <!--#hierarchie-->
+ [(#REM)
+ <ul id="chemin">
+ <li>Une liste de pages constituant un chemin</li>
+ </ul>
+ ]
+ <!--/#hierarchie-->
+     
+<INCLURE{fond=prive/squelettes/contenu/adhsaisons}>
+   
+<!--#navigation-->
+<div class='cadre-info'>
+	<INCLURE{fond=prive/squelettes/navigation/adhsaisons}>
+</div>
+<!--/#navigation-->
+     
+<!--#extra-->
+	[(#REM) Du contenu en plus dans la colonne extra. ]
+<!--/#extra-->
+
+</BOUCLE_autoriser>

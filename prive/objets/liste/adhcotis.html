@@ -1,0 +1,51 @@
+[(#REM) <-- 
+ * Plugin adh_club : Adherent Club pour Spip 3.0
+ * Licence GPL (c) 2011-2015 Jean Remond
+ ----------------------------------------------
+Liste des cotisations du club associables à l'adherent
+----------------------------------------------
+JR-17/01/2015-adaptation spip 3.0.
+JR-17/01/2015-Creation du squelette.
+-->] 
+[(#SET{defaut_tri,#ARRAY{
+ 	titre,1,
+ 	descriptif,1,
+ 	maj,#ENV{date_sens,-1},
+    id_saison,1,
+    id_coti,1,
+    }}
+)]
+<B_liste_cotis>
+    #ANCRE_PAGINATION
+    <div class="liste-objets cotis">
+		<table class='spip liste'>
+		[<caption><strong class="caption">(#ENV*{titre,#GRAND_TOTAL|singulier_ou_pluriel{adhclub:coti_info_1,adhclub:cotis_info_nb}})</strong></caption>]
+		<thead>
+		<tr class='first_row'>
+			<th class='picto' scope='col'></th>
+			<th class='titre' scope='col'>[(#TRI{titre,<:adhclub:label_titre:>,ajax})]</th>
+			<th class='descriptif' scope='col'>[(#TRI{descriptif,<:adhclub:label_desc:>,ajax})]</th> 
+			<th class='maj' scope='col'>[(#TRI{maj,<:date:>,ajax})]</th>
+			<th class='id' scope='col'>[(#TRI{id_coti,<:info_numero_abbreviation:>,ajax})]</th>
+			<th class='id' scope='col'>[(#TRI{id_saison,<:info_numero_abbreviation:>,ajax})]</th>
+		</tr>
+		</thead>
+		<tbody>
+			<BOUCLE_liste_cotis(ADHCOTIS){id_coti?}{id_mot?}{where?}{statut?}{recherche?}{tri #ENV{par,num nom},#GET{defaut_tri}}{pagination #ENV{nb,10}}>
+			<tr class="[(#COMPTEUR_BOUCLE|alterner{row_odd,row_even})]">
+				<td class='picto'>[(#CHEMIN_IMAGE{coti-16.png}|balise_img)]</td>
+				<td class='nom principale'>[(#LOGO_COTI|image_reduire{20,26})]<a href="[(#ID_COTI|generer_url_entite{adhcoti})]" title="<:info_numero_abbreviation|attribut_html:> #ID_COTI">[(#RANG). ]#TITRE</a></td>
+				<td class='date secondaire'>[(#MAJ|affdate_jourcourt)]</td>
+				<td class='id'>[(#AUTORISER{modifier,adhcoti,#ID_COTI}|?{
+					<a href="[(#URL_ECRIRE{adhcotis_edit,id_coti=#ID_COTI})]">#ID_COTI</a>,
+					#ID_COTI
+					})]</td>
+			</tr>
+			</BOUCLE_liste_cotis>
+		</tbody>
+		</table>
+		[<p class='pagination'>(#PAGINATION{prive})</p>]
+	</div>
+	</B_liste_cotis>[
+    	<div class="liste-objets cotis caption-wrap"><strong class="caption">(#ENV*{sinon,''})</strong></div>
+    ]<//B_liste_cotis>

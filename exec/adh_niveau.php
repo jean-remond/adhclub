@@ -22,7 +22,7 @@ function exec_adh_niveau(){
 	$commencer_page = charger_fonction('commencer_page','inc');
 	echo $commencer_page(_T('adhclub:niveaux_page'));
 	
-	echo gros_titre(_T('adhclub:niveau_titre'),'',false);
+	echo gros_titre(_T('adhclub:niveaux_titre'),'',false);
 	echo debut_gauche("adhclub",true);
 	
 	echo debut_boite_info(true);

@@ -70,4 +70,31 @@ function adhclub_affiche_milieu($flux){
 	return $flux;
 }
 
+/**
+ * Ajouter les boites des niveaux, cotisations et assurances sur la fiche auteur
+ *
+ * @param string $flux
+ * @return string
+ */
+function adhclub_affiche_enfants($flux) {
+    if ($e = trouver_objet_exec($flux['args']['exec'])
+    AND $e['type'] == 'auteur'
+    AND $e['edition'] == false) {
+     
+    $id_auteur = $flux['args']['id_auteur'];
+     
+    $bouton = '';
+    if (autoriser('creerassurdans','auteur', $id_rubrique)) {
+    $bouton .= icone_verticale(_T('adhclub:icone_creer_chat'), generer_url_ecrire('chat_edit', "id_rubrique=$id_rubrique"), "chat-24.png", "new", 'right')
+    . "<br class='nettoyeur' />";
+    }
+     
+    $lister_objets = charger_fonction('lister_objets','inc');	
+    $flux['data'] .= $lister_objets('chats', array('titre'=>_T('chat:titre_chats_rubrique') , 'id_rubrique'=>$id_rubrique, 'par'=>'nom'));
+    $flux['data'] .= $bouton;
+     
+    }
+    return $flux;
+}
+
 ?>

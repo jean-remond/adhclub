@@ -1,0 +1,54 @@
+[(#REM) <-- 
+ * Plugin adh_club : Adherent Club pour Spip 3.0
+ * Licence GPL (c) 2011-2015 Jean Remond
+ * ----------------------------------------------
+ * Liste des saisons identifiees pour le club
+ * Bloc de contenu
+ * ----------------------------------------------
+ * JR-17/01/2015-Creation du squelette pour spip 3.0.
+ */
+-->] 
+[(#SET{defaut_tri,#ARRAY{
+	titre,1,
+	descriptif,1,
+	saison_deb,#ENV{date_sens,-1},
+	id_saison,1,
+	points,-1
+	}}
+)]
+<B_liste_saisons>
+#ANCRE_PAGINATION
+<div class="liste-objets saisons">
+<table class='spip liste'>
+	[<caption><strong class="caption">(#ENV*{titre,#GRAND_TOTAL|singulier_ou_pluriel{adhclub:saison_info_1,adhclub:_saisons_info_nb}})</strong></caption>]
+	<thead>
+		<tr class='first_row'>
+			<th class='picto' scope='col'></th>
+			<th class='statut' scope='col'>[(#TRI{statut,<span title="<:lien_trier_statut|attribut_html:>">#</span>,ajax})]</th> 
+			<th class='titre' scope='col'>[(#TRI{titre,<:adhclub:label_titre:>,ajax})]</th>
+			<th class='descriptif' scope='col'>[(#TRI{descriptif,<:adhclub:label_desc:>,ajax})]</th> 
+			<th class='date' scope='col'>[(#TRI{saison_deb,<:date:>,ajax})]</th> 
+			<th class='id' scope='col'>[(#TRI{id_saison,<:info_numero_abbreviation:>,ajax})]</th>
+		</tr>
+	</thead>
+	<tbody>
+		<BOUCLE_liste_saisons(ADHSAISONS){where?}{statut?}{recherche?}{tri #ENV{par,num titre},#GET{defaut_tri}}{!par saison_deb}{!par id_saison}{pagination #ENV{nb,10}}>
+			<tr class='[(#COMPTEUR_BOUCLE|alterner{row_odd,row_even})]'>
+				<td class='picto'>[(#CHEMIN_IMAGE{adhsaison-24.png}|balise_img)]</td>
+				<td class='statut'>[(#STATUT|puce_statut{adhsaisons,#ID_SAISON})]</td> 
+				<td class='titre principale'>[(#LOGO_ADHSAISONS|image_reduire{20,26})]<a href="[(#ID_SAISON|generer_url_entite{adhsaison})]" title="<:info_numero_abbreviation|attribut_html:> #ID_SAISON">[(#RANG). ]#TITRE</a></td>
+				<td class='descriptif'>#DESCRIPTIF</td> 
+				<td class='date secondaire'>[(#SAISON_DEB|affdate_jourcourt)]</td> 
+				<td class='id'>[(#AUTORISER{modifier,adhsaisons,#ID_SAISON}|?{
+					<a href="[(#URL_ECRIRE{editer_adhsaison,id_saison=#ID_SAISON})]">#ID_SAISON</a>,
+					#ID_SAISON
+				})]</td>
+			</tr>
+		</BOUCLE_liste_saisons>
+	</tbody>
+</table>
+[<p class='pagination'>(#PAGINATION{prive})</p>]
+</div>
+</B_liste_saisons>[
+<div class="liste-objets saisons caption-wrap"><strong class="caption">(#ENV*{sinon,''})</strong></div>
+]<//B_liste_saisons>

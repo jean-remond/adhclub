@@ -1,0 +1,26 @@
+<div class='cadre cadre-e raccourcis cadre_padding'>
+
+[(#BOITE_OUVRIR{'','raccourcis'})]
+	<ul>
+	
+		[(#ENV{choix}|!={menu_tous}|oui)
+			<li><a href="[(#URL_ECRIRE{adh_adherents})]"><img src="#CHEMIN{'img_pack/adhclub_24.gif'}" alt="<:adhclub:adhclub_icone_menu:>" /> <:adhclub:adhclub_icone_menu:></a></li>
+		]
+		[(#ENV{choix}|!={saison}|oui)
+		<li><a href="[(#URL_ECRIRE{adhsaisons})]"><img src="#CHEMIN{'img_pack/adh_saison_24.gif'}" alt="<:adhclub:saison_icone_menu:>" /> <:adhclub:saison_icone_menu:></a></li>
+		]
+		[(#ENV{choix}|!={assur}|oui)
+		<li><a href="[(#URL_ECRIRE{adhassurs})]"><img src="#CHEMIN{'img_pack/adh_assur_24.gif'}" alt="<:adhclub:assur_icone_menu:>" /> <:adhclub:assur_icone_menu:></a></li>
+		]
+		[(#ENV{choix}|!={coti}|oui)
+		<li><a href="[(#URL_ECRIRE{adhcotis})]"><img src="#CHEMIN{'img_pack/adh_coti_24.gif'}" alt="<:adhclub:coti_icone_menu:>" /> <:adhclub:coti_icone_menu:></a></li>
+		]
+		[(#ENV{choix}|!={niveau}|oui)
+		<li><a href="[(#URL_ECRIRE{adhnivs})]"><img src="#CHEMIN{'img_pack/adh_niveau_24.gif'}" alt="<:adhclub:niveau_icone_menu:>" /> <:adhclub:niveau_icone_menu:></a></li>
+		]
+		[(#ENV{choix}|!={import}|oui)
+		<li><a href="[(#URL_ECRIRE{adhimports})]"><img src="#CHEMIN{'img_pack/adhclub_24.gif'}" alt="<:adhclub:ffessm_icone_menu:>" /> <:adhclub:ffessm_icone_menu:></a></li>
+		]
+		
+	</ul>
+#BOITE_FERMER
