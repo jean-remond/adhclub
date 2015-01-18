@@ -64,7 +64,7 @@ $tables['spip_adhassurs'] = array(
 	'champs_editables'	=> array(
 		"titre", "descriptif", "mnt_assur", "id_saison"
 		),
-	'icone_objet'			=> "images/adhclub_24.gif",
+	'icone_objet'			=> "images/adhclub-24.gif",
 	'texte_objet'			=> "adhclub:assur_titre",
 	'texte_objets'			=> "adhclub:assurs_titre",
 	'texte_ajouter'			=> 'adhclub:assur_ajouter',

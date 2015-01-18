@@ -7,8 +7,8 @@
 <div class='cadre-formulaire-editer'>
 	<div class="entete-formulaire">
 		#ENV**{icone_retour}
-		[<h1>(#ENV{new}|intval|?{<:adhclub:assur_modifier:>,<:adhclub:assur_creer:>})</h1>]
-		[<h1>(#ENV{new}|intval|?{##ENV{new}})</h1>]
+		[<h1>(#ENV{id_assur}|intval|?{<:adhclub:assur_modifier:>,<:adhclub:assur_creer:>})</h1>]
+		[<h1>(#ENV{id_assur}|intval|?{##ENV{id_assur}})</h1>]
 	</div>
-	#FORMULAIRE_EDITER_ADHASSUR{#ENV{new},#ENV{redirect}}
+	#FORMULAIRE_EDITER_ADHASSUR{#ENV{id_assur},#ENV{redirect}}
 </div>

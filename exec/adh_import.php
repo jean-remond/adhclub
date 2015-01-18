@@ -29,7 +29,7 @@ function exec_adh_import(){
 	echo propre(_T('adhclub:ffessm_page_info'));	
 	echo fin_boite_info(true);
 	
-	$icone = _DIR_PLUGIN_ADHCLUB."img_pack/adhclub_24.gif";
+	$icone = _DIR_PLUGIN_ADHCLUB."prive/themes/spip/images/adhclub-24.png";
 	$raccourcis = icone_horizontale(_T('adhclub:adhclub_icone_menu'), generer_url_ecrire("adh_tous"), $icone, "", false);
 	$icone = _DIR_PLUGIN_ADHCLUB."img_pack/adh_saison_24.gif";
 	$raccourcis .= icone_horizontale(_T('adhclub:saison_icone_menu'), generer_url_ecrire("adh_saison"), $icone, "", false);

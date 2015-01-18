@@ -14,6 +14,6 @@
 		
 <INCLURE{fond=prive/objets/liste/adhassurs, par=maj, statut=#LISTE{prepa,prop,publie,refuse}, env, ajax, sinon=<:adhclub:saison_info_aucun:>}>
 
-[(#AUTORISER{creer,adhassurs})
-	[(#URL_ECRIRE{editer_adhassur,new=oui}|icone_verticale{<:adhclub:assur_creer:>,adhassurs,new,right})]
+[(#AUTORISER{creer,adhassur})
+	[(#URL_ECRIRE{editer_assur,new=oui}|icone_verticale{<:adhclub:assur_creer:>,#CHEMIN_IMAGE{adhassur-24.png},new,right})]
 ]

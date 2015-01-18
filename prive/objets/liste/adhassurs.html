@@ -2,7 +2,7 @@
  * Plugin adh_club : Adherent Club pour Spip 3.0
  * Licence GPL (c) 2011-2015 Jean Remond
  ----------------------------------------------
-Liste des assurances du club associables à l'adherent
+Liste des assurances du club associables aux adherents
 ----------------------------------------------
 JR-17/01/2015-adaptation spip 3.0.
 JR-17/01/2015-Creation du squelette.
@@ -33,11 +33,11 @@ JR-17/01/2015-Creation du squelette.
 		<tbody>
 			<BOUCLE_liste_assurs(ADHASSURS){id_assur?}{id_mot?}{where?}{statut?}{recherche?}{tri #ENV{par,num nom},#GET{defaut_tri}}{pagination #ENV{nb,10}}>
 			<tr class="[(#COMPTEUR_BOUCLE|alterner{row_odd,row_even})]">
-				<td class='picto'>[(#CHEMIN_IMAGE{assur-16.png}|balise_img)]</td>
+				<td class='picto'>[(#CHEMIN_IMAGE{adhassur-24.png}|balise_img)]</td>
 				<td class='nom principale'>[(#LOGO_ASSUR|image_reduire{20,26})]<a href="[(#ID_ASSUR|generer_url_entite{adhassur})]" title="<:info_numero_abbreviation|attribut_html:> #ID_ASSUR">[(#RANG). ]#TITRE</a></td>
 				<td class='date secondaire'>[(#MAJ|affdate_jourcourt)]</td>
-				<td class='id'>[(#AUTORISER{modifier,adhassur,#ID_ASSUR}|?{
-					<a href="[(#URL_ECRIRE{adhassurs_edit,id_assur=#ID_ASSUR})]">#ID_ASSUR</a>,
+				<td class='id'>[(#AUTORISER{modifier,adhassurs,#ID_ASSUR}|?{
+					<a href="[(#URL_ECRIRE{editer_adhassur,id_assur=#ID_ASSUR})]">#ID_ASSUR</a>,
 					#ID_ASSUR
 					})]</td>
 			</tr>

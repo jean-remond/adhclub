@@ -32,6 +32,38 @@ function autoriser_auteur_administrer($faire,$quoi,$id,$qui,$opts){
 
 
 /**
+ * Autorisation pour les assurances
+ *
+ * @param unknown_type $faire
+ * @param unknown_type $quoi
+ * @param unknown_type $id
+ * @param unknown_type $qui
+ * @param unknown_type $opts
+ * @return unknown
+ */
+function autoriser_adhassur_voir($faire,$quoi,$id,$qui,$opts){
+	if ($qui['statut']=='0minirezo')
+		return true;
+	return false;
+}
+function autoriser_adhassur_creer($faire,$quoi,$id,$qui,$opts){
+	if ($qui['statut']=='0minirezo')
+		return true;
+	return false;
+}
+function autoriser_adhassur_modifier($faire,$quoi,$id,$qui,$opts){
+	if ($qui['statut']=='0minirezo')
+		return true;
+	return false;
+}
+function autoriser_adhassur_retirer($faire,$quoi,$id,$qui,$opts){
+	if ($qui['statut']=='0minirezo')
+		return true;
+	return false;
+}
+
+
+/**
  * Autorisation a administrer les assurances
  *
  * @param unknown_type $faire

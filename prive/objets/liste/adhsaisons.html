@@ -32,7 +32,7 @@
 		<tbody>
 			<BOUCLE_liste_saisons(ADHSAISONS){id_saison?}{id_mot?}{where?}{statut?}{recherche?}{tri #ENV{par,num titre},#GET{defaut_tri}}{pagination #ENV{nb,10}}>
 			<tr class="[(#COMPTEUR_BOUCLE|alterner{row_odd,row_even})]">
-				<td class='picto'>[(#CHEMIN_IMAGE{saison-16.png}|balise_img)]</td>
+				<td class='picto'>[(#CHEMIN_IMAGE{adhsaison-24.png}|balise_img)]</td>
 				<td class='nom principale'>[(#LOGO_SAISON|image_reduire{20,26})]<a href="[(#ID_SAISON|generer_url_entite{adhsaison})]" title="<:info_numero_abbreviation|attribut_html:> #ID_ASSUR">[(#RANG). ]#TITRE</a></td>
 				<td class='nom principale'>#DESCRIPTIF</td>
 				<td class='date secondaire'>[(#SAISON_DEB|affdate_jourcourt)]</td>

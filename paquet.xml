@@ -4,7 +4,7 @@
 	version="3.0.2"
 	etat="dev"
 	compatibilite="[3.0.17;["
-	logo="prive/themes/spip/images/adhclub_24.png"
+	logo="prive/themes/spip/images/adhclub-24.png"
 	schema="201501131930"
 	>	
 	<!-- documentation="pas faite" -->
@@ -47,11 +47,10 @@
 	<necessite nom="verifier" />
 	<necessite nom="yaml" />
 
-	<menu nom="inscription3_adherents" titre="inscription3:icone_afficher_utilisateurs" parent="menu_activite" icone="images/inscription3-16.png" action="inscription3_adherents" />
     <menu nom="adh_adherents" 
     	action="adh_adherents"
     	titre="adhclub:adhclub_titre" 
     	parent="menu_edition" 
-    	icone="images/adhclub_24.png" />
+    	icone="images/adhclub-24.png" />
      
 </paquet>

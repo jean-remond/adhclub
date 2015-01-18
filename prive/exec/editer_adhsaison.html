@@ -8,8 +8,8 @@
 <div class='cadre-formulaire-editer'>
 	<div class="entete-formulaire">
 		#ENV**{icone_retour}
-		[<h1>(#ENV{new}|intval|?{<:adhclub:saison_modifier:>,<:adhclub:saison_creer:>})</h1>]
-		[<h1>(#ENV{new}|intval|?{##ENV{new}})</h1>]
+		[<h1>(#ENV{id_saison}|intval|?{<:adhclub:saison_modifier:>,<:adhclub:saison_creer:>})</h1>]
+		[<h1>(#ENV{id_saison}|intval|?{##ENV{id_saison}})</h1>]
 	</div>
-	#FORMULAIRE_EDITER_ADHSAISON{#ENV{new},#ENV{redirect}}
+	#FORMULAIRE_EDITER_ADHSAISON{#ENV{id_saison},#ENV{redirect}}
 </div>

@@ -14,7 +14,7 @@ if (!defined("_ECRIRE_INC_VERSION")) return;
  * @param unknown_type $boutons_admin
  * @return unknown
  */
-function adhclub_ajouter_boutons($boutons_admin) {
+/*function adhclub_ajouter_boutons($boutons_admin) {
 
 // si on est admin des adherents ET plugin bando non actif => ajout du bouton de gestion
 	if (autoriser('administrer','adh_tous')AND
@@ -34,7 +34,7 @@ function adhclub_ajouter_boutons($boutons_admin) {
 
 return $boutons_admin;
 }
-
+*/
 
 /**
  * Ajouter les boites des niveaux, cotisations et assurances sur la fiche auteur
