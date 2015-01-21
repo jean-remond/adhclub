@@ -12,7 +12,7 @@
 
 <h1 class="grostitre"><:adhclub:cotis_titre:></h1>
 		
-<INCLURE{fond=prive/objets/liste/adhcotis, par=maj, statut=#LISTE{prepa,prop,publie,refuse}, env, ajax, sinon=<:adhclub:saison_info_aucun:>}>
+<INCLURE{fond=prive/objets/liste/adhcotis, par=maj, statut=#LISTE{prepa,prop,publie,refuse}, env, ajax, sinon=<:adhsaison:info_aucun_adhsaison:>}>
 
 [(#AUTORISER{creer,adhcotis})
 	[(#URL_ECRIRE{editer_adhcoti,new=oui}|icone_verticale{<:adhclub:coti_creer:>,#CHEMIN_IMAGE{adhcoti-24.png},new,right})]

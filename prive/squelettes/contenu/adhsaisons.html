@@ -1,4 +1,5 @@
 [(#REM) <-- 
+/**
  * Plugin adh_club : Adherent Club pour Spip 3.0
  * Licence GPL (c) 2011-2015 Jean Remond
  * ----------------------------------------------
@@ -10,10 +11,10 @@
  */
 -->] 
 
-<h1 class="grostitre"><:adhclub:saisons_titre:></h1>
+<h1 class="grostitre"><:adhsaison:titre_adhsaisons:></h1>
 		
-<INCLURE{fond=prive/objets/liste/adhsaisons, par=saison_deb, statut=#LISTE{prepa,prop,publie,refuse}, env, ajax, sinon=<:adhclub:saison_info_aucun:>}>
+<INCLURE{fond=prive/objets/liste/adhsaisons, par=saison_deb, statut=#LISTE{prepa,prop,publie,refuse}, env, ajax, sinon=<:adhsaison:info_aucun_adhsaison:>}>
 
-[(#AUTORISER{creer,adhsaisons})
-	[(#URL_ECRIRE{editer_adhsaison,new=oui}|icone_verticale{<:adhclub:saison_creer:>,#CHEMIN_IMAGE{adhsaison-24.png},new,right})]
+[(#AUTORISER{modifier,adhsaison})
+	[(#URL_ECRIRE{editer_adhsaison,new=oui}|icone_verticale{<:adhsaison:icone_creer_adhsaison:>,#CHEMIN_IMAGE{adhsaison-24.png},new,right})]
 ]

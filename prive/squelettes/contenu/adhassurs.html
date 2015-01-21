@@ -12,8 +12,8 @@
 
 <h1 class="grostitre"><:adhclub:assurs_titre:></h1>
 		
-<INCLURE{fond=prive/objets/liste/adhassurs, par=maj, statut=#LISTE{prepa,prop,publie,refuse}, env, ajax, sinon=<:adhclub:saison_info_aucun:>}>
+<INCLURE{fond=prive/objets/liste/adhassurs, par=maj, statut=#LISTE{prepa,prop,publie,refuse}, env, ajax, sinon=<:adhsaison:info_aucun_adhsaison:>}>
 
-[(#AUTORISER{creer,adhassur})
+[(#AUTORISER{modifier,adhassur})
 	[(#URL_ECRIRE{editer_assur,new=oui}|icone_verticale{<:adhclub:assur_creer:>,#CHEMIN_IMAGE{adhassur-24.png},new,right})]
 ]

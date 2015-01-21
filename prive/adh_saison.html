@@ -21,7 +21,7 @@
             <span class='descriptif'>#DESCRIPTIF</span>
             <p class='actions'>
                 [(#AUTORISER{modifier,adhsaison,#ID_SAISON})	<span class='lien_modifier'>&#91;<a href='[(#URL_ECRIRE{saisons_edit,id_saison=#ID_SAISON}|parametre_url{retour,#SELF})]'><:bouton_modifier:></a>&#93;</span>]
-                [(#AUTORISER{supprimer,adhsaison,#ID_SAISON})<span class='lien_supprimer'>&#91;<a href='#URL_ACTION_AUTEUR{supprimer_adhsaison,#ID_SAISON,#SELF}' onclick="return confirm('<:adhclub:saison_confirmer_supprimer:>');"><:adhclub:saison_icone_supprimer:></a>&#93;</span>]
+                [(#AUTORISER{supprimer,adhsaison,#ID_SAISON})<span class='lien_supprimer'>&#91;<a href='#URL_ACTION_AUTEUR{supprimer_adhsaison,#ID_SAISON,#SELF}' onclick="return confirm('<:adhsaison:confirmer_supprimer_saison:>');"><:adhsaison:icone_supprimer_adhsaison:></a>&#93;</span>]
             </p>
         </li>
 
@@ -31,5 +31,5 @@
 
 </B_saisons>
 
-    <:adhclub:info_saison_aucun:>
+    <:adhsaison:saison_info_aucun:>
 <//B_saisons>

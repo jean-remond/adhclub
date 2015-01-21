@@ -1,4 +1,5 @@
 [(#REM) <-- 
+/**
  * Plugin adh_club : Adherent Club pour Spip 3.0
  * Licence GPL (c) 2011-2015 Jean Remond
  * ----------------------------------------------
@@ -10,10 +11,10 @@
  */
 -->] 
 
-<h1 class="grostitre"><:adhclub:niveaux_titre:></h1>
+<h1 class="grostitre"><:adhniv:titre_adhnivs:></h1>
 		
-<INCLURE{fond=prive/objets/liste/adhnivs, par=maj, statut=#LISTE{prepa,prop,publie,refuse}, env, ajax, sinon=<:adhclub:saison_info_aucun:>}>
+<INCLURE{fond=prive/objets/liste/adhnivs, par=maj, statut=#LISTE{prepa,prop,publie,refuse}, env, ajax, sinon=<:adhniv:info_aucun_adhniv:>}>
 
-[(#AUTORISER{creer,adhnivs})
-	[(#URL_ECRIRE{editer_adhniv,new=oui}|icone_verticale{<:adhclub:niveau_creer:>,#CHEMIN_IMAGE{adhniveau-24.png},new,right})]
+[(#AUTORISER{modifier,adhniv})
+	[(#URL_ECRIRE{editer_adhniv,new=oui}|icone_verticale{<:adhniv:icone_creer_adhniv:>,#CHEMIN_IMAGE{adhniveau-24.png},new,right})]
 ]

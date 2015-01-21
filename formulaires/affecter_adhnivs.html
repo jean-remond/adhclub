@@ -18,14 +18,14 @@
 		<input name='id_auteur' value='#ID_AUTEUR' type='hidden' />
 	  <ul> 
 	    <li class="editer_adhniv[ (#ENV**{erreurs}|table_valeur{niveau}|oui)erreur]">
-		<label for="niveau"><:adhclub:niveau_titre_ajouter:></label>[
+		<label for="niveau"><:adhniv:titre_ajouter_adhniv:></label>[
 		<span class='erreur_message'>(#ENV**{erreurs}|table_valeur{niveau})</span>
 		](#INCLURE{fond=inc/inc-select_adhnivs}{name=niveau}{id=niveau}{id_auteur})
 	    </li>
 	  </ul>
 	  [(#REM) ajouter les saisies supplementaires : extra et autre, a cet endroit ]
 	  <!--extra-->
-	  <p class='boutons'><input type='submit' class='submit' value='<:adhclub:niveau_bouton_ajouter:>' /></p>
+	  <p class='boutons'><input type='submit' class='submit' value='<:adhniv:bouton_ajouter_adhniv:>' /></p>
 	</div></form>]
 	]
 </div>

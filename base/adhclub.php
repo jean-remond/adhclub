@@ -64,7 +64,7 @@ $tables['spip_adhassurs'] = array(
 	'champs_editables'	=> array(
 		"titre", "descriptif", "mnt_assur", "id_saison"
 		),
-	'icone_objet'			=> "images/adhclub-24.gif",
+	'icone_objet'			=> "adhassur-24.png",
 	'texte_objet'			=> "adhclub:assur_titre",
 	'texte_objets'			=> "adhclub:assurs_titre",
 	'texte_ajouter'			=> 'adhclub:assur_ajouter',
@@ -124,10 +124,10 @@ $tables['spip_adhcotis'] = array(
 	'champs_editables'	=> array(
 		"titre", "descriptif", "mnt_cotis", "id_saison", "complement"
 		),
-	'icone_objet'	=> "",
-	'texte_objet'	=> "adhclub:coti_titre",
-	'texte_objets'	=> "adhclub:cotis_titre",
-	'info_aucun_objet'	=> "adhclub:coti_aucun",
+	'icone_objet'			=> "adhcoti-24.png",
+	'texte_objet'			=> "adhclub:coti_titre",
+	'texte_objets'			=> "adhclub:cotis_titre",
+	'info_aucun_objet'		=> "adhclub:coti_aucun",
 	'texte_creer_associer'	=> 'adhclub:coti_creer_associer',
 	'info_1_objet'			=> 'adhclub:coti_info_1',
 	'info_nb_objets'		=> 'adhclub:cotis_info_nb',
@@ -186,15 +186,15 @@ $tables['spip_adhnivs'] = array(
 	'champs_editables'	=> array(
 		"titre", "descriptif", "techbase", "encadrant", "id_trombi", "rangtrombi"
 		),
-	'icone_objet'	=> "",
-	'texte_objet'	=> "adhclub:niveau_titre",
-	'texte_objets'	=> "adhclub:niveaux_titre",
-	'info_aucun_objet'	=> "adhclub:niveau_aucun",
-	'texte_creer_associer'	=> 'adhclub:niveau_creer_associer',
-	'info_1_objet'			=> 'adhclub:niveau_info_1',
-	'info_nb_objets'		=> 'adhclub:niveaux_info_nb',
-	'url_voir'				=> 'editer_niveau',
-	'url_edit'				=> 'editer_niveau',
+	'icone_objet'			=> "adhniveau-24.png",
+	'texte_objet'			=> "adhniv:titre_adhniv",
+	'texte_objets'			=> "adhniv:titre_adhnivs",
+	'info_aucun_objet'		=> "adhniv:info_aucun_adhniv",
+	'texte_creer_associer'	=> 'adhniv:creer_niveau_associer',
+	'info_1_objet'			=> 'adhniv:info_1_adhniv',
+	'info_nb_objets'		=> 'adhniv:info_nb_adhnivs',
+	'url_voir'				=> 'editer_adhniv',
+	'url_edit'				=> 'editer_adhniv',
 	'page'					=> false,
 	'statut_images' => array(
 		'prepa'=>'puce-preparer-8.png',
@@ -217,7 +217,7 @@ $tables['spip_adhnivs'] = array(
 		'refuse'=>'adhclub:texte_statut_refuse',
 		'poubelle' => 'texte_statut_poubelle',
 		),
-	'texte_changer_statut' => 'adhclub:niveau_texte_changer_statut',
+	'texte_changer_statut' => 'adhniv:texte_changer_statut_adhniv',
 	);
 	
 //-- Saisons
@@ -243,13 +243,13 @@ $tables['spip_adhsaisons'] = array(
 	'champs_editables'	=> array(
 		"titre", "descriptif", "encours", "saison_deb"
 		),
-	'icone_objet'	=> "adhsaison-24.png",
-	'texte_objet'	=> "adhclub:saison_titre",
-	'texte_objets'	=> "adhclub:saisons_titre",
-	'info_aucun_objet'	=> "adhclub:saison_aucun",
-	'texte_creer_associer'	=> 'adhclub:saison_creer_associer',
-	'info_1_objet'			=> 'adhclub:saison_info_1',
-	'info_nb_objets'		=> 'adhclub:saisons_info_nb',
+	'icone_objet'			=> "adhsaison-24.png",
+	'texte_objet'			=> "adhsaison:titre_adhsaison",
+	'texte_objets'			=> "adhsaison:titre_adhsaisons",
+	'info_aucun_objet'		=> "adhsaison:info_aucun_adhsaison",
+	'texte_creer_associer'	=> 'adhsaison:saison_creer_associer',
+	'info_1_objet'			=> 'adhsaison:info_1_adhsaison',
+	'info_nb_objets'		=> 'adhsaison:info_nb_saisons',
 	'url_voir'				=> 'editer_adhsaison',
 	'url_edit'				=> 'editer_adhsaison',
 	'page'					=> false,
@@ -274,7 +274,7 @@ $tables['spip_adhsaisons'] = array(
 		'refuse'=>'adhclub:texte_statut_refuse',
 		'poubelle' => 'texte_statut_poubelle',
 		),
-	'texte_changer_statut' => 'adhclub:saison_texte_changer_statut',
+	'texte_changer_statut' => 'adhsaison:texte_changer_statut_adhsaison',
 	);
 
 //-- Table de travail

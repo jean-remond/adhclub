@@ -32,19 +32,19 @@ function exec_adh_import(){
 	$icone = _DIR_PLUGIN_ADHCLUB."prive/themes/spip/images/adhclub-24.png";
 	$raccourcis = icone_horizontale(_T('adhclub:adhclub_icone_menu'), generer_url_ecrire("adh_tous"), $icone, "", false);
 	$icone = _DIR_PLUGIN_ADHCLUB."img_pack/adh_saison_24.gif";
-	$raccourcis .= icone_horizontale(_T('adhclub:saison_icone_menu'), generer_url_ecrire("adh_saison"), $icone, "", false);
+	$raccourcis .= icone_horizontale(_T('adhclub:icone_menu_adhsaison'), generer_url_ecrire("adh_saison"), $icone, "", false);
 	$icone = _DIR_PLUGIN_ADHCLUB."img_pack/adh_assur_24.gif";
 	$raccourcis .= icone_horizontale(_T('adhclub:assur_icone_menu'), generer_url_ecrire("adh_assur"), $icone, "", false);
 	$icone = _DIR_PLUGIN_ADHCLUB."img_pack/adh_coti_24.gif";
 	$raccourcis .= icone_horizontale(_T('adhclub:coti_icone_menu'), generer_url_ecrire("adh_coti"), $icone, "", false);
 	$icone = _DIR_PLUGIN_ADHCLUB."img_pack/adh_niveau_24.gif";
-	$raccourcis .= icone_horizontale(_T('adhclub:niveau_icone_menu'), generer_url_ecrire("adh_niveau"), $icone, "", false);
+	$raccourcis .= icone_horizontale(_T('adhniv:icone_menu_adhniv'), generer_url_ecrire("adh_niveau"), $icone, "", false);
 	echo bloc_des_raccourcis($raccourcis);
 	
 	echo debut_droite("adh_club",true);
 	echo recuperer_fond('public/adh_ffessm',$_GET);
 	/*if (autoriser('modifier','auteur'))
-		echo "<div>".icone_inline(_T('adhclub:niveau_creer'),
+		echo "<div>".icone_inline(_T('adhniv:icone_creer_adhniv'),
 		  generer_url_ecrire("niveaux_edit","new=oui"),
 		  _DIR_PLUGIN_ADHCLUB."/img_pack/adh_niveau_24.gif",
 		  "creer.gif",'right')."</div>";*/

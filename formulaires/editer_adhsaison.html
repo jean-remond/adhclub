@@ -1,12 +1,12 @@
-[(#REM) <--
-----------------------------------------------
- * Plugin adh_club : Adherent Club pour Spip 2.1
- * Licence GPL (c) 2011-2012 Jean Remond
-----------------------------------------------
-Formulaire de gestion des saisons.
-
-----------------------------------------------
-JR-24/12/2011-Creation du formulaire.
+[(#REM) <-- 
+ * Plugin adh_club : Adherent Club pour Spip 3.0
+ * Licence GPL (c) 2011-2015 Jean Remond
+ * ----------------------------------------------
+ * Formulaire de gestion des saisons.
+ * ----------------------------------------------
+ * JR-21/01/2015-adaptation spip 3.0.
+ * JR-24/12/2011-Creation du formulaire.
+ */
 -->] 
 
 <div class="formulaire_spip formulaire_editer formulaire_editer_adhsaison formulaire_editer_adhsaison-#ENV{id_saison,nouveau}">
@@ -21,9 +21,9 @@ JR-24/12/2011-Creation du formulaire.
 	  <ul>
 
 		<li class="editer_titre obligatoire[ (#ENV**{erreurs}|table_valeur{titre}|oui)erreur]">
-		<label for="titre"><:adhclub:saison_titre:></label>
+		<label for="titre"><:adhsaison:titre_adhsaison:></label>
 			[<span class='erreur_message'>(#ENV**{erreurs}|table_valeur{titre})</span>]
-			<p class='explication'><:adhclub:saison_titre_exp:></p>
+			<p class='explication'><:adhsaison:titre_adhsaison_exp:></p>
 			<input type='text' class='text' name='titre' id='titre' value="#ENV{titre}" />
 		</li>
 
@@ -36,18 +36,22 @@ JR-24/12/2011-Creation du formulaire.
 		<li class='editer_encours'>
 			<div class='choix'>
 				<input type='checkbox' name='encours' value='oui' id='encours'[ (#ENCOURS|=={oui}|oui)checked="checked"] />
-				<label for='encours'><:adhclub:saison_encours:></label>
+				<label for='encours'><:adhsaison:saison_encours:></label>
 			</div>
 	    </li>
 
 		[(#SAISIE{date_jour_mois_annee, saison_deb, obligatoire=oui,
-			label=<:adhclub:saison_deb:>
+			label=<:adhsaison:saison_deb:>
 		})]
 
 	  </ul>
 	  [(#REM) ajouter les saisies supplementaires : extra et autre, a cet endroit ]
 	  <!--extra-->
-	  <p class='boutons'><input type='submit' class='submit' value='[(#ID_SAISON|intval|?{<:bouton_enregistrer:>,<:bouton_ajouter:>})]' /></p>
+	  
+	  [(#AUTORISER{modifier,adhsaison,#ID_SAISON}|?{
+		<p class='boutons'><input type='submit' class='submit' 
+	  		value='[(#ID_SAISON|intval|?{<:bouton_enregistrer:>,<:bouton_ajouter:>})]' /></p>
+	  })]
 	</div></form>
 	]
 </div>

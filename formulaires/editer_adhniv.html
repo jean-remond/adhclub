@@ -1,3 +1,13 @@
+[(#REM) <-- 
+ * Plugin adh_club : Adherent Club pour Spip 3.0
+ * Licence GPL (c) 2011-2015 Jean Remond
+ * ----------------------------------------------
+ * Formulaire de gestion des niveaux de competence.
+ * ----------------------------------------------
+ * JR-21/01/2015-adaptation spip 3.0.
+ * JR-24/12/2011-Creation du formulaire.
+ */
+-->] 
 <div class="formulaire_spip formulaire_editer formulaire_editer_adhniv formulaire_editer_adhniv-#ENV{id_niveau,nouveau}">
 	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV*{message_ok})</p>]
 	[<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
@@ -12,7 +22,7 @@
 
 		<li>
 		[(#SAISIE{input, titre, obligatoire=oui, 
-			label=<:adhclub:niveau_titre:>, 
+			label=<:adhniv:titre_adhniv:>, 
 			maxlength=25}
 		)]
 		</li>
@@ -45,8 +55,8 @@
 		</B_techbase>
 
 		[(#SAISIE{selection, techbase, obligatoire=oui}
-			{label=<:adhclub:niveau_techbase:>}
-			{explication=<:adhclub:niveau_techbase_exp:>}
+			{label=<:adhniv:niveau_techbase:>}
+			{explication=<:adhniv:niveau_techbase_exp:>}
 			{datas=#GET{datastechbase}}
 		)]
 	    </li>
@@ -63,8 +73,8 @@
 		</B_encad>
 
 		[(#SAISIE{selection, encadrant, obligatoire=oui}
-			{label=<:adhclub:niveau_encadrant:>}
-			{explication=<:adhclub:niveau_encadrant_exp:>}
+			{label=<:adhniv:niveau_encadrant:>}
+			{explication=<:adhniv:niveau_encadrant_exp:>}
 			{datas=#GET{datasencad}}
 		)]
 	    </li>
@@ -81,17 +91,17 @@
 		</B_trombi>
 
 		[(#SAISIE{selection, id_trombi, obligatoire=oui}
-			{label=<:adhclub:niveau_trombi:>}
-			{explication=<:adhclub:niveau_trombi_exp:>}
+			{label=<:adhniv:niveau_trombi:>}
+			{explication=<:adhniv:niveau_trombi_exp:>}
 			{datas=#GET{datastrombi}}
 		)]
 	    </li>
 
 
 		<li class="editer_rangtrombi obligatoire[ (#ENV**{erreurs}|table_valeur{rangtrombi}|oui)erreur]">
-			<label for="rangtrombi"><:adhclub:trombi_rang:></label>
+			<label for="rangtrombi"><:adhniv:trombi_rang:></label>
 			[<span class='erreur_message'>(#ENV**{erreurs}|table_valeur{rangtrombi})</span>]
-			<p class='explication'><:adhclub:trombi_rang_exp:></p>
+			<p class='explication'><:adhniv:trombi_rang_exp:></p>
 			<input type='rangtrombi' class='rangtrombi' name='rangtrombi' id='rangtrombi' value="#ENV{rangtrombi}" />
 	    </li>
 

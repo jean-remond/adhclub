@@ -19,7 +19,7 @@ onclick="return confirm('<:adhclub:auteurs_confirmer_retirer|texte_script:>');">
 	<span class='actions'><a class='ajax' 
 href='#URL_ACTION_AUTEUR{retirer_adhniv,#ID_NIVEAU|concat{'-auteur-',#ID_AUTEUR},#SELF}'
 onclick="return confirm('<:adhclub:niveau_confirmer_retirer_auteur|texte_script:>');"
-title='<:adhclub:niveau_info_retirer_auteur|attribut_html:>'><img src='#EVAL{_DIR_IMG_PACK}croix-rouge.gif' alt='<:adhclub:niveau_info_retirer|attribut_html:>' /></a></span>
+title='<:adhniv:niveau_info_retirer_auteur|attribut_html:>'><img src='#EVAL{_DIR_IMG_PACK}croix-rouge.gif' alt='<:adhniv:info_retirer_adhniv|attribut_html:>' /></a></span>
 	]
 	]
 	<a href="[(#URL_ECRIRE{auteur_infos,id_auteur=#ID_AUTEUR}|parametre_url{retour,#SELF})]"><img
@@ -28,7 +28,7 @@ title='<:adhclub:niveau_info_retirer_auteur|attribut_html:>'><img src='#EVAL{_DI
 	</BOUCLE_auteurs>
 </ul>
 </B_auteurs>
-<h3><:adhclub:niveau_info_aucun_auteur:></h3>
+<h3><:adhniv:niveau_info_aucun_auteur:></h3>
 <//B_auteurs>
 
 <B_autres_auteurs>

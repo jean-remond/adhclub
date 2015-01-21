@@ -13,9 +13,7 @@ JR-17/01/2015-Creation du squelette.
  	techbase,1,
  	encadrant,1,
  	id_trombi,1,
- 	maj,#ENV{date_sens,-1},
-    id_niveau,1,
-	points,-1
+    id_niveau,1
     }}
 )]
 <B_liste_nivs>
@@ -26,33 +24,40 @@ JR-17/01/2015-Creation du squelette.
 		<thead>
 		<tr class='first_row'>
 			<th class='picto' scope='col'></th>
-			<th class='statut' scope='col'>[(#TRI{statut,<span title="<:lien_trier_statut|attribut_html:>">#</span>,ajax})]</th> 
 			<th class='titre' scope='col'>[(#TRI{titre,<:adhclub:label_titre:>,ajax})]</th>
 			<th class='descriptif' scope='col'>[(#TRI{descriptif,<:adhclub:label_desc:>,ajax})]</th> 
 			<th class='techbase' scope='col'>[(#TRI{techbase,<:adhniv:niveau_techbase:>,ajax})]</th> 
 			<th class='encadrant' scope='col'>[(#TRI{encadrant,<:adhniv:niveau_encadrant:>,ajax})]</th> 
 			<th class='id_trombi' scope='col'>[(#TRI{id_trombi,<:adhniv:niveau_trombi:>,ajax})]</th> 
-			<th class='maj' scope='col'>[(#TRI{maj,<:date:>,ajax})]</th>
+			<th class='id'><:adhclub:action_icone:></th>
 			<th class='id' scope='col'>[(#TRI{id_niveau,<:info_numero_abbreviation:>,ajax})]</th>
 		</tr>
 		</thead>
 		<tbody>
-			<BOUCLE_liste_nivs(ADHNIVS){id_niveau?}{id_mot?}{where?}{statut?}{recherche?}{tri #ENV{par,num nom},#GET{defaut_tri}}{pagination #ENV{nb,10}}>
-			<tr class="[(#COMPTEUR_BOUCLE|alterner{row_odd,row_even})]">
-				<td class='picto'>[(#CHEMIN_IMAGE{niveau-16.png}|balise_img)]</td>
-				<td class='statut'>[(#STATUT|puce_statut{adhnivs,#ID_NIVEAU})]</td> 
-				<td class='nom principale'>[(#LOGO_NIV|image_reduire{20,26})]<a href="[(#ID_NIVEAU|generer_url_entite{adhniveau})]" title="<:info_numero_abbreviation|attribut_html:> #ID_NIVEAU">[(#RANG). ]#TITRE</a></td>
-				<td class='nom principale'>#DESCRIPTIF</td>
-				<td class='id'>#TECHBASE</td>
-				<td class='id'>#ENCADRANT</td>
-				<td class='id'>#ID_TROMBI</td>
-				<td class='date secondaire'>[(#MAJ|affdate_jourcourt)]</td>
-				<td class='id'>[(#AUTORISER{modifier,adhniv,#ID_NIVEAU}|?{
-					<a href="[(#URL_ECRIRE{adhnivss_edit,id_niveau=#ID_NIVEAU})]">#ID_NIVEAU</a>,
-					#ID_NIVEAU
-					})]</td>
-			</tr>
-			</BOUCLE_liste_nivs>
+		<BOUCLE_liste_nivs(ADHNIVS){id_niveau?}{id_mot?}{where?}{statut?}{recherche?}{tri #ENV{par,num nom},#GET{defaut_tri}}{pagination #ENV{nb,10}}>
+		<tr class="[(#COMPTEUR_BOUCLE|alterner{row_odd,row_even})]">
+			<td class='picto'>[(#CHEMIN_IMAGE{niveau-16.png}|balise_img)]</td>
+			<td class='nom principale'>[(#LOGO_NIV|image_reduire{20,26})]<a href="[(#ID_NIVEAU|generer_url_entite{adhniveau})]" title="<:info_numero_abbreviation|attribut_html:> #ID_NIVEAU">#TITRE</a></td>
+			<td class='nom principale'>#DESCRIPTIF</td>
+			<td class='id'>#TECHBASE</td>
+			<td class='id'>#ENCADRANT</td>
+			<td class='id'>#ID_TROMBI</td>
+
+			<td class='id'>
+			<p class='actions'>
+			[(#AUTORISER{supprimer,adhniv,#ID_NIVEAU}|?{
+				#BOUTON_ACTION{<:adhniv:icone_supprimer_adhniv:>, "#URL_ACTION_AUTEUR{supprimer_adhniv,#ID_NIVEAU,#SELF}", 'lien_supprimer', <:adhniv:confirmer_supprimer_adhniv:>}
+				})]
+
+			 [(#AUTORISER{modifier,adhniv,#ID_NIVEAU}|?{
+				<a href="[(#URL_ECRIRE{editer_adhniv,id_niveau=#ID_NIVEAU})]"><:adhclub:icone_modifier:></a>,
+				#ID_NIVEAU
+				})]
+			</p>
+			</td>
+			<td class='id'>#ID_NIVEAU</td>
+		</tr>
+		</BOUCLE_liste_nivs>
 		</tbody>
 		</table>
 		[<p class='pagination'>(#PAGINATION{prive})</p>]

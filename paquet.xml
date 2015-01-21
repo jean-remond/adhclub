@@ -47,6 +47,10 @@
 	<necessite nom="verifier" />
 	<necessite nom="yaml" />
 
+	<onglet nom="adh_adherents" titre="adhclub:adhclub_titre" parent="adh_adherents" action="adh_adherents" />
+	<onglet nom="adhsaisons" titre="adhsaison:icone_menu_adhsaison" parent="adh_adherents" action="adhsaisons" />
+	<onglet nom="adhnivs" titre="adhniv:icone_menu_adhniv" parent="adh_adherents" action="adhnivs" />
+
     <menu nom="adh_adherents" 
     	action="adh_adherents"
     	titre="adhclub:adhclub_titre" 

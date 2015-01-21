@@ -20,7 +20,7 @@ function action_editer_adhniv_dist(){
 
 	// si id_niveau egal 'x', il n'y a pas eut de choix 
 	//if ('x' == $arg) 
-		//return array(false,_L(':adhclub:selectionner_un_niveau:'));
+		//return array(false,_L(':adhsaison:selectionner_un_niveau:'));
 
 	// si id_niveau n'est pas un nombre, c'est une creation 
 	// mais on verifie qu'on a toutes les donnees qu'il faut.

@@ -46,34 +46,12 @@ function autoriser_adhassur_voir($faire,$quoi,$id,$qui,$opts){
 		return true;
 	return false;
 }
-function autoriser_adhassur_creer($faire,$quoi,$id,$qui,$opts){
-	if ($qui['statut']=='0minirezo')
-		return true;
-	return false;
-}
 function autoriser_adhassur_modifier($faire,$quoi,$id,$qui,$opts){
 	if ($qui['statut']=='0minirezo')
 		return true;
 	return false;
 }
 function autoriser_adhassur_retirer($faire,$quoi,$id,$qui,$opts){
-	if ($qui['statut']=='0minirezo')
-		return true;
-	return false;
-}
-
-
-/**
- * Autorisation a administrer les assurances
- *
- * @param unknown_type $faire
- * @param unknown_type $quoi
- * @param unknown_type $id
- * @param unknown_type $qui
- * @param unknown_type $opts
- * @return unknown
- */
-function autoriser_adhassur_administrer($faire,$quoi,$id,$qui,$opts){
 	if ($qui['statut']=='0minirezo')
 		return true;
 	return false;
@@ -107,14 +85,25 @@ function autoriser_adhcoti_administrer($faire,$quoi,$id,$qui,$opts){
  * @param unknown_type $opts
  * @return unknown
  */
-function autoriser_adhniv_administrer($faire,$quoi,$id,$qui,$opts){
+function autoriser_adhniv_voir($faire,$quoi,$id,$qui,$opts){
+	if ($qui['statut']=='0minirezo')
+		return true;
+	return false;
+}
+function autoriser_adhniv_modifier($faire,$quoi,$id,$qui,$opts){
+	if ($qui['statut']=='0minirezo')
+		return true;
+	return false;
+}
+function autoriser_adhniv_supprimer($faire,$quoi,$id,$qui,$opts){
 	if ($qui['statut']=='0minirezo')
 		return true;
 	return false;
 }
 
+
 /**
- * Autorisation a administrer les saisons
+ * Autorisation sur les saisons
  *
  * @param unknown_type $faire
  * @param unknown_type $quoi
@@ -123,27 +112,21 @@ function autoriser_adhniv_administrer($faire,$quoi,$id,$qui,$opts){
  * @param unknown_type $opts
  * @return unknown
  */
-function autoriser_adhsaison_administrer($faire,$quoi,$id,$qui,$opts){
-	if ($qui['statut']=='0minirezo' AND !$qui['restreint'])
+function autoriser_adhsaison_voir($faire,$quoi,$id,$qui,$opts){
+	if ($qui['statut']=='0minirezo')
 		return true;
 	return false;
 }
-
-
-/**
- * Autorisation a supprimer les saisons
- *
- * @param unknown_type $faire
- * @param unknown_type $quoi
- * @param unknown_type $id
- * @param unknown_type $qui
- * @param unknown_type $opts
- * @return unknown
- */
+function autoriser_adhsaison_modifier($faire,$quoi,$id,$qui,$opts){
+	if ($qui['statut']=='0minirezo')
+		return true;
+	return false;
+}
 function autoriser_adhsaison_supprimer($faire,$quoi,$id,$qui,$opts){
 	if ($qui['statut']=='0minirezo' AND !$qui['restreint']){
 		include_spip('base/abstract_sql');
-		if (sql_getfetsel("encours","spip_adhsaisons","id_saison=".intval($id))=="non") return true;
+		if (sql_getfetsel("encours","spip_adhsaisons","id_saison=".intval($id))=="non")
+			return true;
 	}
 	return false;
 }

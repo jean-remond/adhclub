@@ -2,12 +2,14 @@
 /**
  * Plugin adhclub : Adherent Club pour Spip 3.0
  * Licence GPL (c) 2011-2015 Jean Remond
+ *
+ *@todo-JR-20/01/2015-Ne sert pas, auto par spip.
  */
 -->] 
 <div class='cadre-formulaire-editer'>
 	<div class="entete-formulaire">
 		#ENV**{icone_retour}
-		[<h1>(#ENV{new}|intval|?{<:adhclub:niveau_modifier:>,<:adhclub:niveau_creer:>})</h1>]
+		[<h1>(#ENV{new}|intval|?{<:adhniv:modifier_adhniv:>,<:adhniv:icone_creer_adhniv:>})</h1>]
 		[<h1>(#ENV{new}|intval|?{##ENV{new}})</h1>]
 	</div>
 	#FORMULAIRE_EDITER_ADHNIV{#ENV{new},#ENV{redirect}}
