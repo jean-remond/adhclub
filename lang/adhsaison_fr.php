@@ -21,17 +21,12 @@ if (!defined('_ECRIRE_INC_VERSION')) return;
 
 $GLOBALS[$GLOBALS['idx_lang']] = array(
 
-	// A
-	// B
 	// C
 	'confirmer_supprimer_saison' => '&Ecirc;tes-vous s&ucirc;r de vouloir supprimer cette saison ?',
 	'creer_adhsaison_associer' => 'Créer et associer une saison',
-	// D
-	// E
-	// F
 	// I
 	'icone_creer_adhsaison' => 'Cr&eacute;er une saison',
-	'icone_menu_adhsaison' => 'G&eacute;rer les Saisons',
+	'icone_menu_adhsaison' => 'Les Saisons',
 	'icone_modifier_adhsaison' => 'Modifier la saison',
 	'icone_supprimer_adhsaison' => 'Supprimer',
 	'info_1_adhsaison' => '1 saison',
@@ -40,15 +35,8 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'info_aucun_adhsaison_integ' => "Aucune saison -@titre_saison@- n'existe pour le club",
 	'info_nb_adhsaisons' => '@nb@ saisons',
 	'info_retirer_adhsaison' => 'Enlever la saison',
-	// J
-	// K
-	// L
-	// M
-    // N
-	// O
     // P
 	'page_info_adhsaison' => "Cette page vous permet de g&eacute;rer les saisons d'exercice de votre club",
-	// R
 	// S
 	'saison' => 'Saison',
 	'saison_deb' => 'D&eacute;but de Saison du Club (jj/mm/aaaa) :',
@@ -59,6 +47,8 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'texte_changer_statut_adhsaison' => 'Cette saison est :',
 	'titre_adhsaison' => 'Saison du Club',
 	'titre_adhsaison_cadre_modifier' => 'Modifier une saison',
+	'titre_adhsaison_col' => 'Sais',
+	'titre_adhsaison_col_deb' => 'Début Sais',
 	'titre_adhsaison_exp' => 'Le titre de la Saison du Club est libre en structure. Pour une ann&eacute;e scolaire, peut &eacute;tre de la forme 2011-2012.',
 	'titre_adhsaisons' => 'Saisons du Club',
 	// V

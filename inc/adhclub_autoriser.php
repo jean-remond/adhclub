@@ -29,6 +29,11 @@ function autoriser_auteur_administrer($faire,$quoi,$id,$qui,$opts){
 		return true;
 	return false;
 }
+function autoriser_auteur_creerassurdans($faire,$quoi,$id,$qui,$opts){
+	if ($qui['statut']=='0minirezo')
+		return true;
+	return false;
+}
 
 
 /**
@@ -51,6 +56,11 @@ function autoriser_adhassur_modifier($faire,$quoi,$id,$qui,$opts){
 		return true;
 	return false;
 }
+function autoriser_adhassur_supprimer($faire,$quoi,$id,$qui,$opts){
+	if ($qui['statut']=='0minirezo')
+		return true;
+	return false;
+}
 function autoriser_adhassur_retirer($faire,$quoi,$id,$qui,$opts){
 	if ($qui['statut']=='0minirezo')
 		return true;
@@ -68,7 +78,22 @@ function autoriser_adhassur_retirer($faire,$quoi,$id,$qui,$opts){
  * @param unknown_type $opts
  * @return unknown
  */
-function autoriser_adhcoti_administrer($faire,$quoi,$id,$qui,$opts){
+function autoriser_adhcoti_voir($faire,$quoi,$id,$qui,$opts){
+	if ($qui['statut']=='0minirezo')
+		return true;
+	return false;
+}
+function autoriser_adhcoti_modifier($faire,$quoi,$id,$qui,$opts){
+	if ($qui['statut']=='0minirezo')
+		return true;
+	return false;
+}
+function autoriser_adhcoti_supprimer($faire,$quoi,$id,$qui,$opts){
+	if ($qui['statut']=='0minirezo')
+		return true;
+	return false;
+}
+function autoriser_adhcoti_retirer($faire,$quoi,$id,$qui,$opts){
 	if ($qui['statut']=='0minirezo')
 		return true;
 	return false;
@@ -96,6 +121,11 @@ function autoriser_adhniv_modifier($faire,$quoi,$id,$qui,$opts){
 	return false;
 }
 function autoriser_adhniv_supprimer($faire,$quoi,$id,$qui,$opts){
+	if ($qui['statut']=='0minirezo')
+		return true;
+	return false;
+}
+function autoriser_adhniv_retirer($faire,$quoi,$id,$qui,$opts){
 	if ($qui['statut']=='0minirezo')
 		return true;
 	return false;

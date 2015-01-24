@@ -65,13 +65,13 @@ $tables['spip_adhassurs'] = array(
 		"titre", "descriptif", "mnt_assur", "id_saison"
 		),
 	'icone_objet'			=> "adhassur-24.png",
-	'texte_objet'			=> "adhclub:assur_titre",
-	'texte_objets'			=> "adhclub:assurs_titre",
-	'texte_ajouter'			=> 'adhclub:assur_ajouter',
-	'info_aucun_objet'		=> "adhclub:assur_aucun",
-	'texte_creer_associer'	=> 'adhclub:assur_creer_associer',
-	'info_1_objet'			=> 'adhclub:assur_info_1',
-	'info_nb_objets'		=> 'adhclub:assurs_info_nb',
+	'texte_objet'			=> "adhassur:titre_adhassur",
+	'texte_objets'			=> "adhassur:titre_adhassurs",
+	'texte_ajouter'			=> 'adhassur:ajouter_adhassur',
+	'info_aucun_objet'		=> "adhassur:aucun_adhassur",
+	'texte_creer_associer'	=> 'adhassur:icone_creer_associer_adhassur',
+	'info_1_objet'			=> 'adhassur:info_1_adhassur',
+	'info_nb_objets'		=> 'adhassur:info_nb_adhassurs',
 	'url_voir'				=> 'editer_assur',
 	'url_edit'				=> 'editer_assur',
 	'page'					=> false,
@@ -96,7 +96,7 @@ $tables['spip_adhassurs'] = array(
 		'refuse'=>'adhclub:texte_statut_refuse',
 		'poubelle' => 'texte_statut_poubelle',
 		),
-	'texte_changer_statut' => 'adhclub:assur_texte_changer_statut',
+	'texte_changer_statut' => 'adhassur:texte_changer_statut_adhassur',
 	);
 	
 //-- Cotisation Club
@@ -125,12 +125,13 @@ $tables['spip_adhcotis'] = array(
 		"titre", "descriptif", "mnt_cotis", "id_saison", "complement"
 		),
 	'icone_objet'			=> "adhcoti-24.png",
-	'texte_objet'			=> "adhclub:coti_titre",
-	'texte_objets'			=> "adhclub:cotis_titre",
-	'info_aucun_objet'		=> "adhclub:coti_aucun",
-	'texte_creer_associer'	=> 'adhclub:coti_creer_associer',
-	'info_1_objet'			=> 'adhclub:coti_info_1',
-	'info_nb_objets'		=> 'adhclub:cotis_info_nb',
+	'texte_objet'			=> "adhcoti:titre_adhcoti",
+	'texte_objets'			=> "adhcoti:titre_adhcotis",
+	'texte_ajouter'			=> 'adhcoti:ajouter_adhcoti',
+	'info_aucun_objet'		=> "adhcoti:aucun_adhcoti",
+	'texte_creer_associer'	=> 'adhcoti:creer_associer_adhcoti',
+	'info_1_objet'			=> 'adhcoti:info_1_adhcoti',
+	'info_nb_objets'		=> 'adhcoti:info_nb_adhcotis',
 	'url_voir'				=> 'editer_coti',
 	'url_edit'				=> 'editer_coti',
 	'page'					=> false,
@@ -155,7 +156,7 @@ $tables['spip_adhcotis'] = array(
 		'refuse'=>'adhclub:texte_statut_refuse',
 		'poubelle' => 'texte_statut_poubelle',
 		),
-	'texte_changer_statut' => 'adhclub:coti_texte_changer_statut',
+	'texte_changer_statut' => 'adhcoti:texte_changer_statut_adhcoti',
 	);
 	
 //-- Niveau-Brevet
@@ -189,6 +190,7 @@ $tables['spip_adhnivs'] = array(
 	'icone_objet'			=> "adhniveau-24.png",
 	'texte_objet'			=> "adhniv:titre_adhniv",
 	'texte_objets'			=> "adhniv:titre_adhnivs",
+	'texte_ajouter'			=> 'adhniv:ajouter_adhniv',
 	'info_aucun_objet'		=> "adhniv:info_aucun_adhniv",
 	'texte_creer_associer'	=> 'adhniv:creer_niveau_associer',
 	'info_1_objet'			=> 'adhniv:info_1_adhniv',
@@ -246,6 +248,7 @@ $tables['spip_adhsaisons'] = array(
 	'icone_objet'			=> "adhsaison-24.png",
 	'texte_objet'			=> "adhsaison:titre_adhsaison",
 	'texte_objets'			=> "adhsaison:titre_adhsaisons",
+	'texte_ajouter'			=> 'adhsaison:ajouter_adhsaison',
 	'info_aucun_objet'		=> "adhsaison:info_aucun_adhsaison",
 	'texte_creer_associer'	=> 'adhsaison:saison_creer_associer',
 	'info_1_objet'			=> 'adhsaison:info_1_adhsaison',
@@ -306,12 +309,13 @@ $tables['spip_adhffessms'] = array(
     'key'			=> array(
 		"PRIMARY KEY"	=> "licence"
     	),
-    'titre'			=> "licence AS titre, '' AS lang",
-    'editable'		=> "non",
-	'icone_objet'	=> "",
-	'texte_objet'	=> "adhclub:ffessm_titre",
-	'textes_objet'	=> "adhclub:ffessms_titre",
-	'info_aucun_objet'	=> "adhclub:ffessm_aucun"
+    'titre'					=> "licence AS titre, '' AS lang",
+    'editable'				=> "non",
+	'icone_objet'			=> "",
+	'texte_objet'			=> "adhclub:ffessm_titre",
+	'textes_objet'			=> "adhclub:ffessms_titre",
+	'texte_ajouter'			=> 'adhintg:ajouter_adhintg',
+	'info_aucun_objet'		=> "adhclub:ffessm_aucun"
 );
 
 //-- Relation Assurance / Auteur		

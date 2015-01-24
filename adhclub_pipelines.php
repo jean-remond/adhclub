@@ -85,12 +85,12 @@ function adhclub_affiche_enfants($flux) {
      
     $bouton = '';
     if (autoriser('creerassurdans','auteur', $id_rubrique)) {
-    $bouton .= icone_verticale(_T('adhclub:icone_creer_chat'), generer_url_ecrire('chat_edit', "id_rubrique=$id_rubrique"), "chat-24.png", "new", 'right')
+    $bouton .= icone_verticale(_T('adhassur:icone_creer_adhassur'), generer_url_ecrire('editer_assur', "id_auteur=$id_auteur"), "adhassur-24.png", "new", 'right')
     . "<br class='nettoyeur' />";
     }
      
     $lister_objets = charger_fonction('lister_objets','inc');	
-    $flux['data'] .= $lister_objets('chats', array('titre'=>_T('chat:titre_chats_rubrique') , 'id_rubrique'=>$id_rubrique, 'par'=>'nom'));
+    $flux['data'] .= $lister_objets('adhassur', array('titre'=>_T('adhassur:titre_auteur_adhassur') , 'id_auteur'=>$id_auteur, 'par'=>'titre'));
     $flux['data'] .= $bouton;
      
     }

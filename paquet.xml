@@ -50,6 +50,8 @@
 	<onglet nom="adh_adherents" titre="adhclub:adhclub_titre" parent="adh_adherents" action="adh_adherents" />
 	<onglet nom="adhsaisons" titre="adhsaison:icone_menu_adhsaison" parent="adh_adherents" action="adhsaisons" />
 	<onglet nom="adhnivs" titre="adhniv:icone_menu_adhniv" parent="adh_adherents" action="adhnivs" />
+	<onglet nom="adhassurs" titre="adhassur:icone_menu_adhassur" parent="adh_adherents" action="adhassurs" />
+	<onglet nom="adhcotis" titre="adhcoti:icone_menu_adhcoti" parent="adh_adherents" action="adhcotis" />
 
     <menu nom="adh_adherents" 
     	action="adh_adherents"

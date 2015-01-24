@@ -4,8 +4,11 @@
  ----------------------------------------------
 Liste des cotisations du club associables à l'adherent
 ----------------------------------------------
-JR-17/01/2015-adaptation spip 3.0.
-JR-17/01/2015-Creation du squelette.
+ * @todo-JR-20/01/2015-Ne sert pas ?.
+ *
+ * JR-17/01/2015-adaptation spip 3.0.
+ * JR-17/01/2015-Creation du squelette.
+ /*
 -->] 
 [(#SET{defaut_tri,#ARRAY{
  	titre,1,
@@ -20,7 +23,7 @@ JR-17/01/2015-Creation du squelette.
    #ANCRE_PAGINATION
    <div class="liste-objets cotis">
 	<table class='spip liste'>
-	[<caption><strong class="caption">(#ENV*{titre,#GRAND_TOTAL|singulier_ou_pluriel{adhclub:coti_info_1,adhclub:cotis_info_nb}})</strong></caption>]
+	[<caption><strong class="caption">(#ENV*{titre,#GRAND_TOTAL|singulier_ou_pluriel{adhcoti:info_1_adhcoti,adhcoti:info_nb_adhcotis}})</strong></caption>]
 	<thead>
 	<tr class='first_row'>
 		<th class='picto' scope='col'></th>

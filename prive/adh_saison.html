@@ -14,7 +14,7 @@
     <BOUCLE_saisons(ADHSAISONS){par #ENV{tri,titre}}{pagination 10}{recherche ?}>
         <li class='item saison'>
             <h3>#TITRE</h3>
-            <span class='contenu'>[(#ID_SAISON|adhclub_coti_ds_saisons|count) <:adhclub:cotis:>]
+            <span class='contenu'>[(#ID_SAISON|adhclub_coti_ds_saisons|count) <:adhcoti:adhcotis:>]
             </span>
             <span class='contenu'>[(#ID_SAISON|adhclub_assurs_ds_1saison|count) <:adhclub:assurs:>]
             </span>

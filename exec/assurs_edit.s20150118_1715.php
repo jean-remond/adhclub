@@ -31,7 +31,7 @@ function assurs_edit($id_assur, $new, $config_fonc, $row){
 	$commencer_page = charger_fonction('commencer_page', 'inc');
 	pipeline('exec_init',array('args'=>array('exec'=>'assurs_edit','id_assur'=>$id_assur),'data'=>''));
 
-	echo $commencer_page(intval($id_assur)?_T('adhclub:assur_titre_cadre_modifier'):_T('adhclub:creer_assur'), "naviguer", "assurs", 0);
+	echo $commencer_page(intval($id_assur)?_T('adhassur:titre_cadre_modifier_adhassur'):_T('adhclub:creer_assur'), "naviguer", "assurs", 0);
 
 	echo debut_gauche("",true);
 	echo recuperer_fond("prive/editer/assur_auteurs", $_GET);

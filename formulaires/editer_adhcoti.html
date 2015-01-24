@@ -10,8 +10,8 @@
 
 		<li>
 		[(#SAISIE{input, titre, obligatoire=oui, 
-			label=<:adhclub:coti_titre:>, 
-			explication=<:adhclub:coti_titre_exp:>,
+			label=<:adhcoti:titre_adhcoti:>, 
+			explication=<:adhcoti:titre_exp_adhcoti:>,
 			maxlength=35}
 		)]
 		</li>
@@ -27,7 +27,7 @@
 		[(#REM) gestion du montant ]
 		<li>
 		[(#SAISIE{input, mnt_cotis, obligatoire=oui, 
-			label=<:adhclub:coti_mnt:>, 
+			label=<:adhcoti:mnt_adhcoti:>, 
 			maxlength=7}
 		)]
 		</li>
@@ -36,7 +36,7 @@
 		<li class='editer_complement'>
 			<div class='choix'>
 				<input type='checkbox' name='complement' value='oui' id='complement'[ (#COMPLEMENT|=={oui}|oui)checked="checked"] />
-				<label for='complement'><:adhclub:coti_complement:></label>
+				<label for='complement'><:adhcoti:complement_adhcoti:></label>
 			</div>
 	    </li>
 
@@ -83,8 +83,8 @@
 		?>
 
 		[(#SAISIE{selection, id_saison, obligatoire=oui}
-			{label=<:adhclub:coti_saison:>}
-			{explication=<:adhclub:coti_saison_exp:>}
+			{label=<:adhcoti:saison_adhcoti:>}
+			{explication=<:adhcoti:saison_exp_adhcoti:>}
 			{datas=#GET{datassaisc}}
             {disable}
 		)]

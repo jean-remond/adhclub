@@ -11,8 +11,8 @@
 
 		<li>
 		[(#SAISIE{input, titre, obligatoire=oui, 
-			label=<:adhclub:assur_titre:>, 
-			explication=<:adhclub:assur_titre_exp:>,
+			label=<:adhassur:titre_adhassur:>, 
+			explication=<:adhassur:titre_exp_adhassur:>,
 			maxlength=25}
 		)]
 		</li>
@@ -26,7 +26,7 @@
 
 		<li>
 		[(#SAISIE{input, mnt_assur, obligatoire=oui, 
-			label=<:adhclub:mnt_assur:>, 
+			label=<:adhassur:mnt_adhassur:>, 
 			maxlength=7}
 		)]
 		</li>
@@ -68,8 +68,8 @@
 
 			<li>
 				[(#SAISIE{selection, id_saison, obligatoire=oui,
-					label=<:adhclub:assur_saison:>,
-					explication=<:adhclub:assur_saison_exp:>,
+					label=<:adhassur:saison_adhassur:>,
+					explication=<:adhassur:saison_exp_adhassur:>,
 					datas=#GET{datassaisa}}
 				)]
 			</li>

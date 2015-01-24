@@ -10,10 +10,10 @@
  */
 -->] 
 
-<h1 class="grostitre"><:adhclub:cotis_titre:></h1>
+<h1 class="grostitre"><:adhcoti:titre_adhcotis:></h1>
 		
-<INCLURE{fond=prive/objets/liste/adhcotis, par=maj, statut=#LISTE{prepa,prop,publie,refuse}, env, ajax, sinon=<:adhsaison:info_aucun_adhsaison:>}>
+<INCLURE{fond=prive/objets/liste/adhcotis, par=maj, statut=#LISTE{prepa,prop,publie,refuse}, env, ajax, sinon=<:adhcoti:info_aucun_adhcoti:>}>
 
-[(#AUTORISER{creer,adhcotis})
-	[(#URL_ECRIRE{editer_adhcoti,new=oui}|icone_verticale{<:adhclub:coti_creer:>,#CHEMIN_IMAGE{adhcoti-24.png},new,right})]
+[(#AUTORISER{modifier,adhcotis})
+	[(#URL_ECRIRE{editer_adhcoti,new=oui}|icone_verticale{<:adhcoti:icone_creer_adhcoti:>,#CHEMIN_IMAGE{adhcoti-24.png},new,right})]
 ]

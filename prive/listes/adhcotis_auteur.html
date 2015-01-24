@@ -9,7 +9,7 @@
 -->]
 <B_cotis>
 [(#TOTAL_BOUCLE|>{3}|oui)
-<span class='actions'><a href='#URL_ACTION_AUTEUR{retirer_adhcoti,-1-auteur-#ID_AUTEUR,#SELF}'><:adhclub:cotis_info_retirer:></a></span>
+<span class='actions'><a href='#URL_ACTION_AUTEUR{retirer_adhcoti,-1-auteur-#ID_AUTEUR,#SELF}'><:adhcoti:info_retirer_adhcotis:></a></span>
 ]
 [<p class="pagination">(#PAGINATION)</p>]
 <ul class='liste_items liste_coti'>
@@ -19,7 +19,7 @@
 			<span class='actions'>
 			<a class='ajax' href='#URL_ACTION_AUTEUR{retirer_adhcoti,#ID_COTI|concat{'-auteur-',#ID_AUTEUR},#SELF}'>
 			<img src='#EVAL{_DIR_IMG_PACK}croix-rouge.gif' alt='X' />
-			<:adhclub:coti_info_retirer:>
+			<:adhcoti:info_retirer_adhcoti:>
 			</a>
 			</span>
 		]
@@ -32,5 +32,5 @@
 	</BOUCLE_cotis>
 </ul>
 </B_cotis>
-<p><:adhclub:coti_info_aucun:></p>
+<p><:adhcoti:info_aucun_adhcoti:></p>
 <//B_cotis>

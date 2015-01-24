@@ -22,7 +22,7 @@ function exec_cotis_edit_dist(){
 	  OR (!$new AND (!autoriser('modifier', 'adhcoti', $id_coti))) 
 	  ) {
 		include_spip('inc/minipres');
-		echo minipres(_T('adhclub:coti_aucun'));
+		echo minipres(_T('adhcoti:aucun_adhcoti'));
 	} 
 	else {
 		cotis_edit($id_coti, $new, '', $row);
@@ -34,7 +34,7 @@ function cotis_edit($id_coti, $new, $config_fonc, $row){
 	$commencer_page = charger_fonction('commencer_page', 'inc');
 	pipeline('exec_init',array('args'=>array('exec'=>'cotis_edit','id_coti'=>$id_coti),'data'=>''));
 
-	echo $commencer_page(intval($id_coti)?_T('adhclub:coti_titre_cadre_modifier'):_T('adhclub:coti_creer'), "naviguer", "cotis", 0);
+	echo $commencer_page(intval($id_coti)?_T('adhcoti:titre_cadre_modifier_adhcoti'):_T('adhcoti:icone_creer_adhcoti'), "naviguer", "cotis", 0);
 
 	echo debut_gauche("",true);
 	echo recuperer_fond("prive/editer/coti_auteurs", $_GET);

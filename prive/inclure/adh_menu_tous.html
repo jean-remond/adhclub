@@ -4,16 +4,16 @@
 	<ul>
 	
 		[(#ENV{choix}|!={menu_tous}|oui)
-			<li><a href="[(#URL_ECRIRE{adh_adherents})]"><img src="#CHEMIN_IMAGE{adhclub-24.png}" alt="<:adhclub:adhclub_icone_menu:>" /> <:adhclub:adhclub_icone_menu:></a></li>
+			<li><a href="[(#URL_ECRIRE{adh_adherents})]"><img src="#CHEMIN_IMAGE{adhclub-24.png}" alt="<:adhclub:icone_menu_adhclub:>" /> <:adhclub:icone_menu_adhclub:></a></li>
 		]
 		[(#ENV{choix}|!={saison}|oui)
-		<li><a href="[(#URL_ECRIRE{adhsaisons})]"><img src="#CHEMIN_IMAGE{adhsaison-24.png}" alt="<:adhsaison:icone_menu_adhsaison:>" /> <:adhsaison:icone_menu_saison:></a></li>
+		<li><a href="[(#URL_ECRIRE{adhsaisons})]"><img src="#CHEMIN_IMAGE{adhsaison-24.png}" alt="<:adhsaison:icone_menu_adhsaison:>" /> <:adhsaison:icone_menu_adhsaison:></a></li>
 		]
 		[(#ENV{choix}|!={assur}|oui)
-		<li><a href="[(#URL_ECRIRE{adhassurs})]"><img src="#CHEMIN_IMAGE{adhassur-24.png}" alt="<:adhclub:assur_icone_menu:>" /> <:adhclub:assur_icone_menu:></a></li>
+		<li><a href="[(#URL_ECRIRE{adhassurs})]"><img src="#CHEMIN_IMAGE{adhassur-24.png}" alt="<:adhassur:icone_menu_adhassur:>" /> <:adhassur:icone_menu_adhassur:></a></li>
 		]
 		[(#ENV{choix}|!={coti}|oui)
-		<li><a href="[(#URL_ECRIRE{adhcotis})]"><img src="#CHEMIN_IMAGE{adhcoti-24.png}" alt="<:adhclub:coti_icone_menu:>" /> <:adhclub:coti_icone_menu:></a></li>
+		<li><a href="[(#URL_ECRIRE{adhcotis})]"><img src="#CHEMIN_IMAGE{adhcoti-24.png}" alt="<:adhcoti:icone_menu_adhcoti:>" /> <:adhcoti:icone_menu_adhcoti:></a></li>
 		]
 		[(#ENV{choix}|!={niveau}|oui)
 		<li><a href="[(#URL_ECRIRE{adhnivs})]"><img src="#CHEMIN_IMAGE{adhniveau-24.png}" alt="<:adhniv:icone_menu_adhniv:>" /> <:adhniv:icone_menu_adhniv:></a></li>

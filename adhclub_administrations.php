@@ -53,14 +53,14 @@ function adhclub_upgrade($nom_meta_base_version, $version_cible){
 }
  
 function adhclub_vider_tables($nom_meta_base_version) {
+	sql_drop_table("spip_adhassurs_auteurs");
+	sql_drop_table("spip_adhcotis_auteurs");
+	sql_drop_table("spip_adhnivs_auteurs");
 	sql_drop_table("spip_adhassurs");
 	sql_drop_table("spip_adhcotis");
 	sql_drop_table("spip_adhnivs");
 	sql_drop_table("spip_adhsaisons");
 	sql_drop_table("spip_adhffessms");
-	sql_drop_table("spip_adhassurs_auteurs");
-	sql_drop_table("spip_adhcotis_auteurs");
-	sql_drop_table("spip_adhnivs_auteurs");
 
 	cextras_api_vider_tables(adhclub_declarer_champs_extras());
 

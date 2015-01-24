@@ -20,14 +20,14 @@
 		<input name='id_auteur' value='#ID_AUTEUR' type='hidden' />
 	  <ul> 
 	    <li class="editer_adhcoti[ (#ENV**{erreurs}|table_valeur{coti}|oui)erreur]">
-		<label for="coti"><:adhclub:coti_titre_ajouter:></label>[
+		<label for="coti"><:adhcoti:titre_ajouter_adhcoti:></label>[
 		<span class='erreur_message'>(#ENV**{erreurs}|table_valeur{coti})</span>
 		](#INCLURE{fond=inc/inc-select_adhcotis}{name=coti}{id=coti}{id_auteur})
 	    </li>
 	  </ul>
 	  [(#REM) ajouter les saisies supplementaires : extra et autre, a cet endroit ]
 	  <!--extra-->
-	  <p class='boutons'><input type='submit' class='submit' value='<:adhclub:coti_bouton_ajouter:>' /></p>
+	  <p class='boutons'><input type='submit' class='submit' value='<:adhcoti:bouton_ajouter_adhcoti:>' /></p>
 	</div></form>]
 	]
 </div>

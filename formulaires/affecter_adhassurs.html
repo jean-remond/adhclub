@@ -20,14 +20,14 @@
 		<input name='id_auteur' value='#ID_AUTEUR' type='hidden' />
 	  <ul> 
 	    <li class="editer_adhassur[ (#ENV**{erreurs}|table_valeur{assur}|oui)erreur]">
-		<label for="assur"><:adhclub:assur_titre_ajouter:></label>[
+		<label for="assur"><:adhassur:titre_ajouter_adhassur:></label>[
 		<span class='erreur_message'>(#ENV**{erreurs}|table_valeur{assur})</span>
 		](#INCLURE{fond=inc/inc-select_adhassurs}{name=assur}{id=assur}{id_auteur})
 	    </li>
 	  </ul>
 	  [(#REM) ajouter les saisies supplementaires : extra et autre, a cet endroit ]
 	  <!--extra-->
-	  <p class='boutons'><input type='submit' class='submit' value='<:adhclub:assur_bouton_ajouter:>' /></p>
+	  <p class='boutons'><input type='submit' class='submit' value='<:adhassur:bouton_ajouter_adhassur:>' /></p>
 	</div></form>]
 	]
 </div>
