@@ -24,6 +24,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	// A
     'acces_adhcotis' => 'S&eacute;lectionnez la cotisation pour l\'auteur',
 	'adhcotis' => 'cotisation(s)',
+	'ajouter_adhcoti' => 'Ajouter une cotisation',
 	'aucun_adhcoti' => 'Aucune cotisation',
 	// B
 	'bouton_ajouter_adhcoti' => 'Ajouter la nouvelle cotisation',
@@ -35,7 +36,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'icone_creer_adhcoti' => 'Cr&eacute;er une cotisation',
 	'icone_menu_adhcoti' => 'Les Cotisations',
 	'icone_modifier_adhcoti' => 'Modifier la cotisation',
-	'icone_supprimer_adhcoti' => 'Supprimer cette cotisation',
+	'icone_supprimer_adhcoti' => 'Supprimer',
 	'info_1_adhcoti' => '1 cotisation',
 	'info_ajouter_adhcoti' => 'Ajouter une cotisation',
 	'info_aucun_adhcoti' => 'Aucune cotisation',
@@ -44,6 +45,10 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'info_retirer_adhcoti' => 'Enlever la cotisation',
 	'info_retirer_adhcotis' => "Enlever toutes les cotisations de l'auteur",
 	'info_retirer_auteur_adhcoti' => "Enlever l'adh&eacute;rent de la cotisation",
+	// L
+	'lien_ajouter_adhcoti' => "Ajouter cette cotisation",
+	'lien_retirer_adhcoti' => "Retirer cette cotisation",
+	'lien_retirer_adhcotis' => "Retirer toutes les cotisations",
 	// M
 	'mnt_adhcoti' => 'Montant de la cotisation',
 	// P

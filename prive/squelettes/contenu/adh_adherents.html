@@ -14,8 +14,6 @@ JR-17/01/2015-adaptation spip 3.0.
 JR-15/04/2012-Integration inscription3.
 JR-02/04/2012-Creation du squelette.
 -->] 
-
-<h1 class="grostitre"><:adhclub:adherents_liste:></h1>
 		
 [(#ENV{type_objet}|oui)
 	<h1><:adhclub:mailer_envoi:></h1>
@@ -28,4 +26,4 @@ JR-02/04/2012-Creation du squelette.
 	
 	#SET{email_env,#ARRAY}
 
-	#FORMULAIRE_I3_RECHERCHE{#ENV{type_objet}, #ENV{id_objet}}
+	#FORMULAIRE_ADHI3_RECHERCHE{#ENV{type_objet}, #ENV{id_objet}}

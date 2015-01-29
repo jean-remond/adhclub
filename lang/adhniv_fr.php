@@ -22,14 +22,17 @@ if (!defined('_ECRIRE_INC_VERSION')) return;
 $GLOBALS[$GLOBALS['idx_lang']] = array(
 
 	// A
+	'ajouter_adhniv' => 'Ajouter un niveau',
 	// B
 	'bouton_ajouter_adhniv' => 'Ajouter la nouvelle qualification',
+	// C
+	'creer_associer_adhniv' => 'Créer et associer un niveau',
 	// I
 	'icone_creer_adhniv' => 'Cr&eacute;er un niveau',
 	'icne_creer_adhniv_associer' => 'Créer et associer un niveau',
 	'icone_menu_adhniv' => 'Les Niveaux',
 	'icone_modifier_adhniv' => 'Modifier le niveau',
-	'icone_supprimer_adhniv' => 'Supprimer ce niveau',
+	'icone_supprimer_adhniv' => 'Supprimer',
 	'info_1_adhniv' => '1 niveau',
 	'info_nb_adhnivs' => '@nb@ niveaux',
 	'info_aucun_adhniv' => 'Aucun niveau',
@@ -39,6 +42,10 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'info_sans_rangtrombi' => 'Le rang dans le trombinoscope est obligatoire',
 	'info_sans_techbase' => 'La technique de base est obligatoire',
 	'info_sans_trombi' => 'Le regroupement trombinoscope est obligatoire',
+	// L
+	'lien_ajouter_adhniv' => "Ajouter ce niveau",
+	'lien_retirer_adhniv' => "Retirer ce niveau",
+	'lien_retirer_adhnivs' => "Retirer tous les niveaux",	
 	// N
 	'niveau' => 'Niveau',
     'niveau_aucun2grp' => 'Aucun niveau trouv&eacute; dans ce groupe',

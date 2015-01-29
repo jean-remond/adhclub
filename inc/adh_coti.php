@@ -2,6 +2,8 @@
 /**
  * Plugin adhclub : Adherent Club pour Spip 3.0
  * Licence GPL (c) 2011-2015 Jean Remond
+ * 
+ * JR-26/01/2015-Adaptation aux tables liens.
  */
 
 if (!defined("_ECRIRE_INC_VERSION")) return;
@@ -45,7 +47,7 @@ function adhclub_cotis_de_1auteur($id_auteur){
 	static $liste_cotis = array();
 	if (!isset($liste_cotis[$id_auteur])){
 		include_spip('base/abstract_sql');
-		$liste_cotis[$id_auteur] = sql_allfetsel("id_coti","spip_adhcotis_auteurs","id_auteur=".intval($id_auteur));
+		$liste_cotis[$id_auteur] = sql_allfetsel("id_coti","spip_adhcotis_liens as ca","ca.objet='auteur' AND ca.id_objet=".intval($id_auteur));
 		$liste_cotis[$id_auteur] = array_map('reset',$liste_cotis[$id_auteur]);
 	}
 	return $liste_cotis[$id_auteur];
@@ -74,7 +76,7 @@ function adhclub_test_coti_de_auteur($id_coti,$id_auteur){
 function adhclub_auteurs_ds_1coti($id_coti) {
 	//$liste_auteurs=array();
 	include_spip('base/abstract_sql');
-	$liste_auteurs = sql_allfetsel("id_auteur","spip_adhcotis_auteurs","id_coti=".intval($id_coti));
+	$liste_auteurs = sql_allfetsel("id_auteur","spip_adhcotis_liens as ca","ca.objet='auteur' AND ca.id_coti=".intval($id_coti));
 
 	if (is_array($liste_auteurs)) {
 		$liste_auteurs = array_map('reset',$liste_auteurs);

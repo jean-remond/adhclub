@@ -1,0 +1,59 @@
+[(#REM) <-- 
+ /**
+ * Plugin adh_club : Adherent Club pour Spip 3.0
+ * Licence GPL (c) 2011-2015 Jean Remond
+ * ----------------------------------------------
+ * Liste des niveaux du club associees a un objet.
+ * ----------------------------------------------
+ * JR-29/01/2015-Creation du squelette.
+ */
+-->] 
+[(#SET{defaut_tri,#ARRAY{
+	statut,1,
+    id_niveau,-1,
+	multi titre,1,
+}})]
+[(#SET{_MAX_ADHNIV_LISTE,[(#VAL{_MAX_ADHNIV_LISTE}|defined|?{[(#VAL{_MAX_ADHNIV_LISTE}|constant)],50})]})]
+<BOUCLE_exclus(ADHNIVS){tout}{id_objet}{objet}{doublons 1}{doublons 2} />
+<BOUCLE_nb_adhnivs(ADHNIVS){tout}{doublons 1} />#SET{total,#TOTAL_BOUCLE}<//B_nb_adhnivs>
+
+<BOUCLE_nombreux(CONDITION){si #GET{total}|>{#GET{_MAX_ADHNIV_LISTE}}}>
+
+	[(#INCLURE{fond=prive/objets/liste/adhnivs_associer-recherche,env,doublons})]
+
+</BOUCLE_nombreux>
+
+[(#REM) Pas beaucoup de niveaux ]
+<B_adhnivs>
+	#ANCRE_PAGINATION
+	<div class="liste-objets liste-objets-associer adhniv">
+	<table class='spip liste'>
+	[<caption><strong class="caption">(#ENV*{titre,#GRAND_TOTAL|singulier_ou_pluriel{adhniv:info_1_adhniv,adhniv:info_nb_adhnivs}})</strong></caption>]
+		<thead>
+			<tr class='first_row'>
+				<th class='picto' scope='col'></th>
+				<th class='titre' scope='col'>[(#TRI{titre,<:adhclub:label_titre:>,ajax})]</th>
+				<th class='id'><:adhclub:action_icone:></th>
+				<th class='id' scope='col'>[(#TRI{id_niveau,<:info_numero_abbreviation:>,ajax})]</th>
+			</tr>
+		</thead>
+		<tbody>
+		<BOUCLE_adhnivs(ADHNIVS){doublons 2}{tri #ENV{par, id_saison, num titre}{inverse},#GET{defaut_tri}}{par num titre, titre}{pagination 10}>
+			<tr class="[(#COMPTEUR_BOUCLE|alterner{row_odd,row_even})]">
+				<td class='picto'>[(#CHEMIN_IMAGE{adhniv-24.png}|balise_img)]</td>
+				<td class='nom principale'>[(#LOGO_NIVEAU|image_reduire{20,26})]<a href="[(#ID_NIVEAU|generer_url_entite{adhniv})]" title="<:info_numero_abbreviation|attribut_html:> #ID_NIVEAU">#TITRE</a></td>
+				<td class='action'><button class="button link" name="ajouter_lien[adhniv-#ID_NIVEAU-#OBJET-#ID_OBJET]" value="+"><:adhniv:lien_ajouter_adhniv:> [(#CHEMIN_IMAGE{ajouter-12.png}|balise_img{'+'})]</button></td>
+				<td class='id'>#ID_NIVEAU</td>
+			</tr>
+		</BOUCLE_adhnivs>
+		</tbody>
+	</table>
+	[<p class='pagination'>(#PAGINATION{prive})</p>]
+	</div>
+</B_adhnivs>
+	<div class="liste-objets liste-objets-associer adhniv caption-wrap">
+		<strong class="caption">[(#ENV*{titre,<:adhniv:info_aucun_adhniv:>})] </strong>
+	</div>
+<//B_adhnivs>
+
+<//B_nombreux>

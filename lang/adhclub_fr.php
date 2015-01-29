@@ -61,11 +61,9 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	// D
     'demande_photo'=>'D&eacute;p&eacute;chez-vous de lui demander sa photo..',
 	'descriptif' => 'Descriptif',
-	'page_info_adhclub' => 'Vous trouverez ici tous les utilisateurs inscrits sur le site. <br/>
-		<br/>Leur statut est indiqué par la couleur de leur icone. <br/>
-		<br/>Par défaut, une sélection est faite sur la notion de saison active.',
 	// E
 	'email' => 'email',
+	'email_corr_label' => 'Email de correspondance',
 	'err_auteur_creation' => 'Echec de la cr&eacute;ation initiale de ',
 	'err_auteur_maj' => "Echec de la mise &aacute; jour de l'adh&eacute;rent",
 	'err_assur_inconnue' => "L'assurance de l'adh&eacute;rent est inconnue",
@@ -134,6 +132,8 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	// O
 
     // P
+	'page_info_adhclub' => "Vous trouverez ici tous les utilisateurs inscrits sur le site.
+		<br/>Par défaut, aucune sélection n'est faite. Si un critère est saisi, la notion de saison active est automatiquement appliquée.",
 	'par_encadrant' => 'Encadrant',
 	'par_licence' => 'Licence',
 	'par_nom' => 'Nom',

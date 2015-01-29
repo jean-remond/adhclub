@@ -39,7 +39,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'icone_creer_associer_adhassur' => 'Créer et associer une assurance',
 	'icone_menu_adhassur' => 'Les Assurances',
 	'icone_modifier_adhassur' => 'Modifier l\'assurance',
-	'icone_supprimer_adhassur' => 'Supprimer cette assurance',
+	'icone_supprimer_adhassur' => 'Supprimer',
 	'info_1_adhassur' => '1 assurance',
 	'info_aucun_adhassur' => 'Aucune assurance',
 	'info_aucun_auteur_adhassur' => "Aucun auteur pour l'assurance",
@@ -49,6 +49,10 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'info_retirer_saison_adhassur' => "Enlever l'assurance de la saison",
 	'info_nb_adhassurs' => '@nb@ assurances',
 	'info_retirer_adhassurs' => "Enlever toutes les assurances de l'auteur",
+	// L
+	'lien_ajouter_adhassur' => "Ajouter cette assurance",
+	'lien_retirer_adhassur' => "Retirer cette assurance",
+	'lien_retirer_adhassurs' => "Retirer toutes les assurances",
 	// M
 	'mnt_adhassur' => 'Montant de l\'assurance',
 	// P

@@ -179,7 +179,7 @@ function adhclub_supprime_adhniv($id_niveau){
 	$supp_niveau = sql_getfetsel("id_niveau", "spip_adhnivs", "id_niveau=" . intval($id_niveau));
 	if (intval($id_niveau) AND 	intval($id_niveau) == intval($supp_niveau)){
 		// d'abord les auteurs
-		sql_delete("spip_adhnivs_auteurs", "id_niveau=".intval($id_niveau));
+		sql_delete("spip_adhnivs_liens", "id_niveau=".intval($id_niveau));
 		// puis le niveau
 		sql_delete("spip_adhnivs", "id_niveau=".intval($id_niveau));
 	}

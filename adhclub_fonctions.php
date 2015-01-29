@@ -4,8 +4,9 @@
  * Licence GPL (c) 2011-2015 Jean Remond
  * pour les fonctions, variables et constantes nécessaires à l’espace public.
  *
- *  JR-10/01/2015-adaptation spip 3.0.
- *	14/03/2013-JR-Ajout critere niveau relatif ds adhclub_auteurs_ds_niveaux.
+ * JR-26/01/2015-adaptation aux tables liens.
+ * JR-10/01/2015-Adaptation spip 3.0.
+ * JR-14/03/2013-Ajout critere niveau relatif ds adhclub_auteurs_ds_niveaux.
  */
 
 if (!defined("_ECRIRE_INC_VERSION")) return;
@@ -125,10 +126,11 @@ function filtre_adh_actif($id_auteur){
 
 	// Lecture la Table spip_adhsaisons pour verifier si la saison est encours.
 	$adhselect = array("sa.encours as encours");
-	$adhfrom = array( "spip_adhcotis_auteurs ca",
+	$adhfrom = array( "spip_adhcotis_liens ca",
 			"spip_adhcotis co",
 			"spip_adhsaisons sa");
-	$adhwhere = array("ca.id_auteur = " . intval($id_auteur),
+	$adhwhere = array("ca.id_objet = " . intval($id_auteur),
+			"ca.objet = 'auteur'",
 			"ca.id_coti = co.id_coti",
 			"co.id_saison = sa.id_saison");
 	$adhgroupby = array();
@@ -226,10 +228,12 @@ function adhclub_auteurs_ds_saisons($id_saison=NULL, &$adhselect, &$adhfrom,
 	}
 	
 	// Parametrage complementaire de la requete pour rechercher les auteurs des cotisations
-	$adhselect = array("DISTINCT ca.id_auteur as id_auteur");
-	$adhfrom = array_merge($adhfrom, array("spip_adhcotis_auteurs ca"));
-	$adhwhere = array_merge($adhwhere, array("co.id_coti=ca.id_coti"));
-	$adhgroupby = array_merge($adhgroupby, array("ca.id_auteur"));
+	$adhselect = array("DISTINCT ca.id_objet as id_auteur");
+	$adhfrom = array_merge($adhfrom, array("spip_adhcotis_liens ca"));
+	$adhwhere = array_merge($adhwhere, 
+			array(	"ca.objet='auteur'",
+					"co.id_coti=ca.id_coti"));
+	$adhgroupby = array_merge($adhgroupby, array("ca.id_objet"));
 	
 }
 
@@ -259,13 +263,14 @@ function adhclub_auteurs_ds_niveaux($id_mot_tech=NULL, $id_mot_enc=NULL, $id_niv
 		&$adhselect, &$adhfrom, &$adhwhere, &$adhgroupby, &$adhorderby, &$adhlimit){
 
 	// Complementation de Parametrage de la Requete de recherche des auteurs  
-	//	via les Tables spip_adhnivs et spip_adhnivs_auteurs suivant les criteres.
+	//	via les Tables spip_adhnivs et spip_adhnivs_liens suivant les criteres.
 	$adhfrom = array_merge($adhfrom,
-			array( "spip_adhnivs nv",
-					"spip_adhnivs_auteurs na"));
+			array(	"spip_adhnivs nv",
+					"spip_adhnivs_liens na"));
 
 	$adhwhere = array_merge($adhwhere,
-			array("na.id_niveau = nv.id_niveau"));
+			array(	"na.objet = 'auteur'",
+					"na.id_niveau = nv.id_niveau"));
 	if (intval($id_mot_tech)){
 		$adhwhere = array_merge($adhwhere,
 				array("nv.techbase = ".intval($id_mot_tech)));
@@ -299,7 +304,6 @@ function adhclub_auteurs_ds_niveaux($id_mot_tech=NULL, $id_mot_enc=NULL, $id_niv
 
 
 /**
- *
  * Utilise par 'critere_adh_recherche_dist' pour organiser la recherche des utilisateurs
  * 	en fonction des criteres.
  *
@@ -329,14 +333,14 @@ function adh_recherche($ou, $quoi, $table, $id_saison, $techbase, $encadrant, $n
 		
 		adhclub_auteurs_ds_niveaux($techbase, $encadrant, $niveau, $niv_rel, 
 			$adhselect, $adhfrom, $adhwhere, $adhgroupby, $adhorderby, $adhlimit);
-		$adhwhere = array_merge($adhwhere, array("ca.id_auteur = na.id_auteur"));
+		$adhwhere = array_merge($adhwhere, array("id_auteur = na.id_objet"));
 		
 	}
 	
 	// Parametrage du filtrage du critere (i3) si presents
 	if($quoi){
 		$sql_i3_auteurs = i3_recherche($quoi,$ou,$table);
-		$adhwhere = array_merge($adhwhere, array("ca.id_auteur IN ".$sql_i3_auteurs));
+		$adhwhere = array_merge($adhwhere, array("id_auteur IN ".$sql_i3_auteurs));
 
 	}
 	

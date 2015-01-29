@@ -37,9 +37,9 @@ include_spip("inc/headers");
  * @param boolean $adh_i3_rech_ok si au moins 1 critere de recherche saisis.
  * 
  */
-function formulaires_adh_i3_recherche_charger_dist($type_objet, $id_objet){
+function formulaires_adhi3_recherche_charger_dist($type_objet, $id_objet){
 
-	/*$debug1= "DEBUG adhclub JR : formulaires/adh_i3_recherche formulaires_adh_i3_recherche_charger_dist - Pt01 - ";
+	/*$debug1= "DEBUG adhclub JR : formulaires/adhi3_recherche formulaires_adhi3_recherche_charger_dist - Pt01 - ";
 	adhclub_log("$debug1.", true);*/
 	
 	// Recuperation des parametres transmis
@@ -77,7 +77,7 @@ function formulaires_adh_i3_recherche_charger_dist($type_objet, $id_objet){
 		set_request('case','');
 	}
 
-	/*$debug1= "DEBUG adhclub JR : formulaires/adh_i3_recherche formulaires_adh_i3_recherche_charger_dist - Pt99 - ";
+	/*$debug1= "DEBUG adhclub JR : formulaires/adhi3_recherche formulaires_adhi3_recherche_charger_dist - Pt99 - ";
 	adhclub_log("$debug1.", true);
 	$debug1= "id_saison=" . _request('id_saison');
 	adhclub_log("$debug1.", true);*/
@@ -89,7 +89,7 @@ function formulaires_adh_i3_recherche_charger_dist($type_objet, $id_objet){
  * Verification du formulaire
  * @return
  */
-function formulaires_adh_i3_recherche_verifier_dist($type_objet, $id_objet){
+function formulaires_adhi3_recherche_verifier_dist($type_objet, $id_objet){
 	global $visiteur_session;
 	global $email_env;
 
@@ -103,7 +103,7 @@ function formulaires_adh_i3_recherche_verifier_dist($type_objet, $id_objet){
 				// Recherche email_envoi ou email webmaster pour détecter les emails inactifs
 				$email_env = adhclub_imp_EMAIL_ENVOI(intval($val));
 
-				/*$debug1= "DEBUG adhclub JR : formulaires_adh_i3_recherche - formulaires_adh_i3_recherche_verifier - Pt06 - ";
+				/*$debug1= "DEBUG adhclub JR : formulaires_adhi3_recherche - formulaires_adhi3_recherche_verifier - Pt06 - ";
 				adhclub_log("$debug1.", "adhclub");*/
 				
 				if($email_envoi['email'] == $email_env['tmp']){
@@ -132,7 +132,7 @@ function formulaires_adh_i3_recherche_verifier_dist($type_objet, $id_objet){
  * Traitement du formulaire
  * @return $retour
  */
-function formulaires_adh_i3_recherche_traiter_dist($type_objet, $id_objet){
+function formulaires_adhi3_recherche_traiter_dist($type_objet, $id_objet){
 	global $email_env;
 	
 	$retour = array();
@@ -148,7 +148,7 @@ function formulaires_adh_i3_recherche_traiter_dist($type_objet, $id_objet){
 		$criteres = $criteres . '|' . _request('niveau');
 		$criteres = $criteres . '|' . _request('niv_rel');
 		
-		/*$debug1= "DEBUG adhclub JR : formulaires_adh_i3_recherche - formulaires_adh_i3_recherche_traiter - Pt05 - ";
+		/*$debug1= "DEBUG adhclub JR : formulaires_adhi3_recherche - formulaires_adhi3_recherche_traiter - Pt05 - ";
 		adhclub_log("$debug1.", true);
 		adhclub_log("criteres= $criteres.", true);
 		adhclub_log("$debug1 FIN.", true);*/
@@ -167,7 +167,7 @@ function formulaires_adh_i3_recherche_traiter_dist($type_objet, $id_objet){
 				$email_envoi = sql_getfetsel('email','spip_auteurs','id_auteur='.intval($val));
 				$destinataires .= $email_envoi . ';';
 
-				/*$debug1= "DEBUG adhclub JR : formulaires_adh_i3_recherche - formulaires_adh_i3_recherche_traiter - Pt08 - ";
+				/*$debug1= "DEBUG adhclub JR : formulaires_adhi3_recherche - formulaires_adhi3_recherche_traiter - Pt08 - ";
 				adhclub_log("$debug1.", true);
 				adhclub_log("email_envoi=$email_envoi");
 				adhclub_log("destinataires=$destinataires.");
@@ -187,7 +187,7 @@ function formulaires_adh_i3_recherche_traiter_dist($type_objet, $id_objet){
 					'mdes' => $destinataires // mail(s) destinataire(s) (opt)
 					);
 
-			/*$debug1= "DEBUG adhclub JR : formulaires_adh_i3_recherche - formulaires_adh_i3_recherche_traiter - Pt10 - ";
+			/*$debug1= "DEBUG adhclub JR : formulaires_adhi3_recherche - formulaires_adhi3_recherche_traiter - Pt10 - ";
 			adhclub_log("$debug1.");
 			$debug1="objet=" . $contexte_mail['objet'];
 			adhclub_log("$debug1.");

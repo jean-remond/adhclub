@@ -8,33 +8,6 @@
 
 if (!defined("_ECRIRE_INC_VERSION")) return;
 
-/**
- * Ajouter le bouton de menu gestion Club si on a le droit
- *
- * @param unknown_type $boutons_admin
- * @return unknown
- */
-/*function adhclub_ajouter_boutons($boutons_admin) {
-
-// si on est admin des adherents ET plugin bando non actif => ajout du bouton de gestion
-	if (autoriser('administrer','adh_tous')AND
-	((function_exists('test_plugin_actif') AND !test_plugin_actif('bando')) OR !function_exists('test_plugin_actif'))) {
-		$menu = "auteurs";
-		$icone = "img_pack/adhclub_24.gif";
-		if (isset($boutons_admin['bando_auteurs'])){
-			$menu = "bando_auteurs";
-			$icone = "img_pack/adhclub_24.gif";
-		}
-	  // on voit le bouton dans la barre "auteurs"
-		$boutons_admin[$menu]->sousmenu['adh_tous']= new Bouton(
-		_DIR_PLUGIN_ADHCLUB.$icone,  // icone
-		_T('adhclub:adhclub')	// titre
-		);
-	}
-
-return $boutons_admin;
-}
-*/
 
 /**
  * Ajouter les boites des niveaux, cotisations et assurances sur la fiche auteur
@@ -43,30 +16,52 @@ return $boutons_admin;
  * @return string
  */
 function adhclub_affiche_milieu($flux){
-	switch($flux['args']['exec']) {
-		case 'auteur_infos':
-			$id_auteur = $flux['args']['id_auteur'];
-			
-			$flux['data'] .= 
-			recuperer_fond('prive/editer/affecter_adhnivs',array('id_auteur'=>$id_auteur));
-			break;
+	$texte = "";
+	$e = trouver_objet_exec($flux['args']['exec']);
+
+	// adhassur sur les auteurs
+	if	(	( $e['type'] == 'auteur'
+			AND $e['edition'] == false
+			AND $id_auteur = $flux['args']['id_auteur']
+			)
+		OR 	( $flux['args']['exec'] == "infos_perso"
+			AND $id_auteur = $GLOBALS['visiteur_session']['id_auteur']
+			)
+		){
+		// adhassur sur les auteurs
+		$texte = recuperer_fond('prive/objets/editer/liens', array(
+			'table_source' => 'adhassur',
+			'objet' => $e['type'],
+			'id_objet' => $id_auteur,
+			#'editable'=>autoriser('associerassurs',$e['type'],$e['id_objet'])?'oui':'non'
+			));
+
+		// adhcoti sur les auteurs
+		$texte = $texte
+			. recuperer_fond('prive/objets/editer/liens', array(
+			'table_source' => 'adhcoti',
+			'objet' => $e['type'],
+			'id_objet' => $id_auteur,
+			#'editable'=>autoriser('associercotis',$e['type'],$e['id_objet'])?'oui':'non'
+			));
+
+		// adhniv sur les auteurs
+		$texte = $texte
+			. recuperer_fond('prive/objets/editer/liens', array(
+			'table_source' => 'adhniv',
+			'objet' => $e['type'],
+			'id_objet' => $id_auteur,
+			#'editable'=>autoriser('associernivs',$e['type'],$e['id_objet'])?'oui':'non'
+			));
 	}
-	switch($flux['args']['exec']) {
-		case 'auteur_infos':
-			$id_auteur = $flux['args']['id_auteur'];
-			
-			$flux['data'] .= 
-			recuperer_fond('prive/editer/affecter_adhcotis',array('id_auteur'=>$id_auteur));
-			break;
+		
+	if ($texte) {
+		if ($p=strpos($flux['data'],"<!--affiche_milieu-->"))
+			$flux['data'] = substr_replace($flux['data'],$texte,$p,0);
+		else
+			$flux['data'] .= $texte;
 	}
-	switch($flux['args']['exec']) {
-		case 'auteur_infos':
-			$id_auteur = $flux['args']['id_auteur'];
-			
-			$flux['data'] .= 
-			recuperer_fond('prive/editer/affecter_adhassurs',array('id_auteur'=>$id_auteur));
-			break;
-	}
+	
 	return $flux;
 }
 
@@ -76,7 +71,7 @@ function adhclub_affiche_milieu($flux){
  * @param string $flux
  * @return string
  */
-function adhclub_affiche_enfants($flux) {
+function adhassur_affiche_enfants($flux) {
     if ($e = trouver_objet_exec($flux['args']['exec'])
     AND $e['type'] == 'auteur'
     AND $e['edition'] == false) {
@@ -84,9 +79,9 @@ function adhclub_affiche_enfants($flux) {
     $id_auteur = $flux['args']['id_auteur'];
      
     $bouton = '';
-    if (autoriser('creerassurdans','auteur', $id_rubrique)) {
-    $bouton .= icone_verticale(_T('adhassur:icone_creer_adhassur'), generer_url_ecrire('editer_assur', "id_auteur=$id_auteur"), "adhassur-24.png", "new", 'right')
-    . "<br class='nettoyeur' />";
+    if (autoriser('creerassurdans','auteur', $id_auteur)) {
+    $bouton .= icone_verticale(_T('adhassur:icone_creer_adhassur'), generer_url_ecrire('editer_adhassur', "id_auteur=$id_auteur"), "adhassur-24.png", "new", 'right')
+    ."<br class='nettoyeur' />";
     }
      
     $lister_objets = charger_fonction('lister_objets','inc');	

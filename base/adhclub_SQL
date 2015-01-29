@@ -9,3 +9,21 @@ WHERE grp.titre = "Niveau_Technique"
 AND grp.id_groupe = mot.id_groupe 
 AND mot.id_mot = niv.techbase 
 ORDER BY mot.titre, niv.rangtrombi
+
+Migrer adhassurs_auteurs vers adhassurs_liens :
+---------------------------------------------
+INSERT INTO `spip_adhassurs_liens`(`id_assur`, `id_objet`, `objet`, `vu`) 
+SELECT id_assur, id_auteur, "auteur", " " 
+FROM spip_adhassurs_auteurs
+
+Migrer adhcotis_auteurs vers adhcotis_liens :
+---------------------------------------------
+INSERT INTO `spip_adhcotis_liens`(`id_coti`, `id_objet`, `objet`, `vu`) 
+SELECT id_coti, id_auteur, "auteur", " " 
+FROM spip_adhcotis_auteurs
+
+Migrer adhnivs_auteurs vers adhnivs_liens :
+---------------------------------------------
+INSERT INTO `spip_adhnivs_liens`(`id_niveau`, `id_objet`, `objet`, `vu`) 
+SELECT id_niveau, id_auteur, "auteur", " " 
+FROM spip_adhnivs_auteurs

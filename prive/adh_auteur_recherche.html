@@ -44,7 +44,7 @@ JR-12/08/2012-Creation du squelette.
 			[(#CLE|match{_table}|oui)
 			<th class="[(#ENV{ordre}|=={[(#CLE|replace{'_table',''})]}|?{[on (#GET{class_desc})],'both'})]">
 				<a href="[(#SELF|parametre_url{'ordre',[(#CLE|replace{'_table',''})]}|parametre_url{'desc',#GET{desc}})]" class="ajax" onclick="jQuery(this).parent('form').submit()">
-					[(#VAL{inscription3:}|concat{[(#CLE|replace{'_table',''})]}|_T)]
+					[(#VAL{inscription3:label_}|concat{[(#CLE|replace{'_table',''})]}|_T)]
 				</a>
 			</th>
 			]

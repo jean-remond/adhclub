@@ -24,9 +24,9 @@ function adhclub_upgrade($nom_meta_base_version, $version_cible){
 				'spip_adhnivs',
 				'spip_adhsaisons',
 				'spip_adhffessms',
-				'spip_adhassurs_auteurs',
-				'spip_adhcotis_auteurs',
-				'spip_adhnivs_auteurs',
+				'spip_adhassurs_liens',
+				'spip_adhcotis_liens',
+				'spip_adhnivs_liens',
 				)
 			)
  		);
@@ -39,10 +39,27 @@ function adhclub_upgrade($nom_meta_base_version, $version_cible){
 	echo "maj= <br />"; var_dump($maj); echo ".<br />";
 	echo "FIN ", $debug1;
 */
-/* 	$maj['201410292235'] = array(	
+ 	$maj['201501261530'] = array(	
+		array('sql_insertq', 'spip_adhassurs_liens', array(
+ 			sql_allfetsel('id_assur, id_auteur, "auteur", ""', 'spip_adhassurs_auteurs')
+ 				)
+			),
+	   	);
+ 	$maj['201501261700'] = array(	
+		array('sql_insertq', 'spip_adhcotis_liens', array(
+ 			sql_allfetsel('id_coti, id_auteur, "auteur", ""', 'spip_adhcotis_auteurs')
+ 				)
+			),
+		array('sql_insertq', 'spip_adhnivs_liens', array(
+ 			sql_allfetsel('id_niveau, id_auteur, "auteur", ""', 'spip_adhnivs_auteurs')
+ 				)
+			),
+		);
+ 	
+/* 	$maj['201501261530'] = array(	
     	array('maj_tables', array('spip_evinscripteurs', 'spip_evparticipants')),
 		array('sql_alter', "TABLE spip_evinscripteurs CHANGE 'statut_inscr' 'statut'"),
-		array('sql_updateq', 'spip_evinscripteurs', array('statut'=>'publie')),
+		array('sql_updateq', 'spip_adhassurs_liens', array('objet'=>'auteur')),
 	   	array('sql_alter', "TABLE spip_evparticipants DROP seq_palanquee"),
 		array('sql_alter', "TABLE spip_evparticipants CHANGE 'ref_palanquee'varchar(10)"),
     	);
@@ -53,9 +70,9 @@ function adhclub_upgrade($nom_meta_base_version, $version_cible){
 }
  
 function adhclub_vider_tables($nom_meta_base_version) {
-	sql_drop_table("spip_adhassurs_auteurs");
-	sql_drop_table("spip_adhcotis_auteurs");
-	sql_drop_table("spip_adhnivs_auteurs");
+	sql_drop_table("spip_adhassurs_liens");
+	sql_drop_table("spip_adhcotis_liens");
+	sql_drop_table("spip_adhnivs_liens");
 	sql_drop_table("spip_adhassurs");
 	sql_drop_table("spip_adhcotis");
 	sql_drop_table("spip_adhnivs");

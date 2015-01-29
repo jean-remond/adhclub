@@ -13,7 +13,7 @@ JR-11/01/2013-Ajout des criteres adh_club.
 JR-12/08/2012-Creation du squelette.
 -->] 
 
-<div class="formulaire_spip ajax formulaire_#FORM" id="formulaire_adh_i3_recherche">
+<div class="formulaire_spip ajax formulaire_#FORM" id="formulaire_adhi3_recherche">
 
 	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV*{message_ok})</p>]
 	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV*{destinataires})</p>]
@@ -108,7 +108,7 @@ JR-12/08/2012-Creation du squelette.
 							<label for="valeur"><:adhclub:recherche_valeur:></label>
 							<input class="text" type="text" name="valeur" id="valeur" value="[(#ENV{valeur})]" />
 						</li>
-						<INCLURE{fond=formulaires/adh_i3_recherche_cas}{case}>
+						<INCLURE{fond=formulaires/adhi3_recherche_cas}{case}>
 					</ul>
 				</fieldset>
 			</li>
@@ -121,6 +121,8 @@ JR-12/08/2012-Creation du squelette.
 			]
 		</p>
 
+		<INCLURE{fond=prive/inclure/adh_legende_adherent_top}>
+		
 		[(#REM) <--
 		JR-26/01/2012-Completer acces a adh_auteur_recherche avec autres criteres.
 		--> ]

@@ -1,0 +1,52 @@
+[(#REM) <-- 
+ /**
+ * Plugin adh_club : Adherent Club pour Spip 3.0
+ * Licence GPL (c) 2011-2015 Jean Remond
+ * ----------------------------------------------
+ * Liste des assurances du club liees a un objet
+ * ----------------------------------------------
+ * JR-24/01/2015-Adaptation spip 3.0.
+ * JR-24/01/2015-Creation du squelette.
+ */
+-->] 
+[(#SET{defaut_tri,#ARRAY{
+ 	titre,1,
+    id_assur,1,
+    id_saison,-1,
+    }}
+)]
+<input type="hidden" name="debutassurl" value='#ENV{debutassurl,#EVAL{_request("debutassurl");}}' />
+<B_liste_assurs>
+    #ANCRE_PAGINATION
+    <div class="liste-objets liste-objets-lies adhassur">
+		<table class='spip liste'>
+		[<caption><strong class="caption">(#ENV*{titre,#GRAND_TOTAL|singulier_ou_pluriel{adhassur:info_1_adhassur,adhassur:info_nb_adhassurs}})</strong></caption>]
+		<thead>
+		<tr class='first_row'>
+			<th class='picto' scope='col'></th>
+			<th class='titre' scope='col'>[(#TRI{titre,<:adhclub:label_titre:>,ajax})]</th>
+			<th class='id'><:adhclub:action_icone:></th>
+			<th class='id' scope='col'>[(#TRI{id_assur,<:info_numero_abbreviation:>,ajax})]</th>
+			<th class='id' scope='col'>[(#TRI{id_saison,<:adhsaison:titre_adhsaison_col:>,ajax})]</th>
+		</tr>
+		</thead>
+		<tbody>
+		<BOUCLE_liste_assurs(ADHASSURS){statut==.*}{id_assur?}{id_auteur?}{id_objet?}{objet}{where?}{tri #ENV{par,num titre},#GET{defaut_tri}}{par num titre,titre}{pagination #ENV{nb,10} assurl}>
+		<tr class="[(#COMPTEUR_BOUCLE|alterner{row_odd,row_even})][(#ID_ASSUR|=={#ENV{id_lien_ajoute}}|oui)append]">
+			<td class='picto'>[(#CHEMIN_IMAGE{adhassur-24.png}|balise_img)]</td>
+			<td class='nom principale'>[(#LOGO_ASSUR|image_reduire{20,26})]<a href="[(#ID_ASSUR|generer_url_entite{adhassur})]" title="<:info_numero_abbreviation|attribut_html:> #ID_ASSUR">#TITRE</a></td>
+			<td class='action'><button class="button link delete" name="supprimer_lien[adhassur-#ID_ASSUR-#OBJET-#ID_OBJET]" value="X"><:adhassur:lien_retirer_adhassur:> [(#CHEMIN_IMAGE{supprimer-12.png}|balise_img{'X'})]</button></td>
+			<td class='id'>#ID_ASSUR</td>
+			<td class='id'>#ID_SAISON</td>
+		</tr>
+		</BOUCLE_liste_assurs>
+		</tbody>
+		</table>
+		[<p class='pagination'>(#PAGINATION{prive})</p>]
+		[(#GRAND_TOTAL|>{3}|oui)<div class="action"><button class="button link" name="supprimer_lien#EVAL{chr(91)}adhassur-*-#OBJET-#ID_OBJET#EVAL{chr(93)}" value="X"><:adhassur:lien_retirer_adhassurs:> [(#CHEMIN_IMAGE{supprimer-12.png}|balise_img{'X'})]</button></div>]
+	</div>
+	</B_liste_assurs>[
+    	<div class="liste-objets liste-objets-lies adhassur caption-wrap">
+    		<strong class="caption">[(#ENV*{titre,<:adhassur:info_aucun_adhassur:>}) ]</strong>
+    	</div>
+    ]<//B_liste_assurs>

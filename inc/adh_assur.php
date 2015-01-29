@@ -2,6 +2,8 @@
 /**
  * Plugin adhclub : Adherent Club pour Spip 3.0
  * Licence GPL (c) 2011-2015 Jean Remond
+ * 
+ * JR-26/01/2015-Adaptation aux tables liens.
  */
 
 if (!defined("_ECRIRE_INC_VERSION")) return;
@@ -46,7 +48,7 @@ function adhclub_assurs_de_1auteur($id_auteur){
 	static $liste_assurs = array();
 	if (!isset($liste_assurs[$id_auteur])){
 		include_spip('base/abstract_sql');
-		$liste_assurs[$id_auteur] = sql_allfetsel("id_assur","spip_adhassurs_auteurs","id_auteur=".intval($id_auteur));
+		$liste_assurs[$id_auteur] = sql_allfetsel("id_assur","spip_adhassurs_liens as aa","aa.objet='auteur' AND aa.id_objet=".intval($id_auteur));
 	
 		//echo "<br />.debug JR : inc/adh_assur-adhclub_assurs_de_1auteur-Pt05.<br />";
 		//$field=$liste_assurs[$id_auteur];
@@ -141,7 +143,7 @@ function adhclub_test_assurtitre_de_auteur($id_auteur, $assurtitre){
 function adhclub_auteurs_ds_1assur($id_assur) {
 	$liste_auteurs=array();
 	include_spip('base/abstract_sql');
-	$liste_auteurs = sql_allfetsel("id_auteur","spip_adhassurs_auteurs","id_assur=".intval($id_assur));
+	$liste_auteurs = sql_allfetsel("id_auteur","spip_adhassurs_liens as aa","aa.objet='auteur' AND aa.id_assur=".intval($id_assur));
 	$liste_auteurs = array_map('reset',$liste_auteurs);
 	return $liste_auteurs;
 }

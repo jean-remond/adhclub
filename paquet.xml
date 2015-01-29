@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?><paquet
 	prefix="adhclub"
 	categorie="squelette"
-	version="3.0.2"
+	version="3.0.8"
 	etat="dev"
 	compatibilite="[3.0.17;["
 	logo="prive/themes/spip/images/adhclub-24.png"
-	schema="201501131930"
+	schema="201501291805"
 	>	
 	<!-- documentation="pas faite" -->
 
@@ -16,16 +16,18 @@
 
 	<licence>GNU/GLP</licence>
 
-	<pipeline nom="declarer_tables_interfaces" inclure="base/adhclub.php" />
 	<pipeline nom="declarer_tables_objets_sql" inclure="base/adhclub.php" />
+	<pipeline nom="declarer_tables_auxiliaires" inclure="base/adhclub.php" />
+	<pipeline nom="declarer_tables_interfaces" inclure="base/adhclub.php" />
+	<pipeline nom="rechercher_liste_des_champs" inclure="base/adhclub.php" />
+	<pipeline nom="affiche_milieu" inclure="adhclub_pipelines.php" />
+    <pipeline nom="affiche_enfants" inclure="adhclub_pipelines.php" />
 
 	<!-- Les ajouts du plugin -->
 	<pipeline nom="adhclub_liste_niveaux_autorises" 
 		action="liste_niveaux_autorises"
 		inclure="inc/adh_niveau.php"
 	/>
-	<pipeline nom="affiche_milieu" inclure="adhclub_pipelines.php" />
-    <pipeline nom="affiche_enfants" inclure="adhclub_pipelines.php" />
     
 	<pipeline nom="autoriser" inclure="inc/adhclub_autoriser.php" />
     

@@ -1,1 +1,20 @@
+[(#REM) <-- 
+ * Plugin adh_club : Adherent Club pour Spip 3.0
+ * Licence GPL (c) 2011-2015 Jean Remond
+ ----------------------------------------------
+Liste pour gestion de la fiche des adherents sur le site prive ou envoi de courriels. 
+Bloc de top.
+Permet d'obtenir un afficahe pleine largeur.
+----------------------------------------------
+JR-24/01/2015-adaptation spip 3.0.
+-->] 
+
 [(#VAL{adh_adherents}|barre_onglets{adh_adherents})]
+
+<h1 class="grostitre"><:adhclub:adherents_liste:></h1>
+
+#LARGEUR_ECRAN{pleine_largeur}
+
+#BOITE_OUVRIR{'','info'}
+	<p><:adhclub:page_info_adhclub:></p>
+#BOITE_FERMER

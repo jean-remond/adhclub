@@ -2,6 +2,8 @@
 /**
  * Plugin adhclub : Adherent Club pour Spip 3.0
  * Licence GPL (c) 2011-2015 Jean Remond
+ * 
+ * JR-26/01/2015-Adaptation aux tables liens.
  */
 
 if (!defined("_ECRIRE_INC_VERSION")) return;
@@ -45,7 +47,7 @@ function adhclub_nivs_ds_1auteur($id_auteur){
 	static $liste_niveaux = array();
 	if (!isset($liste_niveaux[$id_auteur])){
 		include_spip('base/abstract_sql');
-		$liste_niveaux[$id_auteur] = sql_allfetsel("id_niveau","spip_adhnivs_auteurs","id_auteur=".intval($id_auteur));
+		$liste_niveaux[$id_auteur] = sql_allfetsel("id_niveau","spip_adhnivs_liens as na","na.objet='auteur' AND na.id_objet=".intval($id_auteur));
 		$liste_niveaux[$id_auteur] = array_map('reset',$liste_niveaux[$id_auteur]);
 	}
 	return $liste_niveaux[$id_auteur];
@@ -74,7 +76,7 @@ function adhclub_test_niveau_de_auteur($id_niveau,$id_auteur){
 function adhclub_auteurs_ds_1niveau($id_niveau ) {
 	$liste_auteurs=array();
 	include_spip('base/abstract_sql');
-	$liste_auteurs = sql_allfetsel("id_auteur","spip_adhnivs_auteurs","id_niveau = ".intval($id_niveau));
+	$liste_auteurs = sql_allfetsel("id_objet","spip_adhnivs_liens as na","na.objet='auteur' AND na.id_niveau = ".intval($id_niveau));
 	$liste_auteurs = array_map('reset',$liste_auteurs);
 	return $liste_auteurs;
 }

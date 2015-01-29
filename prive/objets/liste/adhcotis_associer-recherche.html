@@ -1,0 +1,53 @@
+[(#REM) <-- 
+ /**
+ * Plugin adh_club : Adherent Club pour Spip 3.0
+ * Licence GPL (c) 2011-2015 Jean Remond
+ * ----------------------------------------------
+ * Liste des cotisations du club associees a un objet (nombreuses).
+ * ----------------------------------------------
+ * JR-29/01/2015-Creation du squelette.
+ */
+-->] 
+<input type="text" class="text" name="recherche" value="[(#ENV*{recherche})]" />
+<input type="submit" class="submit" name="rechercheb" value="<:info_rechercher:>" />
+<input type="hidden" name="debutcotia" value='#ENV{debutcotia,#VAL{debutcotiacotia}|_request}' />
+#SET{recherche,#ENV*{recherche}}
+[(#GET{recherche}|non|et{#ENV*{rechercheb}})
+	#SET{recherche,'/./'}
+	<input type="hidden" name="rechercheb" value='x' />
+]
+<B_liste_coti>
+    #ANCRE_PAGINATION
+    <div class="liste-objets liste-objets-associer adhcoti">
+		<table class='spip liste'>
+		[<caption><strong class="caption">(#ENV*{titre,#GRAND_TOTAL|singulier_ou_pluriel{adhcoti:info_1_adhcoti,adhcoti:info_nb_adhcotis}})</strong></caption>]
+		<thead>
+		<tr class='first_row'>
+			<th class='picto' scope='col'></th>
+			<th class='titre' scope='col'>[(#TRI{titre,<:adhclub:label_titre:>,ajax})]</th>
+			<th class='descriptif' scope='col'>[(#TRI{descriptif,<:adhclub:label_desc:>,ajax})]</th> 
+			<th class='id'><:adhclub:action_icone:></th>
+			<th class='id' scope='col'>[(#TRI{id_coti,<:info_numero_abbreviation:>,ajax})]</th>
+			<th class='id' scope='col'>[(#TRI{id_saison,<:adhsaison:titre_adhsaison_col:>,ajax})]</th>
+		</tr>
+		</thead>
+		<tbody>
+		<BOUCLE_liste_coti(ADHCOTIS){doublons 2}{recherche #GET{recherche}}{tri #ENV{par,num titre},#GET{defaut_tri}}{par num titre,titre}{pagination 10 cotia}>
+		<tr class="[(#COMPTEUR_BOUCLE|alterner{row_odd,row_even})]">
+			<td class='picto'>[(#CHEMIN_IMAGE{adhcoti-24.png}|balise_img)]</td>
+			<td class='nom principale'>[(#LOGO_COTI|image_reduire{20,26})]<a href="[(#ID_COTI|generer_url_entite{adhcoti})]" title="<:info_numero_abbreviation|attribut_html:> #ID_COTI">#TITRE</a></td>
+			<td class='nom principale'>#DESCRIPTIF</td>
+			<td class='action'><button class="button link" name="ajouter_lien[adhcoti-#ID_COTI-#OBJET-#ID_OBJET]" value="+"><:adhcoti:lien_ajouter_adhcoti:> [(#CHEMIN_IMAGE{ajouter-12.png}|balise_img{'+'})]</button></td>
+			<td class='id'>#ID_COTI</td>
+			<td class='id'>#ID_SAISON</td>
+		</tr>
+		</BOUCLE_liste_coti>
+		</tbody>
+		</table>
+		[<p class='pagination'>(#PAGINATION{prive})</p>]
+	</div>
+	</B_liste_coti>[(#ENV*{recherche}|oui)
+		<div class="liste-objets liste-objets-associer adhcoti caption-wrap">
+			<strong class="caption">[(#ENV*{titre,<:adhcoti:info_aucun_adhcoti:>}) ]</strong>
+		</div>]
+    ]<//B_liste_coti>
