@@ -10,8 +10,9 @@
  */
 -->] 
 [(#SET{defaut_tri,#ARRAY{
+    techbase,1,
+    encadrant,1,
  	titre,1,
-    id_niveau,1,
     }}
 )]
 <input type="hidden" name="debutnivl" value='#ENV{debutnivl,#EVAL{_request("debutnivl");}}' />
@@ -42,8 +43,8 @@
 		[<p class='pagination'>(#PAGINATION{prive})</p>]
 		[(#GRAND_TOTAL|>{3}|oui)<div class="action"><button class="button link" name="supprimer_lien#EVAL{chr(91)}adhniv-*-#OBJET-#ID_OBJET#EVAL{chr(93)}" value="X"><:adhniv:lien_retirer_adhnivs:> [(#CHEMIN_IMAGE{supprimer-12.png}|balise_img{'X'})]</button></div>]
 	</div>
-	</B_liste_nivs>[
+	</B_liste_nivs>
     	<div class="liste-objets liste-objets-lies adhniv caption-wrap">
     		<strong class="caption">[(#ENV*{titre,<:adhniv:info_aucun_adhniv:>}) ]</strong>
     	</div>
-    ]<//B_liste_nivs>
+    <//B_liste_nivs>

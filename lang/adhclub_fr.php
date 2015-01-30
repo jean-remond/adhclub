@@ -24,7 +24,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	// A
 	'action_icone' => 'Actions',
 	'adhclub' => 'Gestion du club',
-	'adhclub_titre' => 'Gestion des adhérents du Club',
+	'adhclub_titre' => 'Adhérents du Club',
 	'adherents_liste' => 'Liste des adh&eacute;rents du club',
 	'adherents_videe' => 'La liste des adh&eacute;rents est vide !!',
 	'adh_erreurs' => 'Erreurs du fichier d\'entr&eacute;e.',

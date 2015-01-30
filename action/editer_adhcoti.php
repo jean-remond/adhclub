@@ -3,21 +3,26 @@
  * Plugin adhclub : Adherent Club pour Spip 3.0
  * Licence GPL (c) 2011-2015 Jean Remond
  * ----------------------------------------------
+ * Actions de l'environnement cotisations.
  * ----------------------------------------------
- * JR-10/01/2015-adaptation spip 3.0.
+ * @todo-JR-30/01/2015-Confirmer le besoin. Lie a /formulaire/ ?
+ * 
+ * Fait:
+ * JR-30/01/2015-adaptation spip 3.0.
 */
 
 if (!defined("_ECRIRE_INC_VERSION")) return;
 
 /**
- * editer une cotisation (action apres creation/modif de niveau)
+ * editer une cotisation (action apres creation/modif de cotisation)
  *
  * @return array
  */
 function action_editer_adhcoti_dist(){
 
-	echo "<br />.debug JR2012.<br />";
-	echo "action/editer_adhcotis - action_editer_adhcoti_dist-Pt10.<br />";
+	$debug1= "DEBUG plugin JR : action/editer_adhcoti.php - action_editer_adhcoti_dist - Pt02 - <br />";
+	echo "<br />", $debug1;
+	echo "FIN ", $debug1;
 	
 	$securiser_action = charger_fonction('securiser_action', 'inc');
 	$arg = $securiser_action();
@@ -90,7 +95,12 @@ function adhclub_revision_adhcoti_objets_lies($cotis,$ids,$type,$operation = 'ad
             //echo "action/editer_adhcoti Action-Pt1.<br />";
 
 			// on supprime les ids listes
-			sql_delete("spip_adhcotis_{$type}s",array("id_coti=".intval($row['id_coti']),sql_in("id_$type",$ids)));			
+			$adhwhere = array(
+				"id_coti=".intval($row['id_coti']),
+				"objet =".$type,
+				sql_in("id_objet",$ids)
+				);
+			sql_delete("spip_adhcotis_liens",$adhwhere);			
 
             //echo "<br />.debug JR.<br />";
             //echo "action/editer_adhcoti Action-Pt2.<br />";
@@ -105,14 +115,29 @@ function adhclub_revision_adhcoti_objets_lies($cotis,$ids,$type,$operation = 'ad
 			elseif (!is_array($ids)) $ids = array($ids);
 			// si c'est une affectation exhaustive, supprimer les existants qui ne sont pas dans ids
 			// si c'est un ajout, ne rien effacer
-			if ($operation=='set')
-				sql_delete("spip_adhcotis_{$type}s",array("id_coti=".intval($row['id_coti']),sql_in("id_$type",$ids,"NOT")));
-			
-			$deja = array_map('reset',sql_allfetsel("id_$type","spip_adhcotis_{$type}s","id_coti=".intval($row['id_coti'])));
+			if ($operation=='set'){
+				$adhwhere = array(
+					"id_coti=".intval($row['id_coti']),
+					"objet =".$type,
+					sql_in("id_objet",$ids,"NOT"),
+					);
+				sql_delete("spip_adhcotis_liens",$adhwhere);
+			}
+			$adhwhere = array(
+				"id_coti=".intval($row['id_coti']),
+				"objet =".$type,
+				);
+			$deja = array_map('reset',sql_allfetsel("id_$type","spip_adhcotis_liens",$adhwhere));
 			$add = array_diff($ids,$deja);
 			foreach ($add as $id) {
-				if (autoriser('affectercotis',$type,$id,null,array('id_coti'=>$row['id_coti'])))
-					sql_insertq("spip_adhcotis_{$type}s",array('maj'=>'NOW()','id_coti'=>$row['id_coti'],"id_$type"=>intval($id),"ref_saisie"=>$ref_saisie));
+				if (autoriser('affectercotis',$type,$id,null,array('id_coti'=>$row['id_coti']))){
+					$adhvaleur=array(
+						'id_coti'	=> $row['id_coti'],
+						'objet'		=> $type,
+						'id_objet'	=> intval($id),
+					);
+					sql_insertq("spip_adhcotis_liens",$adhvaleur);
+				}
 			}
 		}
 	}	
@@ -129,7 +154,12 @@ function adhclub_action_insert_adhcoti(){
 	if (!autoriser('creer','adhcoti'))
 		return false;
 	// nouvelle cotisation
-		$id_coti = sql_insertq("spip_adhcotis", array('maj'=>'NOW()', 'titre'=> 'nouvelle', 'descriptif'=> 'nouvelle', 'mnt_cotis'=> '0.0'));
+	$adhvaleur=array(
+		'titre'=> 'nouvelle',
+		'descriptif'=> 'NOW()',
+		'mnt_cotis'=> '0.0',
+	);
+	$id_coti = sql_insertq("spip_adhcotis", $adhvaleur);
 
 	if (!$id_coti){
 		adhclub_log("editer_adhcoti : adhclub_action_insert_adhcoti : impossible d'ajouter une cotisation", true);
@@ -147,13 +177,12 @@ function adhclub_action_insert_adhcoti(){
  */
 function adhclub_revision_adhcoti($id_coti, $c=false) {
 
-	echo "<br />.debug JR2012.<br />";
+	$debug1= "DEBUG plugin JR : action/editer_adhcoti.php - adhclub_revision_adhcoti - Pt02 - <br />";
+	echo "<br />", $debug1;
 	echo "id_coti= $id_coti.<br />";
-	$field=$c[1];
-	echo "c[1]= $field.<br />";
-	$field=$c[2];
-	echo "c[2]= $field.<br />";
-	echo "action/editer_adhcotis - adhclub_revision_adhcoti-Pt30.<br />";
+		// un tableau (array)
+	echo "c= <br />"; var_dump($c); echo ".<br />";
+	echo "FIN ", $debug1;
 	
 	modifier_contenu('adhcoti', $id_coti,
 		array(
@@ -175,7 +204,7 @@ function adhclub_supprime_adhcoti($id_coti){
 	$supp_coti = sql_getfetsel("id_coti", "spip_adhcotis", "id_coti=" . intval($id_coti));
 	if (intval($id_coti) AND 	intval($id_coti) == intval($supp_coti)){
 		// d'abord les auteurs
-		sql_delete("spip_adhcotis_auteurs", "id_coti=".intval($id_coti));
+		sql_delete("spip_adhcotis_liens", "id_coti=".intval($id_coti));
 		// puis la cotisation
 		sql_delete("spip_adhcotis", "id_coti=".intval($id_coti));
 	}

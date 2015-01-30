@@ -19,7 +19,7 @@ function adhclub_affiche_milieu($flux){
 	$texte = "";
 	$e = trouver_objet_exec($flux['args']['exec']);
 
-	// adhassur sur les auteurs
+	// afficher les liaisons avec l'auteur
 	if	(	( $e['type'] == 'auteur'
 			AND $e['edition'] == false
 			AND $id_auteur = $flux['args']['id_auteur']
@@ -66,30 +66,50 @@ function adhclub_affiche_milieu($flux){
 }
 
 /**
- * Ajouter les boites des niveaux, cotisations et assurances sur la fiche auteur
+ * Ajouter les saisons sur les vues cotisations et assurances
+ * Après la visualisation de l'objet (genre articles ds 1 rubrique) ??
  *
  * @param string $flux
  * @return string
  */
-function adhassur_affiche_enfants($flux) {
+/* function adhassur_affiche_enfants($flux) {
     if ($e = trouver_objet_exec($flux['args']['exec'])
-    AND $e['type'] == 'auteur'
+    AND $e['type'] == 'adhassur'
     AND $e['edition'] == false) {
      
-    $id_auteur = $flux['args']['id_auteur'];
+    $id_assur = $flux['args']['id_assur'];
      
     $bouton = '';
-    if (autoriser('creerassurdans','auteur', $id_auteur)) {
-    $bouton .= icone_verticale(_T('adhassur:icone_creer_adhassur'), generer_url_ecrire('editer_adhassur', "id_auteur=$id_auteur"), "adhassur-24.png", "new", 'right')
+    if (autoriser('creersaisondans','adhassur', $id_assur)) {
+    $bouton .= icone_verticale(_T('adhsaison:icone_creer_adhsaison'), generer_url_ecrire('editer_adhsaison', "id_assur=$id_assur"), "adhassur-24.png", "new", 'right')
     ."<br class='nettoyeur' />";
     }
      
     $lister_objets = charger_fonction('lister_objets','inc');	
-    $flux['data'] .= $lister_objets('adhassur', array('titre'=>_T('adhassur:titre_auteur_adhassur') , 'id_auteur'=>$id_auteur, 'par'=>'titre'));
+    $flux['data'] .= $lister_objets('adhsaison', array('titre'=>_T('adhsaison:titre_ahdsaison_adhassur') , 'id_assur'=>$id_assur, 'par'=>'titre'));
     $flux['data'] .= $bouton;
-     
+	
     }
+    
+    if ($e = trouver_objet_exec($flux['args']['exec'])
+    AND $e['type'] == 'adhcoti'
+    AND $e['edition'] == false) {
+     
+    $id_assur = $flux['args']['id_coti'];
+     
+    $bouton = '';
+    if (autoriser('creersaisondans','adhcoti', $id_coti)) {
+    $bouton .= icone_verticale(_T('adhsaison:icone_creer_adhsaison'), generer_url_ecrire('editer_adhsaison', "id_coti=$id_coti"), "adhcoti-24.png", "new", 'right')
+    ."<br class='nettoyeur' />";
+    }
+     
+    $lister_objets = charger_fonction('lister_objets','inc');	
+    $flux['data'] .= $lister_objets('adhsaison', array('titre'=>_T('adhsaison:titre_ahdsaison_adhassur') , 'id_coti'=>$id_coti, 'par'=>'titre'));
+    $flux['data'] .= $bouton;
+	
+    }
+    
     return $flux;
-}
+} */
 
 ?>

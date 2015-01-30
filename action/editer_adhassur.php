@@ -3,8 +3,12 @@
  * Plugin adhclub : Adherent Club pour Spip 3.0
  * Licence GPL (c) 2011-2015 Jean Remond
  * ----------------------------------------------
+ * Actions de l'environnement assurances.
  * ----------------------------------------------
- * JR-10/01/2015-adaptation spip 3.0.
+ * @todo-JR-30/01/2015-Confirmer le besoin. Lie a /formulaire/ ?
+ * 
+ * Fait:
+ * JR-30/01/2015-adaptation spip 3.0.
 */
 
 if (!defined("_ECRIRE_INC_VERSION")) return;
@@ -74,31 +78,43 @@ function adhclub_revision_adhassur_objets_lies($assurs,$ids,$type,$operation = '
 	foreach($liste as $row){
 		if ($operation=='del'){
 
-            //echo "<br />.debug JR.<br />";
-            //echo "action/editer_adhassur Action-Pt1.<br />";
-
 			// on supprime les ids listes
-			sql_delete("spip_adhassurs_{$type}s",array("id_assur=".intval($row['id_assur']),sql_in("id_$type",$ids)));			
-
-            //echo "<br />.debug JR.<br />";
-            //echo "action/editer_adhassur Action-Pt2.<br />";
+			$adhwhere = array(
+				"id_assur=".intval($row['id_assur']),
+				"objet =".$type,
+				sql_in("id_objet",$ids)
+				);
+			sql_delete("spip_adhassurs_liens",$adhwhere);			
 
 		}else {
-
-            //echo "<br />.debug JR.<br />";
-            //echo "action/editer_adhassur Action-Pt3.<br />";
 
 			if (!$ids) $ids = array();
 			elseif (!is_array($ids)) $ids = array($ids);
 			// si c'est une affectation exhaustive, supprimer les existants qui ne sont pas dans ids
 			// si c'est un ajout, ne rien effacer
-			if ($operation=='set')
-				sql_delete("spip_adhassurs_{$type}s",array("id_assur=".intval($row['id_assur']),sql_in("id_$type",$ids,"NOT")));
-			$deja = array_map('reset',sql_allfetsel("id_$type","spip_adhassurs_{$type}s","id_assur=".intval($row['id_assur'])));
+			if ($operation=='set'){
+				$adhwhere = array(
+					"id_assur=".intval($row['id_assur']),
+					"objet =".$type,
+					sql_in("id_objet",$ids,"NOT"),
+					);
+				sql_delete("spip_adhassurs_liens",$adhwhere);
+			}
+			$adhwhere = array(
+				"id_assur=".intval($row['id_assur']),
+				"objet =".$type,
+				);
+			$deja = array_map('reset',sql_allfetsel("id_objet","spip_adhassurs_liens",$adhwhere));
 			$add = array_diff($ids,$deja);
 			foreach ($add as $id) {
-				if (autoriser('affecterassurs',$type,$id,null,array('id_assur'=>$row['id_assur'])))
-					sql_insertq("spip_adhassurs_{$type}s",array('maj'=>'NOW()','id_assur'=>$row['id_assur'],"id_$type"=>intval($id)));
+				if (autoriser('affecterassurs',$type,$id,null,array('id_assur'=>$row['id_assur']))){
+					$adhvaleur=array(
+						'id_assur'	=> $row['id_assur'],
+						'objet'		=> $type,
+						'id_objet'	=> intval($id),
+					);
+					sql_insertq("spip_adhassurs_liens",$adhvaleur);
+				}
 			}
 		}
 	}	
@@ -114,7 +130,12 @@ function adhclub_action_insert_adhassur(){
 	if (!autoriser('creer','adhassur'))
 		return false;
 	// nouvelle assurance
-	$id_assur = sql_insertq("spip_adhassurs", array('maj'=>'NOW()', 'titre'=> 'nouvelle', 'descriptif'=> 'nouvelle'));
+	$adhvaleur=array(
+		'titre'=> 'nouvelle',
+		'descriptif'=> 'NOW()',
+		'mnt_assur'=> '0.0',
+	);
+	$id_assur = sql_insertq("spip_adhassurs", $adhvaleur);
 
 	if (!$id_assur){
 		adhclub_log("editer_adhassur : adhclub_action_insert_adhassur : impossible d'ajouter une assurance", true);
@@ -152,7 +173,7 @@ function adhclub_supprime_adhassur($id_assur){
 	$supp_assur = sql_getfetsel("id_assur", "spip_adhassurs", "id_assur=" . intval($id_assur));
 	if (intval($id_assur) AND 	intval($id_assur) == intval($supp_assur)){
 		// d'abord les auteurs
-		sql_delete("spip_adhassurs_auteurs", "id_assur=".intval($id_assur));
+		sql_delete("spip_adhassurs_liens", "id_assur=".intval($id_assur));
 		// puis l'assurance
 		sql_delete("spip_adhassurs", "id_assur=".intval($id_assur));
 	}

@@ -2,8 +2,13 @@
 /**
  * Plugin adh_club : Adherent Club pour Spip 3.0
  * Licence GPL (c) 2011-2015 Jean Remond
- *
- * JR-10/01/2015-adaptation spip 3.0.
+ * ----------------------------------------------
+ * Actions de l'environnement niveaux.
+ * ----------------------------------------------
+ * @todo-JR-30/01/2015-Confirmer le besoin. Lie a /formulaire/ ?
+ * 
+ * Fait:
+ * JR-30/01/2015-adaptation spip 3.0.
 */
 
 if (!defined("_ECRIRE_INC_VERSION")) return;
@@ -34,10 +39,6 @@ function action_editer_adhniv_dist(){
 		}
 	}
 	
-	//echo "<br />.debug JR2012.<br />";
-	//echo "niveaux= $niveau.<br />";
-	//echo "action/editer_adhniv - action_editer_adhniv_dist-Pt10.<br />";
-	
 	$err = action_adhniv_set($id_niveau);
 	return array($id_niveau,$err);
 }
@@ -50,10 +51,6 @@ function action_editer_adhniv_dist(){
  */
 function action_adhniv_set($id_niveau){
 	$err = '';
-	
-	//echo "<br />.debug JR2012.<br />";
-	//echo "niveaux= $niveau.<br />";
-	//echo "action/editer_adhniv - action_adhniv_set-Pt20.<br />";
 	
 	$c = array();
 	foreach (array(
@@ -98,20 +95,41 @@ function adhclub_revision_adhniv_objets_lies($niveaux,$ids,$type,$operation = 'a
 	foreach($liste as $row){
 		if ($operation=='del'){
 			// on supprime les ids listes
-			sql_delete("spip_adhnivs_{$type}s",array("id_niveau=".intval($row['id_niveau']),sql_in("id_$type",$ids)));			
+			$adhwhere = array(
+				"id_niveau=".intval($row['id_niveau']),
+				"objet =".$type,
+				sql_in("id_objet",$ids)
+				);
+			sql_delete("spip_adhnivs_liens",$adhwhere);			
 		}
 		else {
 			if (!$ids) $ids = array();
 			elseif (!is_array($ids)) $ids = array($ids);
 			// si c'est une affectation exhaustive, supprimer les existants qui ne sont pas dans ids
 			// si c'est un ajout, ne rien effacer
-			if ($operation=='set')
-				sql_delete("spip_adhnivs_{$type}s",array("id_niveau=".intval($row['id_niveau']),sql_in("id_$type",$ids,"NOT")));
-			$deja = array_map('reset',sql_allfetsel("id_$type","spip_adhnivs_{$type}s","id_niveau=".intval($row['id_niveau'])));
+			if ($operation=='set'){
+				$adhwhere = array(
+					"id_niveau=".intval($row['id_niveau']),
+					"objet =".$type,
+					sql_in("id_objet",$ids,"NOT"),
+					);
+				sql_delete("spip_adhnivs_liens",$adhwhere);
+			}
+			$adhwhere = array(
+				"id_niveau=".intval($row['id_niveau']),
+				"objet =".$type,
+				);
+			$deja = array_map('reset',sql_allfetsel("id_objet","spip_adhnivs_liens",$adhwhere));
 			$add = array_diff($ids,$deja);
 			foreach ($add as $id) {
-				if (autoriser('affecterniveaux',$type,$id,null,array('id_niveau'=>$row['id_niveau'])))
-					sql_insertq("spip_adhnivs_{$type}s",array('maj'=>'NOW()','id_niveau'=>$row['id_niveau'],"id_$type"=>intval($id)));
+				if (autoriser('affecterniveaux',$type,$id,null,array('id_niveau'=>$row['id_niveau']))){
+					$adhvaleur=array(
+						'id_niveau'=> $row['id_niveau'],
+						'objet'		=> $type,
+						'id_objet'	=> intval($id),
+					);
+					sql_insertq("spip_adhnivs_liens",$adhvaleur);
+				}
 			}
 		}
 	}	
@@ -134,7 +152,6 @@ function adhclub_action_insert_adhniv(){
                         'encadrant'=>'ADH', 
                         'id_trombi'=>'0', 
                         'rangtrombi'=>'2', 
-                        'maj'=>'NOW()'
                         ));
 
 	if (!$id_niveau){

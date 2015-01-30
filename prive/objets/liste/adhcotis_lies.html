@@ -45,8 +45,8 @@
 		[<p class='pagination'>(#PAGINATION{prive})</p>]
 		[(#GRAND_TOTAL|>{3}|oui)<div class="action"><button class="button link" name="supprimer_lien#EVAL{chr(91)}adhcoti-*-#OBJET-#ID_OBJET#EVAL{chr(93)}" value="X"><:adhcoti:lien_retirer_adhcotis:> [(#CHEMIN_IMAGE{supprimer-12.png}|balise_img{'X'})]</button></div>]
 	</div>
-	</B_liste_cotis>[
+	</B_liste_cotis>
     	<div class="liste-objets liste-objets-lies adhcopti caption-wrap">
     		<strong class="caption">[(#ENV*{titre,<:adhcoti:info_aucun_adhcoti:>}) ]</strong>
     	</div>
-    ]<//B_liste_cotis>
+    <//B_liste_cotis>

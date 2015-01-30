@@ -419,10 +419,11 @@ return $champs;
 }
 
  function adhclub_rechercher_liste_des_champs($tables){
-    // ajouter un champ titre sur les niveaux
+    // ajouter les champs de recherche avec leur pertinence (grand = plus fort)
     $tables['adhnivs']['titre'] = 3;
     $tables['adhnivs']['descriptif'] = 3;
     $tables['adhnivs']['techbase'] = 3;
+    $tables['adhnivs']['encadrant'] = 3;
     // retourner le tableau
     return $tables;
     }

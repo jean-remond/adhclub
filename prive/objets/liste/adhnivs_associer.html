@@ -13,7 +13,7 @@
     id_niveau,-1,
 	multi titre,1,
 }})]
-[(#SET{_MAX_ADHNIV_LISTE,[(#VAL{_MAX_ADHNIV_LISTE}|defined|?{[(#VAL{_MAX_ADHNIV_LISTE}|constant)],50})]})]
+[(#SET{_MAX_ADHNIV_LISTE,[(#VAL{_MAX_ADHNIV_LISTE}|defined|?{[(#VAL{_MAX_ADHNIV_LISTE}|constant)],80})]})]
 <BOUCLE_exclus(ADHNIVS){tout}{id_objet}{objet}{doublons 1}{doublons 2} />
 <BOUCLE_nb_adhnivs(ADHNIVS){tout}{doublons 1} />#SET{total,#TOTAL_BOUCLE}<//B_nb_adhnivs>
 
@@ -38,7 +38,7 @@
 			</tr>
 		</thead>
 		<tbody>
-		<BOUCLE_adhnivs(ADHNIVS){doublons 2}{tri #ENV{par, id_saison, num titre}{inverse},#GET{defaut_tri}}{par num titre, titre}{pagination 10}>
+		<BOUCLE_adhnivs(ADHNIVS){doublons 2}{tri #ENV{par, num titre}{inverse},#GET{defaut_tri}}{par num titre, titre}{pagination 10}>
 			<tr class="[(#COMPTEUR_BOUCLE|alterner{row_odd,row_even})]">
 				<td class='picto'>[(#CHEMIN_IMAGE{adhniv-24.png}|balise_img)]</td>
 				<td class='nom principale'>[(#LOGO_NIVEAU|image_reduire{20,26})]<a href="[(#ID_NIVEAU|generer_url_entite{adhniv})]" title="<:info_numero_abbreviation|attribut_html:> #ID_NIVEAU">#TITRE</a></td>

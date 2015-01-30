@@ -4,7 +4,12 @@
  * Licence GPL (c) 2011-2015 Jean Remond
  * ----------------------------------------------
  * ----------------------------------------------
- * JR-10/01/2015-adaptation spip 3.0.
+ * Actions de l'environnement saisons.
+ * ----------------------------------------------
+ * @todo-JR-30/01/2015-Confirmer le besoin. Lie a /formulaire/ ?
+ * 
+ * Fait:
+ * JR-30/01/2015-adaptation spip 3.0.
 */
 
 if (!defined("_ECRIRE_INC_VERSION")) return;
@@ -116,10 +121,14 @@ function adhclub_action_insert_adhsaison(){
 	if (!autoriser('creer','adhsaison'))
 		return false;
 	// nouvelle saison
-	$id_saison = sql_insertq("spip_adhsaisons", 
-			array('maj'=>'NOW()',  'titre'=> 'nouvelle', 
-					'descriptif'=> 'nouvelle', 'encours'=>'non', 
-					'saison_deb'=>'0001-01-01'));
+	$adhvaleur=array(
+		'titre'=> 'nouvelle',
+		'descriptif'=> 'NOW()',
+		'encours'=>'non',
+		'saison_deb'=>'0001-01-01',
+		'maj'=>'NOW()',
+	);
+	$id_saison = sql_insertq("spip_adhsaisons",$adhvaleur);
 
 	if (!$id_saison){
 		adhclub_log("editer_adhsaison : adhclub_action_insert_adhsaison : impossible d'ajouter une saison", true);
@@ -165,16 +174,16 @@ function adhclub_revision_adhsaison($id_saison, $c=false) {
  */
 function adhclub_supprime_adhsaison($id_saison){
 	$supp_saison = sql_getfetsel("id_saison, encours", "spip_adhsaisons", "id_saison=" . intval($id_saison));
-	if (intval($id_saison)  
-    AND intval($id_saison) == intval($supp_saison[id_saison])
-    AND $supp_saison[encours] == 'non'
-    ){
+	if	(	intval($id_saison)  
+    		AND intval($id_saison) == intval($supp_saison[id_saison])
+    		AND $supp_saison[encours] == 'non'
+    	){
 		// d'abord les assurances des auteurs
-		sql_delete("spip_adhassurs_auteurs", "id_saison=".intval($id_saison));
+		sql_delete("spip_adhassurs_liens", "id_saison=".intval($id_saison));
 		// puis les assurances
 		sql_delete("spip_adhassurs", "id_saison=".intval($id_saison));
 		// puis les cotisations des auteurs
-		sql_delete("spip_adhcotis_auteurs", "id_saison=".intval($id_saison));
+		sql_delete("spip_adhcotis_liens", "id_saison=".intval($id_saison));
 		// puis les cotisations
 		sql_delete("spip_adhcotis", "id_saison=".intval($id_saison));
 		// enfin la saison
