@@ -6,19 +6,23 @@
  * Licence GPL (c) 2011-2015 Jean Remond
  * ----------------------------------------------
  * Liste des adherents qui doivent être integres dans le site. 
- * 	Les donnees ont ete importees dans la table adhffessms via csv-import.
+ * 	Les donnees ont ete importees dans la table adhintgs via csv-import.
  * Cette liste permet un controle avant integration des donnees. 
- * Elle est appelee dans un article par Crochet public/adh_ffessm- Fleche spip.php?page=public/adh_ffessm Crochet_ferme .
+ * Elle est appelee dans un article par Crochet public/adhintg- Fleche spip.php?page=public/adhintg Crochet_ferme .
  * ----------------------------------------------
+ * @todo
+ * 
+ * Fait :
+ * JR-31/01/2015-Adaptation spip 3.0
  * JR-12/01/2012-Creation du squelette.
-*/
+ */
 -->] 
 
 <B_1ffessm>
-<BOUCLE_1ffessm(ADHFFESSMS){0,1}>
+<BOUCLE_1ffessm(ADHINTGS){0,1}>
 
         [(#REM) Stockage du titre de la saison pour charger le formulaire integration ]
-        #SET{saison_ffessm, #SAISON}
+        #SET{saison_adhintg, #SAISON}
         
 </BOUCLE_1ffessm>
 <//BOUCLE_1ffessm>
@@ -26,14 +30,14 @@
 	<div class="liste-articles">
 	<B_ffessm>
 
-		#FORMULAIRE_INTEG_ADHFFESSM{#GET{saison_ffessm}}
+		#FORMULAIRE_INTEG_ADHINTG{#GET{saison_adhintg}}
 
-		<h2 class="invisible"><:adhclub:ffessm_liste:></h2>
+		<h2 class="invisible"><:adhintg:liste_adhintg:></h2>
 
-		<h2><:adhclub:ffessm_liste:></h2>
+		<h2><:adhintg:liste_adhintg:></h2>
 
 		[<p class="pagination">(#PAGINATION)</p>]
-	<BOUCLE_ffessm(ADHFFESSMS){par licence}{pagination 10}>
+	<BOUCLE_ffessm(ADHINTGS){par licence}{pagination 10}>
 
 		<div class="spip_doc_descriptif">
             #CIVILITE &nbsp #PRENOM &nbsp #NOM 
@@ -51,10 +55,10 @@
 		[<p class="pagination">(#PAGINATION)</p>]
 	<//BOUCLE_ffessm>
 	</B_ffessm>
-    	<p> <:adhclub:ffessm_aucun:></p>
+    	<p> <:adhintg:info_aucun_adhintg:></p>
 	<//B_ffessm>
 
 </B_1ffessm>
-    <p> <:adhclub:ffessm_aucun:></p>
+    <p> <:adhintg:info_aucun_adhintg:></p>
 <//B_1ffessm>
 

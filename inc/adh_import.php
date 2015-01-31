@@ -7,7 +7,10 @@
  * --------------------------------------------
  * Traiter l'import dans les tables auteurs. 
  * --------------------------------------------
- * JR-10/01/2015-adaptation spip 3.0.
+ * @todo-JR-20121030-La recherche du pays devrait passer par plugin Pays ISO 3166-1.
+ * 
+ * Fait :
+ * JR-10/01/2015-Adaptation spip 3.0.
  * JR-2012/04/23-Adaptation a inscription3.
  */
 
@@ -19,9 +22,9 @@ include_spip("inc/charsets");
  * Liste de l'ensemble des champs possibles
  * 
  * @return si $type='unique' retourne un array des deux tables auteurs,
- *   si $type='source' retourne un array de la table adhffessms,  
+ *   si $type='source' retourne un array de la table adhintgs,  
  *   sinon ('separe') retourne un array contenant deux arrays distincts des tables auteurs.
- * @param array $tables array des tables (spip_auteurs, spip_auteurs_elargis ou adhffessms)
+ * @param array $tables array des tables (spip_auteurs, spip_auteurs_elargis ou spip_adhintgs)
  * @param string $type[optional] determine la forme du retour
  */
 function adhclub_imp_table_fields($tables,$type='unique'){
@@ -53,7 +56,7 @@ function adhclub_imp_table_fields($tables,$type='unique'){
 				$spip_auteurs_elargis=array_flip($spip_auteurs_elargis);
 				foreach ($spip_auteurs_elargis as $key=>$value) {
 					/**
-					 * On ne garde que les champs actives
+					 * On ne garde que les champs active=on
 					 */
 					if(lire_config('inscription3/'.$key) == 'on'){
 						$spip_auteurs_elargis[$key] = $key;
@@ -64,26 +67,27 @@ function adhclub_imp_table_fields($tables,$type='unique'){
 				// On ne met pas a disposition le champs id_auteur
 				unset($spip_auteurs_elargis['id_auteur']);
 
-			case 'spip_adhffessms';
-				// Tous les champs de spip_adhffessms ne sont pas a prendre en compte
-				$spip_adhffessms['souscription'] = 'souscription';
-				//$spip_aadhffessms['saisie'] = 'saisie';
-				$spip_adhffessms['saison'] = 'saison';
-				//$spip_adhffessms['type'] = 'type';
-				$spip_adhffessms['licence'] = 'licence';
-				$spip_adhffessms['civilite'] = 'civilite';
-				$spip_adhffessms['prenom'] = 'prenom';
-				$spip_adhffessms['nom'] = 'nom';
-				$spip_adhffessms['naissance'] = 'naissance';
-				$spip_adhffessms['adresse1'] = 'adresse1';
-				$spip_adhffessms['adresse2'] = 'adresse2';
-				$spip_adhffessms['adresse3'] = 'adresse3';
-				$spip_adhffessms['cp'] = 'cp';
-				$spip_adhffessms['ville'] = 'ville';
-				$spip_adhffessms['pays'] = 'pays';
-				$spip_adhffessms['email'] = 'email';																																$spip_aadhffessms['souscription'] = 'souscription';
-				$spip_adhffessms['assurance'] = 'assurance';
-				//$spip_adhffessms['statut'] = 'statut';
+			case 'spip_adhintgs';
+				// Tous les champs de spip_adhintgs ne sont pas a prendre en compte
+				$spip_adhintgs['souscription'] = 'souscription';
+				//$spip_adhintgs['saisie'] = 'saisie';
+				$spip_adhintgs['saison'] = 'saison';
+				//$spip_adhintgs['type'] = 'type';
+				$spip_adhintgs['licence'] = 'licence';
+				$spip_adhintgs['civilite'] = 'civilite';
+				$spip_adhintgs['prenom'] = 'prenom';
+				$spip_adhintgs['nom'] = 'nom';
+				$spip_adhintgs['naissance'] = 'naissance';
+				$spip_adhintgs['adresse1'] = 'adresse1';
+				$spip_adhintgs['adresse2'] = 'adresse2';
+				$spip_adhintgs['adresse3'] = 'adresse3';
+				$spip_adhintgs['cp'] = 'cp';
+				$spip_adhintgs['ville'] = 'ville';
+				$spip_adhintgs['pays'] = 'pays';
+				$spip_adhintgs['email'] = 'email';
+				$spip_adhintgs['souscription'] = 'souscription';
+				$spip_adhintgs['assurance'] = 'assurance';
+				//$spip_adhintgs['statut'] = 'statut';
 				break;
 				
 			default;
@@ -96,7 +100,7 @@ function adhclub_imp_table_fields($tables,$type='unique'){
 		$field_cible_finale = array_merge($spip_auteurs,$spip_auteurs_elargis);
 		return $field_cible_finale;
 	}elseif($type == 'source'){
-		return $spip_adhffessms;
+		return $spip_adhintgs;
 	}else{
 		return array($spip_auteurs,$spip_auteurs_elargis);
 	}
@@ -107,14 +111,14 @@ function adhclub_imp_table_fields($tables,$type='unique'){
 function adhclub_imp_show_erreurs($erreur){
 	$output = "";
 	if (count($erreur)>0){
-		$bouton = bouton_block_depliable(_T('adhclub:adh_erreurs'), false,"adh_erreurs");
+		$bouton = bouton_block_depliable(_T('adhintg:adh_erreurs'), false,"adh_erreurs");
 		$output .= debut_cadre_enfonce("mot-cle-24.gif", true, "", $bouton);
 		$output .= debut_block_depliable(false,"adh_erreurs");
 
 		foreach($erreur as $key=>$val){
 			$output .= "<dl>";
 			$output .= "<dt>"._T('adhclub:champ_err',array('cher'=>$key));
-			$output .=  "<dd>"._T('adhclub:'.$key)." : $val<dd>";
+			$output .=  "<dd>"._T('adhintg:'.$key)." : $val<dd>";
 			$output .= "</dl>";
 		}
 
@@ -437,41 +441,41 @@ return $adresse;
  * remise en forme des champs specifiques associes
  * 		Ceux qui doivent etre importes
  *
- * @param $rec_ffessm{int}
+ * @param $rec_intg{int}
  * @param $id_auteur{array}
  * @param $assoc_field{array}
  * 
  * @return $rec_creat
  */ 
 
-function adhclub_imp_field_reformate($id_auteur, $assoc_field, $rec_ffessm){
+function adhclub_imp_field_reformate($id_auteur, $assoc_field, $rec_intg){
 	if (!is_array($rec_creat)) $rec_creat = array();
 	
 	//echo "<br />.XXX debug JR : inc/adh_import adhclub_imp_field_reformate-Pt10.<br />";
-	//echo "array(rec_ffessm)<br />";
+	//echo "array(rec_intg)<br />";
 	//var_dump($rec_fessm);
 	
-	// Traitement des champs en entree (rec_ffessm)
+	// Traitement des champs en entree (rec_intg)
 	foreach(array_keys($assoc_field) as $tablekey){
 	
 		//echo "<br />.XXX debug JR : inc/adh_import adhclub_imp_field_reformate-Pt11.<br />";
 		//echo "tablekey= $tablekey.<br />";
-		//$field=$rec_ffessm[$tablekey];
-		//echo "rec_ffessm(tablekey)= $field.<br />";
+		//$field=$rec_intg[$tablekey];
+		//echo "rec_intg(tablekey)= $field.<br />";
 		
 		switch($tablekey) {
 		case 'souscription';
 			// la date n'est pas dans la forme correcte
-			$rec_creat[$tablekey]=substr($rec_ffessm[$tablekey],6,4)
-				.'-'.substr($rec_ffessm[$tablekey],3,2)
-				.'-'.substr($rec_ffessm[$tablekey],0,2);
+			$rec_creat[$tablekey]=substr($rec_intg[$tablekey],6,4)
+				.'-'.substr($rec_intg[$tablekey],3,2)
+				.'-'.substr($rec_intg[$tablekey],0,2);
 			//unset($assoc_field[$tablekey]);
 			break;
 			
 		case 'prenom';
 			$patterns = '/ /';
 			$replacements = '-';
-			$prenom = preg_replace($patterns, $replacements, $rec_ffessm[$tablekey]);
+			$prenom = preg_replace($patterns, $replacements, $rec_intg[$tablekey]);
 			// TODO voir F() ucfirst($prenom) ??
 			$rec_creat[$tablekey] =
 				strtoupper(substr($prenom,0,1))
@@ -484,8 +488,8 @@ function adhclub_imp_field_reformate($id_auteur, $assoc_field, $rec_ffessm){
 			// C'est le pseudo (Prenom dot Nom)
 			$patterns = '/ /';
 			$replacements = '.';
-			$prenom = preg_replace($patterns, $replacements, $rec_ffessm['prenom']);
-			$nom = preg_replace($patterns, $replacements, $rec_ffessm[$tablekey]);
+			$prenom = preg_replace($patterns, $replacements, $rec_intg['prenom']);
+			$nom = preg_replace($patterns, $replacements, $rec_intg[$tablekey]);
 			// TODO voir F() ucfirst($prenom) ??
 			$rec_creat[$tablekey]=
 				strtoupper(substr($prenom,0,1))
@@ -499,21 +503,21 @@ function adhclub_imp_field_reformate($id_auteur, $assoc_field, $rec_ffessm){
 		case 'nom_famille';
 			$patterns = '/ /';
 			$replacements = '-';
-			$rec_creat[$tablekey] = preg_replace($patterns, $replacements, $rec_ffessm['nom']);
+			$rec_creat[$tablekey] = preg_replace($patterns, $replacements, $rec_intg['nom']);
 			//unset($assoc_field[$tablekey]);
 			break;
 		
 		case 'login';
 			// login (2 premieres lettres du prenom suivi de nom simple(1er))==> voir inscription2_definir_login','inc'
-			$lengthname=stripos(trim($rec_ffessm['nom']), '/ /');
+			$lengthname=stripos(trim($rec_intg['nom']), '/ /');
 			if ($lengthname=false){
-				$nom=trim($rec_ffessm['nom']);
+				$nom=trim($rec_intg['nom']);
 			}else{
-				$nom=substr(trim($rec_ffessm['nom']),0,$lengthname);
+				$nom=substr(trim($rec_intg['nom']),0,$lengthname);
 			}
 				$rec_creat['login']=
-				strtolower(substr($rec_ffessm['prenom'],0,2))
-				. strtolower(trim($rec_ffessm['nom']));
+				strtolower(substr($rec_intg['prenom'],0,2))
+				. strtolower(trim($rec_intg['nom']));
 
 			//echo "<br />.XXX debug JR : inc/adh_import adhclub_imp_field_reformate-Pt221.<br />";
 			//$field=$rec_creat['login'];
@@ -524,27 +528,27 @@ function adhclub_imp_field_reformate($id_auteur, $assoc_field, $rec_ffessm){
 		
 		case 'email_corr';
 			// email_corr (= email si existe pas, genere virtuellement sinon)
-			if($rec_ffessm['email']){
-				$rec_creat[$tablekey]=$rec_ffessm['email'];
+			if($rec_intg['email']){
+				$rec_creat[$tablekey]=$rec_intg['email'];
 			}else{
-				$rec_creat[$tablekey]=adhclub_imp_email($id_auteur, $rec_ffessm['email']);
+				$rec_creat[$tablekey]=adhclub_imp_email($id_auteur, $rec_intg['email']);
 			}
 			//unset($assoc_field[$tablekey]);
 			break;
 		
 		case 'email';
 			// email (= email si existe pas, genere virtuellement sinon)
-			if($rec_ffessm['email']){
-				$rec_creat[$tablekey]=$rec_ffessm['email'];
+			if($rec_intg['email']){
+				$rec_creat[$tablekey]=$rec_intg['email'];
 			}else{
-				$rec_creat[$tablekey]=adhclub_imp_email($id_auteur, $rec_ffessm[$tablekey]);
+				$rec_creat[$tablekey]=adhclub_imp_email($id_auteur, $rec_intg[$tablekey]);
 			}
 			//unset($assoc_field[$tablekey]);
 			break;
 
 		case 'civilite';
 			// sexe (civilite M=>M, Mlle=>F, Mme=>F)
-			switch($rec_ffessm[$tablekey]) {
+			switch($rec_intg[$tablekey]) {
 			case 'Mme';
 				$rec_creat[$tablekey]='F';
 				break;
@@ -555,7 +559,7 @@ function adhclub_imp_field_reformate($id_auteur, $assoc_field, $rec_ffessm){
 				$rec_creat[$tablekey]='M';
 				break;
 				default;
-				$rec_creat[$tablekey]=$rec_ffessm[$tablekey];
+				$rec_creat[$tablekey]=$rec_intg[$tablekey];
 				break;
 			}
 			//unset($assoc_field[$tablekey]);
@@ -563,14 +567,14 @@ function adhclub_imp_field_reformate($id_auteur, $assoc_field, $rec_ffessm){
 			
 		case 'naissance';
 			// la date n'est pas dans la forme correcte
-			$rec_creat[$tablekey]=substr($rec_ffessm[$tablekey],6,4)
-				.'-'.substr($rec_ffessm[$tablekey],3,2)
-				.'-'.substr($rec_ffessm[$tablekey],0,2);
+			$rec_creat[$tablekey]=substr($rec_intg[$tablekey],6,4)
+				.'-'.substr($rec_intg[$tablekey],3,2)
+				.'-'.substr($rec_intg[$tablekey],0,2);
 			//unset($assoc_field[$tablekey]);
 			break;
 			
 		case 'adresse1';
-			$rec_creat[$tablekey]=adhclub_imp_adresse($rec_ffessm[$tablekey], $rec_ffessm['adresse2'], $rec_ffessm['adresse3']);
+			$rec_creat[$tablekey]=adhclub_imp_adresse($rec_intg[$tablekey], $rec_intg['adresse2'], $rec_intg['adresse3']);
 			//unset($assoc_field[$tablekey]);
 			//unset($assoc_field['adresse2']);
 			//unset($assoc_field['adresse3']);
@@ -578,9 +582,9 @@ function adhclub_imp_field_reformate($id_auteur, $assoc_field, $rec_ffessm){
 			
 		case 'pays';
 			// Le chargement du pays ne doit pas passer dans default
-			// TODO JR-20121030-La recherche du pays devrait passer par plugin Pays ISO 3166-1.
+			// @todo-JR-20121030-La recherche du pays devrait passer par plugin Pays ISO 3166-1.
 			// Solution provisoire
-			switch($rec_ffessm[$tablekey]) {
+			switch($rec_intg[$tablekey]) {
 			case 'FRANCE';
 				$rec_creat[$tablekey]='314';
 				break;
@@ -622,7 +626,7 @@ function adhclub_imp_field_reformate($id_auteur, $assoc_field, $rec_ffessm){
 			
 		// Traitement des champs ordinaires, sans reprise de donnée
 		default;
-			$rec_creat[$tablekey]=$rec_ffessm[$tablekey];
+			$rec_creat[$tablekey]=$rec_intg[$tablekey];
 			break;
 		}
 	}

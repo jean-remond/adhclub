@@ -23,38 +23,41 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 
 	// A
 	'adh_erreurs' => 'Erreurs du fichier d\'entr&eacute;e.',
+	'adhintg_coti' => 'Cotisation &agrave; affecter aux adh&eacute;rents du lot de saisie',
+	'adhintg_coti_exp' => 'Une seule cotisation par lot de saisie. Les lots doivent &ecirc;tre homog&egrave;nes.',
 	'adresse1'=> 'Adresse (1ere ligne)',
 	'adresse2'=> 'Adresse (2eme ligne)',
 	'adresse3'=> 'Adresse (3eme ligne)',		
+	'ajouter_adhintg' => 'Ajouter une intégration',
 	// B
-	'bouton_valider_ffessm' => 'Valider les informations FFESSM',
+	'bouton_valider_intg' => 'Valider les informations FFESSM',
 	// C
 	'civilite' => 'Civilit&eacute;',
 	'cp' => 'Code postal',
 	// E
 	'err_auteur_creation' => 'Echec de la cr&eacute;ation initiale de ',
 	'err_auteur_maj' => "Echec de la mise &aacute; jour de l'adh&eacute;rent",
-	'err_assur_inconnue' => "L'assurance de l'adh&eacute;rent est inconnue",
-	'erreur_email' => 'L\'adh&eacute;rent @nom@ @prenom@ a pour courriel "@email@".',
-	// F
-    'ffessm_aucun' => "Il n'y a pas d'Adh&eacute;rent &agrave; int&eacute;grer dans le site",
-	'ffessm_coti' => 'Cotisation &agrave; affecter aux adh&eacute;rents du lot de saisie',
-	'ffessm_coti_exp' => 'Une seule cotisation par lot de saisie. Les lots doivent &ecirc;tre homog&egrave;nes.',
-	'ffessm_icone_menu' => 'Int&eacute;grer les donn&eacute;es FFESSM',
-	'ffessm_liste' => 'Liste de contr&ocirc;le des Adh&eacute;rents avant leur int&eacute;gration dans le site.',
-	'ffessm_page' => 'Int&eacute;grer les donn&eacute;es FFESSM',
-	'ffessm_page_info' => 'Cette page vous permet d\'int&eacute;grer les donn&eacute;es export&eacute;es du site de la FFESSM',
-	'ffessm_titre' => 'Int&eacute;grer les donn&eacute;es FFESSM',
-	'ffessm_validation' => 'Validation du lot d\'Adh&each&eacute;rentute;rent(s) pour int&eacute;gration dans le site',
-	'ffessms_titre' => 'Donn&eacute;es FFESSM',
+	'err_adhassur_inconnue' => "L'assurance pour l'adh&eacute;rent est inconnue",
+    // I
+	'icone_menu_adhintg' => 'Int&eacute;grer les màj',
+	'info_aucun_adhintg' => "Il n'y a pas de màj Adh&eacute;rent &agrave; int&eacute;grer dans le site",
+    // L
+   	'liste_adhintg' => 'Liste de contr&ocirc;le des Adh&eacute;rents avant leur int&eacute;gration dans le site.',
     // N
 	'naissance' => 'Date de naissance',
 	'nom' => 'Nom (de famille)',
+	// P
+	'page_adhintgs' => 'Intégrations des données FFESSM',
+	'page_info_adhintg' => "Cette page vous permet d'int&eacute;grer les données déjà collectées pour la FFESSM par votre club",
+	'page_validation_adhintg' => 'Validation du lot d\'Adh&each&eacute;rentute;rent(s) pour int&eacute;gration dans le site',
 	// R
 	'ref_saisie' => 'R&eacute;f&eacute;rence du lot de saisie',
 	'ref_saisie_exp' => 'Pour chaque lot de saisie des dossiers, cr&eacute;er une r&eacute;f&eacute;rence diff&eacute;rente et unique.',
 	// S
 	'souscription' => 'Date de souscription',
+	// T
+	'titre_adhintg' => 'Intégrer les màj',
+	'titre_adhintgs' => 'Donn&eacute;es FFESSM',
 	// V
 	'ville' => 'Ville (Domicile)',
 	// Z

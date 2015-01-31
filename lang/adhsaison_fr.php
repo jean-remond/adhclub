@@ -26,7 +26,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'creer_adhsaison_associer' => 'Créer et associer une saison',
 	// I
 	'icone_creer_adhsaison' => 'Cr&eacute;er une saison',
-	'icone_menu_adhsaison' => 'Les Saisons',
+	'icone_menu_adhsaison' => 'Saisons',
 	'icone_modifier_adhsaison' => 'Modifier la saison',
 	'icone_supprimer_adhsaison' => 'Supprimer',
 	'info_1_adhsaison' => '1 saison',

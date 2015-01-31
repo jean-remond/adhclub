@@ -3,6 +3,7 @@
  * Plugin adh_club : Adherent Club pour Spip 3.0
  * Licence GPL (c) 2011-2015 Jean Remond
  *
+ * @toto-JR-30/01/2015-A valider, liste champs ne fonctionne pas en recherhe !!
  */
 
 if (!defined("_ECRIRE_INC_VERSION")) return;
@@ -18,7 +19,7 @@ function adhclub_declarer_tables_interfaces($interface){
 	$interface['table_des_tables']['adhcotis']='adhcotis';
 	$interface['table_des_tables']['adhnivs']='adhnivs';
 	$interface['table_des_tables']['adhsaisons']='adhsaisons';
-	$interface['table_des_tables']['adhffessms']='adhffessms';
+	$interface['table_des_tables']['adhintgs']='adhintgs';
 			
 return $interface;
 }
@@ -273,9 +274,10 @@ $tables['spip_adhsaisons'] = array(
 
 //-- Table de travail
 //-- Integration donnees FFESSM (format externe)
-$tables['spip_adhffessms'] = array(
-	'table_objet'	=> "adhffessms",
-	'type'			=> "adhffessm",
+//-- Cette table est chargee manuellement. Elle sert a integrer des donnees en masse.
+$tables['spip_adhintgs'] = array(
+	'table_objet'	=> "adhintgs",
+	'type'			=> "adhintg",
 	'principale'	=> "oui",
     'field'			=> array(
 		"souscription"	=> "text(10) NOT NULL",
@@ -302,11 +304,11 @@ $tables['spip_adhffessms'] = array(
     	),
     'titre'					=> "licence AS titre, '' AS lang",
     'editable'				=> "non",
-	'icone_objet'			=> "",
-	'texte_objet'			=> "adhclub:ffessm_titre",
-	'textes_objet'			=> "adhclub:ffessms_titre",
+	'icone_objet'			=> "adhclub-24.png",
+	'texte_objet'			=> "adhintg:titre_adhintg",
+	'textes_objet'			=> "adhintg:titre_adhintgs",
 	'texte_ajouter'			=> 'adhintg:ajouter_adhintg',
-	'info_aucun_objet'		=> "adhclub:ffessm_aucun"
+	'info_aucun_objet'		=> "adhintg:info_aucun_adhintg"
 );
 
 return $tables;
@@ -334,8 +336,9 @@ $tables['spip_adhcotis_liens'] = array(
 		"id_coti" 		=> "bigint(21) NOT NULL",
 		"id_objet" 		=> "bigint(21) NOT NULL",
 		"objet"			=> "VARCHAR (25) DEFAULT '' NOT NULL",
-		"vu"			=> "VARCHAR(6) DEFAULT 'non' NOT NULL"
-		),
+		"vu"			=> "VARCHAR(6) DEFAULT 'non' NOT NULL",
+		"ref_saisie" 	=> "VARCHAR(10) DEFAULT '' NULL",
+	),
     'key' => array(
     	"PRIMARY KEY" 	=> "id_coti, objet, id_objet",
 		"KEY id_coti" 	=> "id_coti"
@@ -377,17 +380,22 @@ $champs['spip_auteurs']['certifaspirine'] = array(
 	'verifier' => array()
 );
 $champs['spip_auteurs']['certiflimite'] = array(
-	'saisie' => 'input',//Type du champs (voir plugin Saisies)
+	'saisie' => 'date_jour_mois_annee', // type de saisie
 	'options' => array(
 		'nom' => 'certiflimite', 
 		'label' => _T('adhclub:certiflimite_label'), 
 		'explication' => _T('adhclub:certiflimite_expl'),
 		'sql' => "DATE NOT NULL DEFAULT '0000-00-00'",
+		'class'=>'nomulti',
+		'datetime'=>'non',
+		'rechercher' => false,
 		'defaut' => '0000-00-00',// Valeur par défaut
 		'restrictions'=>array(	
 			'voir' 		=> array('auteur'=>''),//Tout le monde peut voir
 			'modifier'	=> array('auteur'=>'webmestre'))),//Seul les webmestre peuvent modifier
-	'verifier' => array()
+	'verifier' => array(
+		'type' => 'date',
+		'options' => array('format' => 'amj',))
 );
 $champs['spip_auteurs']['certifqualif'] = array(
 	'saisie' => 'input',//Type du champs (voir plugin Saisies)
@@ -414,11 +422,80 @@ $champs['spip_auteurs']['email_corr'] = array(
 			'modifier'	=> array('auteur'=>'webmestre'))),//Seul les webmestre peuvent modifier
 	'verifier' => array()
 );
-
+// les champs feu 'professionels' de i3
+$champs['spip_auteurs']['profession'] = array(
+	'saisie' => 'input',//Type du champs (voir plugin Saisies)
+	'options' => array(
+		'nom' => 'profession', 
+		'label' => _T('adhclub:profession_label'), 
+		'explication' => _T('adhclub:profession_expl'),
+		'sql' => "VARCHAR(25) NOT NULL DEFAULT ''",
+		'defaut' => '',// Valeur par défaut
+		'restrictions'=>array(	
+			'voir' 		=> array('auteur'=>''),//Tout le monde peut voir
+			'modifier'	=> array('auteur'=>'webmestre'))),//Seul les webmestre peuvent modifier
+	'verifier' => array()
+);
+$champs['spip_auteurs']['fonction'] = array(
+	'saisie' => 'input',//Type du champs (voir plugin Saisies)
+	'options' => array(
+		'nom' => 'fonction', 
+		'label' => _T('adhclub:fonction_label'), 
+		'explication' => _T('adhclub:fonction_expl'),
+		'sql' => "VARCHAR(25) NOT NULL DEFAULT ''",
+		'defaut' => '',// Valeur par défaut
+		'restrictions'=>array(	
+			'voir' 		=> array('auteur'=>''),//Tout le monde peut voir
+			'modifier'	=> array('auteur'=>'webmestre'))),//Seul les webmestre peuvent modifier
+		'rechercher' => true,
+	'verifier' => array()
+);
+$champs['spip_auteurs']['code_postal_pro'] = array(
+	'saisie' => 'input',//Type du champs (voir plugin Saisies)
+	'options' => array(
+		'nom' => 'code_postal_pro', 
+		'label' => _T('adhclub:code_postal_pro_label'), 
+		'sql' => "VARCHAR(25) NOT NULL DEFAULT ''",
+		'defaut' => '',// Valeur par défaut
+		'restrictions'=>array(	
+			'voir' 		=> array('auteur'=>''),//Tout le monde peut voir
+			'modifier'	=> array('auteur'=>'webmestre'))),//Seul les webmestre peuvent modifier
+		'rechercher' => false,
+	'verifier' => array()
+);
+$champs['spip_auteurs']['ville_pro'] = array(
+	'saisie' => 'input',//Type du champs (voir plugin Saisies)
+	'options' => array(
+		'nom' => 'ville_pro', 
+		'label' => _T('adhclub:ville_pro_label'), 
+		'sql' => "VARCHAR(25) NOT NULL DEFAULT ''",
+		'defaut' => '',// Valeur par défaut
+		'restrictions'=>array(	
+			'voir' 		=> array('auteur'=>''),//Tout le monde peut voir
+			'modifier'	=> array('auteur'=>'webmestre'))),//Seul les webmestre peuvent modifier
+		'rechercher' => false,
+	'verifier' => array()
+);
+$champs['spip_auteurs']['pays_pro'] = array(
+	'saisie' => 'pays', // type de saisie
+	'options' => array(
+		'nom' => 'pays_pro', 
+		'label' => _T('adhclub:pays_pro_label'), 
+		'sql' => "smallint(6) DEFAULT '70' NOT NULL",
+		'class' => 'pays',
+		'defaut' => ((array_key_exists('pays_defaut', $config_i3) and isset($config_i3['pays_defaut'])) ? $config_i3['pays_defaut'] : ''),
+		'restrictions'=>array(	
+			'voir' 		=> array('auteur'=>''),//Tout le monde peut voir
+			'modifier'	=> array('auteur'=>'webmestre'))),//Seul les webmestre peuvent modifier
+		'rechercher' => false,
+	'verifier' => array()
+);
+	
 return $champs;	
 }
 
  function adhclub_rechercher_liste_des_champs($tables){
+ 	// @toto-JR-30/01/2015-A valider, ne fonctionne pas en recherhe !!
     // ajouter les champs de recherche avec leur pertinence (grand = plus fort)
     $tables['adhnivs']['titre'] = 3;
     $tables['adhnivs']['descriptif'] = 3;

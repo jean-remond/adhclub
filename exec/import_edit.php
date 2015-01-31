@@ -5,6 +5,10 @@
  * --------------------------------------------
  * Traiter l'integration de la table adhffessms 
  * --------------------------------------------
+ * @todo
+ * 
+ * Fait :
+ * JR-31/01/2015-Adaptation a spip 3.0 et tables liens.
  * JR-22/04/2012-Revue pour inscription3 (seule la table auteurs existe).
  * 
  * Pour chaque enregistrement de la table source :
@@ -31,8 +35,8 @@ include_spip('public/assembler');
 include_spip('inc/presentation');
 
 /**
- * Integrer table adhffessms 
- * (action apres la saisie des infos du formulaires integ_ffessm)
+ * Integrer table adhintgs 
+ * (action apres la saisie des infos du formulaires integ_adhintg)
  *
  * @param  string $ref_saisie[obligatoire]
  * @param  int $id_coti[obligatoire]
@@ -41,7 +45,7 @@ include_spip('inc/presentation');
  */
 function exec_import_edit($ref_saisie, $id_coti){
 	
-	//echo "<br />.XXX debug JR : exec/import_edit-exec_import_edit-Pt01.<br />";
+	//echo "<br />.XXX debug JR : exec/import_edit - exec_import_edit - Pt01.<br />";
 	//echo "ref_saisie= $ref_saisie.<br />";
 	//echo "id_coti= $id_coti.<br />";
 	//echo "exec/adh_import Exec-Pt1.<br />";
@@ -69,7 +73,7 @@ function exec_import_edit($ref_saisie, $id_coti){
 	$field_cible_finale = adhclub_imp_table_fields($tables, 'unique');
 
 	// Liste de l'ensemble des champs sources possibles
-	$tables = array('spip_adhffessms');
+	$tables = array('spip_adhintgs');
 	$field_source = adhclub_imp_table_fields($tables, 'source');
 
 	//adhclub_imp_field_configure($data, $table_fields, $assoc_field);
@@ -80,14 +84,14 @@ function exec_import_edit($ref_saisie, $id_coti){
 	 * _____________________________________________________________
 	 */
 	
-	// Lecture table adhffessms ordonnee par licence.
+	// Lecture table adhintgs ordonnee par licence.
 	$adhorderby = "licence";
-	$res = sql_select('*', 'spip_adhffessms', '', '', $adhorderby);
+	$res = sql_select('*', 'spip_adhintgs', '', '', $adhorderby);
 	// boucle sur les resultats
-	while($rec_ffessm = sql_fetch($res)){
+	while($rec_intg = sql_fetch($res)){
 		
 		// Recherche de l'auteur via son code Licence (auteurs.fonctions).
-		$adhwhere = "fonction =".sql_quote(trim($rec_ffessm['licence']));
+		$adhwhere = "fonction =".sql_quote(trim($rec_intg['licence']));
 		//$arg = sql_fetsel( "id_auteur", "spip_auteurs_elargis", $adhwhere);
 		$arg = sql_fetsel( "id_auteur", "spip_auteurs", $adhwhere);
 		
@@ -109,12 +113,12 @@ function exec_import_edit($ref_saisie, $id_coti){
 			
 			//echo "<br />.XXX debug JR : exec/import_edit-exec_import_edit-Pt6.<br />";
 			//echo "id_auteur= $id_auteur.<br />";
-			//$field=$rec_ffessm['email'];
-			//echo "rec_ffessms(email)= $field.<br />";
+			//$field=$rec_intg['email'];
+			//echo "rec_intgs(email)= $field.<br />";
 			
 			
 			// Reformattage des champs
-			$rec_creat=adhclub_imp_field_reformate($id_auteur, $assoc_field, $rec_ffessm);
+			$rec_creat=adhclub_imp_field_reformate($id_auteur, $assoc_field, $rec_intg);
 			
 			//echo "<br />.XXX debug JR : exec/import_edit-exec_import_edit-Pt7.<br />";
 			//$field=$rec_creat['nom'];
@@ -132,7 +136,7 @@ function exec_import_edit($ref_saisie, $id_coti){
 			list($arg) = adhclub_imp_ajoute_table($rec_creat, $tables, $assoc_field, $erreur);
 			if (!$arg) {
 				echo adhclub_imp_show_erreurs($erreur);
-				return array(false,_T('adhclub:err_auteur_creation'.$rec_creat['nom_famille']));
+				return array(false,_T('adhintg:err_auteur_creation'.$rec_creat['nom_famille']));
 			}
 		
 			//echo "<br />.XXX debug JR : exec/import_edit-exec_import_edit-Pt9.<br />";
@@ -155,8 +159,8 @@ function exec_import_edit($ref_saisie, $id_coti){
 		 * - de quelques champs des tables auteurs et auteurs_elargis
 		 *		(en cas de nouvel adherent, il y a redite des memes champs)
 		 * - des tables complementaires :
-		 *		- adhcotis_auteurs avec la reference de saisie
-		 *		- adhassurs_auteurs
+		 *		- adhcotis_liens avec la reference de saisie
+		 *		- adhassurs_liens
 		 */ 
 		// si id_auteur n'est pas un nombre, c'est une creation d'adherent,
 		if ($id_auteur = intval($arg['id_auteur'])) {
@@ -169,11 +173,11 @@ function exec_import_edit($ref_saisie, $id_coti){
 			
 			//echo "<br />.XXX debug JR : exec/adh_import-exec_adh_import-Pt61.<br />";
 			//echo "id_auteur= $id_auteur.<br />";
-			//$field=$rec_ffessm['email'];
-			//echo "rec_ffessms(email)= $field.<br />";
+			//$field=$rec_intg['email'];
+			//echo "rec_intgs(email)= $field.<br />";
 			
 			// Reformattage des champs
-			$rec_maj=adhclub_imp_field_reformate($id_auteur, $assoc_field, $rec_ffessm);
+			$rec_maj=adhclub_imp_field_reformate($id_auteur, $assoc_field, $rec_intg);
 			
 			//echo "<br />.XXX debug JR : exec/adh_import-exec_adh_import-Pt62.<br />";
 			//echo "id_auteur= $id_auteur.<br />";
@@ -192,8 +196,8 @@ function exec_import_edit($ref_saisie, $id_coti){
 				echo adhclub_imp_show_erreurs($erreur);
 				return array(false,_L("Echec de la mise &aacute; jour de l'adh&eacute;rent "
 						.$id_auteur.' '
-						.$rec_ffessm['nom'].' '
-						.$rec_ffessm['prenom']));
+						.$rec_intg['nom'].' '
+						.$rec_intg['prenom']));
 			}
 			
 			//echo "<br />.XXX debug JR : exec/adh_import-exec_adh_import-Pt63.<br />";
@@ -212,26 +216,26 @@ function exec_import_edit($ref_saisie, $id_coti){
 		
 		/* ____________________________________________________________
 		 *
-		 * ==> Mise a jour de la table adhassurs_auteurs.
+		 * ==> Mise a jour de la table adhassurs_liens.
 		 * _____________________________________________________________
 		 * On poursuit l'integration  par la creation de l'assurance :
-		 * - A partir des informations du record rec_ffessms :
+		 * - A partir des informations du record rec_intgs :
 		 *		- assurance = adhassurs.titre
 		 */
 		
 		// Adaptation du titre de l'assurance si 'Aucune' notifiee
 		//	==> 'Aucune aaaa' pour recherche dans adhassur.
-		if (trim($rec_ffessm['assurance'])=='Aucune'){
-			$rec_ffessm['assurance'] = trim($rec_ffessm['assurance']).' '.trim($rec_ffessm['saison']);
+		if (trim($rec_intg['assurance'])=='Aucune'){
+			$rec_intg['assurance'] = trim($rec_intg['assurance']).' '.trim($rec_intg['saison']);
 		}
 
 		//echo "<br />.XXX debug JR : exec/adh_import-exec_adh_import-Pt71.<br />";
 		//echo "id_auteur= $id_auteur.<br />";
-		//$field=$rec_ffessm['assurance'];
-		//echo "rec_ffessm(assurance)= $field.<br />";
+		//$field=$rec_intg['assurance'];
+		//echo "rec_intg(assurance)= $field.<br />";
 		
 		// Recherche de l'assurance a partir de son titre.
-		$arg = adhclub_test_assurtitre_de_auteur(intval($id_auteur),trim($rec_ffessm['assurance']));
+		$arg = adhclub_test_assurtitre_de_auteur(intval($id_auteur),trim($rec_intg['assurance']));
 
 		//echo "<br />.XXX debug JR : exec/adh_import-exec_adh_import-Pt72.<br />";
 		//echo "id_auteur= $id_auteur.<br />";
@@ -247,12 +251,12 @@ function exec_import_edit($ref_saisie, $id_coti){
 		
 		// Si arg False, assurance inconnue, message d'alerte.
 		if (!$arg){
-			return array(false,_L('adhclub:err_assur_inconnue'.' '.
-				$rec_ffessm['assurance'].' '.
+			return array(false,_L('adhintg:err_assur_inconnue'.' '.
+				$rec_intg['assurance'].' '.
 				'adhclub:auteur'.' '. 
 				$id_auteur.' '.
-				$rec_ffessm['prenom'].' '.
-				$rec_ffessm['nom']));
+				$rec_intg['prenom'].' '.
+				$rec_intg['nom']));
 		}
 
 		// si arg est un nombre, ceci est une creation de cette assurance (pour le titre) pour auteur.
@@ -262,7 +266,7 @@ function exec_import_edit($ref_saisie, $id_coti){
 
 		/* ____________________________________________________________
 		 * 
-		 * ==> Mise a jour de la table adhcotis_auteurs.
+		 * ==> Mise a jour de la table adhcotis_liens.
 		 * _____________________________________________________________
 		 * On poursuit l'integration  par la creation de la cotisation :
 		 * - A partir des informations du formulaire
@@ -283,12 +287,12 @@ function exec_import_edit($ref_saisie, $id_coti){
 			adhclub_revision_adhcoti_objets_lies($id_coti, $id_auteur, 'auteur', 'add', $ref_saisie);
 		}
 
-		// On supprime l'enregistrement adhffessm que l'on vient de traiter
-		$adhwhere = "licence =".sql_quote(trim($rec_ffessm['licence']));
-		sql_delete("spip_adhffessms", $adhwhere);
+		// On supprime l'enregistrement adhintgs que l'on vient de traiter
+		$adhwhere = "licence =".sql_quote(trim($rec_intg['licence']));
+		sql_delete("spip_adhintgs", $adhwhere);
 	}
 	
-	//$err = action_adhffessm_set($id_auteur, $rec_ffessm);
+	//$err = action_adhintg_set($id_auteur, $rec_intg);
 	//return array($id_auteur,$err);
 	
 }

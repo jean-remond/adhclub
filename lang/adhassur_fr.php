@@ -37,7 +37,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	// I
 	'icone_creer_adhassur' => 'Cr&eacute;er une assurance',
 	'icone_creer_associer_adhassur' => 'Créer et associer une assurance',
-	'icone_menu_adhassur' => 'Les Assurances',
+	'icone_menu_adhassur' => 'Assurances',
 	'icone_modifier_adhassur' => 'Modifier l\'assurance',
 	'icone_supprimer_adhassur' => 'Supprimer',
 	'info_1_adhassur' => '1 assurance',

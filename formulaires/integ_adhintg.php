@@ -3,9 +3,13 @@
  * Plugin adhclub : Adherent Club pour Spip 3.0
  * Licence GPL (c) 2011-2015 Jean Remond
  *----------------------------------------------
- * Formulaire d'integration des donnees de la table adhffessms 
- *	vers les tables auteurs, auteurs_elargis et adhcotis_auteurs.
+ * Formulaire d'integration des donnees de la table adhintgs 
+ *	vers les tables auteurs et adhcotis_liens.
  *----------------------------------------------
+ * @todo-JR-20120216-Verifier l'affichage des erreurs car c'est une liste
+ * 
+ * Fait :
+ * JR-31/01/2015-Adaptation a spip 3.0
  */ 
 
 if (!defined("_ECRIRE_INC_VERSION")) return;
@@ -17,7 +21,7 @@ include_spip('inc/editer');
  * Charger le formulaire 
  *  @param string titre_saison :
  *  	Le 'titre saison' provient de la liste des adherents presents
- *      dans la table 'adhffessms' (dernier enregistrement).
+ *      dans la table 'adhintgs' (dernier enregistrement).
  *      Il est passe en argument d'appel au formulaire.
  *  @return array 
  *  	int id_saison : 
@@ -26,7 +30,7 @@ include_spip('inc/editer');
  *  		Valeur numerique de la derniere reference trouvee 
  *  		pour la saison, incrementee de 1. 
 */
-function formulaires_integ_adhffessm_charger_dist($titre_saison){
+function formulaires_integ_adhintg_charger_dist($titre_saison){
 	//// INFO / RAPPEL :
 	/* sql_fetsel(...) = Retourne la première ligne d’une selection sql.
 		La fonction est identique à sql_fetch(sql_select(...))*/
@@ -51,8 +55,11 @@ function formulaires_integ_adhffessm_charger_dist($titre_saison){
             - Si reference identifiee, faire +1,
             - Si pas de reference, forcer la valeur par defaut = 1.
         */
-        $adhfrom = "spip_adhcotis_auteurs, spip_adhcotis";
-        $adhwhere = "id_saison =".intval($id_saison);
+        $adhfrom = "spip_adhcotis_liens, spip_adhcotis";
+        $adhwhere = array(
+        	"id_saison =".intval($id_saison),
+        	"objet = 'auteur'",
+        	);
         $adhgroupby ="ref_saisie";
         $adhorderby ="ref_saisie desc";
         $adhlimit ="1";
@@ -73,14 +80,14 @@ function formulaires_integ_adhffessm_charger_dist($titre_saison){
  	return $valeurs;
 }
 
-function integ_adhffessm_edit_config(){
+function integ_adhintg_edit_config(){
 	return array();
 }
 
 /**
  * Verifier le formulaire 
 */
-function formulaires_integ_adhffessm_verifier_dist(){
+function formulaires_integ_adhintg_verifier_dist(){
 	$erreurs = array();
     
     // Verifier que les champs obligatoires sont bien presents :
@@ -98,7 +105,7 @@ function formulaires_integ_adhffessm_verifier_dist(){
 /**
  * Traiter le formulaire 
 */
-function formulaires_integ_adhffessm_traiter_dist($titre_saison, $retour='', $config_fonc='integ_adhffessm_edit_config', $row=array(), $hidden=''){
+function formulaires_integ_adhintg_traiter_dist($titre_saison, $retour='', $config_fonc='integ_adhintg_edit_config', $row=array(), $hidden=''){
 
 	$ref_saisie = _request('ref_saisie');
 	$id_coti = intval(_request('id_coti'));
@@ -106,8 +113,7 @@ function formulaires_integ_adhffessm_traiter_dist($titre_saison, $retour='', $co
 	$message = "";
 	$exec_import = charger_fonction("import_edit",'exec');
 
-// JR-20120216
-//	Verifier l'affichage des erreurs car c'est une liste
+// @todo-JR-20120216-Verifier l'affichage des erreurs car c'est une liste
 //	Chaque enreg peut etre en erreur !!
 //	voir inc/adh_import.adh_import_show_erreurs
 	list($id,$err) = $exec_import($ref_saisie, $id_coti);

@@ -30,7 +30,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	// I
 	'icone_creer_adhniv' => 'Cr&eacute;er un niveau',
 	'icne_creer_adhniv_associer' => 'Créer et associer un niveau',
-	'icone_menu_adhniv' => 'Les Niveaux',
+	'icone_menu_adhniv' => 'Niveaux',
 	'icone_modifier_adhniv' => 'Modifier le niveau',
 	'icone_supprimer_adhniv' => 'Supprimer',
 	'info_1_adhniv' => '1 niveau',

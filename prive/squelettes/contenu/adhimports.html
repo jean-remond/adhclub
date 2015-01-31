@@ -10,10 +10,10 @@
  */
 -->] 
 
-<h1 class="grostitre"><:adhsaison:titre_adhsaisons:></h1>
+<h1 class="grostitre"><:adhintg:titre_adhintgs:></h1>
 		
 <INCLURE{fond=prive/objets/liste/adhimports, par=souscription, statut=#LISTE{prepa,prop,publie,refuse}, env, ajax, sinon=<:adhsaison:info_aucun_adhsaison:>}>
 
-[(#AUTORISER{creer,adhffessms})
-	[(#URL_ECRIRE{editer_adhffessm,new=oui}|icone_verticale{<:adhclub:ffessm_creer:>,#CHEMIN_IMAGE{adhffessm-24.png},new,right})]
+[(#AUTORISER{creer,adhintgs})
+	[(#URL_ECRIRE{editer_adhintg,new=oui}|icone_verticale{<:adhintg:ajouter_adhintg:>,#CHEMIN_IMAGE{adhclub-24.png},new,right})]
 ]

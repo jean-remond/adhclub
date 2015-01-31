@@ -23,7 +23,7 @@ function adhclub_upgrade($nom_meta_base_version, $version_cible){
 				'spip_adhcotis',
 				'spip_adhnivs',
 				'spip_adhsaisons',
-				'spip_adhffessms',
+				'spip_adhintgs',
 				'spip_adhassurs_liens',
 				'spip_adhcotis_liens',
 				'spip_adhnivs_liens',
@@ -55,6 +55,16 @@ function adhclub_upgrade($nom_meta_base_version, $version_cible){
  				)
 			),
 		);
+ 	$maj['201501311100'] = array(	
+    	array('maj_tables', array('spip_adhintgs')),
+ 		array(sql_drop_table("spip_adhffessms"))
+ 	);
+ 	$maj['201501311230'] = array(
+		array('sql_alter', "TABLE spip_adhcotis_liens ADD COLUMN ref_saisie VARCHAR(10) DEFAULT '' NULL"),
+  	);
+ 	$maj['201501312000'] = array(
+		$cextraok = cextras_api_upgrade(adhclub_declarer_champs_extras(), $maj['201501312000']),	
+ 	);
  	
 /* 	$maj['201501261530'] = array(	
     	array('maj_tables', array('spip_evinscripteurs', 'spip_evparticipants')),
@@ -77,7 +87,7 @@ function adhclub_vider_tables($nom_meta_base_version) {
 	sql_drop_table("spip_adhcotis");
 	sql_drop_table("spip_adhnivs");
 	sql_drop_table("spip_adhsaisons");
-	sql_drop_table("spip_adhffessms");
+	sql_drop_table("spip_adhintgs");
 
 	cextras_api_vider_tables(adhclub_declarer_champs_extras());
 

@@ -243,10 +243,10 @@ La procedure de debut de saison pour les inscriptions est donc la suivante :
 
 
 ==========================
-Savoir : Script de creation de la Table adhffessms
+Savoir : Script de creation de la Table adhintgs
 ==========================
 
-CREATE TABLE `spip_adhffessms` (
+CREATE TABLE `spip_adhintgs` (
   `Souscription` date NOT NULL,
   `Saisie` text NOT NULL,
   `Saison` int(4) NOT NULL,
@@ -273,14 +273,14 @@ CREATE TABLE `spip_adhffessms` (
 La Fonction(adh_import)
 ==========================
 
-Cette fonction permet de prendre en charge les donnees de la table "adhffessms" chargee 
+Cette fonction permet de prendre en charge les donnees de la table "adhintgs" chargee 
 	prealablement par CVS_Import a partir des donnees extraites de la fede.
 
 La fonction realise soit un ajout pour un nouvel adherent, soit une mise a jour d'un 
 	adherent existant.
 
 Les criteres de definition d'un adherent existant :
-- Le code "adhffessms"."licence" correspond au code "auteurs"."fonction". 
+- Le code "adhintgs"."licence" correspond au code "auteurs"."fonction". 
 	En effet, ce code "licence" est unique par adherent a FFESSM.
 - Par securite, le nom et le prenom seront aussi verifies (?).
 
@@ -317,6 +317,6 @@ Les criteres de definition d'un adherent existant :
     - email,
     - email de correspondance
 
-- Si la Maj est faite sans erreur, l'enregistrement de la table "adhffessms" est supprime.
+- Si la Maj est faite sans erreur, l'enregistrement de la table "adhintgs" est supprime.
 
 

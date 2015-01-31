@@ -38,7 +38,7 @@ function exec_adh_niveau(){
 	$icone = _DIR_PLUGIN_ADHCLUB."img_pack/adh_coti_24.gif";
 	$raccourcis .= icone_horizontale(_T('adhcoti:icone_menu_adhcoti'), generer_url_ecrire("adh_coti"), $icone, "", false);
 	$icone = _DIR_PLUGIN_ADHCLUB."img_pack/adhclub_24.gif";
-	$raccourcis .= icone_horizontale(_T('adhclub:ffessm_icone_menu'), generer_url_ecrire("adh_import"), $icone, "", false);
+	$raccourcis .= icone_horizontale(_T('adhintg:icone_menu_adhintg'), generer_url_ecrire("adh_import"), $icone, "", false);
 	echo bloc_des_raccourcis($raccourcis);
 	
 	echo debut_droite("adh_club",true);

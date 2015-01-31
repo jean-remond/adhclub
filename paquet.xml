@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?><paquet
 	prefix="adhclub"
 	categorie="squelette"
-	version="3.0.9"
+	version="3.0.12"
 	etat="dev"
 	compatibilite="[3.0.17;["
 	logo="prive/themes/spip/images/adhclub-24.png"
-	schema="201501291805"
+	schema="201501312000"
 	>	
 	<!-- documentation="pas faite" -->
 
@@ -54,6 +54,7 @@
 	<onglet nom="adhnivs" titre="adhniv:icone_menu_adhniv" parent="adh_adherents" action="adhnivs" />
 	<onglet nom="adhassurs" titre="adhassur:icone_menu_adhassur" parent="adh_adherents" action="adhassurs" />
 	<onglet nom="adhcotis" titre="adhcoti:icone_menu_adhcoti" parent="adh_adherents" action="adhcotis" />
+	<onglet nom="adhintgs" titre="adhintg:icone_menu_adhintg" parent="adh_adherents" action="adhintgs" />
 
     <menu nom="adh_adherents" 
     	action="adh_adherents"

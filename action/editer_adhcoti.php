@@ -135,6 +135,7 @@ function adhclub_revision_adhcoti_objets_lies($cotis,$ids,$type,$operation = 'ad
 						'id_coti'	=> $row['id_coti'],
 						'objet'		=> $type,
 						'id_objet'	=> intval($id),
+						'ref_saisie'=> $ref_saisie,
 					);
 					sql_insertq("spip_adhcotis_liens",$adhvaleur);
 				}

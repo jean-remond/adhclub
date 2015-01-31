@@ -22,7 +22,7 @@ function exec_adh_import(){
 	$commencer_page = charger_fonction('commencer_page','inc');
 	echo $commencer_page(_T('adhclub:ffessm_page'));
 	
-	echo gros_titre(_T('adhclub:ffessm_titre'),'',false);
+	echo gros_titre(_T('adhintg:titre_adhintg'),'',false);
 	echo debut_gauche("adhclub",true);
 	
 	echo debut_boite_info(true);
@@ -42,7 +42,7 @@ function exec_adh_import(){
 	echo bloc_des_raccourcis($raccourcis);
 	
 	echo debut_droite("adh_club",true);
-	echo recuperer_fond('public/adh_ffessm',$_GET);
+	echo recuperer_fond('public/adhintg',$_GET);
 	/*if (autoriser('modifier','auteur'))
 		echo "<div>".icone_inline(_T('adhniv:icone_creer_adhniv'),
 		  generer_url_ecrire("niveaux_edit","new=oui"),

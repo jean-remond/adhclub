@@ -34,7 +34,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'creer_associer_adhcoti' => 'Créer et associer une cotisation',
 	// I
 	'icone_creer_adhcoti' => 'Cr&eacute;er une cotisation',
-	'icone_menu_adhcoti' => 'Les Cotisations',
+	'icone_menu_adhcoti' => 'Cotisations',
 	'icone_modifier_adhcoti' => 'Modifier la cotisation',
 	'icone_supprimer_adhcoti' => 'Supprimer',
 	'info_1_adhcoti' => '1 cotisation',

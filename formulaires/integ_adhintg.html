@@ -3,23 +3,23 @@
  * Plugin adhclub : Adherent Club pour Spip 3.0
  * Licence GPL (c) 2011-2015 Jean Remond
  * ----------------------------------------------
- * Formulaire d'integration des donnees de la table adhffessms 
+ * Formulaire d'integration des donnees de la table adhintgs 
  * 	vers les tables auteurs (et auteurs_elargis).
  * Le formulaire permet de capter la reference de regroupement des dossiers 
  * 	et selectionne la cotisation et l'assurance qui vont etre affectees par defaut 
- *     a chaque adherent present dans la table adhffessms.
- * A faire :
+ *     a chaque adherent present dans la table adhintgs.
+ * @todo :
  * 	- Chaque adherent va etre presente dans un formulaire modifiable avant validation.
  * Fait
- * 	- Apres integration, la table adhffessms sera videe.
+ * 	- Apres integration, la table adhintgs sera videe.
  * ----------------------------------------------
  * JR-17/01/2012-Creation du formulaire.
  */
 -->] 
 
-<h2><:adhclub:ffessm_validation:></h2>
+<h2><:adhintg:page_validation_adhintg:></h2>
 
-<div class="formulaire_spip formulaire_editer formulaire_editer_integ_adhffessm" id="formulaire_editer_integ_adhffessm-id">
+<div class="formulaire_spip formulaire_editer formulaire_#FORM" id="formulaire_#FORM-id">
 	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV*{message_ok})</p>]
 	[<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
 
@@ -33,8 +33,8 @@
 		<input type="hidden" name='id_saison' value='#ENV{id_saison}' />
 
         [(#SAISIE{input,ref_saisie,obligatoire=oui}
-            {label=<:adhclub:ref_saisie:>}
-			{explication=<:adhclub:ref_saisie_exp:>}
+            {label=<:adhintg:ref_saisie:>}
+			{explication=<:adhintg:ref_saisie_exp:>}
             )]
 
 
@@ -51,15 +51,15 @@
 		</B_saison>
 
 		[(#SAISIE{selection, id_coti, obligatoire=oui}
-			{label=<:adhclub:ffessm_coti:>}
-			{explication=<:adhclub:ffessm_coti_exp:>}
+			{label=<:adhintg:adhintg_coti:>}
+			{explication=<:adhintg:adhintg_coti_exp:>}
 			{datas=#GET{datascoti}}
 		)]
 
 	  </ul>
 	  [(#REM) ajouter les saisies supplementaires : extra et autre, a cet endroit ]
 	  <!--extra-->
-	  <p class='boutons'><input type='submit' class='submit' value='<:adhclub:bouton_valider_ffessm:>' /></p>
+	  <p class='boutons'><input type='submit' class='submit' value='<:adhintg:bouton_valider_intg:>' /></p>
 	</div></form>
 	
 </div>
