@@ -25,6 +25,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'adh_erreurs' => 'Erreurs du fichier d\'entr&eacute;e.',
 	'adhintg_coti' => 'Cotisation &agrave; affecter aux adh&eacute;rents du lot de saisie',
 	'adhintg_coti_exp' => 'Une seule cotisation par lot de saisie. Les lots doivent &ecirc;tre homog&egrave;nes.',
+	'adhintg_coti_intro' => 'Choisir une cotisation pour tout le lot ci-dessous.',
 	'adresse1'=> 'Adresse (1ere ligne)',
 	'adresse2'=> 'Adresse (2eme ligne)',
 	'adresse3'=> 'Adresse (3eme ligne)',		
@@ -41,6 +42,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     // I
 	'icone_menu_adhintg' => 'Int&eacute;grer les màj',
 	'info_aucun_adhintg' => "Il n'y a pas de màj Adh&eacute;rent &agrave; int&eacute;grer dans le site",
+	'info_nb_adhintgs' => '@nb@ màj à intégrer',
     // L
    	'liste_adhintg' => 'Liste de contr&ocirc;le des Adh&eacute;rents avant leur int&eacute;gration dans le site.',
     // N
@@ -49,7 +51,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	// P
 	'page_adhintgs' => 'Intégrations des données FFESSM',
 	'page_info_adhintg' => "Cette page vous permet d'int&eacute;grer les données déjà collectées pour la FFESSM par votre club",
-	'page_validation_adhintg' => 'Validation du lot d\'Adh&each&eacute;rentute;rent(s) pour int&eacute;gration dans le site',
+	'page_validation_adhintg' => 'Validation du lot d\'Adhérenrent(s) pour int&eacute;gration dans le site',
 	// R
 	'ref_saisie' => 'R&eacute;f&eacute;rence du lot de saisie',
 	'ref_saisie_exp' => 'Pour chaque lot de saisie des dossiers, cr&eacute;er une r&eacute;f&eacute;rence diff&eacute;rente et unique.',

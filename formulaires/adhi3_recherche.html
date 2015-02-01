@@ -127,7 +127,7 @@ JR-12/08/2012-Creation du squelette.
 		JR-26/01/2012-Completer acces a adh_auteur_recherche avec autres criteres.
 		--> ]
 		[(#ENV{id_saison}|ou{#ENV{techbase}}|ou{#ENV{encadrant}}|ou{#ENV{valeur}}|ou{#ENV{niveau}}|oui)
-			<INCLURE{fond=prive/adh_auteur_recherche}{ajax}{ordre}{env}>
+			<INCLURE{fond=prive/objets/liste/adh_auteur_recherche}{ajax}{ordre}{env}>
 		]
 		[(#ENV{id_saison}|ou{#ENV{techbase}}|ou{#ENV{encadrant}}|ou{#ENV{valeur}}|ou{#ENV{niveau}}|non)
 			<INCLURE{fond=prive/table_adherent_auteur}{ajax}{ordre}{env}>

@@ -81,7 +81,7 @@ function adhclub_revision_adhassur_objets_lies($assurs,$ids,$type,$operation = '
 			// on supprime les ids listes
 			$adhwhere = array(
 				"id_assur=".intval($row['id_assur']),
-				"objet =".$type,
+				"objet ='".$type."'",
 				sql_in("id_objet",$ids)
 				);
 			sql_delete("spip_adhassurs_liens",$adhwhere);			
@@ -95,14 +95,14 @@ function adhclub_revision_adhassur_objets_lies($assurs,$ids,$type,$operation = '
 			if ($operation=='set'){
 				$adhwhere = array(
 					"id_assur=".intval($row['id_assur']),
-					"objet =".$type,
+					"objet ='".$type."'",
 					sql_in("id_objet",$ids,"NOT"),
 					);
 				sql_delete("spip_adhassurs_liens",$adhwhere);
 			}
 			$adhwhere = array(
 				"id_assur=".intval($row['id_assur']),
-				"objet =".$type,
+				"objet ='".$type."'",
 				);
 			$deja = array_map('reset',sql_allfetsel("id_objet","spip_adhassurs_liens",$adhwhere));
 			$add = array_diff($ids,$deja);

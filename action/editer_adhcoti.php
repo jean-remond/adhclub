@@ -97,7 +97,7 @@ function adhclub_revision_adhcoti_objets_lies($cotis,$ids,$type,$operation = 'ad
 			// on supprime les ids listes
 			$adhwhere = array(
 				"id_coti=".intval($row['id_coti']),
-				"objet =".$type,
+				"objet ='".$type."'",
 				sql_in("id_objet",$ids)
 				);
 			sql_delete("spip_adhcotis_liens",$adhwhere);			
@@ -118,16 +118,16 @@ function adhclub_revision_adhcoti_objets_lies($cotis,$ids,$type,$operation = 'ad
 			if ($operation=='set'){
 				$adhwhere = array(
 					"id_coti=".intval($row['id_coti']),
-					"objet =".$type,
+					"objet ='".$type."'",
 					sql_in("id_objet",$ids,"NOT"),
 					);
 				sql_delete("spip_adhcotis_liens",$adhwhere);
 			}
 			$adhwhere = array(
 				"id_coti=".intval($row['id_coti']),
-				"objet =".$type,
+				"objet ='".$type."'",
 				);
-			$deja = array_map('reset',sql_allfetsel("id_$type","spip_adhcotis_liens",$adhwhere));
+			$deja = array_map('reset',sql_allfetsel("id_objet","spip_adhcotis_liens",$adhwhere));
 			$add = array_diff($ids,$deja);
 			foreach ($add as $id) {
 				if (autoriser('affectercotis',$type,$id,null,array('id_coti'=>$row['id_coti']))){

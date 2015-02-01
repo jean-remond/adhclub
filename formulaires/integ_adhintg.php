@@ -51,7 +51,7 @@ function formulaires_integ_adhintg_charger_dist($titre_saison){
         }
     else {
         
-        /* Retrouver la derniere reference utilisee pour la saison courante dans la table 'adhcotis_auteurs'.
+        /* Retrouver la derniere reference utilisee pour la saison courante dans la table 'adhcotis_liens'.
             - Si reference identifiee, faire +1,
             - Si pas de reference, forcer la valeur par defaut = 1.
         */

@@ -3,7 +3,7 @@
  * Plugin adhclub : Adherent Club pour Spip 3.0
  * Licence GPL (c) 2011-2015 Jean Remond
  * --------------------------------------------
- * Traiter l'integration de la table adhffessms 
+ * Traiter l'integration de la table adhintgs 
  * --------------------------------------------
  * @todo
  * 
@@ -214,7 +214,7 @@ function exec_import_edit($ref_saisie, $id_coti){
 		//echo "id_auteur= $id_auteur.<br />";
 		//echo "<br />.----------------------------------------------.<br />";
 		
-		/* ____________________________________________________________
+		/** ____________________________________________________________
 		 *
 		 * ==> Mise a jour de la table adhassurs_liens.
 		 * _____________________________________________________________
@@ -264,7 +264,7 @@ function exec_import_edit($ref_saisie, $id_coti){
 			adhclub_revision_adhassur_objets_lies(intval($arg), $id_auteur, 'auteur', 'add');
 		}
 
-		/* ____________________________________________________________
+		/** ____________________________________________________________
 		 * 
 		 * ==> Mise a jour de la table adhcotis_liens.
 		 * _____________________________________________________________

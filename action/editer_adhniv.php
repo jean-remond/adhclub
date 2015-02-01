@@ -97,7 +97,7 @@ function adhclub_revision_adhniv_objets_lies($niveaux,$ids,$type,$operation = 'a
 			// on supprime les ids listes
 			$adhwhere = array(
 				"id_niveau=".intval($row['id_niveau']),
-				"objet =".$type,
+				"objet ='".$type."'",
 				sql_in("id_objet",$ids)
 				);
 			sql_delete("spip_adhnivs_liens",$adhwhere);			
@@ -110,14 +110,14 @@ function adhclub_revision_adhniv_objets_lies($niveaux,$ids,$type,$operation = 'a
 			if ($operation=='set'){
 				$adhwhere = array(
 					"id_niveau=".intval($row['id_niveau']),
-					"objet =".$type,
+					"objet ='".$type."'",
 					sql_in("id_objet",$ids,"NOT"),
 					);
 				sql_delete("spip_adhnivs_liens",$adhwhere);
 			}
 			$adhwhere = array(
 				"id_niveau=".intval($row['id_niveau']),
-				"objet =".$type,
+				"objet ='".$type."'",
 				);
 			$deja = array_map('reset',sql_allfetsel("id_objet","spip_adhnivs_liens",$adhwhere));
 			$add = array_diff($ids,$deja);
