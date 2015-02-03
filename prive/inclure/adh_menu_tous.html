@@ -1,6 +1,3 @@
-<div class='cadre cadre-e raccourcis cadre_padding'>
-
-[(#BOITE_OUVRIR{'','raccourcis'})]
 	<ul>
 	
 		[(#ENV{choix}|!={menu_tous}|oui)
@@ -19,8 +16,7 @@
 		<li><a href="[(#URL_ECRIRE{adhnivs})]"><img src="#CHEMIN_IMAGE{adhniveau-24.png}" alt="<:adhniv:icone_menu_adhniv:>" /> <:adhniv:icone_menu_adhniv:></a></li>
 		]
 		[(#ENV{choix}|!={import}|oui)
-		<li><a href="[(#URL_ECRIRE{adhimports})]"><img src="#CHEMIN_IMAGE{adhclub-24.png}" alt="<:adhintg:icone_menu_adhintg:>" /> <:adhintg:icone_menu_adhintg:></a></li>
+		<li><a href="[(#URL_ECRIRE{adhintgs})]"><img src="#CHEMIN_IMAGE{adhclub-24.png}" alt="<:adhintg:icone_menu_adhintg:>" /> <:adhintg:icone_menu_adhintg:></a></li>
 		]
 		
 	</ul>
-#BOITE_FERMER

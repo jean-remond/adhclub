@@ -33,10 +33,6 @@ function formulaires_editer_adhniv_verifier_dist($id_niveau='new', $retour='', $
 
 function formulaires_editer_adhniv_traiter_dist($id_niveau='new', $retour='', $config_fonc='niveaux_edit_config', $row=array(), $hidden=''){
 
-	//echo "<br />.debug JR2012.<br />";
-	//echo "formulaires/editer_adhniv - formulaires_editer_adhniv_traiter_dist-Pt30.<br />";
-	
-	
 	$message = "";
 	$action_editer = charger_fonction("editer_adhniv",'action');
 	list($id,$err) = $action_editer();

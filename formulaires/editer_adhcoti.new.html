@@ -1,0 +1,35 @@
+[(#REM) <-- 
+ /**
+ * Plugin adh_club : Adherent Club pour Spip 3.0
+ * Licence GPL (c) 2011-2015 Jean Remond
+ * ----------------------------------------------
+ * Saisie des cotisations du club associables aux adherents
+ * ----------------------------------------------
+ * JR-17/01/2015-Adaptation spip 3.0.
+ */
+-->] 
+<div class="formulaire_spip formulaire_editer formulaire_#FORM formulaire_#FORM-#ENV{id_coti,nouveau}">
+	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV*{message_ok})</p>]
+	[<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
+	[(#ENV{editable})
+	<form method='post' action='#ENV{action}' enctype='multipart/form-data'><div>
+		[(#REM) declarer les hidden qui declencheront le service du formulaire parametre : url d'action ]
+		#ACTION_FORMULAIRE{#ENV{action}}
+		<input type='hidden' name='id_coti' value='#ID_COTI' />
+
+		<div class="saisie_commune">
+			[<ul>(#GENERER_SAISIES{#ENV{saisie_commune}}
+			)</ul>]
+	       [<span class='erreur'>(#ENV**{erreurs}|table_valeur{titre})</span>]
+	       [<span class='erreur'>(#ENV**{erreurs}|table_valeur{descriptif})</span>]
+	       [<span class='erreur'>(#ENV**{erreurs}|table_valeur{mnt_cotis})</span>]
+	       [<span class='erreur'>(#ENV**{erreurs}|table_valeur{complement})</span>]
+	       [<span class='erreur'>(#ENV**{erreurs}|table_valeur{activclub})</span>]
+
+		</div>
+		[(#REM) ajouter les saisies supplementaires : extra et autre, a cet endroit ]
+		<!--extra-->
+		<p class='boutons'><input type='submit' class='submit' value='[(#ID_COTI|intval|?{<:bouton_enregistrer:>,<:bouton_ajouter:>})]' /></p>
+	</div></form>
+	]
+</div>

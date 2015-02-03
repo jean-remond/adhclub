@@ -54,7 +54,7 @@ function action_adhcoti_set($id_coti){
 		$c[$champ] = _request($champ);
 
 	foreach (array(
-			'complement'
+			'complement', 'activclub'
 	) as $champ)
 		$c[$champ] = _request($champ)=='oui'?'oui':'non';
 	

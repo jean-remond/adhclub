@@ -101,7 +101,8 @@ $tables['spip_adhcotis'] = array(
 		"mnt_cotis"		=> "float DEFAULT '0' NOT NULL",
 		"id_saison" 	=> "bigint(21)",
 		"complement" 	=> "ENUM('non', 'oui') DEFAULT 'non' NOT NULL",
-		"maj"			=> "TIMESTAMP default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP",
+		"activclub" 	=> "ENUM('non', 'oui') DEFAULT 'oui' NOT NULL",
+    	"maj"			=> "TIMESTAMP default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP",
 		"statut"		=> "varchar(20)  DEFAULT 'prepa' NOT NULL",
     ),
     'key' => array(
@@ -113,7 +114,7 @@ $tables['spip_adhcotis'] = array(
     'date'			=> "maj",
     'editable'		=> "oui",
 	'champs_editables'	=> array(
-		"titre", "descriptif", "mnt_cotis", "id_saison", "complement"
+		"titre", "descriptif", "mnt_cotis", "id_saison", "complement", "activclub"
 		),
 	'icone_objet'			=> "adhcoti-24.png",
 	'texte_objet'			=> "adhcoti:titre_adhcoti",
@@ -297,8 +298,9 @@ $tables['spip_adhintgs'] = array(
 		"pays"			=> "text NOT NULL",
 		"email"			=> "tinytext NOT NULL",
 		"assurance"		=> "text NOT NULL",
-		"statut"		=> "text NOT NULL"
-        ),
+		"statut"		=> "text NOT NULL",
+		"categorie"		=> "text NOT NULL",
+    ),
     'key'			=> array(
 		"PRIMARY KEY"	=> "licence"
     	),
@@ -389,7 +391,7 @@ $champs['spip_auteurs']['certiflimite'] = array(
 		'class'=>'nomulti',
 		'datetime'=>'non',
 		'rechercher' => false,
-		'defaut' => '0000-00-00',// Valeur par défaut
+		'defaut' => '0001-01-01',// Valeur par défaut
 		'restrictions'=>array(	
 			'voir' 		=> array('auteur'=>''),//Tout le monde peut voir
 			'modifier'	=> array('auteur'=>'webmestre'))),//Seul les webmestre peuvent modifier
@@ -411,11 +413,11 @@ $champs['spip_auteurs']['certifqualif'] = array(
 	'verifier' => array()
 );
 $champs['spip_auteurs']['email_corr'] = array(
-	'saisie' => 'input',//Type du champs (voir plugin Saisies)
+	'saisie' => 'email',//Type du champs (voir plugin Saisies)
 	'options' => array(
 		'nom' => 'email_corr', 
 		'label' => _T('adhclub:email_corr_label'), 
-		'sql' => "TEXT NOT NULL DEFAULT ''",
+		'sql' => "TINYTEXT NOT NULL DEFAULT ''",
 		'defaut' => '',// Valeur par défaut
 		'restrictions'=>array(	
 			'voir' 		=> array('auteur'=>''),//Tout le monde peut voir
@@ -490,7 +492,20 @@ $champs['spip_auteurs']['pays_pro'] = array(
 		'rechercher' => false,
 	'verifier' => array()
 );
-	
+$champs['spip_auteurs']['divers'] = array(
+	'saisie' => 'input', // type de saisie
+	'options' => array(
+		'nom' => 'divers', 
+		'label' => _T('adhclub:divers_label'), 
+		'sql' => "TEXT DEFAULT '' NOT NULL",
+		'defaut' => '',
+		'restrictions'=>array(	
+			'voir' 		=> array('auteur'=>''),//Tout le monde peut voir
+			'modifier'	=> array('auteur'=>'webmestre'))),//Seul les webmestre peuvent modifier
+		'rechercher' => false,
+	'verifier' => array()
+);
+
 return $champs;	
 }
 

@@ -55,13 +55,29 @@ function formulaires_editer_adhcoti_traiter_dist($id_coti='new', $retour='', $co
 	return $message;
 }
 
+/**
+ * Declaration des saisies du formulaire.
+ * 
+ * @return array $mes_saisies..
+ */
 
+	  <ul>
+
+		<li>
+		[(#SAISIE{input, titre, obligatoire=oui, 
+			label=<:adhcoti:titre_adhcoti:>, 
+			explication=<:adhcoti:titre_exp_adhcoti:>,
+			maxlength=35}
+		)]
+		</li>
+
+						
 function editer_adhcoti_saisie_commune() {
 	$saisie_commune = array(
 		array( // le fieldset
 			'saisie' => 'fieldset',
 			'options' => array(
-				'nom' => 'commune',
+				'nom' => 'commune'
 			),
 			'saisies' => array( // les champs dans le fieldset
 				array( // titre
@@ -71,13 +87,13 @@ function editer_adhcoti_saisie_commune() {
 						'label' => _T('adhcoti:titre_adhcoti'),
 						'explication' => _T('adhcoti:titre_exp_adhcoti'),
 						'size' => '35',
-						'obligatoire' => 'oui',
+						'obligatoire' => 'oui'
 					),
 					'verifier' => array(
 						'type' => 'taille',
 						'options' => array (
-							min => 2, max => 35,
-						),
+							min => 2, max => 35
+						)
 					),
 				),
 				array( // descriptif
@@ -86,7 +102,7 @@ function editer_adhcoti_saisie_commune() {
 						'nom' => 'descriptif',
 						'label' => _T('adhclub:descriptif'),
 						'rows' => '3',
-						'obligatoire' => 'non',
+						'obligatoire' => 'non'
 					),
 				),
 				array( // Montant cotisation
@@ -95,17 +111,33 @@ function editer_adhcoti_saisie_commune() {
 						'nom' => 'mnt_cotis',
 						'label' => _T('adhcoti:mnt_adhcoti'),
 						'size' => '7',
-						'obligatoire' => 'non',
+						'obligatoire' => 'oui'
 					),
 					'verifier' => array(
 						'type' => 'decimal',
 						'options' => array (
-							min => 0.0,
-							nb_decimales => 2,
+							min => 0.0
 						)
 					),
 				),
-					
+				array( // Cotisation complementaire ?
+					'saisie' => 'oui_non',
+					'options' => array(
+						'nom' => 'complement',
+						'label' => _T('adhcoti:complement_adhcoti'),
+						'value' => 'non',
+						'obligatoire' => 'non',
+					),
+				),
+					array( // activite subaquatique ?
+					'saisie' => 'case',
+					'options' => array(
+						'nom' => 'activclub',
+						'label' => _T('adhcoti:activclub_adhcoti'),
+						'value' => 'oui'
+						'obligatoire' => 'non'
+					),
+				),
 			)
 		)
 	);

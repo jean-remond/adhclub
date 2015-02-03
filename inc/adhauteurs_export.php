@@ -14,8 +14,7 @@
  * ----------------------------------------------
  * Fonctions pour le telechargement des donnees filtrees des auteurs. 
  * ----------------------------------------------
- * A faire :
- * -------
+ * @todo-JR-20150202-Valider l'utilite.
  * 
  * Fait :
  * ----

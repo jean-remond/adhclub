@@ -23,13 +23,14 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 
 	// A
     'acces_adhcotis' => 'S&eacute;lectionnez la cotisation pour l\'auteur',
+	'activclub_adhcoti' => 'Cotisation autorisant les activités subaquatiques du club',
 	'adhcotis' => 'cotisation(s)',
 	'ajouter_adhcoti' => 'Ajouter une cotisation',
 	'aucun_adhcoti' => 'Aucune cotisation',
 	// B
 	'bouton_ajouter_adhcoti' => 'Ajouter la nouvelle cotisation',
 	// C
-	'complement_adhcoti' => 'Cotisation compl&eacute;mentaire',
+	'complement_adhcoti' => 'Cotisation complémentaire',
 	'confirmer_retirer_auteur_adhcoti' => '&Ecirc;tes-vous s&ucirc;r de vouloir retirer cet auteur de cete cotisation ?',
 	'creer_associer_adhcoti' => 'Créer et associer une cotisation',
 	// I
@@ -63,11 +64,11 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'saison_exp_adhcoti' => 'La saison, une fois choisi, ne peut &eacute;tre modifi&eacute;e que par le Webmaster',
 	// T
 	'texte_changer_statut_adhcoti' => 'Cette cotisation est :',
-	'titre_adhcoti' => 'Cotisation pour l\'adh&eacute;sion au Club',
+	'titre_adhcoti' => 'Cotisation pour l\'adhésion au Club',
 	'titre_adhcotis' => 'Cotisations pour l\'adh&eacute;sion au Club',
 	'titre_ajouter_adhcoti' => 'Ajouter une cotisation',
 	'titre_cadre_modifier_adhcoti' => 'Modifier une cotisation',
-	'titre_exp_adhcoti' => 'Cotisation propos&eacute;e par le Club dans le cadre de ses activit&eacute;s.',
+	'titre_exp_adhcoti' => 'Cotisation proposée par le Club dans le cadre de ses activités.',
 	// Z
 	'ze_fin' => 'Ze fin sans virgule'
 );

@@ -53,6 +53,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	// D
     'demande_photo'=>'D&eacute;p&eacute;chez-vous de lui demander sa photo..',
 	'descriptif' => 'Descriptif',
+	'divers_label' => 'Informations diverses',
 	// E
 	'email' => 'email',
 	'email_corr_label' => 'Email de correspondance',

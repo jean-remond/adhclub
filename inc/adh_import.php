@@ -154,7 +154,7 @@ function adhclub_imp_nettoie_key($key){
   *		source ("spip")
   *		divers ("adhclub")
   * ** champs extras **
-  *		certiflimite (0000-00-00)
+  *		certiflimite (0001-01-01)
   *		certifqualif ('non')
   *		certifaspirine ('non')
   *
@@ -307,7 +307,7 @@ function adhclub_imp_EMAIL_ENVOI($id_auteur) {
 
 	$email_env = array();
 	$adhfrom = "spip_meta";
-    $adhwhere = "nom ='email_envoi'";
+    $adhwhere = "nom ='facteur_adresse_envoi_email'";
     $adhorderby ="";
     $adhlimit ="0,1";
     $email_env['env'] = sql_getfetsel( "valeur", $adhfrom, $adhwhere, $adhgroupby, $adhorderby, $adhlimit);
@@ -318,7 +318,7 @@ function adhclub_imp_EMAIL_ENVOI($id_auteur) {
 	}
 	
 	if(!$email_env['env']){
-		$email_env['env'] = "adh_club@adhclub.com";
+		$email_env['env'] = "adhclub@adhclub.com";
 	}
 
     //echo "<br />.XXX debug JR : inc/adh_import adhclub_imp_EMAIL_ENVOI-Pt04.<br />";
@@ -451,18 +451,19 @@ return $adresse;
 function adhclub_imp_field_reformate($id_auteur, $assoc_field, $rec_intg){
 	if (!is_array($rec_creat)) $rec_creat = array();
 	
-	//echo "<br />.XXX debug JR : inc/adh_import adhclub_imp_field_reformate-Pt10.<br />";
-	//echo "array(rec_intg)<br />";
-	//var_dump($rec_fessm);
-	
+	/*$debug1= "DEBUG adhclub JR : inc/adh_import - adhclub_imp_field_reformate - Pt10 - <br />";
+	echo "<br />", $debug1;
+	echo "rec_intg= <br />"; var_dump($rec_intg); echo ".<br />";
+	echo "FIN ", $debug1;
+	*/
 	// Traitement des champs en entree (rec_intg)
 	foreach(array_keys($assoc_field) as $tablekey){
 	
-		//echo "<br />.XXX debug JR : inc/adh_import adhclub_imp_field_reformate-Pt11.<br />";
-		//echo "tablekey= $tablekey.<br />";
-		//$field=$rec_intg[$tablekey];
-		//echo "rec_intg(tablekey)= $field.<br />";
-		
+		/*$debug1= "DEBUG adhclub JR : inc/adh_import - adhclub_imp_field_reformate - Pt11 - <br />";
+		echo "<br />", $debug1;
+		echo "tablekey= $tablekey.<br />";
+		echo "FIN ", $debug1;
+		*/
 		switch($tablekey) {
 		case 'souscription';
 			// la date n'est pas dans la forme correcte
@@ -537,10 +538,10 @@ function adhclub_imp_field_reformate($id_auteur, $assoc_field, $rec_intg){
 			break;
 		
 		case 'email';
-			// email (= email si existe pas, genere virtuellement sinon)
+			// email (= email si existe deja pour un autre auteur, genere virtuellement sinon)
 			if($rec_intg['email']){
-				$rec_creat[$tablekey]=$rec_intg['email'];
-			}else{
+			//	$rec_creat[$tablekey]=$rec_intg['email'];
+			//}else{
 				$rec_creat[$tablekey]=adhclub_imp_email($id_auteur, $rec_intg[$tablekey]);
 			}
 			//unset($assoc_field[$tablekey]);
@@ -609,8 +610,8 @@ function adhclub_imp_field_reformate($id_auteur, $assoc_field, $rec_intg){
 			break;
 			
 			case 'certiflimite';
-			// certiflimite (0000-00-00)
-			$rec_creat[$tablekey]='0000-00-00';
+			// certiflimite (0001-01-01)
+			$rec_creat[$tablekey]='0001-01-01';
 			//unset($assoc_field[$tablekey]);
 			break;
 			
@@ -773,20 +774,20 @@ function adhclub_imp_maj_table($id_auteur, $data, $tables, $assoc_field, &$majer
 	$assoc = array_flip($assoc_field);
 
 	
-	//echo "<br />.XXX debug JR : inc/adh_import adhclub_imp_maj_table-Pt01.<br />";
-	//echo "id_auteur= $id_auteur.<br />";
-	
+	/*$debug1= "DEBUG adhclub JR : inc/adh_import - adhclub_imp_maj_table - Pt01 - <br />";
+	echo "<br />", $debug1;
+	echo "id_auteur= $id_auteur.<br />";
+	echo "data= <br />"; var_dump($data); echo ".<br />";
+	echo "FIN ", $debug1;
+	*/
 	list($auteurs,$auteurs_elargis) = adhclub_imp_table_fields($tables, 'separe');
 	
-	//echo "<br />.XXX debug JR : inc/adh_import adhclub_imp_maj_table-Pt05.<br />";
-	//echo "id_auteur= $id_auteur.<br />";
-	//$field=$data['adresse1'];
-	//echo "data(adresse1)= $field.<br />";
-	//$field=$data['email'];
-	//echo "data(email)= $field.<br />";
-	//$field=$data['email_corr'];
-	//echo "data(email_corr)= $field.<br />";
-	
+	/*$debug1= "DEBUG adhclub JR : inc/adh_import - adhclub_imp_maj_table - Pt02 - <br />";
+	echo "<br />", $debug1;
+	echo "id_auteur= $id_auteur.<br />";
+	echo "data= <br />"; var_dump($data); echo ".<br />";
+	echo "FIN ", $debug1;
+	*/
 	$auteurs_obligatoires = array('email');
 
 	if ($data!=false){

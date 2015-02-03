@@ -23,9 +23,35 @@
 	       [<span class='erreur'>(#ENV**{erreurs}|table_valeur{titre})</span>]
 	       [<span class='erreur'>(#ENV**{erreurs}|table_valeur{descriptif})</span>]
 	       [<span class='erreur'>(#ENV**{erreurs}|table_valeur{mnt_cotis})</span>]
+	       [<span class='erreur'>(#ENV**{erreurs}|table_valeur{complement})</span>]
+	       [<span class='erreur'>(#ENV**{erreurs}|table_valeur{activclub})</span>]
 		</div>
 
 	  <ul>
+
+		<li>
+		[(#SAISIE{input, titre, obligatoire=oui, 
+			label=<:adhcoti:titre_adhcoti:>, 
+			explication=<:adhcoti:titre_exp_adhcoti:>,
+			maxlength=35}
+		)]
+		</li>
+
+
+		<li>
+		[(#SAISIE{textarea, descriptif,
+			label=<:adhclub:descriptif:>, 
+			rows=3}
+		)]
+		</li>
+
+		[(#REM) gestion du montant ]
+		<li>
+		[(#SAISIE{input, mnt_cotis, obligatoire=oui, 
+			label=<:adhcoti:mnt_adhcoti:>, 
+			maxlength=7}
+		)]
+		</li>
 
 		[(#REM) Cotisation complementaire ? ]
 		<li class='editer_complement'>
@@ -33,7 +59,6 @@
 				<input type='checkbox' name='complement' value='oui' id='complement'[ (#COMPLEMENT|=={oui}|oui)checked="checked"] />
 				<label for='complement'><:adhcoti:complement_adhcoti:></label>
 			</div>
-	       [<span class='erreur'>(#ENV**{erreurs}|table_valeur{complement})</span>]
 	    </li>
 
 		[(#REM) Cotisation pour activite club ? ]
@@ -42,7 +67,6 @@
 				<input type='checkbox' name='activclub' value='oui' id='activclub'[ (#ACTIVCLUB|=={oui}|oui)checked="checked"] />
 				<label for='activclub'><:adhcoti:activclub_adhcoti:></label>
 			</div>
-	       [<span class='erreur'>(#ENV**{erreurs}|table_valeur{activclub})</span>]
 	    </li>
 
 		<li>
@@ -77,7 +101,7 @@
 			[(#REM) JR-25/06/2012-Si creation cotisation, alors ttest saison actives en selection ]
 			[(#REM) A partir de la table 'ADHSAISONS'.]
 			<B_saisons>
-			<BOUCLE_saisons(ADHSAISONS){par saison_deb}{inverse}{0,5}>
+			<BOUCLE_saisons(ADHSAISONS){par saison_deb}{inverse}{0,4}>
 		        #SET{datassaisc, #GET{datassaisc}|array_merge{#ARRAY{Saison:#TITRE,#ID_SAISON}}}
 			</BOUCLE_saisons>
 				#SET{datassaisc, #GET{datassaisc}|array_flip} 

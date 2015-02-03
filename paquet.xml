@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?><paquet
 	prefix="adhclub"
 	categorie="squelette"
-	version="3.0.12"
+	version="3.0.15"
 	etat="dev"
 	compatibilite="[3.0.17;["
 	logo="prive/themes/spip/images/adhclub-24.png"
-	schema="201501312000"
+	schema="201502031200"
 	>	
 	<!-- documentation="pas faite" -->
 

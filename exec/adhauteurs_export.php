@@ -2,22 +2,21 @@
 /**
  * Plugin adh_club : Adherent Club pour Spip 3.0
  * Licence GPL (c) 2011-2015 Jean Remond
- *
  * ----------------------------------------------
  * Telechargement des donnees filtrees des auteurs. 
+ * D'apres le plugin csv_import de Cedric MORIN
  * ----------------------------------------------
- * A faire :
- * -------
- * JR-15/01/2015-Verifier utilite..
+ * @todo-
  * 
  * Fait :
  * ----
+ * JR-03/02/2015-Adaptation a Spip 3.0
  * JR-06/08/2013-Ajout des criteres dans fichier exporte.
  * JR-22/05/2013-Creation du squelette.
  *
  */
 
-include_spip("inc/adh_auteurs_export");
+include_spip("inc/adhauteurs_export");
 include_spip("inc/presentation");
 /**
  * Traitement de l'export des donnees auteurs.
@@ -26,13 +25,13 @@ include_spip("inc/presentation");
  * 
  * @return array $retour nbre auteurs exportes et message de confirmation d'action.
  */
-function exec_adh_auteurs_export(){
+function exec_adhauteurs_export(){
 	
 	// preparation affichage des choix type d'export
 	$criteres_tot = _request('criteres');
 	$criteres = explode( '|', $criteres_tot, 7);
 
-	// Preparation de l'export des criteres
+	// Preparation de l'export des criteres (mise en forme dans le fichier out)
 	// -- saison --
 	if (intval($criteres[2])){
 		$lib_criteres = sql_getfetsel('titre', 'spip_adhsaisons',array('id_saison='.intval($criteres[2])));
@@ -69,7 +68,7 @@ function exec_adh_auteurs_export(){
 	}
 	$export_crit[4] = array('Champ',$criteres[0],$criteres[1]);
 	
-	/*$debug1= "DEBUG adhclub JR : exec/adh_auteurs_export - exec_adh_auteurs_export - Pt05 - ";
+	/*$debug1= "DEBUG adhclub JR : exec/adhauteurs_export - exec_adhauteurs_export - Pt05 - ";
 	adhclub_log("$debug1.", true);
 	adhclub_log("criteres tot= $criteres_tot.", true);
 	adhclub_log("criteres 0= $criteres[0].", true);
@@ -89,7 +88,7 @@ function exec_adh_auteurs_export(){
 	if ($delim == 'TAB') $delim = "\t";
 	
 	if (!$retour)
-		$retour = generer_url_ecrire('adh_tous');
+		$retour = generer_url_ecrire('adh_adherents');
 	
 	$titre = _T("adhclub:exporter_user_nb",array('nb_auteurs'=>$nb_auteurs));
 	
@@ -98,6 +97,7 @@ function exec_adh_auteurs_export(){
 		//
 		// Affichage de la page
 		//
+
 		$commencer_page = charger_fonction('commencer_page', 'inc');
 		pipeline('exec_init',array('args'=>$_GET,'data'=>''));
 	
@@ -105,14 +105,13 @@ function exec_adh_auteurs_export(){
 	
 		echo debut_gauche('',true);
 	
-		/*$raccourcis = recuperer_fond("prive/inclure/adh_menu_tous",$contexte);
-		echo bloc_des_raccourcis($raccourcis);*/
-		echo recuperer_fond("prive/inclure/adh_menu_tous",$contexte);
-	
-		echo pipeline('affiche_gauche',array('args'=>array('exec'=>'adh_auteurs_export','sql_adh_auteurs'=>$sql_adh_auteurs),'data'=>''));
-	
+		$raccourcis = recuperer_fond("prive/inclure/adh_menu_tous",$contexte);
+		echo bloc_des_raccourcis($raccourcis);
+		
+		echo pipeline('affiche_gauche',array('args'=>array('exec'=>'adhauteurs_export','sql_adh_auteurs'=>$sql_adh_auteurs),'data'=>''));
+
 		echo creer_colonne_droite("",true);
-		echo pipeline('affiche_droite',array('args'=>array('exec'=>'adh_auteurs_export','sql_adh_auteurs'=>$sql_adh_auteurs),'data'=>''));
+		echo pipeline('affiche_droite',array('args'=>array('exec'=>'adhauteurs_export','sql_adh_auteurs'=>$sql_adh_auteurs),'data'=>''));
 		echo debut_droite("",true);
 	
 		$milieu = '';
@@ -121,13 +120,13 @@ function exec_adh_auteurs_export(){
 
 		// Icones retour
 		if ($retour) {
-			$milieu .= icone_inline(_T('icone_retour'), $retour, $icone, "rien.gif",$GLOBALS['spip_lang_left']);
+			$milieu .= icone_verticale(_T('icone_retour'), $retour, $icone, "rien.gif",$GLOBALS['spip_lang_left']);
 		}
 		$milieu .= gros_titre($titre,'', false);
 		$milieu .= "</div>";
 
 		$milieu .= "<div class='formulaire_spip'>";
-		$action = generer_url_ecrire("adh_auteurs_export","criteres=$criteres_tot&retour=$retour");
+		$action = generer_url_ecrire("adhauteurs_export","criteres=$criteres_tot&retour=$retour");
 		$milieu .= "\n<form action='$action' method='post' class='formulaire_editer'><div>".form_hidden($action);
 		
 		$milieu .= "<ul><li><label for='delim'>"._T("adhclub:export_format")."</label>";
@@ -141,7 +140,7 @@ function exec_adh_auteurs_export(){
 		$milieu .= "</div></form>";
 		$milieu .= "</div>";
 	
-		echo pipeline('affiche_milieu',array('args'=>array('exec'=>'adh_auteurs_export','criteres'=>$criteres_tot,'retour'=>$retour),'data'=>$milieu));
+		echo pipeline('affiche_milieu',array('args'=>array('exec'=>'adhauteurs_export','criteres'=>$criteres_tot,'retour'=>$retour),'data'=>$milieu));
 	
 		echo fin_gauche(), fin_page();
 		exit;
@@ -194,20 +193,22 @@ function exec_adh_auteurs_export(){
 						"as_l.mnt_assur")); 
 		$adhfrom_l = array_merge($adhfrom_l,
 				array(	"spip_adhcotis co_l",
-						"spip_adhcotis_auteurs ca_l",
+						"spip_adhcotis_liens ca_l",
 						"spip_adhassurs as_l",
-						"spip_adhassurs_auteurs aa_l"));
+						"spip_adhassurs_liens aa_l"));
 		$adhwhere_l = array_merge($adhwhere_l,
-				array(	"au.id_auteur=ca_l.id_auteur",
+				array(	"au.id_auteur=ca_l.id_objet",
+						"ca_l.objet='auteur'",
 						"ca_l.id_coti=co_l.id_coti",
 						"co_l.id_saison=".intval($criteres[2]),
 						"co_l.complement='non'",
-						"au.id_auteur=aa_l.id_auteur",
+						"au.id_auteur=aa_l.id_objet",
+						"aa_l.objet='auteur'",
 						"aa_l.id_assur=as_l.id_assur",
 						"as_l.id_saison=".intval($criteres[2])));
 		}
 						
-		$debug1= "DEBUG adhclub JR : exec/adh_auteurs_export - Pt25 - ";
+		$debug1= "DEBUG adhclub JR : exec/adhauteurs_export - Pt25 - ";
 		adhclub_log("$debug1.", true);
 		$debug2 = sql_get_select($adhselect_l, $adhfrom_l, sql_in('au.id_auteur', $sql_adh_auteurs));
 		adhclub_log("debug2=$debug2.", true);
@@ -223,7 +224,7 @@ function exec_adh_auteurs_export(){
 				$list_valeur = array();
 				foreach($ligne as $k=>$v){
 
-					/*$debug1= "DEBUG adhclub JR : exec/adh_auteurs_export - Pt35 - ";
+					/*$debug1= "DEBUG adhclub JR : exec/adhauteurs_export - Pt35 - ";
 					adhclub_log("$debug1.", true);
 					adhclub_log("k= $k , v= $v.", true);
 					adhclub_log("FIN $debug1.", true);*/

@@ -36,6 +36,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'civilite' => 'Civilit&eacute;',
 	'cp' => 'Code postal',
 	// E
+	'email' => 'Courriel',
 	'err_auteur_creation' => 'Echec de la cr&eacute;ation initiale de ',
 	'err_auteur_maj' => "Echec de la mise &aacute; jour de l'adh&eacute;rent",
 	'err_adhassur_inconnue' => "L'assurance pour l'adh&eacute;rent est inconnue",
@@ -51,7 +52,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	// P
 	'page_adhintgs' => 'Intégrations des données FFESSM',
 	'page_info_adhintg' => "Cette page vous permet d'int&eacute;grer les données déjà collectées pour la FFESSM par votre club",
-	'page_validation_adhintg' => 'Validation du lot d\'Adhérenrent(s) pour int&eacute;gration dans le site',
+	'page_validation_adhintg' => 'Validation du lot d\'Adhérent(s) pour int&eacute;gration dans le site',
 	// R
 	'ref_saisie' => 'R&eacute;f&eacute;rence du lot de saisie',
 	'ref_saisie_exp' => 'Pour chaque lot de saisie des dossiers, cr&eacute;er une r&eacute;f&eacute;rence diff&eacute;rente et unique.',

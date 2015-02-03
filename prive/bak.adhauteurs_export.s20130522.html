@@ -9,9 +9,7 @@
  *  pour sauvegarde locale.
  *  cf formulaires/adh_i3_recherche. 
  * ----------------------------------------------
- * A faire :
- * -------
- * JR-01/05/2013-Finaliser la recuperation en locale (enregistrement).
+ * @todo-JR-01/05/2013-Finaliser la recuperation en locale (enregistrement).
  * 
  * Fait :
  * ----
@@ -25,7 +23,7 @@ $file_view = #ENV{file_view};
 $file_path = #ENV{file_path};
 $file_name = #ENV{file_name};
 		
-$debug1= "adhclub debug JR : prive/adh_auteurs_export - Pt05 - ";
+$debug1= "adhclub debug JR : prive/adhauteurs_export - Pt05 - ";
 adhclub_log("$debug1.", true);
 $debug1= "file_type=" . $file_type . ", file_view=". $file_view. ", file_path=". $file_path. ", file_name=". $file_name;
 adhclub_log("$debug1.", true);
@@ -40,7 +38,7 @@ if (stripos($GLOBALS['spip_pipeline']['affichage_final'],'mutualisation_url_img_
 
 if($file_type == 'csv'){
 		
-	$debug1= "adhclub debug JR : prive/adh_auteurs_export - Pt15 - ";
+	$debug1= "adhclub debug JR : prive/adhauteurs_export - Pt15 - ";
 	adhclub_log("$debug1.", true);
 	$debug1= "file_type=" . $file_type . ", file_view=". $file_view. ", file_path=". $file_path. ", file_name=". $file_name;
 	adhclub_log("$debug1.", true);

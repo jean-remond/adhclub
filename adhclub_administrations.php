@@ -65,6 +65,15 @@ function adhclub_upgrade($nom_meta_base_version, $version_cible){
  	$maj['201501312000'] = array(
 		$cextraok = cextras_api_upgrade(adhclub_declarer_champs_extras(), $maj['201501312000']),	
  	);
+ 	$maj['201502021400'] = array(
+		$cextraok = cextras_api_upgrade(adhclub_declarer_champs_extras(), $maj['201502021400']),	
+ 	);
+ 	$maj['201502021420'] = array(
+		array('sql_alter', "TABLE spip_adhintgs ADD COLUMN categorie TEXT DEFAULT '' NULL"),
+  	);
+ 	$maj['201502031200'] = array(
+		array('sql_alter', "TABLE spip_adhcotis ADD COLUMN activclub ENUM('non', 'oui') DEFAULT 'oui' NOT NULL AFTER complement"),
+  	);
  	
 /* 	$maj['201501261530'] = array(	
     	array('maj_tables', array('spip_evinscripteurs', 'spip_evparticipants')),

@@ -171,23 +171,21 @@ function exec_import_edit($ref_saisie, $id_coti){
 			foreach($assoc_field as $key=>$value)
 				$hidden["assoc_field[".adhclub_imp_nettoie_key($key)."]"] = $value;
 			
-			//echo "<br />.XXX debug JR : exec/adh_import-exec_adh_import-Pt61.<br />";
-			//echo "id_auteur= $id_auteur.<br />";
-			//$field=$rec_intg['email'];
-			//echo "rec_intgs(email)= $field.<br />";
-			
+			/*$debug1= "DEBUG adhclub JR : exec/adh_import - exec_adh_import - Pt61 - <br />";
+			echo "<br />", $debug1;
+			echo "id_auteur= $id_auteur.<br />";
+			echo "rec_intg= <br />"; var_dump($rec_intg); echo ".<br />";
+			echo "FIN ", $debug1;
+			*/
 			// Reformattage des champs
 			$rec_maj=adhclub_imp_field_reformate($id_auteur, $assoc_field, $rec_intg);
 			
-			//echo "<br />.XXX debug JR : exec/adh_import-exec_adh_import-Pt62.<br />";
-			//echo "id_auteur= $id_auteur.<br />";
-			//$field=$rec_maj['adresse1'];
-			//echo "rec_maj(adresse1)= $field.<br />";
-			//$field=$rec_maj['email_corr'];
-			//echo "rec_maj(email_corr)= $field.<br />";
-			//$field=$rec_maj['email'];
-			//echo "rec_maj(email)= $field.<br />";
-			
+			/*$debug1= "DEBUG adhclub JR : exec/adh_import - exec_adh_import - Pt62 - <br />";
+			echo "<br />", $debug1;
+			echo "id_auteur= $id_auteur.<br />";
+			echo "rec_maj= <br />"; var_dump($rec_maj); echo ".<br />";
+			echo "FIN ", $debug1;
+			*/
 			$tables = array('spip_auteurs','spip_auteurs_elargis');
 			// JR-20121019-Pb d'appel via reference.
 			//list($erreurs, $auteur)  = adhclub_imp_maj_table($id_auteur, $rec_maj, $tables, $assoc_field, &$erreur);

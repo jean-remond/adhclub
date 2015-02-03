@@ -378,7 +378,7 @@ function adh_recherche($ou, $quoi, $table, $id_saison, $techbase, $encadrant, $n
 
 /**
  *
- * Critere utilise pour rechercher dans les utilisateurs (page ?exec=adh_tous)
+ * Critere utilise pour rechercher dans les utilisateurs (page ?exec=adh_adherents)
  * Construction de la clause "where" de la boucle de recherche spip.
  * 
  * Combinaison des criteres pour obtenir la liste commune des id_auteurs ....

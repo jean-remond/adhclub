@@ -9,13 +9,11 @@
  * ----------------------------------------------
  * Recherche des auteurs basee sur les criteres inscription3 et adhclub. 
  * ----------------------------------------------
- * A faire :
- * -------
- * JR-23/03/2013-Traiter 'exporter_liste'.
+ * @todo-JR-23/03/2013-Traiter 'exporter_liste'.
  * 
  * Fait :
  * ----
- * JR-10/01/2015-adaptation spip 3.0.
+ * JR-10/01/2015-Adaptation spip 3.0.
  * JR-12/03/2013-Ajout des criteres niveau relatif.
  * JR-11/01/2013-Ajout des criteres adhclub.
  * JR-12/08/2012-Creation du squelette.
@@ -38,9 +36,6 @@ include_spip("inc/headers");
  * 
  */
 function formulaires_adhi3_recherche_charger_dist($type_objet, $id_objet){
-
-	/*$debug1= "DEBUG adhclub JR : formulaires/adhi3_recherche formulaires_adhi3_recherche_charger_dist - Pt01 - ";
-	adhclub_log("$debug1.", true);*/
 	
 	// Recuperation des parametres transmis
 	$datas['type_objet'] = $type_objet;
@@ -77,11 +72,6 @@ function formulaires_adhi3_recherche_charger_dist($type_objet, $id_objet){
 		set_request('case','');
 	}
 
-	/*$debug1= "DEBUG adhclub JR : formulaires/adhi3_recherche formulaires_adhi3_recherche_charger_dist - Pt99 - ";
-	adhclub_log("$debug1.", true);
-	$debug1= "id_saison=" . _request('id_saison');
-	adhclub_log("$debug1.", true);*/
-	
 	return $datas;
 }
 
@@ -102,9 +92,6 @@ function formulaires_adhi3_recherche_verifier_dist($type_objet, $id_objet){
 				$email_envoi = sql_fetsel('nom_famille, prenom, email','spip_auteurs','id_auteur='.intval($val));
 				// Recherche email_envoi ou email webmaster pour détecter les emails inactifs
 				$email_env = adhclub_imp_EMAIL_ENVOI(intval($val));
-
-				/*$debug1= "DEBUG adhclub JR : formulaires_adhi3_recherche - formulaires_adhi3_recherche_verifier - Pt06 - ";
-				adhclub_log("$debug1.", "adhclub");*/
 				
 				if($email_envoi['email'] == $email_env['tmp']){
 					$erreurs['check_aut'.$val] = 
@@ -148,13 +135,12 @@ function formulaires_adhi3_recherche_traiter_dist($type_objet, $id_objet){
 		$criteres = $criteres . '|' . _request('niveau');
 		$criteres = $criteres . '|' . _request('niv_rel');
 		
-		/*$debug1= "DEBUG adhclub JR : formulaires_adhi3_recherche - formulaires_adhi3_recherche_traiter - Pt05 - ";
+		$debug1= "DEBUG adhclub JR : formulaires_adhi3_recherche - formulaires_adhi3_recherche_traiter - Pt05 -";
 		adhclub_log("$debug1.", true);
-		adhclub_log("criteres= $criteres.", true);
-		adhclub_log("$debug1 FIN.", true);*/
+		adhclub_log("criteres=$criteres.", true);
+		adhclub_log("FIN $debug1.", true);
 		
-		$retour['redirect'] = generer_url_ecrire("adh_auteurs_export","criteres=$criteres&retour=".urlencode(self()));
-					
+		$retour['redirect'] = generer_url_ecrire("adhauteurs_export","criteres=$criteres&retour=".urlencode(self()));
 	}
 	
 	
@@ -167,12 +153,6 @@ function formulaires_adhi3_recherche_traiter_dist($type_objet, $id_objet){
 				$email_envoi = sql_getfetsel('email','spip_auteurs','id_auteur='.intval($val));
 				$destinataires .= $email_envoi . ';';
 
-				/*$debug1= "DEBUG adhclub JR : formulaires_adhi3_recherche - formulaires_adhi3_recherche_traiter - Pt08 - ";
-				adhclub_log("$debug1.", true);
-				adhclub_log("email_envoi=$email_envoi");
-				adhclub_log("destinataires=$destinataires.");
-				adhclub_log("$debug1. FIN", true);*/
-				
 				++$nb_auteurs;
 			}
 
@@ -186,17 +166,6 @@ function formulaires_adhi3_recherche_traiter_dist($type_objet, $id_objet){
 					'nex' => $email_env['env'], // nom exped (opt)
 					'mdes' => $destinataires // mail(s) destinataire(s) (opt)
 					);
-
-			/*$debug1= "DEBUG adhclub JR : formulaires_adhi3_recherche - formulaires_adhi3_recherche_traiter - Pt10 - ";
-			adhclub_log("$debug1.");
-			$debug1="objet=" . $contexte_mail['objet'];
-			adhclub_log("$debug1.");
-			$debug1="id_objet=" . $contexte_mail['id_objet'];
-			adhclub_log("$debug1.");
-			$debug1="mex=" . $contexte_mail['mex'];
-			adhclub_log("$debug1.");
-			$debug1="mdes=" . $contexte_mail['mdes'];
-			adhclub_log("$debug1.");*/
 
 			//echo recuperer_fond('modeles/tipafriend_typo', $contexte_mail);
 			//recuperer_fond('modeles/tipafriend_typo', $contexte_mail);

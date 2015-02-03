@@ -19,9 +19,6 @@ function formulaires_editer_adhcoti_charger_dist($id_coti='new', $retour='', $co
 	if (!autoriser("webmestre")) {
 		$valeurs['editable'] = false;
 	}
-
-	// Preparation des saisies
-	$valeurs['saisie_commune'] = editer_adhcoti_saisie_commune();
 	
 	return $valeurs;
 }
@@ -53,64 +50,6 @@ function formulaires_editer_adhcoti_traiter_dist($id_coti='new', $retour='', $co
 		$message .= redirige_formulaire($retour);
 	}
 	return $message;
-}
-
-
-function editer_adhcoti_saisie_commune() {
-	$saisie_commune = array(
-		array( // le fieldset
-			'saisie' => 'fieldset',
-			'options' => array(
-				'nom' => 'commune',
-			),
-			'saisies' => array( // les champs dans le fieldset
-				array( // titre
-					'saisie' => 'input',
-					'options' => array(
-						'nom' => 'titre',
-						'label' => _T('adhcoti:titre_adhcoti'),
-						'explication' => _T('adhcoti:titre_exp_adhcoti'),
-						'size' => '35',
-						'obligatoire' => 'oui',
-					),
-					'verifier' => array(
-						'type' => 'taille',
-						'options' => array (
-							min => 2, max => 35,
-						),
-					),
-				),
-				array( // descriptif
-					'saisie' => 'textarea',
-					'options' => array(
-						'nom' => 'descriptif',
-						'label' => _T('adhclub:descriptif'),
-						'rows' => '3',
-						'obligatoire' => 'non',
-					),
-				),
-				array( // Montant cotisation
-					'saisie' => 'input',
-					'options' => array(
-						'nom' => 'mnt_cotis',
-						'label' => _T('adhcoti:mnt_adhcoti'),
-						'size' => '7',
-						'obligatoire' => 'non',
-					),
-					'verifier' => array(
-						'type' => 'decimal',
-						'options' => array (
-							min => 0.0,
-							nb_decimales => 2,
-						)
-					),
-				),
-					
-			)
-		)
-	);
-	
-return $saisie_commune;
 }
 
 ?>
