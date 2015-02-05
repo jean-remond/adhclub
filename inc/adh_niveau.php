@@ -47,7 +47,7 @@ function adhclub_nivs_ds_1auteur($id_auteur){
 	static $liste_niveaux = array();
 	if (!isset($liste_niveaux[$id_auteur])){
 		include_spip('base/abstract_sql');
-		$liste_niveaux[$id_auteur] = sql_allfetsel("id_niveau","spip_adhnivs_liens as na","na.objet='auteur' AND na.id_objet=".intval($id_auteur));
+		$liste_niveaux[$id_auteur] = sql_allfetsel("id_objet","spip_adhnivs_liens as na","na.objet='auteur' AND na.id_objet=".intval($id_auteur));
 		$liste_niveaux[$id_auteur] = array_map('reset',$liste_niveaux[$id_auteur]);
 	}
 	return $liste_niveaux[$id_auteur];

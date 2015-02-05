@@ -18,8 +18,8 @@ FROM spip_adhassurs_auteurs
 
 Migrer adhcotis_auteurs vers adhcotis_liens :
 ---------------------------------------------
-INSERT INTO `spip_adhcotis_liens`(`id_coti`, `id_objet`, `objet`, `vu`) 
-SELECT id_coti, id_auteur, "auteur", " " 
+INSERT INTO `spip_adhcotis_liens`(`id_coti`, `id_objet`, `objet`, `vu`, ref_saisie) 
+SELECT id_coti, id_auteur, "auteur", " ", ref_saisie
 FROM spip_adhcotis_auteurs
 
 Migrer adhnivs_auteurs vers adhnivs_liens :

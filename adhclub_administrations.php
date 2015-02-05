@@ -39,13 +39,13 @@ function adhclub_upgrade($nom_meta_base_version, $version_cible){
 	echo "maj= <br />"; var_dump($maj); echo ".<br />";
 	echo "FIN ", $debug1;
 */
- 	$maj['201501261530'] = array(	
+ 	/*$maj['201501261530'] = array(	
 		array('sql_insertq', 'spip_adhassurs_liens', array(
  			sql_allfetsel('id_assur, id_auteur, "auteur", ""', 'spip_adhassurs_auteurs')
  				)
 			),
-	   	);
- 	$maj['201501261700'] = array(	
+	   	); */
+ 	/*$maj['201501261700'] = array(	
 		array('sql_insertq', 'spip_adhcotis_liens', array(
  			sql_allfetsel('id_coti, id_auteur, "auteur", ""', 'spip_adhcotis_auteurs')
  				)
@@ -54,36 +54,27 @@ function adhclub_upgrade($nom_meta_base_version, $version_cible){
  			sql_allfetsel('id_niveau, id_auteur, "auteur", ""', 'spip_adhnivs_auteurs')
  				)
 			),
-		);
- 	$maj['201501311100'] = array(	
+		); */
+ 	/*$maj['201501311100'] = array(	
     	array('maj_tables', array('spip_adhintgs')),
  		array(sql_drop_table("spip_adhffessms"))
- 	);
- 	$maj['201501311230'] = array(
+ 	); */
+ 	/*$maj['201501311230'] = array(
 		array('sql_alter', "TABLE spip_adhcotis_liens ADD COLUMN ref_saisie VARCHAR(10) DEFAULT '' NULL"),
-  	);
- 	$maj['201501312000'] = array(
+  	); */
+ 	/*$maj['201501312000'] = array(
 		$cextraok = cextras_api_upgrade(adhclub_declarer_champs_extras(), $maj['201501312000']),	
- 	);
- 	$maj['201502021400'] = array(
+ 	); */
+ 	/*$maj['201502021400'] = array(
 		$cextraok = cextras_api_upgrade(adhclub_declarer_champs_extras(), $maj['201502021400']),	
- 	);
- 	$maj['201502021420'] = array(
+ 	);*/
+ 	/*$maj['201502021420'] = array(
 		array('sql_alter', "TABLE spip_adhintgs ADD COLUMN categorie TEXT DEFAULT '' NULL"),
-  	);
- 	$maj['201502031200'] = array(
+  	); */
+ 	/*$maj['201502031200'] = array(
 		array('sql_alter', "TABLE spip_adhcotis ADD COLUMN activclub ENUM('non', 'oui') DEFAULT 'oui' NOT NULL AFTER complement"),
-  	);
+  	); */
  	
-/* 	$maj['201501261530'] = array(	
-    	array('maj_tables', array('spip_evinscripteurs', 'spip_evparticipants')),
-		array('sql_alter', "TABLE spip_evinscripteurs CHANGE 'statut_inscr' 'statut'"),
-		array('sql_updateq', 'spip_adhassurs_liens', array('objet'=>'auteur')),
-	   	array('sql_alter', "TABLE spip_evparticipants DROP seq_palanquee"),
-		array('sql_alter', "TABLE spip_evparticipants CHANGE 'ref_palanquee'varchar(10)"),
-    	);
-*/
-
 	include_spip('base/upgrade');
 	maj_plugin($nom_meta_base_version, $version_cible, $maj);
 }

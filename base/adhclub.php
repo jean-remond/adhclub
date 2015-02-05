@@ -104,10 +104,10 @@ $tables['spip_adhcotis'] = array(
 		"activclub" 	=> "ENUM('non', 'oui') DEFAULT 'oui' NOT NULL",
     	"maj"			=> "TIMESTAMP default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP",
 		"statut"		=> "varchar(20)  DEFAULT 'prepa' NOT NULL",
-    ),
+    	),
     'key' => array(
 		"PRIMARY KEY" 	=> "id_coti",
-		"KEY id_saison" => "id_saison"
+		"KEY id_saison" => "id_saison",
     	),
 	'tables_jointures' => array('adhcotis_liens'),
 	'titre'			=> "titre AS titre, '' AS lang",
@@ -166,7 +166,7 @@ $tables['spip_adhnivs'] = array(
 		"rangtrombi"    => "bigint(21) NOT NULL",
 		"maj"   		=> "TIMESTAMP default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP",
 		"statut"		=> "varchar(20)  DEFAULT 'prepa' NOT NULL",
-	),
+		),
     'key' => array(
 		"PRIMARY KEY" 	=> "id_niveau",
 		"KEY id_trombi" => "id_trombi, rangtrombi",
@@ -228,9 +228,9 @@ $tables['spip_adhsaisons'] = array(
 		"maj" 			=> "TIMESTAMP default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP",
 		"saison_deb"	=> "DATE",
 		"statut"		=> "varchar(20)  DEFAULT 'prepa' NOT NULL",
-	),
+		),
     'key' => array(
-		"PRIMARY KEY"	=> "id_saison"
+		"PRIMARY KEY"	=> "id_saison",
     	),
 	'titre'			=> "titre AS titre, '' AS lang",
 	'date'			=> "saison_deb",
@@ -300,9 +300,9 @@ $tables['spip_adhintgs'] = array(
 		"assurance"		=> "text NOT NULL",
 		"statut"		=> "text NOT NULL",
 		"categorie"		=> "text NOT NULL",
-    ),
+		),
     'key'			=> array(
-		"PRIMARY KEY"	=> "licence"
+		"PRIMARY KEY"	=> "licence",
     	),
     'titre'					=> "licence AS titre, '' AS lang",
     'editable'				=> "non",
@@ -310,8 +310,8 @@ $tables['spip_adhintgs'] = array(
 	'texte_objet'			=> "adhintg:titre_adhintg",
 	'textes_objet'			=> "adhintg:titre_adhintgs",
 	'texte_ajouter'			=> 'adhintg:ajouter_adhintg',
-	'info_aucun_objet'		=> "adhintg:info_aucun_adhintg"
-);
+	'info_aucun_objet'		=> "adhintg:info_aucun_adhintg",
+	);
 
 return $tables;
 }
@@ -324,11 +324,11 @@ $tables['spip_adhassurs_liens'] = array(
 		"id_assur"		=> "bigint(21) NOT NULL",
 		"id_objet" 		=> "bigint(21) NOT NULL",
 		"objet"			=> "VARCHAR (25) DEFAULT '' NOT NULL",
-		"vu"			=> "VARCHAR(6) DEFAULT 'non' NOT NULL"
+		"vu"			=> "VARCHAR(6) DEFAULT 'non' NOT NULL",
 		),
 	'key' => array(
 		"PRIMARY KEY" 	=> "id_assur, objet, id_objet",
-		"KEY id_assur"	=> "id_assur"
+		"KEY id_assur"	=> "id_assur",
 		),
 	);
 
@@ -340,10 +340,10 @@ $tables['spip_adhcotis_liens'] = array(
 		"objet"			=> "VARCHAR (25) DEFAULT '' NOT NULL",
 		"vu"			=> "VARCHAR(6) DEFAULT 'non' NOT NULL",
 		"ref_saisie" 	=> "VARCHAR(10) DEFAULT '' NULL",
-	),
+		),
     'key' => array(
     	"PRIMARY KEY" 	=> "id_coti, objet, id_objet",
-		"KEY id_coti" 	=> "id_coti"
+		"KEY id_coti" 	=> "id_coti",
     	),
     );
 
@@ -353,11 +353,11 @@ $tables['spip_adhnivs_liens'] = array(
 		"id_niveau" 	=> "bigint(21) NOT NULL",
 		"id_objet"		=> "bigint(21) NOT NULL",
 		"objet"			=> "VARCHAR (25) DEFAULT '' NOT NULL",
-		"vu"			=> "VARCHAR(6) DEFAULT 'non' NOT NULL"
+		"vu"			=> "VARCHAR(6) DEFAULT 'non' NOT NULL",
 		),
     'key' => array(
-   		"PRIMARY KEY" 	=> "id_niveau, id_auteur",
-		"KEY id_auteur" => "id_auteur"
+   		"PRIMARY KEY" 	=> "id_niveau, objet, id_objet",
+		"KEY id_niveau" => "id_niveau",
     	),
     );
 
@@ -369,18 +369,20 @@ return $tables;
  */
 function adhclub_declarer_champs_extras($champs = array()){
 $champs['spip_auteurs']['certifaspirine'] = array(
-	'saisie' => 'input',//Type du champs (voir plugin Saisies)
+	'saisie' => 'input', //Type du champs (voir plugin Saisies)
 	'options' => array(
 		'nom' => 'certifaspirine', 
 		'label' => _T('adhclub:certifaspirine_label'), 
 		'explication' => _T('adhclub:certifaspirine_expl'),
 		'sql' => "ENUM('non', 'oui') NOT NULL DEFAULT 'non'",
-		'defaut' => 'non',// Valeur par défaut
+		'defaut' => 'non', // Valeur par défaut
 		'restrictions'=>array(	
 			'voir' 		=> array('auteur'=>''),//Tout le monde peut voir
-			'modifier'	=> array('auteur'=>'webmestre'))),//Seul les webmestre peuvent modifier
-	'verifier' => array()
-);
+			'modifier'	=> array('auteur'=>'webmestre'), //Seul les webmestre peuvent modifier
+			),
+		),
+	'verifier' => array(),
+	);
 $champs['spip_auteurs']['certiflimite'] = array(
 	'saisie' => 'date_jour_mois_annee', // type de saisie
 	'options' => array(
@@ -391,107 +393,124 @@ $champs['spip_auteurs']['certiflimite'] = array(
 		'class'=>'nomulti',
 		'datetime'=>'non',
 		'rechercher' => false,
-		'defaut' => '0001-01-01',// Valeur par défaut
+		'defaut' => '0001-01-01', // Valeur par défaut
 		'restrictions'=>array(	
 			'voir' 		=> array('auteur'=>''),//Tout le monde peut voir
-			'modifier'	=> array('auteur'=>'webmestre'))),//Seul les webmestre peuvent modifier
+			'modifier'	=> array('auteur'=>'webmestre'), //Seul les webmestre peuvent modifier
+			),
+		),
 	'verifier' => array(
 		'type' => 'date',
-		'options' => array('format' => 'amj',))
-);
+		'options' => array('format' => 'amj',),
+		),
+	);
 $champs['spip_auteurs']['certifqualif'] = array(
-	'saisie' => 'input',//Type du champs (voir plugin Saisies)
+	'saisie' => 'input', //Type du champs (voir plugin Saisies)
 	'options' => array(
 		'nom' => 'certifqualif', 
 		'label' => _T('adhclub:certifqualif_label'), 
 		'explication' => _T('adhclub:certifqualif_expl'),
 		'sql' => "ENUM('non', 'oui') NOT NULL DEFAULT 'non'",
-		'defaut' => 'non',// Valeur par défaut
+		'defaut' => 'non', // Valeur par défaut
 		'restrictions'=>array(	
-			'voir' 		=> array('auteur'=>''),//Tout le monde peut voir
-			'modifier'	=> array('auteur'=>'webmestre'))),//Seul les webmestre peuvent modifier
-	'verifier' => array()
-);
+			'voir' 		=> array('auteur'=>''), //Tout le monde peut voir
+			'modifier'	=> array('auteur'=>'webmestre'), //Seul les webmestre peuvent modifier
+			),
+		),
+	'verifier' => array(),
+	);
 $champs['spip_auteurs']['email_corr'] = array(
-	'saisie' => 'email',//Type du champs (voir plugin Saisies)
+	'saisie' => 'email', //Type du champs (voir plugin Saisies)
 	'options' => array(
 		'nom' => 'email_corr', 
 		'label' => _T('adhclub:email_corr_label'), 
 		'sql' => "TINYTEXT NOT NULL DEFAULT ''",
-		'defaut' => '',// Valeur par défaut
+		'defaut' => '', // Valeur par défaut
 		'restrictions'=>array(	
-			'voir' 		=> array('auteur'=>''),//Tout le monde peut voir
-			'modifier'	=> array('auteur'=>'webmestre'))),//Seul les webmestre peuvent modifier
-	'verifier' => array()
-);
+			'voir' 		=> array('auteur'=>''), //Tout le monde peut voir
+			'modifier'	=> array('auteur'=>'webmestre'), //Seul les webmestre peuvent modifier
+			),
+		),
+	'verifier' => array(),
+	);
 // les champs feu 'professionels' de i3
 $champs['spip_auteurs']['profession'] = array(
-	'saisie' => 'input',//Type du champs (voir plugin Saisies)
+	'saisie' => 'input', //Type du champs (voir plugin Saisies)
 	'options' => array(
 		'nom' => 'profession', 
 		'label' => _T('adhclub:profession_label'), 
 		'explication' => _T('adhclub:profession_expl'),
-		'sql' => "VARCHAR(25) NOT NULL DEFAULT ''",
-		'defaut' => '',// Valeur par défaut
+		'sql' => "TEXT NOT NULL DEFAULT ''",
+		'defaut' => '', // Valeur par défaut
 		'restrictions'=>array(	
-			'voir' 		=> array('auteur'=>''),//Tout le monde peut voir
-			'modifier'	=> array('auteur'=>'webmestre'))),//Seul les webmestre peuvent modifier
-	'verifier' => array()
-);
+			'voir' 		=> array('auteur'=>''), //Tout le monde peut voir
+			'modifier'	=> array('auteur'=>'webmestre'), //Seul les webmestre peuvent modifier
+			),
+		),
+	'verifier' => array(),
+	);
 $champs['spip_auteurs']['fonction'] = array(
-	'saisie' => 'input',//Type du champs (voir plugin Saisies)
+	'saisie' => 'input', //Type du champs (voir plugin Saisies)
 	'options' => array(
 		'nom' => 'fonction', 
 		'label' => _T('adhclub:fonction_label'), 
 		'explication' => _T('adhclub:fonction_expl'),
-		'sql' => "VARCHAR(25) NOT NULL DEFAULT ''",
-		'defaut' => '',// Valeur par défaut
+		'sql' => "TEXT NOT NULL DEFAULT ''",
+		'defaut' => '', // Valeur par défaut
 		'restrictions'=>array(	
-			'voir' 		=> array('auteur'=>''),//Tout le monde peut voir
-			'modifier'	=> array('auteur'=>'webmestre'))),//Seul les webmestre peuvent modifier
+			'voir' 		=> array('auteur'=>''), //Tout le monde peut voir
+			'modifier'	=> array('auteur'=>'webmestre'), //Seul les webmestre peuvent modifier
+			),
 		'rechercher' => true,
-	'verifier' => array()
-);
+		),
+	'verifier' => array(),
+	);
 $champs['spip_auteurs']['code_postal_pro'] = array(
-	'saisie' => 'input',//Type du champs (voir plugin Saisies)
+	'saisie' => 'input', //Type du champs (voir plugin Saisies)
 	'options' => array(
 		'nom' => 'code_postal_pro', 
 		'label' => _T('adhclub:code_postal_pro_label'), 
-		'sql' => "VARCHAR(25) NOT NULL DEFAULT ''",
-		'defaut' => '',// Valeur par défaut
+		'sql' => "TEXT NOT NULL DEFAULT ''",
+		'defaut' => '', // Valeur par défaut
 		'restrictions'=>array(	
-			'voir' 		=> array('auteur'=>''),//Tout le monde peut voir
-			'modifier'	=> array('auteur'=>'webmestre'))),//Seul les webmestre peuvent modifier
+			'voir' 		=> array('auteur'=>''), //Tout le monde peut voir
+			'modifier'	=> array('auteur'=>'webmestre'), //Seul les webmestre peuvent modifier
+			),
 		'rechercher' => false,
+		),
 	'verifier' => array()
-);
+	);
 $champs['spip_auteurs']['ville_pro'] = array(
-	'saisie' => 'input',//Type du champs (voir plugin Saisies)
+	'saisie' => 'input', //Type du champs (voir plugin Saisies)
 	'options' => array(
 		'nom' => 'ville_pro', 
 		'label' => _T('adhclub:ville_pro_label'), 
-		'sql' => "VARCHAR(25) NOT NULL DEFAULT ''",
-		'defaut' => '',// Valeur par défaut
+		'sql' => "TEXT NOT NULL DEFAULT ''",
+		'defaut' => '', // Valeur par défaut
 		'restrictions'=>array(	
-			'voir' 		=> array('auteur'=>''),//Tout le monde peut voir
-			'modifier'	=> array('auteur'=>'webmestre'))),//Seul les webmestre peuvent modifier
+			'voir' 		=> array('auteur'=>''), //Tout le monde peut voir
+			'modifier'	=> array('auteur'=>'webmestre'), //Seul les webmestre peuvent modifier
+			),
 		'rechercher' => false,
-	'verifier' => array()
-);
+		),
+	'verifier' => array(),
+	);
 $champs['spip_auteurs']['pays_pro'] = array(
 	'saisie' => 'pays', // type de saisie
 	'options' => array(
 		'nom' => 'pays_pro', 
 		'label' => _T('adhclub:pays_pro_label'), 
-		'sql' => "smallint(6) DEFAULT '70' NOT NULL",
+		'sql' => "INT(11) DEFAULT '70' NOT NULL",
 		'class' => 'pays',
 		'defaut' => ((array_key_exists('pays_defaut', $config_i3) and isset($config_i3['pays_defaut'])) ? $config_i3['pays_defaut'] : ''),
 		'restrictions'=>array(	
-			'voir' 		=> array('auteur'=>''),//Tout le monde peut voir
-			'modifier'	=> array('auteur'=>'webmestre'))),//Seul les webmestre peuvent modifier
+			'voir' 		=> array('auteur'=>''), //Tout le monde peut voir
+			'modifier'	=> array('auteur'=>'webmestre'), //Seul les webmestre peuvent modifier
+			),
 		'rechercher' => false,
-	'verifier' => array()
-);
+		),
+	'verifier' => array(),
+	);
 $champs['spip_auteurs']['divers'] = array(
 	'saisie' => 'input', // type de saisie
 	'options' => array(
@@ -500,11 +519,13 @@ $champs['spip_auteurs']['divers'] = array(
 		'sql' => "TEXT DEFAULT '' NOT NULL",
 		'defaut' => '',
 		'restrictions'=>array(	
-			'voir' 		=> array('auteur'=>''),//Tout le monde peut voir
-			'modifier'	=> array('auteur'=>'webmestre'))),//Seul les webmestre peuvent modifier
+			'voir' 		=> array('auteur'=>''), //Tout le monde peut voir
+			'modifier'	=> array('auteur'=>'webmestre') //Seul les webmestre peuvent modifier
+			),
 		'rechercher' => false,
-	'verifier' => array()
-);
+		),
+	'verifier' => array(),
+	);
 
 return $champs;	
 }
