@@ -20,7 +20,14 @@ function adhclub_declarer_tables_interfaces($interface){
 	$interface['table_des_tables']['adhnivs']='adhnivs';
 	$interface['table_des_tables']['adhsaisons']='adhsaisons';
 	$interface['table_des_tables']['adhintgs']='adhintgs';
-			
+
+	//-- Table des jointures ----------------------------------------------------
+	
+	$interface['tables_jointures']['spip_auteurs'][] = 'adhassurs_liens';
+	$interface['tables_jointures']['spip_auteurs'][] = 'adhcotis_liens';
+	$interface['tables_jointures']['spip_auteurs'][] = 'adhnivs_liens';
+
+	
 return $interface;
 }
 
@@ -47,7 +54,7 @@ $tables['spip_adhassurs'] = array(
 		"PRIMARY KEY"	=> "id_assur",
 		"KEY id_saison" => "id_saison"
     	),
-	'tables_jointures' => array('adhassurs_liens'),
+	'tables_jointures' => array('id_assur' => 'adhassurs_liens'),
 	'titre' 		=> "titre AS titre, '' AS lang",
     'date'			=> "maj",
     'editable'		=> "oui",
@@ -109,7 +116,7 @@ $tables['spip_adhcotis'] = array(
 		"PRIMARY KEY" 	=> "id_coti",
 		"KEY id_saison" => "id_saison",
     	),
-	'tables_jointures' => array('adhcotis_liens'),
+	'tables_jointures' => array('id_coti' => 'adhcotis_liens'),
 	'titre'			=> "titre AS titre, '' AS lang",
     'date'			=> "maj",
     'editable'		=> "oui",
@@ -173,7 +180,7 @@ $tables['spip_adhnivs'] = array(
 		"KEY techbase"	=> "techbase",
 		"KEY encadrant" => "encadrant"
     	),
-	'tables_jointures' => array('adhnivs_liens'),
+	'tables_jointures' => array('id_niveau' => 'adhnivs_liens'),
 	'titre'			=> "titre AS titre, '' AS lang",
     'date'			=> "maj",
     'editable'		=> "oui",
@@ -374,7 +381,7 @@ $champs['spip_auteurs']['certifaspirine'] = array(
 		'nom' => 'certifaspirine', 
 		'label' => _T('adhclub:certifaspirine_label'), 
 		'explication' => _T('adhclub:certifaspirine_expl'),
-		'sql' => "ENUM('non', 'oui') NOT NULL DEFAULT 'non'",
+		'sql' => 'ENUM("non", "oui") NOT NULL DEFAULT "non"',
 		'defaut' => 'non', // Valeur par défaut
 		'restrictions'=>array(	
 			'voir' 		=> array('auteur'=>''),//Tout le monde peut voir
@@ -389,7 +396,7 @@ $champs['spip_auteurs']['certiflimite'] = array(
 		'nom' => 'certiflimite', 
 		'label' => _T('adhclub:certiflimite_label'), 
 		'explication' => _T('adhclub:certiflimite_expl'),
-		'sql' => "DATE NOT NULL DEFAULT '0000-00-00'",
+		'sql' => 'DATE NOT NULL DEFAULT "0000-00-00"',
 		'class'=>'nomulti',
 		'datetime'=>'non',
 		'rechercher' => false,
@@ -410,7 +417,7 @@ $champs['spip_auteurs']['certifqualif'] = array(
 		'nom' => 'certifqualif', 
 		'label' => _T('adhclub:certifqualif_label'), 
 		'explication' => _T('adhclub:certifqualif_expl'),
-		'sql' => "ENUM('non', 'oui') NOT NULL DEFAULT 'non'",
+		'sql' => 'ENUM("non", "oui") NOT NULL DEFAULT "non"',
 		'defaut' => 'non', // Valeur par défaut
 		'restrictions'=>array(	
 			'voir' 		=> array('auteur'=>''), //Tout le monde peut voir
@@ -424,7 +431,7 @@ $champs['spip_auteurs']['email_corr'] = array(
 	'options' => array(
 		'nom' => 'email_corr', 
 		'label' => _T('adhclub:email_corr_label'), 
-		'sql' => "TINYTEXT NOT NULL DEFAULT ''",
+		'sql' => 'TINYTEXT NOT NULL DEFAULT ""',
 		'defaut' => '', // Valeur par défaut
 		'restrictions'=>array(	
 			'voir' 		=> array('auteur'=>''), //Tout le monde peut voir
@@ -440,7 +447,7 @@ $champs['spip_auteurs']['profession'] = array(
 		'nom' => 'profession', 
 		'label' => _T('adhclub:profession_label'), 
 		'explication' => _T('adhclub:profession_expl'),
-		'sql' => "TEXT NOT NULL DEFAULT ''",
+		'sql' => 'TEXT NOT NULL DEFAULT ""',
 		'defaut' => '', // Valeur par défaut
 		'restrictions'=>array(	
 			'voir' 		=> array('auteur'=>''), //Tout le monde peut voir
@@ -455,7 +462,7 @@ $champs['spip_auteurs']['fonction'] = array(
 		'nom' => 'fonction', 
 		'label' => _T('adhclub:fonction_label'), 
 		'explication' => _T('adhclub:fonction_expl'),
-		'sql' => "TEXT NOT NULL DEFAULT ''",
+		'sql' => 'TEXT NOT NULL DEFAULT ""',
 		'defaut' => '', // Valeur par défaut
 		'restrictions'=>array(	
 			'voir' 		=> array('auteur'=>''), //Tout le monde peut voir
@@ -470,7 +477,7 @@ $champs['spip_auteurs']['code_postal_pro'] = array(
 	'options' => array(
 		'nom' => 'code_postal_pro', 
 		'label' => _T('adhclub:code_postal_pro_label'), 
-		'sql' => "TEXT NOT NULL DEFAULT ''",
+		'sql' => 'TEXT NOT NULL DEFAULT ""',
 		'defaut' => '', // Valeur par défaut
 		'restrictions'=>array(	
 			'voir' 		=> array('auteur'=>''), //Tout le monde peut voir
@@ -478,14 +485,14 @@ $champs['spip_auteurs']['code_postal_pro'] = array(
 			),
 		'rechercher' => false,
 		),
-	'verifier' => array()
+	'verifier' => array(),
 	);
 $champs['spip_auteurs']['ville_pro'] = array(
 	'saisie' => 'input', //Type du champs (voir plugin Saisies)
 	'options' => array(
 		'nom' => 'ville_pro', 
 		'label' => _T('adhclub:ville_pro_label'), 
-		'sql' => "TEXT NOT NULL DEFAULT ''",
+		'sql' => 'TEXT NOT NULL DEFAULT ""',
 		'defaut' => '', // Valeur par défaut
 		'restrictions'=>array(	
 			'voir' 		=> array('auteur'=>''), //Tout le monde peut voir
@@ -500,9 +507,9 @@ $champs['spip_auteurs']['pays_pro'] = array(
 	'options' => array(
 		'nom' => 'pays_pro', 
 		'label' => _T('adhclub:pays_pro_label'), 
-		'sql' => "INT(11) DEFAULT '70' NOT NULL",
+		'sql' => 'INT NOT NULL',
 		'class' => 'pays',
-		'defaut' => ((array_key_exists('pays_defaut', $config_i3) and isset($config_i3['pays_defaut'])) ? $config_i3['pays_defaut'] : ''),
+//		'defaut' => ((array_key_exists('pays_defaut', $config_i3) and isset($config_i3['pays_defaut'])) ? $config_i3['pays_defaut'] : ''),
 		'restrictions'=>array(	
 			'voir' 		=> array('auteur'=>''), //Tout le monde peut voir
 			'modifier'	=> array('auteur'=>'webmestre'), //Seul les webmestre peuvent modifier
@@ -516,7 +523,7 @@ $champs['spip_auteurs']['divers'] = array(
 	'options' => array(
 		'nom' => 'divers', 
 		'label' => _T('adhclub:divers_label'), 
-		'sql' => "TEXT DEFAULT '' NOT NULL",
+		'sql' => 'TEXT NOT NULL DEFAULT ""',
 		'defaut' => '',
 		'restrictions'=>array(	
 			'voir' 		=> array('auteur'=>''), //Tout le monde peut voir

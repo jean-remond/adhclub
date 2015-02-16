@@ -39,6 +39,29 @@ function adhclub_upgrade($nom_meta_base_version, $version_cible){
 	echo "maj= <br />"; var_dump($maj); echo ".<br />";
 	echo "FIN ", $debug1;
 */
+ 	$maj['3.0.3'] = array(	
+    	array(
+    		'maj_tables', array(
+    			'spip_adhassurs', 
+				'spip_adhcotis',
+				'spip_adhnivs',
+				'spip_adhsaisons',
+				'spip_adhintgs',
+				'spip_adhassurs_liens',
+				'spip_adhcotis_liens',
+				'spip_adhnivs_liens',
+     			)
+    		),
+ 		);
+ 	$maj['3.0.4'] = array(	
+    	array(
+    		'maj_tables', array(
+    			'spip_adhassurs', 
+				'spip_adhcotis',
+				'spip_adhnivs',
+     			)
+    		),
+ 		);
  	/*$maj['201501261530'] = array(	
 		array('sql_insertq', 'spip_adhassurs_liens', array(
  			sql_allfetsel('id_assur, id_auteur, "auteur", ""', 'spip_adhassurs_auteurs')
@@ -55,11 +78,8 @@ function adhclub_upgrade($nom_meta_base_version, $version_cible){
  				)
 			),
 		); */
- 	/*$maj['201501311100'] = array(	
-    	array('maj_tables', array('spip_adhintgs')),
- 		array(sql_drop_table("spip_adhffessms"))
- 	); */
  	/*$maj['201501311230'] = array(
+ 		array(sql_drop_table("spip_adhffessms"))
 		array('sql_alter', "TABLE spip_adhcotis_liens ADD COLUMN ref_saisie VARCHAR(10) DEFAULT '' NULL"),
   	); */
  	/*$maj['201501312000'] = array(
