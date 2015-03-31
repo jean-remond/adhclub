@@ -20,10 +20,10 @@ if (!defined("_ECRIRE_INC_VERSION")) return;
  */
 function action_editer_adhcoti_dist(){
 
-	$debug1= "DEBUG plugin JR : action/editer_adhcoti.php - action_editer_adhcoti_dist - Pt02 - <br />";
+	/*$debug1= "DEBUG plugin JR : action/editer_adhcoti.php - action_editer_adhcoti_dist - Pt02 - <br />";
 	echo "<br />", $debug1;
 	echo "FIN ", $debug1;
-	
+	*/
 	$securiser_action = charger_fonction('securiser_action', 'inc');
 	$arg = $securiser_action();
 
@@ -178,13 +178,13 @@ function adhclub_action_insert_adhcoti(){
  */
 function adhclub_revision_adhcoti($id_coti, $c=false) {
 
-	$debug1= "DEBUG plugin JR : action/editer_adhcoti.php - adhclub_revision_adhcoti - Pt02 - <br />";
+	/*$debug1= "DEBUG plugin JR : action/editer_adhcoti.php - adhclub_revision_adhcoti - Pt02 - <br />";
 	echo "<br />", $debug1;
 	echo "id_coti= $id_coti.<br />";
 		// un tableau (array)
 	echo "c= <br />"; var_dump($c); echo ".<br />";
 	echo "FIN ", $debug1;
-	
+	*/
 	modifier_contenu('adhcoti', $id_coti,
 		array(
 			'nonvide' => array(	'titre'		=> _T('info_sans_titre'))

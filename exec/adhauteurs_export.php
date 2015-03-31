@@ -6,16 +6,18 @@
  * Telechargement des donnees filtrees des auteurs. 
  * D'apres le plugin csv_import de Cedric MORIN
  * ----------------------------------------------
- * @todo-
+ * @todo-JR-25/03/2015-Utilisation des F(spip_bonux) existantes. Attention remplissage criteres.
  * 
  * Fait :
  * ----
+ * JR-25/03/2015-Utilisation des F(spip_bonux) existantes.
  * JR-03/02/2015-Adaptation a Spip 3.0
  * JR-06/08/2013-Ajout des criteres dans fichier exporte.
  * JR-22/05/2013-Creation du squelette.
  *
  */
 
+include_spip("inc/exporter_csv");
 include_spip("inc/adhauteurs_export");
 include_spip("inc/presentation");
 /**
@@ -27,7 +29,7 @@ include_spip("inc/presentation");
  */
 function exec_adhauteurs_export(){
 	
-	// preparation affichage des choix type d'export
+	// Preparation affichage des choix type d'export
 	$criteres_tot = _request('criteres');
 	$criteres = explode( '|', $criteres_tot, 7);
 
@@ -163,7 +165,7 @@ function exec_adhauteurs_export(){
 	
 	if($sql_adh_auteurs) {
 
-		/** @TODO - JR 20/03/2013 - Definir les colonnes a extraire pour $adh_select */
+		// JR 20/03/2013 - Definir les colonnes a extraire pour $adh_select
 		$adhselect_l = array("au.id_auteur", 
 				"au.nom_famille", 
 				"au.prenom", 
@@ -236,26 +238,30 @@ function exec_adhauteurs_export(){
 				if($nb_auteurs==0){
 
 					// JR-2013/08/01-Mise en forme des criteres en tete du fichier exporte.
-					$output = adhclub_csv_ligne(array('CRITERES'),$delim);
-					$output .= adhclub_csv_ligne(array('-_-_-_-','-_-_-_-_-_-_-_-_-_-_-_-'),$delim);
-					$output .= adhclub_csv_ligne($export_crit[0],$delim);
-					$output .= adhclub_csv_ligne($export_crit[1],$delim);
-					$output .= adhclub_csv_ligne($export_crit[2],$delim);
-					$output .= adhclub_csv_ligne($export_crit[3],$delim);
-					$output .= adhclub_csv_ligne($export_crit[4],$delim);
-					$output .= adhclub_csv_ligne(array('-_-_-_-','-_-_-_-_-_-_-_-_-_-_-_-'),$delim);
+					// JR-25/03/2015-Utilisation des F(spip_bonux) existantes.
+					$output = exporter_csv_ligne(array('CRITERES'),$delim);
+					$output .= exporter_csv_ligne(array('-_-_-_-','-_-_-_-_-_-_-_-_-_-_-_-'),$delim);
+					$output .= exporter_csv_ligne($export_crit[0],$delim);
+					$output .= exporter_csv_ligne($export_crit[1],$delim);
+					$output .= exporter_csv_ligne($export_crit[2],$delim);
+					$output .= exporter_csv_ligne($export_crit[3],$delim);
+					$output .= exporter_csv_ligne($export_crit[4],$delim);
+					$output .= exporter_csv_ligne(array('-_-_-_-','-_-_-_-_-_-_-_-_-_-_-_-'),$delim);
 										
 					// JR-20130801-Entetes de colonnes.
-					$output .= adhclub_csv_ligne($list_entete,$delim);
+					$output .= exporter_csv_ligne($list_entete,$delim);
 				}
 				// Ecriture des lignes de donnees.
-				$output .= adhclub_csv_ligne($list_valeur,$delim);
+				$output .= exporter_csv_ligne($list_valeur,$delim);
 				++$nb_auteurs;
 			}
 				
 			
 			$charset = $GLOBALS['meta']['charset'];
 			$file_csv="export_auteurs_".date('Ymd_His');
+			
+			// @todo-JR-25/03/2015-Utilisation des F(spip_bonux) existantes. Attention remplissage criteres.
+			//$filename = inc_exporter_csv($file_csv, ' ', $delim);
 			
 			$filename = preg_replace(',[^-_\w]+,', '_', translitteration(textebrut(typo($file_csv))));
 			
@@ -282,7 +288,7 @@ function exec_adhauteurs_export(){
 		//Header("Content-Type: text/plain; charset=$charset");
 		Header("Content-Length: ".strlen($output));
 		echo $output;
-		exit;
+		exit;  //*/
 	}else{
 		include_spip('inc/minipres');
 		echo minipres();
