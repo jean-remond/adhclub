@@ -60,18 +60,6 @@ function formulaires_editer_adhcoti_traiter_dist($id_coti='new', $retour='', $co
  * 
  * @return array $mes_saisies..
  */
-
-	  <ul>
-
-		<li>
-		[(#SAISIE{input, titre, obligatoire=oui, 
-			label=<:adhcoti:titre_adhcoti:>, 
-			explication=<:adhcoti:titre_exp_adhcoti:>,
-			maxlength=35}
-		)]
-		</li>
-
-						
 function editer_adhcoti_saisie_commune() {
 	$saisie_commune = array(
 		array( // le fieldset
@@ -134,8 +122,8 @@ function editer_adhcoti_saisie_commune() {
 					'options' => array(
 						'nom' => 'activclub',
 						'label' => _T('adhcoti:activclub_adhcoti'),
-						'value' => 'oui'
-						'obligatoire' => 'non'
+						'value' => 'oui',
+						'obligatoire' => 'non',
 					),
 				),
 			)
