@@ -5,15 +5,18 @@
  * Liste des assurances identifiees pour le club
  * Bloc de contenu
  * ----------------------------------------------
- * JR-17/01/2015-adaptation spip 3.0.
+ * @todo :
+ * Fait :
+ * JR-15/07/2015-Revue Url creation.
+ * JR-17/01/2015-Adaptation spip 3.0.
  * JR-17/01/2015-Creation du squelette.
  */
--->] 
+--> ] 
 
 <h1 class="grostitre"><:adhassur:titre_adhassurs:></h1>
 		
 <INCLURE{fond=prive/objets/liste/adhassurs, par=maj, statut=#LISTE{prepa,prop,publie,refuse}, env, ajax, sinon=<:adhassur:info_aucun_adhassur:>}>
 
 [(#AUTORISER{modifier,adhassur})
-	[(#URL_ECRIRE{editer_assur,new=oui}|icone_verticale{<:adhassur:icone_creer_adhassur:>,#CHEMIN_IMAGE{adhassur-24.png},new,right})]
+	[(#URL_ECRIRE{editer_adhassur,new=oui}|icone_verticale{<:adhassur:icone_creer_adhassur:>,#CHEMIN_IMAGE{adhassur-24.png},new,right})]
 ]
