@@ -3,7 +3,7 @@
  * Plugin adh_club : Adherent Club pour Spip 3.0
  * Licence GPL (c) 2011-2015 Jean Remond
  *
- * @toto-JR-30/01/2015-A valider, liste champs ne fonctionne pas en recherhe !!
+ * @todo-JR-30/01/2015-A valider, liste champs ne fonctionne pas en recherhe !!
  */
 
 if (!defined("_ECRIRE_INC_VERSION")) return;
