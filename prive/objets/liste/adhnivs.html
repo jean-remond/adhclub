@@ -1,11 +1,16 @@
 [(#REM) <-- 
+ /**
  * Plugin adh_club : Adherent Club pour Spip 3.0
  * Licence GPL (c) 2011-2015 Jean Remond
- ----------------------------------------------
-Liste des competences du club associables à l'adherent
-----------------------------------------------
-JR-17/01/2015-adaptation spip 3.0.
-JR-17/01/2015-Creation du squelette.
+ * ----------------------------------------------
+ * Liste des competences du club associables à l'adherent
+ * ----------------------------------------------
+ * @todo
+ * Fait
+ * JR-23/08/2015-Changement logo.
+ * JR-17/01/2015-Adaptation spip 3.0.
+ * JR-17/01/2015-Creation du squelette.
+ */
 -->] 
 [(#SET{defaut_tri,#ARRAY{
  	titre,1,
@@ -36,7 +41,7 @@ JR-17/01/2015-Creation du squelette.
 		<tbody>
 		<BOUCLE_liste_nivs(ADHNIVS){id_niveau?}{id_mot?}{where?}{statut?}{recherche?}{tri #ENV{par,num nom},#GET{defaut_tri}}{pagination #ENV{nb,10}}>
 		<tr class="[(#COMPTEUR_BOUCLE|alterner{row_odd,row_even})]">
-			<td class='picto'>[(#CHEMIN_IMAGE{niveau-16.png}|balise_img)]</td>
+			<td class='picto'>[(#CHEMIN_IMAGE{adhniveau-24.png}|balise_img)]</td>
 			<td class='nom principale'>[(#LOGO_NIV|image_reduire{20,26})]<a href="[(#ID_NIVEAU|generer_url_entite{adhniveau})]" title="<:info_numero_abbreviation|attribut_html:> #ID_NIVEAU">#TITRE</a></td>
 			<td class='nom principale'>#DESCRIPTIF</td>
 			<td class='id'>#TECHBASE</td>

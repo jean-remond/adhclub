@@ -19,13 +19,13 @@ Mais comme le sport est technique, il a fallu enrichir la gestion avec des fonct
 - des assurances par saison.
 - des niveaux techniques (ou capacites a pratiquer suivant des regles definissant des limites telles 
     que la profondeur des plongees, l'autonomie, etc..)
-- des controles sur les autrorisations medicales 
+- des controles sur les autorisations medicales 
 	(Certificat medical a jour et valide, restriction possibles, etc..) 
     via des champs extras dans la table auteurs.
 
 
 
-Les fonctions principales autour de l'adherent (ou auteur de spip) :
+Les fonctions autour de l'adherent (ou auteur de spip) :
 
 - Gestion des saisons :
 	Les saisons permettent de qualifier les entites Cotisations et Assurances.
@@ -33,7 +33,7 @@ Les fonctions principales autour de l'adherent (ou auteur de spip) :
 		il faut, pour la saison encours, une licence active et une assurance de protection.	
 	Les saisons sont definies comme actives (encours) ou non.
 	Plusieurs saisons (normalement 2 maximum) sont actives au meme moment, lors du debut de la saison 
-        puisque les licencses de la saison precedante sont encore valides jusqu'en decembre.
+        (ex septembre) puisque les licences de la saison precedente sont encore valides jusqu'en decembre.
 	Il n'y a pas de verrou sur ce point.
 
 - Gestion des cotisations :
@@ -45,11 +45,11 @@ Les fonctions principales autour de l'adherent (ou auteur de spip) :
 		auteur).
 	Bien sur, s'il n'est pas utile de gerer des cotisations pour le club, il suffit de ne pas en 
 		declarer.
-	Un montant est demande face a chaque cotisation, il peut etre reduit a '0.01' (pb a resoudre).
+	Un montant est demande face a chaque cotisation, il peut etre reduit a '0.01' mais est obligatoire (pb a resoudre).
 
-- Gestion des asssurances :
-	Les assurances representent la garantie, en cas de besoin, que le club n'ait pas besoin de 
-		subvenir aux couts lies a  un incident.
+- Gestion des assurances :
+	Les assurances representent la garantie, en cas de besoin, que le club n'ai pas besoin de 
+		subvenir aux couts lies a  un incident/accident ainsi qu'à la responsabilité civile de l'adhérent.
 	Il peut y avoir autant d'assurances differentes que necessaire.
 	Les assurances sont qualifiees par une saison et il parait plus facile d'introduire cette notion 
 		de saison dans le titre de l'assurance (selection plus facile lors de l'affectation a un 
@@ -62,28 +62,26 @@ Les fonctions principales autour de l'adherent (ou auteur de spip) :
 
 - Gestion des niveaux :
 	Les niveaux techniques permettent de qualifier l'adherent et de retrouver ses prerogatives en 
-		regard du sport pratique. Ils permettent aussi d'etablir un trombinoscope des adherents.
+		regard du sport pratique. Ils permettent aussi d'etablir un trombinoscope des adherents
+		 (ex encadrants et plongeurs).
 	Dans cette gestion, nous avons introduit aussi la structure du bureau directeur et des 
-		qualifications de type permis (mer, voiture genre E permettant de tracter un bateau 
-		par exemple).
+		qualifications de type permis (ex mer, voiture genre E permettant de tracter un bateau, etc..).
 
 
 ==========================
 Installation :
 ==========================
-Le plugin adh_club est developpe a l'origine avec spip 2.1.17.
-En 2015, il est revu pour spip 3.0.xx
+
+Comme tous les plugins en suivant la [procédure habituelle->http://www.spip.net/fr_article3396.html].
+
+Le plugin adhclub est developpe a l'origine pour spip 2.1.17.
+En 2015, il est revu pour spip 3.0.xx.
 Les plugins utilises :
-Les plugins utilises directement :
-- "acces_restreint"
-- "agenda"
-- "calendrier_mini-2.0"
+- "couteau_suisse"
 - "champs_extras"
 - "champs_extras (interface)"
 - "champs_extras (import_export)"
-- "couteau_suisse"
-- "cvs_import"
-- "escal"
+- "facteur"
 - "inscription3"
 - "saisies"
 - "spip_bonux-3"
@@ -98,7 +96,7 @@ Les fonctions en detail :
 - Gestion des niveaux :
 ==========================
 Pour utiliser la gestion des niveaux, il faut au prealable creer 3 groupes de mots cle :
-	- Groupe "Niveau_Encadrement" : 
+	-- Groupe "Niveau_Encadrement" : 
 	> Un seul mot a la fois
 	> Groupe important
 	> Administrateurs
@@ -113,7 +111,7 @@ Pour utiliser la gestion des niveaux, il faut au prealable creer 3 groupes de mo
 		- 'TRS' pour la Tresorerie, associe au comite directeur,
 		- etc..
 
-	- Groupe "Niveau_Technique" : 
+	-- Groupe "Niveau_Technique" : 
 	> Un seul mot a la fois
 	> Groupe important
 	> Administrateurs
@@ -128,13 +126,12 @@ Pour utiliser la gestion des niveaux, il faut au prealable creer 3 groupes de mo
 		- 'MAT' pour le Materiel,
 		- 'MED' pour le Medical,
 		- 'MIT' pour le Materiel Informatique,
-		- 'MON' pour le Lycee Monchapet,
 		- 'PHO' pour la Photo,
 		- 'PLG' pour la Plongee scaphandre,
 		- etc..
 
-	- Groupe "Niveau_Trombi" : 
-		> Articles
+	-- Groupe "Niveau_Trombi" : 
+	> Articles
 	> Un seul mot a la fois
 	> Groupe important
 	> Administrateurs
@@ -150,7 +147,7 @@ Pour utiliser la gestion des niveaux, il faut au prealable creer 3 groupes de mo
 		- 'CD1_DIR' pour les membres du Comite Directeur,
 		- 'CD1_SEC' pour les membres du Secretariat,
 		- 'CD1_TRS' pour les membres de al Tresorerie,
-		- 'CD2_COM' pour les membres des Comissions,
+		- 'CD2_COM' pour les membres des Commissions,
 		- 'CD3_DIV' pour les Autres membres du Comite,
 		- 'MAT_MER' pour les détenteurs de permis Mer.
 		- 'MAT_TER' pour les détenteurs de permis routiers 'E'.
@@ -163,29 +160,28 @@ Pour utiliser la gestion des niveaux, il faut au prealable creer 3 groupes de mo
 - Gestion du trombinoscope :
 ==========================
 
-Le formulaire d'affichage est adh_club/public/adh_trombi_nm.html a inclure dans 
-	la rubrique "qui va bien".
+Le formulaire d'affichage est adhclub/public/inclure/adh-rubrique_trombino.html à inclure dans la 
+	rubrique "qui va bien".
+Attention : cette noisette est développée pour les plugins "escal" et  "polyhierarchie" .
 
-Le trombinoscope est base sur les donnees de la table auteurs, completees par les relations avec
-	les niveaux (adhnivs).
+Le trombinoscope est basé sur les données de la table auteurs, complétées par les relations avec les 
+	niveaux (adhnivs).
 
-Les differents affichages des rubriques sont pilotes par des mots du groupe "Squelette_rubrique".
-Pour le trombinoscope, 2 mots sont a creer :
-	- "adh_tn_nm_sp" pour Trombinoscope via adhnivs avec description special (commentaire de l'auteur).
-	- "adh_tn_nm_nv" pour Trombinoscope via adhnivs avec description niveau (description du niveau).
+Les différents affichages des rubriques sont pilotés par des mots du groupe "type_rubrique" (escal).
+Pour le trombinoscope, 1 seul mot est à créer : "trombino"
 	
-Une rubrique est cree (Trombinoscope)
-Pour des raisons de confidentialite, a l'aide des F(acces restreint), seuls le Bureau
-	et l'encadrement du club sont visibles pour le public.
-Les adherents non encadrant ne sont visibles que par les adherents signes sur le site (zone adherents).
+Une rubrique est crée (Trombinoscope)
+Pour des raisons de confidentialité, à l'aide des F(acces restreint), seuls le Bureau et l'encadrement 
+	du club sont visibles pour le public.
+Les adhérents non encadrant ne sont visibles que par les adhérents signés sur le site (zone adhérents).
 
-Nous avons cree une sous-rubrique par commission active au club.
-Pour chaque commission, 1 sous-rubrique 'encadrants', 1 sous-rubrique 'adherents'
-Cette rubrique est qualifiee par un mot "Squelette_rubrique" suivant le besoin.
+Nous avons créé une rubrique par commission active au club.
+Pour chaque commission, 2 sous-rubriques : 'encadrants' et 'adhérents'.
+Ces sous-rubriques sont qualifiées par le mot "type_rubrique/trombino" suivant le besoin.
 
-Pour activer l'affichage, un article 'publie' affecte du mot 'Niveau_trombi' qui convient permet
-	la recherche et l'affichage des adherents ayant le niveau qualifie du meme regroupement.
-L'ordre d'affichage depend du rang dans le regroupement pour le niveau.
+Pour activer l'affichage, un article 'publié' affecté du mot 'Niveau_trombi' qui convient permet 
+	la recherche et l'affichage des adhérents ayant le niveau qualifié du même regroupement.
+L'ordre d'affichage dépend du rang dans le regroupement pour le niveau.
 
 Savoir :
 ---------------------------
@@ -212,8 +208,8 @@ Ajouter dans le Groupe de mots-cle "Squelette_rubrique" les mots-cle suivant
 Ces mots-cle sont utilise par le squelette dans rubrique.html.
 
 
-Les adherents font l'objet, de par la licence, d'une inscription a la Federation (ici FFESSM).
-Pour cette inscription, il n'y a qu'une possibilite : la saisie sur le site de la fede (!!).
+Les adherents font l'objet, de par la licence, d'une inscription a la Fédération (ici FFESSM).
+Pour cette inscription, il n'y a qu'une possibilite : la saisie sur le site fédéral (!!).
 
 La procedure de debut de saison pour les inscriptions est donc la suivante :
 
@@ -221,20 +217,20 @@ La procedure de debut de saison pour les inscriptions est donc la suivante :
     - vers les futurs adherents d'un dossier d'inscription vierge.
     - vers les adherents de la saison precedante, d'un dossier d'inscription pre-rempli 
     	des donnees connues du site.
-    Le tout acccompagne des modalites d'adhesion (conditions, prix, etc...).
+    Le tout accompagne des modalites d'adhesion (conditions, prix, etc...).
 
-- Avec les dossiers d'inscription correctement remplis et les documents necessaires, 
-	l'adherent se rapproche du secretariat pour deposer son dossier en debut de saison.
+- Avec son dossier d'inscription correctement rempli et les documents nécessaires, 
+	l'adherent se rapproche du secretariat pour déposer son dossier en début de saison.
 
-- Le secretariat saisie sur le site de la Fede la fiche adherent ou la met a jour.
+- Le secretariat saisie sur le site de la Federation la fiche adherent ou la met a jour.
 
-- Le secretariat extrait les donnees d'1 lot de saisie depuis le site FFESSM vers un fichier CSV 
+- Le secretariat extrait les donnees d'1 lot de saisie depuis le site fédéral vers un fichier CSV 
 	(MS actuellement !!).
 
-- Le Webmaster integre ces donnees sur notre site via CSV_Import dans la table "adhffessms".
+- Le Webmaster intègre ces donnees sur notre site via CSV_Import dans la table "adhintgs".
 
-- Le secretaire prend en compte ces donnees vers notre site 
-	dans la tables "auteurs" par une F(adh_import).
+- Le secretaire prend en compte ces donnees dans notre site dans la tables "auteurs" 
+	par une F(formulaires/integ_adhintg.html).
     
 - Saisies complementaires des donnees sur la fiche adherent, telles que telephone, niveaux, 
 	lieu naissance, date certificat medical, photo, etc...
@@ -244,6 +240,7 @@ La procedure de debut de saison pour les inscriptions est donc la suivante :
 
 ==========================
 Savoir : Script de creation de la Table adhintgs
+Et donc format du fichier CSV d'import des données :
 ==========================
 
 CREATE TABLE `spip_adhintgs` (
@@ -274,7 +271,7 @@ La Fonction(adh_import)
 ==========================
 
 Cette fonction permet de prendre en charge les donnees de la table "adhintgs" chargee 
-	prealablement par CVS_Import a partir des donnees extraites de la fede.
+	prealablement par CVS_Import a partir des donnees extraites du site fédéral.
 
 La fonction realise soit un ajout pour un nouvel adherent, soit une mise a jour d'un 
 	adherent existant.
@@ -293,22 +290,22 @@ Les criteres de definition d'un adherent existant :
     	envois de mailling de groupe ou individuel).
     	L'email principal est utilise par spip comme cle majeur dans la gestion des auteurs. 
     	Dans les cas simples (un seul auteur par email), rad, email principal egal email de correspondance.
-    	Dans les cas complexes (parent et enfant(s) avec le meme email, cet email sera l'email de 
+    	Dans les cas complexes (fratries avec le meme email, cet email sera l'email de 
     		correspondance pour chacun	et seul le premier adherent enregistre aura cet email comme 
     		email principal.
     		Les autres membres de la famille auront comme email principal un email de la forme
-    		'adh_club_123@adhclub.com' où la sequence represente l'Id de l'adherent.
+    		'adh_club_123@adhclub.com' où la sequence 123 represente l'Id de l'adherent.
     
-    Apres la creation, la F(Maj) est realisee pour permettre l'initialisation des relations 
+    Apres la creation, la F(Maj) de l'auteur est realisee pour permettre l'initialisation des relations 
     	complementaires telles que la cotisation avec la reference de saisie, l'assurance.
 
 
 - S'il y a correspondance de licence mais pas de correspondance nom-prenom, une anomalie 
-	est affichee et la Maj n'est pas realisee. L'enregistrement de la table "adhffessms" 
+	est affichee et la Maj n'est pas realisee. L'enregistrement de la table "adhintgs" 
 	n'est pas supprime.
 	
 	
-- S'il y a correspondance de licence et des nom-prenom, c'est une mise a jour : 
+- S'il y a correspondance de licence et des nom-prenom, c'est une mise à jour : 
 - La Maj consiste au remplacement des champs suivants :
     - Adresse (concatenation des colonnes adresse1, adresse2 & adresse3),
     - CP,

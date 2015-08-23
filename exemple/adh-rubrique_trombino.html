@@ -1,0 +1,178 @@
+#CACHE{7*24*60*60}
+[(#REM) <!-- 
+ * Liste des articles d 1 rubrique tries par numero et titre, 
+ * 	avec affichage de tous les textes complets, 
+ *	du trombinoscope construit a partir :
+ *		- D'1 Groupe de mots cles : Niveau_Trombi
+ *		- de la structure des niveaux (spip/spip_adhnivs)
+ *		- des adherents (spip/spip_auteurs)
+ *		- leur logo, leur specialites.
+ * --
+ * @todo : 
+ * JR-10/03/2010-Affichage Niveau meme si pas de logo auteur.
+ * JR-08/03/2010-Affichage avatar si pas de logo auteur.
+ *
+ * Fait:
+ * JR-30/07/2015-Affichage suivant descriptif du mot-cle (Niv ou Spe).
+ * JR-20/07/2015-Affichage responsive 
+ * 	(d'apres http://creersonsiteweb.net/page-bootstrap-tableau-table-responsive-design ). 
+ * JR-14/06/2015-Implementation de la polyhierarchie.
+ * JR-19/05/2015-Ajout fil d'ariane d'escal.
+ * JR-08/07/2014-La pagination passe a 14 car defaut de pagination !!!.
+ * JR-14/02/2013-Tri des articles par num_titre et non plus par rangtrombi.
+ * JR-23/11/2012-Filtrage des adherents F(saisons de cotisation).
+ * JR-15/08/2012-Par article, il n'y a plus de rupture sur le titre niveau'.
+ * JR-16/07/2012-Affichage LOGO en 120 X 90.
+ * JR-09/07/2012-Revue ordre des filtres pour affichage LOGO.
+ * JR-18/04/2012-Adaptation au plugin inscription3 (Supp Auteurs_Elargis).
+ * JR-08/12/2011-Creation de l include Trombinoscope a partir des tables du plugin adh_club.
+ * JR-28/01/2010-Affichage Trombinoscope a partir des articles de la Rubrique qualifiee .
+	Il n y a pas de sous-rubrique mais seulement des articles inaccessibles sur site public.
+	Chaque Article est presente avec son titre, son logo et sa description, etc..
+	Pour chaque article, la liste des Liens avec les auteurs via la table adhnivs_liens 
+		contenant le mot-cle de l article permet de retrouver l adherent et sa fiche.
+	Ce sont les logos des auteurs qui sont places en tableau avec leur nom et prenom,
+        - completes par le commentaire representant leur specialite si aff_spe=spe,
+        - completes par la description du niveau sir aff_spe=niv.
+
+---> ] 
+<div class="cadre-chemin">
+	<!-- affichage du chemin de la rubrique -->
+	<a href="[(#URL_SITE_SPIP|parametre_url{lang,#ENV{lang}})]" [ title="(#NOM_SITE|couper{80}|attribut_html)"]><img src="#CHEMIN{images/fleche_droite.png}" alt="<:escal:fleche:>" /><:escal:accueil:></a>
+
+	[(#CONFIG{escal/config/arianeniveaudeux}|=={oui}|non)<INCLURE {fond=inclusions/inc-hierarchie_rub}{env}>]
+	[(#CONFIG{escal/config/arianeniveaudeux}|=={oui}|oui)<INCLURE {fond=inclusions/inc-hierarchie_rub_2eniveau}{env}>]
+ </div>
+
+[(#REM) Liste des Articles de la rubrique ]
+<B_articles>
+<div class="cadre-articles-rubrique"">
+	#ANCRE_PAGINATION
+	<ul>
+		<BOUCLE_articles(ARTICLES) {branche} {par num titre, titre} {doublons LstArticles} {pagination 14}>
+			[(#REM) Debut Affichage du cartouche des Articles de la rubrique ]
+			<div class="cadre-titre-articles">
+				<!-- affichage du logo de l'article ou de sa rubrique avec lien vers cette rubrique -->
+				<div class="logorub">
+					[(#LOGO_ARTICLE_RUBRIQUE||image_reduire{#CONFIG{escal/config/taillelogoart,150}})]
+				</div>
+
+				<!-- affichage du titre de l'article, de son descriptif, de sa date de publication et de son auteur-->
+				<div id="surtitre-article" class="#EDIT{surtitre}">[(#SURTITRE)]</div>
+				<div id="titre-article" class="#EDIT{titre}">[(#TITRE)]</div>
+				<div id="soustitre-article" class="#EDIT{soustitre}">[(#SOUSTITRE)]</div>
+			</div>
+			[(#REM) Fin Affichage du cartouche des Articles de la rubrique ]
+
+			[(#REM) Debut Affichage du contenu des Articles de la rubrique ]
+			#DEBUT_SURLIGNE
+			[<div class="chapo">(#CHAPO)</div>]
+			<br class="nettoyeur" />
+			[<p class="lien"><:voir_en_ligne:> : <a href="(#URL_SITE)" class="spip_out">[(#NOM_SITE|sinon{[(#URL_SITE|couper{80})]})]</a></p>]
+			[<div class="texte">(#TEXTE|image_reduire{520,0})</div>]
+			#FIN_SURLIGNE
+			[(#REM) Fin Affichage du contenu des Articles de la rubrique ]
+
+
+			[(#REM) initialisation compteur image. Va servir pour alterner des logos.]
+			#SET{cpt_img,{0}}
+			[(#REM) Debut Affichage du Trombi en fonction du mot-cle de  l'article ]
+				[(#REM) -par recuperation du mot contenu dans le groupe 'Niveau_Trombi' pour cet article. ]
+				<BOUCLE_rech_grpniv(MOTS) {id_article} {type=Niveau_Trombi} {0,1}>
+
+					[(#REM) Retrouver tous les niveaux inclus dans mot-cle Niveau_Trombi de l'article ]
+					<B_rech_niv>
+						[(#REM) JR-20/07/2015-Affichage responsive ]
+						<div class="responsive-table-line" style="margin:0px auto;max-width:700px;">
+						<table class="table table-bordered table-condensed table-body-center" >
+						<tbody>
+						
+					<BOUCLE_rech_niv(ADHNIVS)
+						{id_trombi=#ID_MOT}
+						{par num titre, titre}>
+						
+						[(#REM) Memorisation compteur de niveaux. Peut servir pour alterner des logos.]
+						#SET{cpt_img_niv,#COMPTEUR_BOUCLE|moins{1}}
+						[(#REM)<p>Cpt niveau = #GET{cpt_img_niv}</p>]
+
+						[(#REM) Pour chaque niveau trouve, on recuprere les auteurs correspondants ]
+						<B_auteurs>
+
+						<BOUCLE_auteurs(AUTEURS spip_adhnivs_liens)
+							{id_niveau}
+							{par nom_famille, prenom}
+							{tous}>
+							[(#REM) JR-23/11/2012-Filter les auteurs avec les cotisations sur saison active. ]
+							[(#ID_AUTEUR|adh_actif|=={'oui'}|?{
+
+								#SET{cpt_img,#GET{cpt_img}|plus{1}}
+								[(#REM) <p>Cpt image = #GET{cpt_img}</p> ]
+							
+								[(#GET{cpt_img}|alterner{'<tr VALIGN=top>','','','',''})]
+								<td width="100px">
+
+									[(#REM) Le logo de l'auteur ]
+									[(#LOGO_AUTEUR|oui)[(#LOGO_AUTEUR_NORMAL|#URL_AUTEUR|image_reduire{90,120})]]
+									
+									[(#REM) L'avatar car pas logo]
+									[(#LOGO_AUTEUR|non)
+										<a href="#URL_AUTEUR">
+										<img src="#CHEMIN{img_pack/dpplug_qui_c_est.png}" 
+											title="D&eacute;p&eacute;chez-vous de lui demander sa photo.." 
+											width="90" height="120" class="format_png" />
+										</a>
+										]
+
+									[(#REM) Le nom et prenom de l'auteur ]
+									<div class= "spip_doc_titre">
+										#NOM_FAMILLE #PRENOM
+									</div>
+
+									[(#REM) La specialite du niveau ou celle de l'auteur ]
+									<div class="spip_doc_descriptif">
+									[(#_rech_grpniv:DESCRIPTIF|couper{3}|=={Niv}|oui)
+										#_rech_niv:TITRE
+									]
+									[(#_rech_grpniv:DESCRIPTIF|couper{3}|=={Spe}|oui)
+										#_auteurs:COMMENTAIRE
+									]
+							})]
+							</div>
+
+						</td>
+						[(#GET{cpt_img}|alterner{'','','','','</tr>'})]
+
+						</BOUCLE_auteurs>
+
+						</B_auteurs>
+
+
+
+					</BOUCLE_rech_niv>
+						</tbody>
+						</table>
+						</div>
+				
+ 				</B_rech_niv>
+					<p><:adhniv:niveau_aucun2grp:></p>
+ 				<//B_rech_niv>
+
+			</BOUCLE_rech_grpniv>
+
+
+
+			[(#REM) JR-10/02/2010-Fin Affichage du Trombi en fonction du mot-cle de  l'article ]
+
+		</BOUCLE_articles>
+	</ul>
+	[<p class="pagination">(#PAGINATION)</p>]
+	<div class="nettoyeur"></div>   
+</div>
+</B_articles>
+
+
+<//B_articles>
+
+
+
+

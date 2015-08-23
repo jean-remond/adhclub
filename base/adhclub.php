@@ -4,6 +4,7 @@
  * Licence GPL (c) 2011-2015 Jean Remond
  *
  * @todo-JR-30/01/2015-A valider, liste champs ne fonctionne pas en recherhe !!
+ * @todo-JR-23/08/2015-Rechercher la syntaxe des icone_objet.
  */
 
 if (!defined("_ECRIRE_INC_VERSION")) return;

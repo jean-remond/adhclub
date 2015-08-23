@@ -5,10 +5,13 @@
  * ----------------------------------------------
  * Liste des cotisations du club associables à l'adherent
  * ----------------------------------------------
+ * @todo
+ * Fait
+ * JR-23/08/2015-Changement logo.
  * JR-17/01/2015-Adaptation spip 3.0.
  * JR-17/01/2015-Creation du squelette.
  */
--->] 
+--> ] 
 [(#SET{defaut_tri,#ARRAY{
     id_saison,-1,
  	titre,1,
@@ -34,7 +37,7 @@
 		<tbody>
 		<BOUCLE_liste_cotis(ADHCOTIS){id_coti?}{id_mot?}{where?}{statut?}{recherche?}{tri #ENV{par, num titre},#GET{defaut_tri}}{pagination #ENV{nb,10}}>
 		<tr class="[(#COMPTEUR_BOUCLE|alterner{row_odd,row_even})]">
-			<td class='picto'>[(#CHEMIN_IMAGE{coti-16.png}|balise_img)]</td>
+			<td class='picto'>[(#CHEMIN_IMAGE{adhcoti-24.png}|balise_img)]</td>
 			<td class='nom principale'>[(#LOGO_COTI|image_reduire{20,26})]<a href="[(#ID_COTI|generer_url_entite{adhcoti})]" title="<:info_numero_abbreviation|attribut_html:> #ID_COTI">[(#RANG). ]#TITRE</a></td>
 			<td class='nom principale'>#DESCRIPTIF</td>
 			<td class='id'>

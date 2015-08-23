@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?><paquet
 	prefix="adhclub"
 	categorie="squelette"
-	version="3.0.17"
+	version="3.0.18"
 	etat="dev"
 	compatibilite="[3.0.17;["
-	logo="prive/themes/spip/images/adhclub-24.png"
+	logo="prive/themes/spip/images/adhclub-32.png"
 	schema="3.0.4"
 	>	
 	<!-- documentation="pas faite" -->
@@ -40,10 +40,10 @@
 		inclure="inc/adh_import.php"
 	/>
 
-	<necessite nom="escal" />
 	<necessite nom="couteau_suisse" />
 	<necessite nom="cextras" compatibilite="[3.0.5;[" />
 	<necessite nom="facteur" />
+	<necessite nom="inscription3" />
 	<necessite nom="saisies" />
 	<necessite nom="spip_bonux" />	
 	<necessite nom="verifier" />
