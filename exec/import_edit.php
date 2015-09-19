@@ -45,11 +45,13 @@ include_spip('inc/presentation');
  */
 function exec_import_edit($ref_saisie, $id_coti){
 	
-	//echo "<br />.XXX debug JR : exec/import_edit - exec_import_edit - Pt01.<br />";
-	//echo "ref_saisie= $ref_saisie.<br />";
-	//echo "id_coti= $id_coti.<br />";
-	//echo "exec/adh_import Exec-Pt1.<br />";
-	
+	/*$debug1= "DEBUG adhclub JR : exec/import_edit - exec_import_edit - Pt01 - <br />";
+	echo "<br />", $debug1;
+	echo "ref_saisie= $ref_saisie.<br />";
+	echo "id_coti= $id_coti.<br />";
+	echo "FIN ", $debug1;
+	*/
+
 	// On doit etre Webmestre pour acceder a cette page
 	/*if (!autoriser('webmestre')) {
 		include_spip('inc/minipres');
@@ -92,7 +94,6 @@ function exec_import_edit($ref_saisie, $id_coti){
 		
 		// Recherche de l'auteur via son code Licence (auteurs.fonctions).
 		$adhwhere = "fonction =".sql_quote(trim($rec_intg['licence']));
-		//$arg = sql_fetsel( "id_auteur", "spip_auteurs_elargis", $adhwhere);
 		$arg = sql_fetsel( "id_auteur", "spip_auteurs", $adhwhere);
 		
 		/** ____________________________________________________________
@@ -120,16 +121,11 @@ function exec_import_edit($ref_saisie, $id_coti){
 			// Reformattage des champs
 			$rec_creat=adhclub_imp_field_reformate($id_auteur, $assoc_field, $rec_intg);
 			
-			//echo "<br />.XXX debug JR : exec/import_edit-exec_import_edit-Pt7.<br />";
-			//$field=$rec_creat['nom'];
-			//echo "rec_creat(nom)= $field.<br />";
-			//$field=$rec_creat['login'];
-			//echo "rec_creat(login)= $field.<br />";
-			//$field=$rec_creat['email_corr'];
-			//echo "rec_creat(email_corr)= $field.<br />";
-			//$field=$rec_creat['email'];
-			//echo "rec_creat(email)= $field.<br />";
-		
+			/*$debug1= "DEBUG adhclub JR : exec/import_edit-exec_import_edit-Pt07 - <br />";
+			echo "<br />", $debug1;
+			echo "rec_creat= <br />"; var_dump($rec_creat); echo ".<br />";
+			echo "FIN ", $debug1;
+			*/
 			$tables = array('spip_auteurs','spip_auteurs_elargis');
 		
 			//list($erreurs, $auteur) = adhclub_imp_ajoute_table($rec_creat, $tables, $assoc_field, &$erreur);
@@ -139,18 +135,23 @@ function exec_import_edit($ref_saisie, $id_coti){
 				return array(false,_T('adhintg:err_auteur_creation'.$rec_creat['nom_famille']));
 			}
 		
-			//echo "<br />.XXX debug JR : exec/import_edit-exec_import_edit-Pt9.<br />";
-			//$field=$auteur['id_auteur'];
-			//echo "auteur(id_auteur)= $field.<br />";
-			//$arg['id_auteur']=$auteur['id_auteur'];
+			/*$debug1= "DEBUG adhclub JR : exec/import_edit-exec_import_edit-Pt09 - <br />";
+			echo "<br />", $debug1;
+			$field=$auteur['id_auteur'];
+			echo "auteur(id_auteur)= $field.<br />";
+			$arg['id_auteur']=$auteur['id_auteur'];
+			echo "FIN ", $debug1;
+			*/
 		}
 		
-		//echo "<br />.XXXX debug JR : exec/import_edit-exec_import_edit-Pt50.<br />";
-		//echo "Sortie du bloc creation de l'adherent : ";
-		//$field=$arg['id_auteur'];
-		//echo "arg= $field.<br />";
-		//echo "<br />.----------------------------------------------.<br />";
-		
+		/*$debug1= "DEBUG adhclub JR : exec/import_edit-exec_import_edit-Pt50 - <br />";
+		echo "<br />", $debug1;
+		echo "Sortie du bloc creation de l'adherent : ";
+		$field=$arg['id_auteur'];
+		echo "arg= $field.<br />";
+		echo "<br />.----------------------------------------------.<br />";
+		echo "FIN ", $debug1;
+		*/		
 		/** ____________________________________________________________
 		 * 
 		 * ==> Mise a jour des tables auteurs [et auteurs_elargis] et +.
@@ -198,19 +199,25 @@ function exec_import_edit($ref_saisie, $id_coti){
 						.$rec_intg['prenom']));
 			}
 			
-			//echo "<br />.XXX debug JR : exec/adh_import-exec_adh_import-Pt63.<br />";
-			//echo "id_auteur= $id_auteur.<br />";
-			//$field=$auteur['id_auteur'];
-			//echo "auteur(id_auteur)= $field.<br />";
+			/*$debug1= "DEBUG adhclub JR : exec/adh_import-exec_adh_import-Pt63 - <br />";
+			echo "<br />", $debug1;
+			echo "id_auteur= $id_auteur.<br />";
+			$field=$auteur['id_auteur'];
+			echo "auteur(id_auteur)= $field.<br />";
+			echo "FIN ", $debug1;
+			*/
 			
 			$arg['id_auteur']=$auteur['id_auteur'];
 			
 		}
 		
-		//echo "<br />.XXX debug JR : exec/adh_import-exec_adh_import-Pt70.<br />";
-		//echo "Sortie du bloc maj de l'adherent : ";
-		//echo "id_auteur= $id_auteur.<br />";
-		//echo "<br />.----------------------------------------------.<br />";
+			/*$debug1= "DEBUG adhclub JR : exec/adh_import-exec_adh_import-Pt70 - <br />";
+			echo "<br />", $debug1;
+			echo "Sortie du bloc maj de l'adherent : ";
+			echo "id_auteur= $id_auteur.<br />";
+			echo "FIN ", $debug1;
+			echo "<br />.----------------------------------------------.<br />";
+			*/
 		
 		/** ____________________________________________________________
 		 *
@@ -227,23 +234,28 @@ function exec_import_edit($ref_saisie, $id_coti){
 			$rec_intg['assurance'] = trim($rec_intg['assurance']).' '.trim($rec_intg['saison']);
 		}
 
-		//echo "<br />.XXX debug JR : exec/adh_import-exec_adh_import-Pt71.<br />";
-		//echo "id_auteur= $id_auteur.<br />";
-		//$field=$rec_intg['assurance'];
-		//echo "rec_intg(assurance)= $field.<br />";
+			/*$debug1= "DEBUG adhclub JR : exec/adh_import-exec_adh_import-Pt71 - <br />";
+			echo "<br />", $debug1;
+			echo "id_auteur= $id_auteur.<br />";
+			$field=$rec_intg['assurance'];
+			echo "rec_intg(assurance)= $field.<br />";
+			echo "FIN ", $debug1;
+			*/
 		
 		// Recherche de l'assurance a partir de son titre.
 		$arg = adhclub_test_assurtitre_de_auteur(intval($id_auteur),trim($rec_intg['assurance']));
 
-		//echo "<br />.XXX debug JR : exec/adh_import-exec_adh_import-Pt72.<br />";
-		//echo "id_auteur= $id_auteur.<br />";
-		//if ($arg){
-		//	echo "auteur_assur= TRUE.<br />";
-		//}else{
-		//	$field=intval($arg);
-		//	echo "id_assur= $field.<br />";
-		//}
-		//echo "<br />.XXX debug JR : fin de exec/adh_import-exec_adh_import-Pt72.<br />";
+			/*$debug1= "DEBUG adhclub JR : exec/adh_import-exec_adh_import-Pt72 - <br />";
+			echo "<br />", $debug1;
+			echo "id_auteur= $id_auteur.<br />";
+			if ($arg){
+				echo "auteur_assur= TRUE.<br />";
+			}else{
+				$field=intval($arg);
+				echo "id_assur= $field.<br />";
+			}
+			echo "FIN ", $debug1;
+			*/
 		
 		// si arg TRUE, assurance deja affectee a auteur, raf.
 		
@@ -275,10 +287,13 @@ function exec_import_edit($ref_saisie, $id_coti){
 		// Recherche si l'auteur est lie a cette cotisation.
 		$auteur_coti_ok = adhclub_test_coti_de_auteur(intval($id_coti),intval($id_auteur));
 		
-		//echo "<br />.XXX debug JR : exec/adh_import-exec_adh_import-Pt82.<br />";
-		//echo "id_auteur= $id_auteur.<br />";
-		//$field=intval($auteur_coti_ok);
-		//echo "id_coti= $field.<br />";
+			/*$debug1= "DEBUG adhclub JR : exec/adh_import-exec_adh_import-Pt82 - <br />";
+			echo "<br />", $debug1;
+			echo "id_auteur= $id_auteur.<br />";
+			$field=intval($auteur_coti_ok);
+			echo "id_coti= $field.<br />";
+			echo "FIN ", $debug1;
+			*/
 		
 		// si auteur_coti_ok n'est pas un nombre, c'est une creation de cette cotisation pour l'auteur.
 		if (!$auteur_coti_ok) {

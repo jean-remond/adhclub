@@ -5,6 +5,8 @@
  *
  * @todo-JR-30/01/2015-A valider, liste champs ne fonctionne pas en recherhe !!
  * @todo-JR-23/08/2015-Rechercher la syntaxe des icone_objet.
+ * Fait :
+ * JR-01/09/2015-Revue des exceptions sur les champs extras.
  */
 
 if (!defined("_ECRIRE_INC_VERSION")) return;
@@ -384,10 +386,10 @@ $champs['spip_auteurs']['certifaspirine'] = array(
 		'explication' => _T('adhclub:certifaspirine_expl'),
 		'sql' => 'ENUM("non", "oui") NOT NULL DEFAULT "non"',
 		'defaut' => 'non', // Valeur par défaut
-		'restrictions'=>array(	
+/*		'restrictions'=>array(	// valeurs auteur possibles : webmestre, admin_complet et admin.
 			'voir' 		=> array('auteur'=>''),//Tout le monde peut voir
-			'modifier'	=> array('auteur'=>'webmestre'), //Seul les webmestre peuvent modifier
-			),
+			'modifier'	=> array('auteur'=>'admin'), //Seuls les webmestre, admin et restreint peuvent modifier
+			), */
 		),
 	'verifier' => array(),
 	);
@@ -402,10 +404,10 @@ $champs['spip_auteurs']['certiflimite'] = array(
 		'datetime'=>'non',
 		'rechercher' => false,
 		'defaut' => '0001-01-01', // Valeur par défaut
-		'restrictions'=>array(	
+/*		'restrictions'=>array(	
 			'voir' 		=> array('auteur'=>''),//Tout le monde peut voir
-			'modifier'	=> array('auteur'=>'webmestre'), //Seul les webmestre peuvent modifier
-			),
+			'modifier'	=> array('auteur'=>'admin'), //Seuls les webmestre, admin et restreint peuvent modifier
+			), */
 		),
 	'verifier' => array(
 		'type' => 'date',
@@ -422,7 +424,7 @@ $champs['spip_auteurs']['certifqualif'] = array(
 		'defaut' => 'non', // Valeur par défaut
 		'restrictions'=>array(	
 			'voir' 		=> array('auteur'=>''), //Tout le monde peut voir
-			'modifier'	=> array('auteur'=>'webmestre'), //Seul les webmestre peuvent modifier
+			'modifier'	=> array('auteur'=>'admin'), //Seuls les webmestre, admin et restreint peuvent modifier
 			),
 		),
 	'verifier' => array(),
@@ -436,7 +438,7 @@ $champs['spip_auteurs']['email_corr'] = array(
 		'defaut' => '', // Valeur par défaut
 		'restrictions'=>array(	
 			'voir' 		=> array('auteur'=>''), //Tout le monde peut voir
-			'modifier'	=> array('auteur'=>'webmestre'), //Seul les webmestre peuvent modifier
+			'modifier'	=> array('auteur'=>'admin'), //Seuls les webmestre, admin et restreint peuvent modifier
 			),
 		),
 	'verifier' => array(),
@@ -452,7 +454,7 @@ $champs['spip_auteurs']['profession'] = array(
 		'defaut' => '', // Valeur par défaut
 		'restrictions'=>array(	
 			'voir' 		=> array('auteur'=>''), //Tout le monde peut voir
-			'modifier'	=> array('auteur'=>'webmestre'), //Seul les webmestre peuvent modifier
+			'modifier'	=> array('auteur'=>'admin'), //Seuls les webmestre, admin et restreint peuvent modifier
 			),
 		),
 	'verifier' => array(),
@@ -467,7 +469,7 @@ $champs['spip_auteurs']['fonction'] = array(
 		'defaut' => '', // Valeur par défaut
 		'restrictions'=>array(	
 			'voir' 		=> array('auteur'=>''), //Tout le monde peut voir
-			'modifier'	=> array('auteur'=>'webmestre'), //Seul les webmestre peuvent modifier
+			'modifier'	=> array('auteur'=>'admin'), //Seuls les webmestre, admin et restreint peuvent modifier
 			),
 		'rechercher' => true,
 		),
@@ -482,8 +484,8 @@ $champs['spip_auteurs']['code_postal_pro'] = array(
 		'defaut' => '', // Valeur par défaut
 		'restrictions'=>array(	
 			'voir' 		=> array('auteur'=>''), //Tout le monde peut voir
-			'modifier'	=> array('auteur'=>'webmestre'), //Seul les webmestre peuvent modifier
-			),
+			'modifier'	=> array('auteur'=>'admin'), //Seuls les webmestre, admin et restreint peuvent modifier
+				),
 		'rechercher' => false,
 		),
 	'verifier' => array(),
@@ -497,8 +499,8 @@ $champs['spip_auteurs']['ville_pro'] = array(
 		'defaut' => '', // Valeur par défaut
 		'restrictions'=>array(	
 			'voir' 		=> array('auteur'=>''), //Tout le monde peut voir
-			'modifier'	=> array('auteur'=>'webmestre'), //Seul les webmestre peuvent modifier
-			),
+			'modifier'	=> array('auteur'=>'admin'), //Seuls les webmestre, admin et restreint peuvent modifier
+				),
 		'rechercher' => false,
 		),
 	'verifier' => array(),
@@ -513,8 +515,8 @@ $champs['spip_auteurs']['pays_pro'] = array(
 //		'defaut' => ((array_key_exists('pays_defaut', $config_i3) and isset($config_i3['pays_defaut'])) ? $config_i3['pays_defaut'] : ''),
 		'restrictions'=>array(	
 			'voir' 		=> array('auteur'=>''), //Tout le monde peut voir
-			'modifier'	=> array('auteur'=>'webmestre'), //Seul les webmestre peuvent modifier
-			),
+			'modifier'	=> array('auteur'=>'admin'), //Seuls les webmestre, admin et restreint peuvent modifier
+				),
 		'rechercher' => false,
 		),
 	'verifier' => array(),
@@ -528,8 +530,8 @@ $champs['spip_auteurs']['divers'] = array(
 		'defaut' => '',
 		'restrictions'=>array(	
 			'voir' 		=> array('auteur'=>''), //Tout le monde peut voir
-			'modifier'	=> array('auteur'=>'webmestre') //Seul les webmestre peuvent modifier
-			),
+			'modifier'	=> array('auteur'=>'admin'), //Seuls les webmestre, admin et restreint peuvent modifier
+				),
 		'rechercher' => false,
 		),
 	'verifier' => array(),

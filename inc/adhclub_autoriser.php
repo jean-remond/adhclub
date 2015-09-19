@@ -3,12 +3,65 @@
  * Plugin adh_club : Adherent Club pour Spip 3.0
  * Licence GPL (c) 2011-2015 Jean Remond
  *
- *  JR-10/01/2015-adaptation spip 3.0.
+ * Licence GPL (c) 2013-2015 Jean Remond
+ * --
+ * Toutes les autorisations utiles pour le plugin.
+ * --
+ * @todo : 
+ * Fait:
+ * JR-31/08/2015-Ajout pour les champs extras du plugin.
+ * JR-10/01/2015-adaptation spip 3.0.
  */
 
 /* pour que le pipeline ne rale pas ! */
 function adhclub_autoriser(){}
 
+
+/**
+ * Autorisation a voir les auteurs
+ * 
+ * - Si webmaster (0minirezo) ou redacteur (1comite)
+ * ==> A faire :
+ * - Si session[id_auteur] appartient à 1 niveaux dont techbase ='SEC'  
+ *
+ * @param unknown_type $faire
+ * @param unknown_type $quoi
+ * @param unknown_type $id
+ * @param unknown_type $qui
+ * @param unknown_type $opts
+ * @return unknown
+ */
+// seuls les rédacteurs et admins peuvent voir
+function autoriser_auteur_voirextra_certifaspirine_dist() {
+	return in_array($qui['statut'], array('0minirezo', '1comite'));
+}
+function autoriser_auteur_voirextra_certiflimite_dist() {
+	return in_array($qui['statut'], array('0minirezo', '1comite'));
+}
+function autoriser_auteur_voirextra_certifqualif_dist() {
+	return in_array($qui['statut'], array('0minirezo', '1comite'));
+}
+function autoriser_auteur_voirextra_email_corr_dist() {
+	return in_array($qui['statut'], array('0minirezo', '1comite'));
+}
+function autoriser_auteur_voirextra_profession_dist() {
+	return in_array($qui['statut'], array('0minirezo', '1comite'));
+}
+function autoriser_auteur_voirextra_fonction_dist() {
+	return in_array($qui['statut'], array('0minirezo', '1comite'));
+}
+function autoriser_auteur_voirextra_code_postal_pro_dist() {
+	return in_array($qui['statut'], array('0minirezo', '1comite'));
+}
+function autoriser_auteur_voirextra_ville_pro_dist() {
+	return in_array($qui['statut'], array('0minirezo', '1comite'));
+}
+function autoriser_auteur_voirextra_pays_pro_dist() {
+	return in_array($qui['statut'], array('0minirezo', '1comite'));
+}
+function autoriser_auteur_voirextra_divers_dist() {
+	return in_array($qui['statut'], array('0minirezo', '1comite'));
+}
 
 /**
  * Autorisation a administrer les auteurs
@@ -34,7 +87,37 @@ function autoriser_auteur_creerassurdans($faire,$quoi,$id,$qui,$opts){
 		return true;
 	return false;
 }
-
+// seuls les admins peuvent modifier
+function autoriser_auteur_modifierextra_certifaspirine_dist() {
+	return in_array($qui['statut'], array('0minirezo'));
+}
+function autoriser_auteur_modifierextra_certiflimite_dist() {
+	return in_array($qui['statut'], array('0minirezo'));
+}
+function autoriser_auteur_modifierextra_certifqualif_dist() {
+	return in_array($qui['statut'], array('0minirezo'));
+}
+function autoriser_auteur_modifierextra_email_corr_dist() {
+	return in_array($qui['statut'], array('0minirezo'));
+}
+function autoriser_auteur_modifierextra_profession_dist() {
+	return in_array($qui['statut'], array('0minirezo'));
+}
+function autoriser_auteur_modifierextra_fonction_dist() {
+	return in_array($qui['statut'], array('0minirezo'));
+}
+function autoriser_auteur_modifierextra_code_postal_pro_dist() {
+	return in_array($qui['statut'], array('0minirezo'));
+}
+function autoriser_auteur_modifierextra_ville_pro_dist() {
+	return in_array($qui['statut'], array('0minirezo'));
+}
+function autoriser_auteur_modifierextra_pays_pro_dist() {
+	return in_array($qui['statut'], array('0minirezo'));
+}
+function autoriser_auteur_modifierextra_divers_dist() {
+	return in_array($qui['statut'], array('0minirezo'));
+}
 
 /**
  * Autorisation pour les assurances

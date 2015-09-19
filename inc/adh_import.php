@@ -10,6 +10,7 @@
  * @todo-JR-20121030-La recherche du pays devrait passer par plugin Pays ISO 3166-1.
  * 
  * Fait :
+ * JR-19/09/2015-Champ 'fonction' est dans les champs extras dasn cette version.
  * JR-10/01/2015-Adaptation spip 3.0.
  * JR-2012/04/23-Adaptation a inscription3.
  */
@@ -27,6 +28,7 @@ include_spip("inc/charsets");
  * @param array $tables array des tables (spip_auteurs, spip_auteurs_elargis ou spip_adhintgs)
  * @param string $type[optional] determine la forme du retour
  */
+// JR-19/09/2015-Champ 'fonction' est dans les champs extras dasn cette version.
 function adhclub_imp_table_fields($tables,$type='unique'){
 	$trouver_table = charger_fonction('trouver_table','base');
 
@@ -40,12 +42,17 @@ function adhclub_imp_table_fields($tables,$type='unique'){
 				$spip_auteurs['email'] = 'email';
 				$spip_auteurs['login'] = 'login';
 				$spip_auteurs['source'] = 'source';
-				$spip_auteurs['divers'] = 'divers';
 				// Les champs Extras de spip_auteurs a prendre en compte
+				$spip_auteurs['certifaspirine'] = 'certifaspirine';
 				$spip_auteurs['certiflimite'] = 'certiflimite';
 				$spip_auteurs['certifqualif'] = 'certifqualif';
-				$spip_auteurs['certifaspirine'] = 'certifaspirine';
 				$spip_auteurs['email_corr'] = 'email_corr';
+				$spip_auteurs['profession'] = 'profession';
+				$spip_auteurs['fonction'] = 'fonction';
+				$spip_auteurs['code_postal_pro'] = 'code_postal_pro';
+				$spip_auteurs['ville_pro'] = 'ville_pro';
+				$spip_auteurs['pays_pro'] = 'pays_pro';
+				$spip_auteurs['divers'] = 'divers';
 				break;
 
 			case 'spip_auteurs_elargis';
@@ -157,6 +164,7 @@ function adhclub_imp_nettoie_key($key){
   *		certiflimite (0001-01-01)
   *		certifqualif ('non')
   *		certifaspirine ('non')
+  *		fonction (licence)
   *
   * ** ** auteurs_elargis ** **
   *		nom_famille (nom)
@@ -164,7 +172,6 @@ function adhclub_imp_nettoie_key($key){
   *		pays (defaut config i3)
   *		naissance (naissance)
   *		sexe (civilite M=>M, Mlle=>F, Mme=>F)
-  *		fonction (licence)
   *		creation (date du jour de creation)
   *
   * En maj (id_auteur=num):
@@ -214,20 +221,17 @@ function adhclub_imp_nettoie_key($key){
 		$assoc['prenom']='prenom';
 		$assoc['civilite']='sexe';
 		$assoc['naissance']='naissance';
-		$assoc['licence']='fonction';
 	}
 	unset($csvfield['souscription']);
 	unset($csvfield['nom']);
 	unset($csvfield['prenom']);
 	unset($csvfield['civilite']);
 	unset($csvfield['naissance']);
-	unset($csvfield['licence']);
 
 	unset($field_cible['creation']);
 	unset($field_cible['nom']);
 	unset($field_cible['sexe']);
 	unset($field_cible['naissance']);
-	unset($field_cible['fonction']);
 
 	// En creation et maj
 	$assoc['adresse1']='adresse';
@@ -266,10 +270,14 @@ function adhclub_imp_nettoie_key($key){
 		$assoc['certiflimite'] = 'certiflimite';
 		$assoc['certifqualif'] = 'certifqualif';
 		$assoc['certifaspirine'] = 'certifaspirine';
+		$assoc['licence']='fonction';
 	}
+	unset($csvfield['licence']);
+	
 	unset($field_cible['certiflimite']);
 	unset($field_cible['certifqualif']);
 	unset($field_cible['certifaspirine']);
+	unset($field_cible['fonction']);
 	
 	// TODO JR-20121030-Filtrer les cles de meme nom a ne pas toucher en maj ?
 	//assoc auto des cles qui portent le meme nom
@@ -284,9 +292,13 @@ function adhclub_imp_nettoie_key($key){
 		}
 	}
     
-	//echo "<br />.XXX debug JR : inc/adh_import adhclub_imp_field_associate-Pt02.<br />";
-	//echo "assoc= <br />"; var_dump($assoc); echo ".<br />";
-	
+	/*$debug1= "DEBUG adhclub JR : inc/adh_import adhclub_imp_field_associate-Pt02 - <br />";
+	echo "<br />", $debug1;
+	echo "assoc= <br />"; var_dump($assoc); echo ".<br />";
+	echo "field_cible= <br />"; var_dump($field_cible); echo ".<br />";
+	echo "csvfield= <br />"; var_dump($csvfield); echo ".<br />";
+	echo "FIN ", $debug1;
+	*/
 return $assoc;
 }
 
@@ -321,24 +333,21 @@ function adhclub_imp_EMAIL_ENVOI($id_auteur) {
 		$email_env['env'] = "adhclub@adhclub.com";
 	}
 
-    //echo "<br />.XXX debug JR : inc/adh_import adhclub_imp_EMAIL_ENVOI-Pt04.<br />";
-	//echo "adhwhere= $adhwhere.<br />";
-	//$field=$email_env['env'];
-	//echo "email_env= $field.<br />";
-
 	#$email_env['env']->interdire_scripts = true;
 
 	$patterns = '/@/';
 	$replacements = $id_auteur.'@';
 	$email_env['tmp'] = preg_replace($patterns, $replacements, $email_env['env']);
 
-	//echo "<br />.XXX debug JR : inc/adh_import adhclub_imp_EMAIL_ENVOI-Pt05.<br />";
-	//echo "id_auteur= $id_auteur.<br />";
-	//$field=$email_env['env'];
-	//echo "email_env= $field.<br />";
-	//$field=$email_env['tmp'];
-	//echo "email_tmp= $field.<br />";
-	
+	/*$debug1= "DEBUG adhclub JR : inc/adh_import adhclub_imp_EMAIL_ENVOI-Pt05 - <br />";
+	echo "<br />", $debug1;
+	echo "id_auteur= $id_auteur.<br />";
+	$field=$email_env['env'];
+	echo "email_env= $field.<br />";
+	$field=$email_env['tmp'];
+	echo "email_tmp= $field.<br />";
+	echo "FIN ", $debug1;
+	*/
 	return $email_env;
 }
 
@@ -369,33 +378,22 @@ function adhclub_imp_email($id_auteur, $email){
     $adhlimit ="0,1";
     $id_auteur_email = sql_getfetsel( "id_auteur", $adhfrom, $adhwhere, $adhgroupby, $adhorderby, $adhlimit);
     
-    //echo "<br />.XXX debug JR : inc/adh_import adhclub_imp_email-Pt02.<br />";
-    //echo "id_auteur= $id_auteur.<br />";
-    //echo "id_auteur_email= $id_auteur_email.<br />";
-    
     if (intval($id_auteur_email)){
     //	Si email existe : 
     	if(intval($id_auteur_email) != intval($id_auteur)){
-    	// C'est email d'un autre
-			//	==> Formattage email fictif provisoire dans $email auteur=id_auteur.
-			// Utiliser email webmaster si present comme base des email fictifs.
-	    	// voir ecrire/public/balises.php ==> F(balise_EMAIL_WEBMASTER_dist)
-    		// Sinon email fictif provisoire de la forme 'adh_club_auteur@adhclub.com'.
-    		
+    	/* C'est email d'un autre
+				==> Formattage email fictif provisoire dans $email auteur=id_auteur.
+			 Utiliser email webmaster si present comme base des emails fictifs.
+	    	 voir ecrire/public/balises.php ==> F(balise_EMAIL_WEBMASTER_dist)
+    		 Sinon email fictif provisoire de la forme 'adh_club_auteur@adhclub.com'.
+    	*/
     		$email_env=adhclub_imp_EMAIL_ENVOI($id_auteur);
 			$email=$email_env['tmp'];
     		
-			//echo "<br />.XXX debug JR : inc/adh_import adhclub_imp_email-Pt03.<br />";
-    		//echo "id_auteur= $id_auteur.<br />";
-    		//echo "email= $email.<br />";
-
     	}else{
-    		// C'est email de l'auteur
-    		// ==> Raf, on conserve email source
-
-			//echo "<br />.XXX debug JR : inc/adh_import adhclub_imp_email-Pt04.<br />";
-    		//echo "id_auteur= $id_auteur.<br />";
-    		//echo "email= $email.<br />";
+    		/* C'est email de l'auteur
+    			==> Raf, on conserve email source
+    		*/
     	}
     }
     	//	Si existe pas : 
@@ -407,7 +405,6 @@ return $email;
 /**
  * Mise en forme des 3 lignes adresses pour n'en faire qu'1 seule.
  * 
- *
  * @param string $adresse, $adresse2 et $adresse3 : 3 lignes 
  * 
  * @return string $adresse : adresse regroupee.
@@ -454,6 +451,7 @@ function adhclub_imp_field_reformate($id_auteur, $assoc_field, $rec_intg){
 	/*$debug1= "DEBUG adhclub JR : inc/adh_import - adhclub_imp_field_reformate - Pt10 - <br />";
 	echo "<br />", $debug1;
 	echo "rec_intg= <br />"; var_dump($rec_intg); echo ".<br />";
+	echo "assoc_field= <br />"; var_dump($assoc_field); echo ".<br />";
 	echo "FIN ", $debug1;
 	*/
 	// Traitement des champs en entree (rec_intg)
@@ -520,10 +518,12 @@ function adhclub_imp_field_reformate($id_auteur, $assoc_field, $rec_intg){
 				strtolower(substr($rec_intg['prenom'],0,2))
 				. strtolower(trim($rec_intg['nom']));
 
-			//echo "<br />.XXX debug JR : inc/adh_import adhclub_imp_field_reformate-Pt221.<br />";
-			//$field=$rec_creat['login'];
-			//echo "rec_creat(login)= $field.<br />";
-			
+			/*$debug1= "DEBUG adhclub JR : inc/adh_import adhclub_imp_field_reformate-Pt221 - <br />";
+			echo "<br />", $debug1;
+			$field=$rec_creat['login'];
+			echo "rec_creat(login)= $field.<br />";
+			echo "FIN ", $debug1;
+			*/
 			//unset($assoc_field[$tablekey]);
 			break;
 		
@@ -628,10 +628,25 @@ function adhclub_imp_field_reformate($id_auteur, $assoc_field, $rec_intg){
 		// Traitement des champs ordinaires, sans reprise de donnée
 		default;
 			$rec_creat[$tablekey]=$rec_intg[$tablekey];
+			
+			/*$debug1= "DEBUG adhclub JR : inc/adh_import adhclub_imp_field_reformate-Pt299 - <br />";
+			echo "<br />", $debug1;
+			echo "tablekey= $tablekey.<br />";
+			$field=$rec_intg['licence'];
+			echo "rec_intg(licence)= $field.<br />";
+			$field=$rec_creat['licence'];
+			echo "rec_creat(licence)= $field.<br />";
+			echo "FIN ", $debug1;
+			*/
 			break;
 		}
 	}
 	
+	/*$debug1= "DEBUG adhclub JR : inc/adh_import - adhclub_imp_field_reformate - Pt999 - <br />";
+	echo "<br />", $debug1;
+	echo "rec_creat= <br />"; var_dump($rec_creat); echo ".<br />";
+	echo "FIN ", $debug1;
+	*/
 	return $rec_creat;
 }
 
@@ -652,12 +667,31 @@ function adhclub_imp_ajoute_table($data, $tables, $assoc_field, &$creaerr){
 	
 	$field_cible = adhclub_imp_table_fields($tables, 'unique');
 	
-	//echo "<br />.XXX debug JR : inc/adh_import adhclub_imp_ajoute_table-Pt5.<br />";
-	//$field=$data['nom'];
-	//echo "data(nom)= $field.<br />";
-	//$field=$assoc_field['nom'];
-	//echo "assoc_field(nom)= $field.<br />";
-	
+			/*$debug1= "DEBUG adhclub JR : inc/adh_import adhclub_imp_ajoute_table-Pt06 - <br />";
+			echo "<br />", $debug1;
+			$field=$data['nom'];
+			echo "data(nom)= $field.<br />";
+			$field=$assoc_field['nom'];
+			echo "assoc_field(nom)= $field.<br />";
+			$field=$assoc['nom'];
+			echo "assoc(nom)= $field.<br />";
+			
+			$field=$data['licence'];
+			echo "data(licence)= $field.<br />";
+			$field=$assoc_field['licence'];
+			echo "assoc_field(licence)= $field.<br />";
+			$field=$assoc['fonction'];
+			echo "assoc(fonction)= $field.<br />";
+			
+			$field=$data['cp'];
+			echo "data(cp)= $field.<br />";
+			$field=$assoc_field['cp'];
+			echo "assoc_field(cp)= $field.<br />";
+			$field=$assoc['code_postal'];
+			echo "assoc(code_postal)= $field.<br />";
+			
+			echo "FIN ", $debug1;
+			*/
 	list($auteurs,$auteurs_elargis) = adhclub_imp_table_fields($tables, 'separe');
 		
 	$auteurs_obligatoires = array('nom','login','email','statut');
@@ -667,10 +701,12 @@ function adhclub_imp_ajoute_table($data, $tables, $assoc_field, &$creaerr){
 		$verifier = charger_fonction('verifier','inc',true);
 		$champs_a_verifier = pipeline('i3_verifications_specifiques');
 		
-		//echo "<br />.XXX debug JR : inc/adh_import adhclub_imp_ajoute_table-Pt7.<br />";
-		//echo "field_cible= <br />"; var_dump($field_cible); echo ".<br />";
-		//echo "champs_a_verifier= <br />"; var_dump($champs_a_verifier); echo ".<br />";
-		
+			/*$debug1= "DEBUG adhclub JR : inc/adh_import adhclub_imp_ajoute_table-Pt07 - <br />";
+			echo "<br />", $debug1;
+			echo "field_cible= <br />"; var_dump($field_cible); echo ".<br />";
+			echo "champs_a_verifier= <br />"; var_dump($champs_a_verifier); echo ".<br />";
+			echo "FIN ", $debug1;
+			*/
 		
 			$auteurs_insert = array();
 			//$auteurs_elargis_insert = array();
@@ -733,24 +769,6 @@ function adhclub_imp_ajoute_table($data, $tables, $assoc_field, &$creaerr){
 				unset($auteur);
 			}
 	
-			//echo "<br />.XXX debug JR : inc/adh_import adhclub_imp_ajoute_table-Pt9.<br />";
-			//$field=$auteurs_insert['nom'];
-			//echo "auteurs_insert(nom)= $field.<br />";
-			//$field=$auteurs_insert['statut'];
-			//echo "auteurs_insert(statut)= $field.<br />";
-			//$field=$auteurs_insert['source'];
-			//echo "auteurs_insert(source)= $field.<br />";
-			
-			//$field=$auteurs_elargis_insert['nom_famille'];
-			//echo "auteurs_elargis_insert(nom_famille)= $field.<br />";
-			//$field=$auteurs_elargis_insert['fonction'];
-			//echo "auteurs_elargis_insert(fonction)= $field.<br />";
-			//$field=$auteurs_elargis_insert['creation'];
-			//echo "auteurs_elargis_insert(creation)= $field.<br />";
-			
-			//$field=$auteur['id_auteur'];
-			//echo "auteur(id_auteur)= $field.<br />";
-			
 	}
 	// JR-20121019-Pb d'appel via reference.
 	//return array($creaerr,$auteur);
@@ -773,8 +791,7 @@ function adhclub_imp_maj_table($id_auteur, $data, $tables, $assoc_field, &$majer
 	$auteur = array();
 	$assoc = array_flip($assoc_field);
 
-	
-	/*$debug1= "DEBUG adhclub JR : inc/adh_import - adhclub_imp_maj_table - Pt01 - <br />";
+	/*$debug1= "DEBUG adhclub JR : inc/adh_import - adhclub_imp_maj_table - Pt10 - <br />";
 	echo "<br />", $debug1;
 	echo "id_auteur= $id_auteur.<br />";
 	echo "data= <br />"; var_dump($data); echo ".<br />";
@@ -782,7 +799,7 @@ function adhclub_imp_maj_table($id_auteur, $data, $tables, $assoc_field, &$majer
 	*/
 	list($auteurs,$auteurs_elargis) = adhclub_imp_table_fields($tables, 'separe');
 	
-	/*$debug1= "DEBUG adhclub JR : inc/adh_import - adhclub_imp_maj_table - Pt02 - <br />";
+	/*$debug1= "DEBUG adhclub JR : inc/adh_import - adhclub_imp_maj_table - Pt12 - <br />";
 	echo "<br />", $debug1;
 	echo "id_auteur= $id_auteur.<br />";
 	echo "data= <br />"; var_dump($data); echo ".<br />";
@@ -830,37 +847,26 @@ function adhclub_imp_maj_table($id_auteur, $data, $tables, $assoc_field, &$majer
 				unset($assoc[$key]);
 			}
 		}
-		
-		//echo "<br />.XXX debug JR : inc/adh_import adhclub_imp_maj_table-Pt14.<br />";
-		//echo "id_auteur= $id_auteur.<br />";
-		//$field=count($majerr,COUNT_RECURSIVE);
-		//echo "count(erreur)= $field.<br />";
-		
+		/*$debug1= "DEBUG adhclub JR : inc/adh_import adhclub_imp_maj_table-Pt14 - <br />";
+		echo "<br />", $debug1;
+		echo "id_auteur= $id_auteur.<br />";
+		$field=count($majerr,COUNT_RECURSIVE);
+		echo "count(erreur)= $field.<br />";
+		echo "FIN ", $debug1;
+		*/
 		if(count($majerr,COUNT_RECURSIVE) == 0){
 			if(count($auteurs_update)){
 				// Forcer les donnees par défaut
 				// On ajoute la date de MAJ qui correspond a maintenant
 				$auteurs_update['maj'] = date('Y-m-d H:i:s');
 				
-				//echo "<br />.XXX debug JR : inc/adh_import adhclub_imp_maj_table-Pt15.<br />";
-				//echo "id_auteur= $id_auteur.<br />";
-				
 				sql_updateq('spip_auteurs',$auteurs_update,"id_auteur=". intval($id_auteur));
 				$auteur['id_auteur'] = $id_auteur;
 			}
 		}else{
 	
-			//echo "<br />.XXX debug JR : inc/adh_import adhclub_imp_maj_table-Pt25.<br />";
-			//echo "id_auteur= $id_auteur.<br />";
-			
 			unset($auteur);
 		}
-
-		//echo "<br />.XXX debug JR : inc/adh_import adhclub_imp_maj_table-Pt55.<br />";
-		//echo "id_auteur= $id_auteur.<br />";
-		//$field=$auteur['id_auteur'];
-		//echo "auteur(id_auteur)= $field.<br />";
-
 	}
 
 return array($auteur);
