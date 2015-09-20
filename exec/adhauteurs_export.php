@@ -210,7 +210,7 @@ function exec_adhauteurs_export(){
 						"as_l.id_saison=".intval($criteres[2])));
 		}
 						
-		$debug1= "DEBUG adhclub JR : exec/adhauteurs_export - Pt25 - ";
+		/*$debug1= "DEBUG adhclub JR : exec/adhauteurs_export - Pt25 - ";
 		adhclub_log("$debug1.", true);
 		$debug2 = sql_get_select($adhselect_l, $adhfrom_l, sql_in('au.id_auteur', $sql_adh_auteurs));
 		adhclub_log("debug2=$debug2.", true);
@@ -218,7 +218,7 @@ function exec_adhauteurs_export(){
 		$debug3 = sql_get_select($adhselect_l, $adhfrom_l, $adhwhere_l);
 		adhclub_log("debug3=$debug3.", true);
 		adhclub_log("FIN $debug1.", true);
-				
+		*/
 		if ($export_auteurs = sql_allfetsel($adhselect_l, $adhfrom_l, $adhwhere_l)) {
 
 			foreach ($export_auteurs as $ligne) {

@@ -38,9 +38,9 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	// E
 	'email' => 'Courriel',
 	'err_auteur_creation' => 'Echec de la cr&eacute;ation initiale de ',
+	'err_assur_inconnue' => "L'assurance pour l'adh&eacute;rent est inconnue",
 	'err_auteur_maj' => "Echec de la mise &aacute; jour de l'adh&eacute;rent",
-	'err_adhassur_inconnue' => "L'assurance pour l'adh&eacute;rent est inconnue",
-    // I
+	// I
 	'icone_menu_adhintg' => 'Int&eacute;grer les màj',
 	'info_aucun_adhintg' => "Il n'y a pas de màj Adh&eacute;rent &agrave; int&eacute;grer dans le site",
 	'info_nb_adhintgs' => '@nb@ màj à intégrer',

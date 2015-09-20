@@ -31,7 +31,8 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'bouton_ajouter_adhcoti' => 'Ajouter la nouvelle cotisation',
 	// C
 	'complement_adhcoti' => 'Cotisation complémentaire',
-	'confirmer_retirer_auteur_adhcoti' => '&Ecirc;tes-vous s&ucirc;r de vouloir retirer cet auteur de cete cotisation ?',
+	'confirmer_retirer_auteur_adhcoti' => '&Ecirc;tes-vous s&ucirc;r de vouloir retirer cet auteur de cette cotisation ?',
+	'confirmer_supprimer_adhcoti' => '&Ecirc;tes-vous s&ucirc;r de vouloir supprimer cette cotisation ?',
 	'creer_associer_adhcoti' => 'Créer et associer une cotisation',
 	// I
 	'icone_creer_adhcoti' => 'Cr&eacute;er une cotisation',

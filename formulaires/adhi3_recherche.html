@@ -6,7 +6,8 @@
 ----------------------------------------------
 Recherche des auteurs basee sur les criteres inscription3 et adhclub. 
 ----------------------------------------------
-JR-10/01/2015-adaptation spip 3.0.
+JR-20/09/2015-Revue code des saisies.
+JR-10/01/2015-Adaptation spip 3.0.
 JR-07/04/2013-Tester si l’espace est public ou prive pour Bt export sur prive slt.
 JR-12/03/2013-Ajout des criteres niveau relatif.
 JR-11/01/2013-Ajout des criteres adh_club.
@@ -39,10 +40,11 @@ JR-12/08/2012-Creation du squelette.
 						#SET{datassaisr, #GET{datassaisr}|array_flip} 
 					</B_saisons>
 
-					[(#SAISIE{selection, id_saison, obligatoire=non}
-						{label=<:adhsaison:saison_rech:>}
-						{datas=#GET{datassaisr}}
-           				{disable}
+					[(#SAISIE{selection, id_saison, 
+						obligatoire=non,
+						label=<:adhsaison:saison_rech:>,
+						datas=#GET{datassaisr},
+     				disable}
 					)]
 
 
@@ -56,9 +58,10 @@ JR-12/08/2012-Creation du squelette.
 						#SET{datastechbase, #GET{datastechbase}|array_flip}      
 					</B_techbase>
 
-					[(#SAISIE{selection, techbase, obligatoire=non}
-						{label=<:adhniv:niveau_techbase:>}
-						{datas=#GET{datastechbase}}
+					[(#SAISIE{selection, techbase, 
+						obligatoire=non,
+						label=<:adhniv:niveau_techbase:>,
+						datas=#GET{datastechbase}}
 					)]
        
         
@@ -71,24 +74,26 @@ JR-12/08/2012-Creation du squelette.
 						#SET{datasencad, #GET{datasencad}|array_flip}      
 					</B_encad>
 
-					[(#SAISIE{selection, encadrant, obligatoire=non}
-						{label=<:adhniv:niveau_encadrant:>}
-						{datas=#GET{datasencad}}
+					[(#SAISIE{selection, encadrant, 
+						obligatoire=non,
+						label=<:adhniv:niveau_encadrant:>,
+						datas=#GET{datasencad}}
 					)]
         
 
 					[(#REM) A partir des 'Niveaux'.]
 					#SET{datasniv,#ARRAY}
 					<B_niv>
-					<BOUCLE_niv(ADHNIVS){par num titre}>
+					<BOUCLE_niv(ADHNIVS){par techbase, num titre}>
 		        		#SET{datasniv, #GET{datasniv}|array_merge{#ARRAY{#TITRE,#ID_NIVEAU}}}
 					</BOUCLE_niv>
 						#SET{datasniv, #GET{datasniv}|array_flip}      
 					</B_niv>
 
-					[(#SAISIE{selection, niveau, obligatoire=non}
-						{label=<:adhniv:niveau:>}
-						{datas=#GET{datasniv}}
+					[(#SAISIE{selection, niveau, 
+						obligatoire=non,
+						label=<:adhniv:niveau:>,
+						datas=#GET{datasniv}}
 					)]
 
 
@@ -99,9 +104,10 @@ JR-12/08/2012-Creation du squelette.
 							'infegal','Inf&eacute;rieur'}
 						}
 
-					[(#SAISIE{selection, niv_rel, obligatoire=non}
-						{label=<:adhniv:niveau_rel:>}
-						{datas=#GET{datasniv_rel}}
+					[(#SAISIE{selection, niv_rel, 
+						obligatoire=non,
+						label=<:adhniv:niveau_rel:>,
+						datas=#GET{datasniv_rel}}
 					)]
 
 						<li class="editer editer_valeur saisie_input">

@@ -19,6 +19,7 @@
     id_coti,1,
     }}
 )]
+
 <B_liste_cotis>
     #ANCRE_PAGINATION
     <div class="liste-objets cotis">
@@ -42,14 +43,17 @@
 			<td class='nom principale'>#DESCRIPTIF</td>
 			<td class='id'>
 			<p class='actions'>
-			[(#AUTORISER{supprimer,adhcoti,#ID_COTI}|?{
-				#BOUTON_ACTION{<:adhcoti:icone_supprimer_adhcoti:>, "#URL_ACTION_AUTEUR{supprimer_adhcoti,#ID_COTI,#SELF}", 'lien_supprimer', <:adhcoti:confirmer_supprimer_adhcoti:>}
+			[(#AUTORISER{supprimer,adhcoti,#ID_COTI})<span class='lien_supprimer'>
+				[(#BOUTON_ACTION{<:adhcoti:icone_supprimer_adhcoti:>,
+					#URL_ACTION_AUTEUR{supprimer_adhcoti,#ID_COTI,#SELF}, ajax, 
+					<:adhcoti:confirmer_supprimer_adhcoti:>
 				})]
+				</span>]
 
-			 [(#AUTORISER{modifier,adhcoti,#ID_COTI}|?{
-				<a href="[(#URL_ECRIRE{editer_adhcoti,id_coti=#ID_COTI})]"><:adhclub:icone_modifier:></a>,
-				#ID_COTI
-				})]
+			[(#AUTORISER{modifier,adhcoti,#ID_COTI})<span class='lien_modifier'>
+				<a href="[(#URL_ECRIRE{editer_adhcoti,id_coti=#ID_COTI}|parametre_url{redirect,#SELF})]">
+				<:adhclub:icone_modifier:></a></span>
+			]
 			</p>
 			</td>
 			<td class='id'>#ID_COTI</td>

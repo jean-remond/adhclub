@@ -203,6 +203,13 @@ function adhclub_revision_adhcoti($id_coti, $c=false) {
  */
 function adhclub_supprime_adhcoti($id_coti){
 	$supp_coti = sql_getfetsel("id_coti", "spip_adhcotis", "id_coti=" . intval($id_coti));
+	
+	$debug1= "DEBUG plugin JR : action/editer_adhcoti.php - adhclub_supprime_adhcoti - Pt32 - <br />";
+	echo "<br />", $debug1;
+	echo "id_coti= $id_coti.<br />";
+	echo "supp_coti= $supp_coti.<br />";
+	echo "FIN ", $debug1;
+	
 	if (intval($id_coti) AND 	intval($id_coti) == intval($supp_coti)){
 		// d'abord les auteurs
 		sql_delete("spip_adhcotis_liens", "id_coti=".intval($id_coti));

@@ -13,6 +13,7 @@
  * 
  * Fait :
  * ----
+ * JR-20/09/2015-Revue gestion email fictif.
  * JR-10/01/2015-Adaptation spip 3.0.
  * JR-12/03/2013-Ajout des criteres niveau relatif.
  * JR-11/01/2013-Ajout des criteres adhclub.
@@ -91,7 +92,7 @@ function formulaires_adhi3_recherche_verifier_dist($type_objet, $id_objet){
 			foreach($auteurs_checked as $key=>$val){
 				$email_envoi = sql_fetsel('nom_famille, prenom, email','spip_auteurs','id_auteur='.intval($val));
 				// Recherche email_envoi ou email webmaster pour détecter les emails inactifs
-				$email_env = adhclub_imp_EMAIL_ENVOI(intval($val));
+				$email_env = adhclub_imp_email_fictif(intval($val));
 				
 				if($email_envoi['email'] == $email_env['tmp']){
 					$erreurs['check_aut'.$val] = 
@@ -135,11 +136,11 @@ function formulaires_adhi3_recherche_traiter_dist($type_objet, $id_objet){
 		$criteres = $criteres . '|' . _request('niveau');
 		$criteres = $criteres . '|' . _request('niv_rel');
 		
-		$debug1= "DEBUG adhclub JR : formulaires_adhi3_recherche - formulaires_adhi3_recherche_traiter - Pt05 -";
+		/*$debug1= "DEBUG adhclub JR : formulaires_adhi3_recherche - formulaires_adhi3_recherche_traiter - Pt05 -";
 		adhclub_log("$debug1.", true);
 		adhclub_log("criteres=$criteres.", true);
 		adhclub_log("FIN $debug1.", true);
-		
+		*/
 		$retour['redirect'] = generer_url_ecrire("adhauteurs_export","criteres=$criteres&retour=".urlencode(self()));
 	}
 	

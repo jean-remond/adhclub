@@ -35,7 +35,7 @@ function adhclub_autoriser(){}
 function autoriser_auteur_voirextra_certifaspirine_dist() {
 	return in_array($qui['statut'], array('0minirezo', '1comite'));
 }
-function autoriser_auteur_voirextra_certiflimite_dist() {
+/*function autoriser_auteur_voirextra_certiflimite_dist() {
 	return in_array($qui['statut'], array('0minirezo', '1comite'));
 }
 function autoriser_auteur_voirextra_certifqualif_dist() {
@@ -62,7 +62,7 @@ function autoriser_auteur_voirextra_pays_pro_dist() {
 function autoriser_auteur_voirextra_divers_dist() {
 	return in_array($qui['statut'], array('0minirezo', '1comite'));
 }
-
+*/
 /**
  * Autorisation a administrer les auteurs
  * 
@@ -91,7 +91,7 @@ function autoriser_auteur_creerassurdans($faire,$quoi,$id,$qui,$opts){
 function autoriser_auteur_modifierextra_certifaspirine_dist() {
 	return in_array($qui['statut'], array('0minirezo'));
 }
-function autoriser_auteur_modifierextra_certiflimite_dist() {
+/*function autoriser_auteur_modifierextra_certiflimite_dist() {
 	return in_array($qui['statut'], array('0minirezo'));
 }
 function autoriser_auteur_modifierextra_certifqualif_dist() {
@@ -118,7 +118,7 @@ function autoriser_auteur_modifierextra_pays_pro_dist() {
 function autoriser_auteur_modifierextra_divers_dist() {
 	return in_array($qui['statut'], array('0minirezo'));
 }
-
+*/
 /**
  * Autorisation pour les assurances
  *
@@ -149,6 +149,25 @@ function autoriser_adhassur_retirer($faire,$quoi,$id,$qui,$opts){
 		return true;
 	return false;
 }
+/**
+ * Autorisation a affecter les assurances a un auteur
+ * si un id_assur passe dans opts, cela concerne plus particulierement le droit d'affecter cette assurance
+ *
+ * @param unknown_type $faire
+ * @param unknown_type $qui
+ * @param unknown_type $id
+ * @param unknown_type $qui
+ * @param unknown_type $opts
+ * @return unknown
+ */
+function autoriser_auteur_affecterassurs_dist($faire,$quoi,$id,$qui,$opts){
+	if (!autoriser('modifier','auteur',$id)) return false;
+	if ($qui['statut']=='0minirezo')
+		return true;
+	# les non admin ne peuvent pas s'administrer eux meme pour eviter les erreurs
+	if ($id == $qui['id_auteur']) return false;
+    return true;
+}
 
 
 /**
@@ -162,16 +181,91 @@ function autoriser_adhassur_retirer($faire,$quoi,$id,$qui,$opts){
  * @return unknown
  */
 function autoriser_adhcoti_voir($faire,$quoi,$id,$qui,$opts){
+	
+	/*$debug1= "DEBUG plugin JR : inc/adhclub_autoriser.php - autoriser_adhcoti_voir - Pt02 - <br />";
+	echo "<br />", $debug1;
+	adhclub_log("$debug1.", true);
+	echo "faire= $faire.<br />";
+	adhclub_log("faire= $faire", true);
+	echo "quoi= $quoi.<br />";
+	adhclub_log("quoi= $quoi", true);
+	echo "id= $id.<br />";
+	adhclub_log("id= $id", true);
+	echo "qui= <br />"; var_dump($qui); echo ".<br />";
+	$debug2= $qui['id_auteur'];
+	adhclub_log("qui= $debug2", true);
+	if(is_array($opts)){
+		echo "opts=.<br />";
+		adhclub_log("opts=", true);
+		$debug2 = implode(', ',$opts);
+		echo "$debug2.<br />";
+		adhclub_log("$debug2.", true);
+	}else{
+		adhclub_log("opts=$opts.", true);
+	}
+	echo "FIN ", $debug1;
+	adhclub_log("$debug1 FIN.", true);
+	*/
 	if ($qui['statut']=='0minirezo')
 		return true;
 	return false;
 }
 function autoriser_adhcoti_modifier($faire,$quoi,$id,$qui,$opts){
+	
+	/*$debug1= "DEBUG plugin JR : inc/adhclub_autoriser.php - autoriser_adhcoti_modifier - Pt22 - <br />";
+	echo "<br />", $debug1;
+	adhclub_log("$debug1.", true);
+	echo "faire= $faire.<br />";
+	adhclub_log("faire= $faire", true);
+	echo "quoi= $quoi.<br />";
+	adhclub_log("quoi= $quoi", true);
+	echo "id= $id.<br />";
+	adhclub_log("id= $id", true);
+	echo "qui= <br />"; var_dump($qui); echo ".<br />";
+	$debug2= $qui['id_auteur'];
+	adhclub_log("qui= $debug2", true);
+	if(is_array($opts)){
+		echo "opts=.<br />";
+		adhclub_log("opts=", true);
+		$debug2 = implode(', ',$opts);
+		echo "$debug2.<br />";
+		adhclub_log("$debug2.", true);
+	}else{
+		adhclub_log("opts=$opts.", true);
+	}
+	echo "FIN ", $debug1;
+	adhclub_log("$debug1 FIN.", true);
+	*/
 	if ($qui['statut']=='0minirezo')
 		return true;
 	return false;
 }
 function autoriser_adhcoti_supprimer($faire,$quoi,$id,$qui,$opts){
+	
+	/*$debug1= "DEBUG plugin JR : inc/adhclub_autoriser.php - autoriser_adhcoti_supprimer - Pt42 - <br />";
+	echo "<br />", $debug1;
+	adhclub_log("$debug1.", true);
+	echo "faire= $faire.<br />";
+	adhclub_log("faire= $faire", true);
+	echo "quoi= $quoi.<br />";
+	adhclub_log("quoi= $quoi", true);
+	echo "id= $id.<br />";
+	adhclub_log("id= $id", true);
+	echo "qui= <br />"; var_dump($qui); echo ".<br />";
+	$debug2= $qui['id_auteur'];
+	adhclub_log("qui= $debug2", true);
+	if(is_array($opts)){
+		echo "opts=.<br />";
+		adhclub_log("opts=", true);
+		$debug2 = implode(', ',$opts);
+		echo "$debug2.<br />";
+		adhclub_log("$debug2.", true);
+	}else{
+		adhclub_log("opts=$opts.", true);
+	}
+	echo "FIN ", $debug1;
+	adhclub_log("$debug1 FIN.", true);
+	*/
 	if ($qui['statut']=='0minirezo')
 		return true;
 	return false;
@@ -180,6 +274,25 @@ function autoriser_adhcoti_retirer($faire,$quoi,$id,$qui,$opts){
 	if ($qui['statut']=='0minirezo')
 		return true;
 	return false;
+}
+/**
+ * Autorisation a affecter les cotisations a un auteur
+ * si un id_coti passe dans opts, cela concerne plus particulierement le droit d'affecter cette cotisation
+ *
+ * @param unknown_type $faire
+ * @param unknown_type $qui
+ * @param unknown_type $id
+ * @param unknown_type $qui
+ * @param unknown_type $opts
+ * @return unknown
+ */
+function autoriser_auteur_affectercotis_dist($faire,$quoi,$id,$qui,$opts){
+	if (!autoriser('modifier','auteur',$id)) return false;
+	if ($qui['statut']=='0minirezo')
+		return true;
+	# les non admin ne peuvent pas s'administrer eux meme pour eviter les erreurs
+	if ($id == $qui['id_auteur']) return false;
+    return true;
 }
 
 
@@ -213,6 +326,31 @@ function autoriser_adhniv_retirer($faire,$quoi,$id,$qui,$opts){
 		return true;
 	return false;
 }
+/**
+ * Autorisation a affecter les niveaux a un auteur
+ * si un id_niveau passe dans opts, cela concerne plus particulierement le droit d'affecter ce niveau
+ *
+ * @param unknown_type $faire
+ * @param unknown_type $qui
+ * @param unknown_type $id
+ * @param unknown_type $qui
+ * @param unknown_type $opts
+ * @return unknown
+ */ 
+function autoriser_auteur_affecterniveaux_dist($faire,$quoi,$id,$qui,$opts){
+	if (!autoriser('modifier','auteur',$id)) return false;
+	if ($qui['statut']=='0minirezo')
+		return true;
+	# les non admin ne peuvent pas s'administrer eux meme pour eviter les erreurs
+	if ($id == $qui['id_auteur']) return false;
+/*	# les non admin ne peuvent affecter que les niveaux dont ils font partie
+	include_spip('inc/adh_club');
+	if ($opts['id_niveau']
+	  AND !adhclub_test_niveau_de_auteur($opts['id_niveau'], $qui['id_auteur']))
+	  return false; */
+ return true;
+}
+
 
 
 /**
@@ -243,74 +381,5 @@ function autoriser_adhsaison_supprimer($faire,$quoi,$id,$qui,$opts){
 	}
 	return false;
 }
-
-
-/**
- * Autorisation a affecter les assurances a un auteur
- * si un id_assur passe dans opts, cela concerne plus particulierement le droit d'affecter cette assurance
- *
- * @param unknown_type $faire
- * @param unknown_type $qui
- * @param unknown_type $id
- * @param unknown_type $qui
- * @param unknown_type $opts
- * @return unknown
- */
-function autoriser_auteur_affecterassurs_dist($faire,$quoi,$id,$qui,$opts){
-	if (!autoriser('modifier','auteur',$id)) return false;
-	if ($qui['statut']=='0minirezo')
-		return true;
-	# les non admin ne peuvent pas s'administrer eux meme pour eviter les erreurs
-	if ($id == $qui['id_auteur']) return false;
-    return true;
-}
-
-
-/**
- * Autorisation a affecter les cotisations a un auteur
- * si un id_coti passe dans opts, cela concerne plus particulierement le droit d'affecter cette cotisation
- *
- * @param unknown_type $faire
- * @param unknown_type $qui
- * @param unknown_type $id
- * @param unknown_type $qui
- * @param unknown_type $opts
- * @return unknown
- */
-function autoriser_auteur_affectercotis_dist($faire,$quoi,$id,$qui,$opts){
-	if (!autoriser('modifier','auteur',$id)) return false;
-	if ($qui['statut']=='0minirezo')
-		return true;
-	# les non admin ne peuvent pas s'administrer eux meme pour eviter les erreurs
-	if ($id == $qui['id_auteur']) return false;
-    return true;
-}
-
-
-/**
- * Autorisation a affecter les niveaux a un auteur
- * si un id_niveau passe dans opts, cela concerne plus particulierement le droit d'affecter ce niveau
- *
- * @param unknown_type $faire
- * @param unknown_type $qui
- * @param unknown_type $id
- * @param unknown_type $qui
- * @param unknown_type $opts
- * @return unknown
- */ 
-function autoriser_auteur_affecterniveaux_dist($faire,$quoi,$id,$qui,$opts){
-	if (!autoriser('modifier','auteur',$id)) return false;
-	if ($qui['statut']=='0minirezo')
-		return true;
-	# les non admin ne peuvent pas s'administrer eux meme pour eviter les erreurs
-	if ($id == $qui['id_auteur']) return false;
-/*	# les non admin ne peuvent affecter que les niveaux dont ils font partie
-	include_spip('inc/adh_club');
-	if ($opts['id_niveau']
-	  AND !adhclub_test_niveau_de_auteur($opts['id_niveau'], $qui['id_auteur']))
-	  return false; */
- return true;
-}
-
 
 ?>

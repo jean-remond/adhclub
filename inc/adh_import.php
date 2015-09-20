@@ -10,7 +10,8 @@
  * @todo-JR-20121030-La recherche du pays devrait passer par plugin Pays ISO 3166-1.
  * 
  * Fait :
- * JR-19/09/2015-Champ 'fonction' est dans les champs extras dasn cette version.
+ * JR-20/09/2015-Revue gestion email : les doublons sont autorises car signature via login.
+ * JR-19/09/2015-Champ 'fonction' est dans les champs extras dans cette version.
  * JR-10/01/2015-Adaptation spip 3.0.
  * JR-2012/04/23-Adaptation a inscription3.
  */
@@ -178,7 +179,7 @@ function adhclub_imp_nettoie_key($key){
   *  ** ** auteurs ** **
   *		nom_famille (nom)
   *		prenom (prenom)
-  *		email (email si existe pas, genere sinon)
+  *		email (email si existe, genere sinon)
   *		divers ("adhclub")
   *		maj  (automatique, raf)
   * ** champs extras **
@@ -315,7 +316,7 @@ return $assoc;
  * 
  * @return string $email_tmp : courriel fictif pour l'integrite de spip.
  */
-function adhclub_imp_EMAIL_ENVOI($id_auteur) {
+function adhclub_imp_email_fictif($id_auteur) {
 
 	$email_env = array();
 	$adhfrom = "spip_meta";
@@ -339,7 +340,7 @@ function adhclub_imp_EMAIL_ENVOI($id_auteur) {
 	$replacements = $id_auteur.'@';
 	$email_env['tmp'] = preg_replace($patterns, $replacements, $email_env['env']);
 
-	/*$debug1= "DEBUG adhclub JR : inc/adh_import adhclub_imp_EMAIL_ENVOI-Pt05 - <br />";
+	$debug1= "DEBUG adhclub JR : inc/adh_import adhclub_imp_email_fictif-Pt05 - <br />";
 	echo "<br />", $debug1;
 	echo "id_auteur= $id_auteur.<br />";
 	$field=$email_env['env'];
@@ -347,7 +348,7 @@ function adhclub_imp_EMAIL_ENVOI($id_auteur) {
 	$field=$email_env['tmp'];
 	echo "email_tmp= $field.<br />";
 	echo "FIN ", $debug1;
-	*/
+	
 	return $email_env;
 }
 
@@ -359,7 +360,7 @@ function adhclub_imp_EMAIL_ENVOI($id_auteur) {
  * Donc l'email pour les membres de la meme fratterie peut etre identique
  * 	dans le extra_champ(email_corr) permettant l'envoi de courriels massifs.
  * Pour le champ  auteurs(email), si besoin, un email fictif va etre cree
- * a partir de meta(email_envoi) ou mata(email_webmaster) complete
+ * a partir de meta(email_envoi) ou meta(email_webmaster) complete
  * de id_auteur pour valider les controles.
  * Si creation, id_auteur='new' mais sera surcharge lors de maj qui suit par id_auteur reel.
  *
@@ -371,7 +372,12 @@ function adhclub_imp_EMAIL_ENVOI($id_auteur) {
 
 function adhclub_imp_email($id_auteur, $email){
 	
-	//	Recherche 1 auteur ayant un email identique
+  //	Si pas email : on cree email virtuel
+  if (!$email) {
+  	$email_env=adhclub_imp_eamil_fictif($id_auteur);
+  	$email=$email_env['tmp'];
+  }else{
+		//	Recherche 1 auteur ayant un email identique
     $adhfrom = "spip_auteurs";
     $adhwhere = "email =".sql_quote($email);
     $adhorderby ="";
@@ -387,8 +393,8 @@ function adhclub_imp_email($id_auteur, $email){
 	    	 voir ecrire/public/balises.php ==> F(balise_EMAIL_WEBMASTER_dist)
     		 Sinon email fictif provisoire de la forme 'adh_club_auteur@adhclub.com'.
     	*/
-    		$email_env=adhclub_imp_EMAIL_ENVOI($id_auteur);
-			$email=$email_env['tmp'];
+    		$email_env=adhclub_imp_email_fictif($id_auteur);
+				$email=$email_env['tmp'];
     		
     	}else{
     		/* C'est email de l'auteur
@@ -396,9 +402,20 @@ function adhclub_imp_email($id_auteur, $email){
     		*/
     	}
     }
-    	//	Si existe pas : 
-		//	Retour avec $email origine
-	
+   	//	Si existe pas : 
+		//	Retour avec $email origine, c'est peut etre une creation.
+  }
+
+	$debug1= "DEBUG adhclub JR : inc/adh_import adhclub_imp_email-Pt07 - <br />";
+	echo "<br />", $debug1;
+	echo "id_auteur= $id_auteur.<br />";
+	$field=$email_env['env'];
+	echo "email_env= $field.<br />";
+	$field=$email_env['tmp'];
+	echo "email_tmp= $field.<br />";
+	echo "email= $email.<br />";
+	echo "FIN ", $debug1;
+  
 return $email;
 }
 
@@ -528,21 +545,21 @@ function adhclub_imp_field_reformate($id_auteur, $assoc_field, $rec_intg){
 			break;
 		
 		case 'email_corr';
-			// email_corr (= email si existe pas, genere virtuellement sinon)
+			// email_corr (= email si existe, genere virtuellement sinon)
 			if($rec_intg['email']){
 				$rec_creat[$tablekey]=$rec_intg['email'];
 			}else{
-				$rec_creat[$tablekey]=adhclub_imp_email($id_auteur, $rec_intg['email']);
+				$rec_creat[$tablekey]=adhclub_imp_email_fictif($id_auteur);
 			}
 			//unset($assoc_field[$tablekey]);
 			break;
 		
 		case 'email';
-			// email (= email si existe deja pour un autre auteur, genere virtuellement sinon)
-			if($rec_intg['email']){
-			//	$rec_creat[$tablekey]=$rec_intg['email'];
-			//}else{
+			// email (= email si existe et disponible, genere virtuellement sinon)
+			if($rec_intg[$tablekey]){
 				$rec_creat[$tablekey]=adhclub_imp_email($id_auteur, $rec_intg[$tablekey]);
+			}else{
+				$rec_creat[$tablekey]=adhclub_imp_email_fictif($id_auteur);
 			}
 			//unset($assoc_field[$tablekey]);
 			break;
