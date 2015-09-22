@@ -10,7 +10,7 @@
  * @todo-JR-20121030-La recherche du pays devrait passer par plugin Pays ISO 3166-1.
  * 
  * Fait :
- * JR-20/09/2015-Revue gestion email : les doublons sont autorises car signature via login.
+ * JR-21/09/2015-Revue gestion email : les doublons sont proscrits en spip 3.0.
  * JR-19/09/2015-Champ 'fonction' est dans les champs extras dans cette version.
  * JR-10/01/2015-Adaptation spip 3.0.
  * JR-2012/04/23-Adaptation a inscription3.
@@ -340,7 +340,7 @@ function adhclub_imp_email_fictif($id_auteur) {
 	$replacements = $id_auteur.'@';
 	$email_env['tmp'] = preg_replace($patterns, $replacements, $email_env['env']);
 
-	$debug1= "DEBUG adhclub JR : inc/adh_import adhclub_imp_email_fictif-Pt05 - <br />";
+	/*$debug1= "DEBUG adhclub JR : inc/adh_import adhclub_imp_email_fictif-Pt05 - <br />";
 	echo "<br />", $debug1;
 	echo "id_auteur= $id_auteur.<br />";
 	$field=$email_env['env'];
@@ -348,7 +348,7 @@ function adhclub_imp_email_fictif($id_auteur) {
 	$field=$email_env['tmp'];
 	echo "email_tmp= $field.<br />";
 	echo "FIN ", $debug1;
-	
+	*/
 	return $email_env;
 }
 
@@ -406,7 +406,7 @@ function adhclub_imp_email($id_auteur, $email){
 		//	Retour avec $email origine, c'est peut etre une creation.
   }
 
-	$debug1= "DEBUG adhclub JR : inc/adh_import adhclub_imp_email-Pt07 - <br />";
+	/*$debug1= "DEBUG adhclub JR : inc/adh_import adhclub_imp_email-Pt07 - <br />";
 	echo "<br />", $debug1;
 	echo "id_auteur= $id_auteur.<br />";
 	$field=$email_env['env'];
@@ -415,7 +415,7 @@ function adhclub_imp_email($id_auteur, $email){
 	echo "email_tmp= $field.<br />";
 	echo "email= $email.<br />";
 	echo "FIN ", $debug1;
-  
+  */
 return $email;
 }
 
@@ -549,7 +549,8 @@ function adhclub_imp_field_reformate($id_auteur, $assoc_field, $rec_intg){
 			if($rec_intg['email']){
 				$rec_creat[$tablekey]=$rec_intg['email'];
 			}else{
-				$rec_creat[$tablekey]=adhclub_imp_email_fictif($id_auteur);
+    		$email_env=adhclub_imp_email_fictif($id_auteur);
+				$rec_creat[$tablekey]=$email_env['tmp'];
 			}
 			//unset($assoc_field[$tablekey]);
 			break;
@@ -559,7 +560,8 @@ function adhclub_imp_field_reformate($id_auteur, $assoc_field, $rec_intg){
 			if($rec_intg[$tablekey]){
 				$rec_creat[$tablekey]=adhclub_imp_email($id_auteur, $rec_intg[$tablekey]);
 			}else{
-				$rec_creat[$tablekey]=adhclub_imp_email_fictif($id_auteur);
+    		$email_env=adhclub_imp_email_fictif($id_auteur);
+				$rec_creat[$tablekey]=$email_env['tmp'];
 			}
 			//unset($assoc_field[$tablekey]);
 			break;

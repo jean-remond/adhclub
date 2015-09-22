@@ -4,6 +4,7 @@
  * Licence GPL (c) 2011-2015 Jean Remond
  * pour les fonctions, variables et constantes nécessaires à l’espace public.
  *
+ * JR-21/09/2015-Revue validation activite.
  * JR-26/01/2015-adaptation aux tables liens.
  * JR-10/01/2015-Adaptation spip 3.0.
  * JR-14/03/2013-Ajout critere niveau relatif ds adhclub_auteurs_ds_niveaux.
@@ -139,6 +140,8 @@ function filtre_adh_actif($id_auteur){
 
 	$reponse_cot_sais = sql_allfetsel( $adhselect, $adhfrom, $adhwhere, $adhgroupby, $adhorderby, $adhlimit);
 
+	$aut_actif = "non"; // valeur par defaut.
+	
 	if ($reponse_cot_sais) {
 		foreach($reponse_cot_sais as $donnees_cot_sais){
 
@@ -148,10 +151,15 @@ function filtre_adh_actif($id_auteur){
 				break;
 			}
 		}
-	}else{
-		$aut_actif = "non";
 	}
-
+	$debug1= "DEBUG adhclub JR : adhclub_fonctions filtre_adh_actif - Pt80 - ";
+	adhclub_log("$debug1.", true);
+	adhclub_log("adhfrom= implode(', ',$adhfrom).", true);
+	adhclub_log("adhwhere= implode(' AND ',$adhwhere).", true);
+	//adhclub_log("reponse_cot_sais= implode(', ',$reponse_cot_sais).", true);
+	adhclub_log("aut_actif= $aut_actif", true);
+	adhclub_log("$debug1 FIN.", true);
+	
 return $aut_actif;
 }
 
@@ -215,15 +223,15 @@ function adhclub_auteurs_ds_saisons($id_saison=NULL, &$adhselect, &$adhfrom,
 		array( "spip_adhcotis co",
 				"spip_adhsaisons sa"));
 	
-	if (intval($id_saison)){
-		// liste des cotisations pour 1 saison.
-		$adhwhere = array_merge($adhwhere,
-			array("sa.id_saison=".intval($id_saison),
-				"sa.id_saison = co.id_saison"));
-	}else{
+	if ($id_saison == 99999){
 		// Liste des cotisations pour toutes les saisons encours.
 		$adhwhere = array_merge($adhwhere,
 			array("sa.encours='oui'",
+				"sa.id_saison = co.id_saison"));
+	}else{
+		// liste des cotisations pour 1 saison.
+		$adhwhere = array_merge($adhwhere,
+			array("sa.id_saison=".intval($id_saison),
 				"sa.id_saison = co.id_saison"));
 	}
 	
@@ -350,11 +358,11 @@ function adh_recherche($ou, $quoi, $table, $id_saison, $techbase, $encadrant, $n
 	adhclub_log("count_auteurs=$count_auteurs.", true);
 	adhclub_log("$debug1 FIN.", true);*/
 	
-	/*$debug1= "DEBUG adhclub JR : adhclub_fonctions adh_recherche - Pt91 - ";
+	$debug1= "DEBUG adhclub JR : adhclub_fonctions adh_recherche - Pt91 - ";
 	adhclub_log("$debug1.", true);
 	$sql_adh_auteurs = sql_get_select($adhselect, $adhfrom, $adhwhere, $adhgroupby, $adhorderby, $adhlimit);
 	adhclub_log("sql_adh_auteurs=$sql_adh_auteurs.", true);
-	adhclub_log("$debug1 FIN.", true);*/
+	adhclub_log("$debug1 FIN.", true);
 	
 	/*$debug1= "DEBUG adhclub JR : adhclub_fonctions adh_recherche - Pt92 - ";
 	adhclub_log("$debug1.", true);

@@ -39,6 +39,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'page_info_adhsaison' => "Cette page vous permet de g&eacute;rer les saisons d'exercice de votre club",
 	// S
 	'saison' => 'Saison',
+	'saison_activ' => 'Saison(s) active(s)',
 	'saison_deb' => 'D&eacute;but de Saison du Club (jj/mm/aaaa) :',
 	'saison_encours' => 'Saison en cours de validit&eacute; ?',
 	'saison_encours_exp' => 'Cette saison est-elle celle en cours de validit&eacute; ?',

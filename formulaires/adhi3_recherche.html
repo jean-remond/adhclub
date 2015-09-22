@@ -32,7 +32,7 @@ JR-12/08/2012-Creation du squelette.
 				<ul>
 				
 					[(#REM) gestion de la saison ]
-					#SET{datassaisr,#ARRAY}
+					#SET{datassaisr,#ARRAY{Saisons actives,99999}}
 					<B_saisons>
 					<BOUCLE_saisons(ADHSAISONS){par titre}>
 	        			#SET{datassaisr, #GET{datassaisr}|array_merge{#ARRAY{Saison:#TITRE,#ID_SAISON}}}

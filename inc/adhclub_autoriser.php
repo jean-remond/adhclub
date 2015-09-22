@@ -32,10 +32,10 @@ function adhclub_autoriser(){}
  * @return unknown
  */
 // seuls les rédacteurs et admins peuvent voir
-function autoriser_auteur_voirextra_certifaspirine_dist() {
+/*function autoriser_auteur_voirextra_certifaspirine_dist() {
 	return in_array($qui['statut'], array('0minirezo', '1comite'));
 }
-/*function autoriser_auteur_voirextra_certiflimite_dist() {
+function autoriser_auteur_voirextra_certiflimite_dist() {
 	return in_array($qui['statut'], array('0minirezo', '1comite'));
 }
 function autoriser_auteur_voirextra_certifqualif_dist() {
@@ -88,10 +88,10 @@ function autoriser_auteur_creerassurdans($faire,$quoi,$id,$qui,$opts){
 	return false;
 }
 // seuls les admins peuvent modifier
-function autoriser_auteur_modifierextra_certifaspirine_dist() {
+/*function autoriser_auteur_modifierextra_certifaspirine_dist() {
 	return in_array($qui['statut'], array('0minirezo'));
 }
-/*function autoriser_auteur_modifierextra_certiflimite_dist() {
+function autoriser_auteur_modifierextra_certiflimite_dist() {
 	return in_array($qui['statut'], array('0minirezo'));
 }
 function autoriser_auteur_modifierextra_certifqualif_dist() {
