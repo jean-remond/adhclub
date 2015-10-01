@@ -3,9 +3,9 @@
  * Plugin adh_club : Adherent Club pour Spip 3.0
  * Licence GPL (c) 2011-2015 Jean Remond
  *
- * @todo-JR-30/01/2015-A valider, liste champs ne fonctionne pas en recherhe !!
  * @todo-JR-23/08/2015-Rechercher la syntaxe des icone_objet.
  * Fait :
+ * JR-01/10/2015-Liste champs en recherhe pour admnivs.
  * JR-01/09/2015-Revue des exceptions sur les champs extras.
  */
 
@@ -190,7 +190,10 @@ $tables['spip_adhnivs'] = array(
 	'champs_editables'	=> array(
 		"titre", "descriptif", "techbase", "encadrant", "id_trombi", "rangtrombi"
 		),
-	'icone_objet'			=> "adhniveau-24.png",
+	'rechercher_champs' => array(
+			'titre' => 8, 'descriptif' => 1, 'techbase' => 3, 'encadrant' => 2
+		),
+ 	'icone_objet'			=> "adhniveau-24.png",
 	'texte_objet'			=> "adhniv:titre_adhniv",
 	'texte_objets'			=> "adhniv:titre_adhnivs",
 	'texte_ajouter'			=> 'adhniv:ajouter_adhniv',
@@ -540,14 +543,4 @@ $champs['spip_auteurs']['divers'] = array(
 return $champs;	
 }
 
- function adhclub_rechercher_liste_des_champs($tables){
- 	// @toto-JR-30/01/2015-A valider, ne fonctionne pas en recherhe !!
-    // ajouter les champs de recherche avec leur pertinence (grand = plus fort)
-    $tables['adhnivs']['titre'] = 3;
-    $tables['adhnivs']['descriptif'] = 3;
-    $tables['adhnivs']['techbase'] = 3;
-    $tables['adhnivs']['encadrant'] = 3;
-    // retourner le tableau
-    return $tables;
-    }
 ?>

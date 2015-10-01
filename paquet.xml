@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?><paquet
 	prefix="adhclub"
 	categorie="squelette"
-	version="3.0.22"
+	version="3.0.23"
 	etat="dev"
 	compatibilite="[3.0.17;["
 	logo="prive/themes/spip/images/adhclub-32.png"
-	schema="3.0.4"
+	schema="3.1.0"
 	>	
 	<!-- documentation="pas faite" -->
 
@@ -19,7 +19,6 @@
 	<pipeline nom="declarer_tables_objets_sql" inclure="base/adhclub.php" />
 	<pipeline nom="declarer_tables_auxiliaires" inclure="base/adhclub.php" />
 	<pipeline nom="declarer_tables_interfaces" inclure="base/adhclub.php" />
-	<pipeline nom="rechercher_liste_des_champs" inclure="base/adhclub.php" />
 	<pipeline nom="affiche_milieu" inclure="adhclub_pipelines.php" />
     <!--  <pipeline nom="affiche_enfants" inclure="adhclub_pipelines.php" /> -->
 

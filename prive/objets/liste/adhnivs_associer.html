@@ -13,7 +13,7 @@
     id_niveau,-1,
 	multi titre,1,
 }})]
-[(#SET{_MAX_ADHNIV_LISTE,[(#VAL{_MAX_ADHNIV_LISTE}|defined|?{[(#VAL{_MAX_ADHNIV_LISTE}|constant)],80})]})]
+[(#SET{_MAX_ADHNIV_LISTE,[(#VAL{_MAX_ADHNIV_LISTE}|defined|?{[(#VAL{_MAX_ADHNIV_LISTE}|constant)],50})]})]
 <BOUCLE_exclus(ADHNIVS){tout}{id_objet}{objet}{doublons 1}{doublons 2} />
 <BOUCLE_nb_adhnivs(ADHNIVS){tout}{doublons 1} />#SET{total,#TOTAL_BOUCLE}<//B_nb_adhnivs>
 
