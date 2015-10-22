@@ -6,6 +6,8 @@
 ----------------------------------------------
 Recherche des auteurs basee sur les criteres inscription3 et adhclub. 
 ----------------------------------------------
+@todo : JR-22/10/205-Revoir att obligatoire et html5 pour selection
+Fait
 JR-20/09/2015-Revue code des saisies.
 JR-10/01/2015-Adaptation spip 3.0.
 JR-07/04/2013-Tester si l’espace est public ou prive pour Bt export sur prive slt.
@@ -41,9 +43,9 @@ JR-12/08/2012-Creation du squelette.
 					</B_saisons>
 
 					[(#SAISIE{selection, id_saison, 
-						obligatoire=non,
-						label=<:adhsaison:saison_rech:>,
 						datas=#GET{datassaisr},
+						label=<:adhsaison:saison_rech:>,
+						obligatoire=non,
      				disable}
 					)]
 
@@ -52,32 +54,30 @@ JR-12/08/2012-Creation du squelette.
 					[(#REM) A partir du mot_cle 'Niveau_Technique'.]
 					#SET{datastechbase,#ARRAY}
 					<B_techbase>
-					<BOUCLE_techbase(MOTS){type='Niveau_Technique'}>
-		        			#SET{datastechbase, #GET{datastechbase}|array_merge{#ARRAY{#TITRE,#ID_MOT}}}
+					<BOUCLE_techbase(GROUPES_MOTS){titre='Niveau_Technique'}>
+		        			#SET{groupetechbase, #ID_GROUPE}
 					</BOUCLE_techbase>
-						#SET{datastechbase, #GET{datastechbase}|array_flip}      
 					</B_techbase>
 
-					[(#SAISIE{selection, techbase, 
-						obligatoire=non,
+					[(#SAISIE{mot, techbase, 
 						label=<:adhniv:niveau_techbase:>,
-						datas=#GET{datastechbase}}
+						obligatoire=non,
+						id_groupe=#GET{groupetechbase}}
 					)]
        
         
 					[(#REM) A partir du mot_cle 'Niveau_Encadrement'.]
 					#SET{datasencad,#ARRAY}
 					<B_encad>
-					<BOUCLE_encad(MOTS){type='Niveau_Encadrement'}>
-		        		#SET{datasencad, #GET{datasencad}|array_merge{#ARRAY{#TITRE,#ID_MOT}}}
+					<BOUCLE_encad(GROUPES_MOTS){titre='Niveau_Encadrement'}>
+		        		#SET{groupeencad, #ID_GROUPE}
 					</BOUCLE_encad>
-						#SET{datasencad, #GET{datasencad}|array_flip}      
 					</B_encad>
 
-					[(#SAISIE{selection, encadrant, 
-						obligatoire=non,
+					[(#SAISIE{mot, encadrant, 
 						label=<:adhniv:niveau_encadrant:>,
-						datas=#GET{datasencad}}
+						obligatoire=non,
+						id_groupe=#GET{groupeencad}}
 					)]
         
 
@@ -91,7 +91,6 @@ JR-12/08/2012-Creation du squelette.
 					</B_niv>
 
 					[(#SAISIE{selection, niveau, 
-						obligatoire=non,
 						label=<:adhniv:niveau:>,
 						datas=#GET{datasniv}}
 					)]
@@ -105,7 +104,6 @@ JR-12/08/2012-Creation du squelette.
 						}
 
 					[(#SAISIE{selection, niv_rel, 
-						obligatoire=non,
 						label=<:adhniv:niveau_rel:>,
 						datas=#GET{datasniv_rel}}
 					)]

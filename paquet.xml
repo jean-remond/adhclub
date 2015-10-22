@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><paquet
 	prefix="adhclub"
 	categorie="squelette"
-	version="3.0.23"
+	version="3.0.24"
 	etat="dev"
 	compatibilite="[3.0.17;["
 	logo="prive/themes/spip/images/adhclub-32.png"
