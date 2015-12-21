@@ -8,7 +8,7 @@ Chaque adhérent est associé à des informations qualifiantes au regard des act
 
 Ce plugin ne gère pas du tout la partie comptable du Club, juste l’information coût pour les cotisations et assurances.
 ------------------------
-Documentation sr spip-contrib : http://contrib.spip.net/ecrire/?exec=article&id_article=4716 (Proposé le 16/11/).
+Documentation sur spip-contrib : http://contrib.spip.net/ecrire/?exec=article&id_article=4716 (Proposé le 16/11/).
 
 Opérationnel sur le site wwww.dijon-plongee.com
 ------------------------

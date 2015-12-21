@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?><paquet
 	prefix="adhclub"
 	categorie="squelette"
-	version="3.0.24"
+	version="3.0.26"
 	etat="dev"
-	compatibilite="[3.0.17;["
+	compatibilite="[3.0.17;3.0.*]"
 	logo="prive/themes/spip/images/adhclub-32.png"
 	schema="3.1.0"
 	>	

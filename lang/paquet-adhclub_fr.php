@@ -24,5 +24,6 @@ _ Ce plugin ne g&eacute;re pas du tout la partie comptable du Club, juste l\'inf
 		',
 	'adhclub_nom' => "Gestion des Adhérents pour un Club",
 	'adhclub_slogan' => 'Gestion des donn&eacute;es li&eacute;es aux activit&eacute;s des adh&eacute;rents pour un club',
+	'adhclub_titre' => "Gestion des Adhérents pour un Club",
 );
 ?>
