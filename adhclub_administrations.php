@@ -39,21 +39,7 @@ function adhclub_upgrade($nom_meta_base_version, $version_cible){
 	echo "maj= <br />"; var_dump($maj); echo ".<br />";
 	echo "FIN ", $debug1;
 */
- 	$maj['3.0.3'] = array(	
-    	array(
-    		'maj_tables', array(
-    			'spip_adhassurs', 
-				'spip_adhcotis',
-				'spip_adhnivs',
-				'spip_adhsaisons',
-				'spip_adhintgs',
-				'spip_adhassurs_liens',
-				'spip_adhcotis_liens',
-				'spip_adhnivs_liens',
-     			)
-    		),
- 		);
- 	$maj['3.0.4'] = array(	
+ 	/*$maj['201703011400'] = array(	
     	array(
     		'maj_tables', array(
     			'spip_adhassurs', 
@@ -61,7 +47,7 @@ function adhclub_upgrade($nom_meta_base_version, $version_cible){
 				'spip_adhnivs',
      			)
     		),
- 		);
+ 		);*/
  	/*$maj['201501261530'] = array(	
 		array('sql_insertq', 'spip_adhassurs_liens', array(
  			sql_allfetsel('id_assur, id_auteur, "auteur", ""', 'spip_adhassurs_auteurs')

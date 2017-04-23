@@ -1,3 +1,17 @@
+[(#REM) <!-- 
+ * Edition d'une assurance.
+ *
+ * @plugin     Plugin adhclub : Adherent Club pour Spip 3.1
+ * @copyright  2017
+ * @author     Jean-Gabriel Remond
+ * @licence    GNU/GPL
+ * @package    SPIP/adhclub/saisies - Saisies
+ * ----
+ * @todo : JR-01/03/2017-Revoir la securite de changement de saison.
+ * Fait:
+ * JR-01/03/2017-Adapte pour saisie dela saison pour Spip 3.1.
+ --> ]
+
 <div class="formulaire_spip formulaire_editer formulaire_#FORM formulaire_#FORM-#ENV{id_assur,nouveau}">
 	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV*{message_ok})</p>]
 	[<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
@@ -7,78 +21,46 @@
 		parametre : url d'action ]
 		#ACTION_FORMULAIRE{#ENV{action}}
 		<input type='hidden' name='id_assur' value='#ID_ASSUR' />
-	  <ul>
+		<ul>
 
-		<li>
-		[(#SAISIE{input, titre, obligatoire=oui, 
-			label=<:adhassur:titre_adhassur:>, 
-			explication=<:adhassur:titre_exp_adhassur:>,
-			maxlength=25}
-		)]
-		</li>
+			[(#SAISIE{input, titre, obligatoire=oui, 
+				label=<:adhassur:titre_adhassur:>, 
+				explication=<:adhassur:titre_exp_adhassur:>,
+				maxlength=25}
+			)]
 
-		<li>
-		[(#SAISIE{textarea, descriptif,
-			label=<:adhclub:descriptif:>, 
-			rows=3}
-		)]
-		</li>
+			[(#SAISIE{textarea, descriptif,
+				label=<:adhclub:descriptif:>, 
+				rows=3}
+			)]
 
-		<li>
-		[(#SAISIE{input, mnt_assur, obligatoire=oui, 
-			label=<:adhassur:mnt_adhassur:>, 
-			maxlength=7}
-		)]
-		</li>
+			[(#SAISIE{input, mnt_assur, obligatoire=oui, 
+				label=<:adhassur:mnt_adhassur:>, 
+				maxlength=7}
+			)]
 
-		[(#REM) gestion de la saison ]
-		#SET{datassaisa,#ARRAY}
-		<?php
+			[(#REM) gestion de la saison ]
+			[(#SESSION{statut}|=={0minirezo}|oui)
+				[(#SAISIE{saisons,id_saison,obligatoire=oui,
+				label=<:adhsaison:choix_saison:>,
+				explication=<:adhsaison:choix_saison_exp:>,
+				class=chosen
+				})]
+			]
 
-		//if (($id_assur = intval('[(#ID_ASSUR)]')) AND (!$qui['statut']=='0minirezo')) {
-		if ($id_assur = intval('[(#ID_ASSUR)]')) { 
-		?>
+			[(#SESSION{statut}|=={0minirezo}|non)
+				[(#SAISIE{saisons,id_saison,obligatoire=oui,
+				label=<:adhsaison:choix_saison:>,
+				explication=<:adhsaison:choix_saison_exp:>,
+				disable=oui,
+				readonly=oui
+				})]
+			]
 
-			[(#REM) JR-18/10/2012-Si ENV editable sur le formulaire, il ne faut pas de boucle interne !! ]
-			[(#REM) JR-25/06/2012-Si maj assurance, alors saison en affichage seul ]
-			<B_aff_saisons>
-			<BOUCLE_aff_saisons(ADHSAISONS){id_saison=#ID_SAISON}{0,1}>
-				#SET{datassaisa, #GET{datassaisa}|array_merge{#ARRAY{Saison:#TITRE,#ID_SAISON}}}
-			</BOUCLE_aff_saisons>
-				#SET{datassaisa, #GET{datassaisa}|array_flip} 
-			</B_aff_saisons>
-
-		<?php 
-		}else{
-		?>
-
-			[(#REM) JR-25/06/2012-Si creation assurance, alors saison en selection ]
-			[(#REM) Proposition Saison a partir de la table 'ADHSAISONS'. ]
-			<B_saisons>
-			<BOUCLE_saisons(ADHSAISONS){par saison_deb}{inverse}{0,3}>
-				#SET{datassaisa, #GET{datassaisa}|array_merge{#ARRAY{Saison:#TITRE,#ID_SAISON}}}
-			</BOUCLE_saisons>
-				#SET{datassaisa, #GET{datassaisa}|array_flip}
-			</B_saisons>
-
-		<?php
-		}
-		?>
-
-
-			<li>
-				[(#SAISIE{selection, id_saison, obligatoire=oui,
-					label=<:adhassur:saison_adhassur:>,
-					explication=<:adhassur:saison_exp_adhassur:>,
-					datas=#GET{datassaisa}}
-				)]
-			</li>
-
-
-	  </ul>
-	  [(#REM) ajouter les saisies supplementaires : extra et autre, a cet endroit ]
-	  <!--extra-->
-	  <p class='boutons'><input type='submit' class='submit' value='[(#ID_ASSUR|intval|?{<:bouton_enregistrer:>,<:bouton_ajouter:>})]' /></p>
+		</ul>
+		[(#REM) ajouter les saisies supplementaires : extra et autre, a cet endroit ]
+		<!--extra-->
+		<p class='boutons'><input type='submit' class='submit' value='[(#ID_ASSUR|intval|?{<:bouton_enregistrer:>,<:bouton_ajouter:>})]' /></p>
 	</div></form>
 	]
 </div>

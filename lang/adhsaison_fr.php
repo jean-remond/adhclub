@@ -22,6 +22,8 @@ if (!defined('_ECRIRE_INC_VERSION')) return;
 $GLOBALS[$GLOBALS['idx_lang']] = array(
 
 	// C
+	'choix_saison' => 'Choix de la saison d\'application',
+	'choix_saison_exp' => 'La saison, une fois choisie, ne peut &eacute;tre modifi&eacute;e que par le Webmaster',
 	'confirmer_supprimer_saison' => '&Ecirc;tes-vous s&ucirc;r de vouloir supprimer cette saison ?',
 	'creer_adhsaison_associer' => 'Créer et associer une saison',
 	// I
