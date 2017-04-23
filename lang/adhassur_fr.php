@@ -58,9 +58,6 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	// P
 	'page_adhassurs' => 'Assurances pour les adh&eacute;rents',
 	'page_info_adhassur' => 'Cette page vous permet de g&eacute;rer les assurances propos&eacute;es par votre club',
-	// S
-	'saison_adhassur' => 'Choix de la saison d\'application',
-	'saison_exp_adhassur' => 'La saison, une fois choisie, ne peut &eacute;tre modifi&eacute;e que par le Webmaster',
 	// T
 	'texte_changer_statut_adhassur' => 'Cette assurance est :',
 	'titre_adhassur' => 'Assurance du Club',

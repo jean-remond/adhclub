@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?><paquet
 	prefix="adhclub"
 	categorie="squelette"
-	version="3.0.29"
+	version="3.1.0"
 	etat="dev"
-	compatibilite="[3.0.17;3.0.*]"
+	compatibilite="[3.0.17;3.1.*]"
 	logo="prive/themes/spip/images/adhclub-32.png"
-	schema="3.1.0"
+	schema="201703011400"
+	documentation="https://contrib.spip.net/Adherents-Club"
 	>	
-	<!-- documentation="pas faite" -->
 <!--
- * JR-01/03/2017-V3.0.29-3.1.0-Derniere ersion pour Spip 3.0.
+ * JR-01/03/2017-V3.1.0-201703011400-Travail pour Spip 3.1.
+ * JR-01/03/2017-V3.0.29-3.1.0-Derniere version pour Spip 3.0.
  * -->
 
 	<nom>Gestion des Adhérents pour un Club</nom>

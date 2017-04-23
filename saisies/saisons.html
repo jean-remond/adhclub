@@ -1,0 +1,50 @@
+[(#REM) <!-- 
+ * Permet le choix d'une saison.
+ *
+ * @plugin     Plugin adhclub : Adherent Club pour Spip 3.1
+ * @copyright  2017
+ * @author     Jean-Gabriel Remond
+ * @licence    GNU/GPL
+ * @package    SPIP/adhclub/saisies - Saisies
+ * ----
+ *   Parametres :
+ * - class : classe(s) css ajoutes au select
+ * - multiple : si quelquechose est passe, le select est multiple, sinon, c'est un select simple
+ * 	Dans le cas multiple, defaut et valeur doivent etre un array, sinon un int
+ * - option_intro : chaine de langue de la premiere ligne vide ? (defaut:"")
+ *   (seulement si non multiple)
+ * - cacher_option_intro : pas de premier option vide  (defaut:"")
+ *	 
+ * Exemple d'appel :
+ *	[(#SAISIE{id_saison,acces,
+ *		label=<:adhassur:saison_adhassur:>,
+ *		explication=<:adhassur:saison_exp_adhassur:>,
+ *		multiple=non})] 
+ * ----
+ * @todo :
+ * Fait:
+ * JR-01/03/2017-Cree pour Spip 3.1.
+ --> ]
+
+[(#ENV{multiple}|oui)
+	[(#SET{valeur,[(#ENV*{valeur}|is_array|?{[(#ENV*{valeur})],[(#ENV*{valeur}|explode{','})]})]})]
+]
+
+<select name="#ENV{nom}[(#ENV{multiple}|?{[(#VAL{&#91;&#93;}|html_entity_decode)]})]" 
+	id="champ_#ENV{nom}"
+	[ class="(#ENV{class})"]
+	[(#ENV{multiple}|oui) multiple="multiple"]
+	[ disabled="(#ENV{disable})"]
+	[ readonly="(#ENV{readonly})"] 
+	>
+	[(#ENV{cacher_option_intro}|ou{#ENV{multiple}}|non)
+		<option value="">[(#ENV{option_intro})]</option>]
+
+	[(#REM) Proposition Saison a partir de la table 'ADHSAISONS'. ]
+	<BOUCLE_saisons(ADHSAISONS){par saison_deb}{inverse}{0,3}>
+		[(#ENV{multiple}|oui)
+		<option value="#ID_SAISONS"[(#ID_SAISONS|in_array{#ENV{valeur,#ENV{defaut,#ARRAY}}}|oui) selected="selected"]>#TITRE</option>]
+		[(#ENV{multiple}|non)
+		<option value="#ID_SAISON"[(#ID_SAISON|=={#ENV{valeur,#ENV{defaut}}}|oui) selected="selected"]>#TITRE</option>]
+	</BOUCLE_saisons>
+</select>
