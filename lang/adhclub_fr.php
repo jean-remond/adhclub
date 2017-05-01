@@ -102,7 +102,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'nom' => 'Nom (de famille)',
     // P
 	'page_info_adhclub' => "Vous trouverez ici tous les utilisateurs inscrits sur le site.
-		<br/>Par défaut, aucune sélection n'est faite. Si un critère est saisi, la notion de saison active est automatiquement appliquée.",
+		<br/>Par défaut, aucune sélection n'est faite. Si un critère est saisi, la notion de saison doit être renseignée.",
 	'par_encadrant' => 'Encadrant',
 	'par_licence' => 'Licence',
 	'par_nom' => 'Nom',

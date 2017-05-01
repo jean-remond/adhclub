@@ -13,6 +13,7 @@
  * 
  * Fait :
  * ----
+ * JR-30/04/2017-Revue des logs.
  * JR-20/09/2015-Revue gestion email fictif.
  * JR-10/01/2015-Adaptation spip 3.0.
  * JR-12/03/2013-Ajout des criteres niveau relatif.
@@ -73,6 +74,15 @@ function formulaires_adhi3_recherche_charger_dist($type_objet, $id_objet){
 		set_request('case','');
 	}
 
+	/*$debug1= "DEBUG adhclub JR - Pt05 -";
+	spip_log($debug1, 'adhclub.' . _LOG_INFO_IMPORTANTE);
+	if(is_array($datas)){
+		spip_log("datas=", 'adhclub.' . _LOG_INFO_IMPORTANTE);
+		$debug2 = implode(', ',$datas);
+		spip_log("$debug2.", 'adhclub.' . _LOG_INFO_IMPORTANTE);
+	}
+	spip_log("FIN $debug1.", 'adhclub.' . _LOG_INFO_IMPORTANTE);*/
+
 	return $datas;
 }
 
@@ -84,6 +94,25 @@ function formulaires_adhi3_recherche_verifier_dist($type_objet, $id_objet){
 	global $visiteur_session;
 	global $email_env;
 
+	// Si au mons 1 critere, la saison non renseignee est forcee a defaut.
+	// JR-30/04/2017-Ne fonctionne pas !!
+	/**if(_request('id_saison' == '') &&
+		(_request('techbase')
+			||_request('encadrant')
+			||_request('niveau')
+			||_request('niv_rel')
+			||_request('valeur')
+			||_request('case'))
+		){
+		set_request('id_saison','99999');
+	} */
+
+	/*$debug1= "DEBUG adhclub JR - Pt35 -";
+	spip_log($debug1, 'adhclub.' . _LOG_INFO_IMPORTANTE);
+	$debug2 = _request('id_saison');
+	spip_log("id_saison=$debug2.", 'adhclub.' . _LOG_INFO_IMPORTANTE);
+	spip_log("FIN $debug1.", 'adhclub.' . _LOG_INFO_IMPORTANTE);*/
+	
 	if(_request('mailer_liste')){
 		
 		$auteurs_checked = _request('check_aut');
@@ -135,13 +164,20 @@ function formulaires_adhi3_recherche_traiter_dist($type_objet, $id_objet){
 		$criteres = $criteres . '|' . _request('encadrant');
 		$criteres = $criteres . '|' . _request('niveau');
 		$criteres = $criteres . '|' . _request('niv_rel');
+
+		$debug1= "DEBUG adhclub JR - Pt65 -";
+		spip_log($debug1, 'adhclub.' . _LOG_INFO_IMPORTANTE);
+		if(is_array($criteres)){
+			spip_log("criteres=", 'adhclub.' . _LOG_INFO_IMPORTANTE);
+			$debug2 = implode(', ',$criteres);
+			spip_log("$debug2.", 'adhclub.' . _LOG_INFO_IMPORTANTE);
+		}else{
+			spip_log("criteres=$criteres.", 'adhclub.' . _LOG_INFO_IMPORTANTE);
+		}
+		spip_log("FIN $debug1.", 'adhclub.' . _LOG_INFO_IMPORTANTE);
 		
-		/*$debug1= "DEBUG adhclub JR : formulaires_adhi3_recherche - formulaires_adhi3_recherche_traiter - Pt05 -";
-		adhclub_log("$debug1.", true);
-		adhclub_log("criteres=$criteres.", true);
-		adhclub_log("FIN $debug1.", true);
-		*/
 		$retour['redirect'] = generer_url_ecrire("adhauteurs_export","criteres=$criteres&retour=".urlencode(self()));
+		
 	}
 	
 	

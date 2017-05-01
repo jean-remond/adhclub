@@ -1,0 +1,20 @@
+[(#REM) <-- Plugin adh_club : Adherent Club pour Spip 3.1
+ * Licence GPL (c) 2011-2017 Jean Remond
+----------------------------------------------
+Choix d'affichage de la recherche des auteurs basee sur les criteres inscription3 et adhclub. 
+	Cette fonction est appelee pour extraire la boucle du formulaire.
+----------------------------------------------
+JR-30/04/2017-Creation du squelette pour spip3.1.
+-->] 
+
+<INCLURE{fond=prive/inclure/adh_legende_adherent_top}>
+		
+[(#REM) <--
+	JR-26/01/2012-Completer acces a adh_auteur_recherche avec autres criteres.
+--> ]
+[(#ENV{id_saison}|ou{#ENV{techbase}}|ou{#ENV{encadrant}}|ou{#ENV{valeur}}|ou{#ENV{niveau}}|oui)
+	<INCLURE{fond=prive/objets/liste/adh_auteur_recherche}{ajax}{ordre}{env}>
+]
+[(#ENV{id_saison}|ou{#ENV{techbase}}|ou{#ENV{encadrant}}|ou{#ENV{valeur}}|ou{#ENV{niveau}}|non)
+	<INCLURE{fond=prive/table_adherent_auteur}{ajax}{ordre}{env}>
+]

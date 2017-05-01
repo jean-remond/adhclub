@@ -1,7 +1,7 @@
 <?php
 /**
- * Plugin adh_club : Adherent Club pour Spip 3.0
- * Licence GPL (c) 2011-2015 Jean Remond
+ * Plugin adh_club : Adherent Club pour Spip 3.1
+ * Licence GPL (c) 2011-2017 Jean Remond
  * ----------------------------------------------
  * Telechargement des donnees filtrees des auteurs. 
  * D'apres le plugin csv_import de Cedric MORIN
@@ -10,6 +10,7 @@
  * 
  * Fait :
  * ----
+ * JR-01/05/2017-Revue des logs.
  * JR-25/03/2015-Utilisation des F(spip_bonux) existantes.
  * JR-03/02/2015-Adaptation a Spip 3.0
  * JR-06/08/2013-Ajout des criteres dans fichier exporte.
@@ -18,7 +19,7 @@
  */
 
 include_spip("inc/exporter_csv");
-include_spip("inc/adhauteurs_export");
+//include_spip("inc/adhauteurs_export");
 include_spip("inc/presentation");
 /**
  * Traitement de l'export des donnees auteurs.
@@ -36,10 +37,14 @@ function exec_adhauteurs_export(){
 	// Preparation de l'export des criteres (mise en forme dans le fichier out)
 	// -- saison --
 	if (intval($criteres[2])){
-		$lib_criteres = sql_getfetsel('titre', 'spip_adhsaisons',array('id_saison='.intval($criteres[2])));
-		$export_crit[0] = array('Saison',$lib_criteres);
+		if ($criteres[2]==99999){
+			$export_crit[0] = array("Saison(s)","active(s)");
+		}else{
+			$lib_criteres = sql_getfetsel('titre', 'spip_adhsaisons',array('id_saison='.intval($criteres[2])));
+			$export_crit[0] = array('Saison',$lib_criteres);
+		}
 	}else{
-		$export_crit[0] = array('Saison','active');
+		$export_crit[0] = array("Toutes","saisons");
 	}
 	// -- technique --
 	IF (intval($criteres[3])){
@@ -71,17 +76,17 @@ function exec_adhauteurs_export(){
 	$export_crit[4] = array('Champ',$criteres[0],$criteres[1]);
 	
 	/*$debug1= "DEBUG adhclub JR : exec/adhauteurs_export - exec_adhauteurs_export - Pt05 - ";
-	adhclub_log("$debug1.", true);
-	adhclub_log("criteres tot= $criteres_tot.", true);
-	adhclub_log("criteres 0= $criteres[0].", true);
-	adhclub_log("criteres 1= $criteres[1].", true);
-	adhclub_log("criteres 2= $criteres[2].", true);
-	adhclub_log("criteres 3= $criteres[3].", true);
-	adhclub_log("criteres 4= $criteres[4].", true);
-	adhclub_log("criteres 5= $criteres[5].", true);
-	adhclub_log("criteres 6= $criteres[6].", true);
-	adhclub_log("criteres 7= $criteres[7].", true);
-	adhclub_log("FIN $debug1.", true);
+	spip_log("$debug1.", 'adhclub.' . _LOG_INFO_IMPORTANTE);
+	spip_log("criteres tot= $criteres_tot.", 'adhclub.' . _LOG_INFO_IMPORTANTE);
+	spip_log("criteres 0= $criteres[0].", 'adhclub.' . _LOG_INFO_IMPORTANTE);
+	spip_log("criteres 1= $criteres[1].", 'adhclub.' . _LOG_INFO_IMPORTANTE);
+	spip_log("criteres 2= $criteres[2].", 'adhclub.' . _LOG_INFO_IMPORTANTE);
+	spip_log("criteres 3= $criteres[3].", 'adhclub.' . _LOG_INFO_IMPORTANTE);
+	spip_log("criteres 4= $criteres[4].", 'adhclub.' . _LOG_INFO_IMPORTANTE);
+	spip_log("criteres 5= $criteres[5].", 'adhclub.' . _LOG_INFO_IMPORTANTE);
+	spip_log("criteres 6= $criteres[6].", 'adhclub.' . _LOG_INFO_IMPORTANTE);
+	spip_log("criteres 7= $criteres[7].", 'adhclub.' . _LOG_INFO_IMPORTANTE);
+	spip_log("FIN $debug1.", 'adhclub.' . _LOG_INFO_IMPORTANTE);
 	*/
 	
 	$retour = _request('retour');
@@ -185,7 +190,8 @@ function exec_adhauteurs_export(){
 		
 	// -- Si la saison est explicite, 
 	//    on recherche les données Cotisations et Assurances associees a chaque auteur
-	if (intval($criteres[2])){
+	if (intval($criteres[2]
+		&& $criteres[2]<>99999)){
 		$adhselect_l = array_merge($adhselect_l,
 				array(	"co_l.id_coti",
 						"co_l.titre as cotisation",
@@ -211,14 +217,15 @@ function exec_adhauteurs_export(){
 		}
 						
 		/*$debug1= "DEBUG adhclub JR : exec/adhauteurs_export - Pt25 - ";
-		adhclub_log("$debug1.", true);
+		spip_log($debug1, 'adhclub.' . _LOG_INFO_IMPORTANTE);
 		$debug2 = sql_get_select($adhselect_l, $adhfrom_l, sql_in('au.id_auteur', $sql_adh_auteurs));
-		adhclub_log("debug2=$debug2.", true);
-		adhclub_log("adhwhere_l=$adhwhere_l.", true);
+		spip_log("debug2=$debug2.", 'adhclub.' . _LOG_INFO_IMPORTANTE);
+		spip_log("adhwhere_l=$adhwhere_l.", 'adhclub.' . _LOG_INFO_IMPORTANTE);
 		$debug3 = sql_get_select($adhselect_l, $adhfrom_l, $adhwhere_l);
-		adhclub_log("debug3=$debug3.", true);
-		adhclub_log("FIN $debug1.", true);
+		spip_log("debug3=$debug3.", 'adhclub.' . _LOG_INFO_IMPORTANTE);
+		spip_log("FIN $debug1.", 'adhclub.' . _LOG_INFO_IMPORTANTE);
 		*/
+		
 		if ($export_auteurs = sql_allfetsel($adhselect_l, $adhfrom_l, $adhwhere_l)) {
 
 			foreach ($export_auteurs as $ligne) {
@@ -227,9 +234,10 @@ function exec_adhauteurs_export(){
 				foreach($ligne as $k=>$v){
 
 					/*$debug1= "DEBUG adhclub JR : exec/adhauteurs_export - Pt35 - ";
-					adhclub_log("$debug1.", true);
-					adhclub_log("k= $k , v= $v.", true);
-					adhclub_log("FIN $debug1.", true);*/
+					spip_log("$debug1.", 'adhclub.' . _LOG_INFO_IMPORTANTE);
+					spip_log("k= $k , v= $v.", 'adhclub.' . _LOG_INFO_IMPORTANTE);
+					spip_log("FIN $debug1.", 'adhclub.' . _LOG_INFO_IMPORTANTE);
+					*/
 			
 					$list_entete = array_merge($list_entete,array($k));
 					$list_valeur = array_merge($list_valeur,array($v));

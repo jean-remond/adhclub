@@ -1,19 +1,22 @@
-[(#REM) <-- Plugin adhclub : Adherent Club pour Spip 3.0
- * Licence GPL (c) 2011-2015 Jean Remond
+[(#REM) <-- Plugin adhclub : Adherent Club pour Spip 3.1
+ * Licence GPL (c) 2011-2017 Jean Remond
  *	( tres vilement pompe de inscription3 par cmtmt2003, kent1, BoOz and co
  *	Licence (c) 2007-2012 - Distribue sous licence GNU/GPL v3)
  * D'apres incription3 Version : 3.0.15 SVN (6342), module formulaires/inscription3_recherche.html
-----------------------------------------------
-Recherche des auteurs basee sur les criteres inscription3 et adhclub. 
-----------------------------------------------
-@todo : JR-22/10/205-Revoir att obligatoire et html5 pour selection
-Fait
-JR-20/09/2015-Revue code des saisies.
-JR-10/01/2015-Adaptation spip 3.0.
-JR-07/04/2013-Tester si l’espace est public ou prive pour Bt export sur prive slt.
-JR-12/03/2013-Ajout des criteres niveau relatif.
-JR-11/01/2013-Ajout des criteres adh_club.
-JR-12/08/2012-Creation du squelette.
+ * ----------------------------------------------
+ * Recherche des auteurs basee sur les criteres inscription3 et adhclub. 
+ * ----------------------------------------------
+ * @todo : JR-22/10/2015-Revoir att obligatoire et html5 pour selection
+ * Fait
+ * JR-30/04/2014-Implementation du script de saisie de la saison.
+ * JR-30/04/2014-Retour vers le formulaire prive/inscription3_recherche_cas.html.
+ * JR-30/04/2014-Extraction des liste du formulaire.
+ * JR-20/09/2015-Revue code des saisies.
+ * JR-10/01/2015-Adaptation spip 3.0.
+ * JR-07/04/2013-Tester si l’espace est public ou prive pour Bt export sur prive slt.
+ * JR-12/03/2013-Ajout des criteres niveau relatif.
+ * JR-11/01/2013-Ajout des criteres adh_club.
+ * JR-12/08/2012-Creation du squelette.
 -->] 
 
 <div class="formulaire_spip ajax formulaire_#FORM" id="formulaire_adhi3_recherche">
@@ -34,20 +37,11 @@ JR-12/08/2012-Creation du squelette.
 				<ul>
 				
 					[(#REM) gestion de la saison ]
-					#SET{datassaisr,#ARRAY{Saisons actives,99999}}
-					<B_saisons>
-					<BOUCLE_saisons(ADHSAISONS){par titre}>
-	        			#SET{datassaisr, #GET{datassaisr}|array_merge{#ARRAY{Saison:#TITRE,#ID_SAISON}}}
-					</BOUCLE_saisons>
-						#SET{datassaisr, #GET{datassaisr}|array_flip} 
-					</B_saisons>
-
-					[(#SAISIE{selection, id_saison, 
-						datas=#GET{datassaisr},
-						label=<:adhsaison:saison_rech:>,
-						obligatoire=non,
-     				disable}
-					)]
+					[(#SAISIE{saisons_plus,id_saison,
+					label=<:adhsaison:choix_saison:>,
+					option_intro=" ",
+					class='choix'
+					})]
 
 
 					[(#REM) sur le site http://www.spip-contrib.net/Reference-des-saisies en date du 23/04/2011 par par Fred Montessinos.]
@@ -112,7 +106,7 @@ JR-12/08/2012-Creation du squelette.
 							<label for="valeur"><:adhclub:recherche_valeur:></label>
 							<input class="text" type="text" name="valeur" id="valeur" value="[(#ENV{valeur})]" />
 						</li>
-						<INCLURE{fond=formulaires/adhi3_recherche_cas}{case}>
+						<INCLURE{fond=prive/formulaires/inscription3_recherche_cas}{case}>
 					</ul>
 				</fieldset>
 			</li>
@@ -128,7 +122,7 @@ JR-12/08/2012-Creation du squelette.
 		<INCLURE{fond=prive/inclure/adh_legende_adherent_top}>
 		
 		[(#REM) <--
-		JR-26/01/2012-Completer acces a adh_auteur_recherche avec autres criteres.
+			JR-26/01/2012-Completer acces a adh_auteur_recherche avec autres criteres.
 		--> ]
 		[(#ENV{id_saison}|ou{#ENV{techbase}}|ou{#ENV{encadrant}}|ou{#ENV{valeur}}|ou{#ENV{niveau}}|oui)
 			<INCLURE{fond=prive/objets/liste/adh_auteur_recherche}{ajax}{ordre}{env}>
@@ -136,7 +130,7 @@ JR-12/08/2012-Creation du squelette.
 		[(#ENV{id_saison}|ou{#ENV{techbase}}|ou{#ENV{encadrant}}|ou{#ENV{valeur}}|ou{#ENV{niveau}}|non)
 			<INCLURE{fond=prive/table_adherent_auteur}{ajax}{ordre}{env}>
 		]
-
+		
 		<p class="boutons">
 			[(#REM) <--
 				JR-07/04/2013-Tester si l'espace est public ou prive pour Bt export sur prive slt.
