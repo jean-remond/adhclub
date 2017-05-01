@@ -1,10 +1,14 @@
 <?php
 /**
- * Plugin adh_club : Adherent Club pour Spip 3.0
- * Licence GPL (c) 2011-2015 Jean Remond
+ * Plugin adh_club : Adherent Club pour Spip 3.1
+ * Licence GPL (c) 2011-2017 Jean Remond
  * pour les fonctions, variables et constantes nécessaires 
- * aux mise en œuvre, mise à jour et mise au placard d’un plugin.
+ * aux mise en oeuvre, mise à jour et mise au placard d’un plugin.
+ *
+ * @todo : JR-25/04/2017-Finaliser le schema de configuration
  * 
+ * Fait :
+ * JR-25/04/2017-Pre-chargement des mots-cles.
  */
 
 //include_spip('inc/cextras');
@@ -14,6 +18,10 @@ function adhclub_upgrade($nom_meta_base_version, $version_cible){
 
 	$maj = array();
 
+	include_spip('adhclub_fonctions');
+	include_spip('inc/config');
+	include_spip('action/editer_objet');
+	
 /*	$maj['create'] = array_merge(
 		$maj['create'], */
 	$maj['create'] = array( 
@@ -28,7 +36,10 @@ function adhclub_upgrade($nom_meta_base_version, $version_cible){
 				'spip_adhcotis_liens',
 				'spip_adhnivs_liens',
 				)
-			)
+			),
+		array('install_groupe_mots'),
+		array('adhclub_configuration'),
+				
  		);
 
 	$cextraok = cextras_api_upgrade(adhclub_declarer_champs_extras(), $maj['create']);	

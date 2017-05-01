@@ -1,9 +1,14 @@
 <?php
 /**
- * Plugin adh_club : Adherent Club pour Spip 3.0
- * Licence GPL (c) 2011-2015 Jean Remond
+ * Plugin adh_club : Adherent Club pour Spip 3.1
+ * Licence GPL (c) 2011-2017 Jean Remond
  * pour les fonctions, variables et constantes nécessaires à l’espace public.
  *
+ * @todo : JR-25/04/2017-Terminer le schema de configuration.
+ * 
+ * Fait
+ * JR-01/05/2017-Revue ecriture des logs.
+ * JR-25/04/2017-Debut du schema de configuration des parametres a l'installation.
  * JR-21/09/2015-Revue validation activite.
  * JR-26/01/2015-adaptation aux tables liens.
  * JR-10/01/2015-Adaptation spip 3.0.
@@ -25,25 +30,283 @@ function adhclub_securise_squelette($letexte){
 	return "";
 }
 
-
 /**
+ * JR-01/05/2017-Aides au debuggage :
+ * Fonction inutile si on active la variable _LOG_FILELINE
+ * 
+ * cf http://www.spip.net/fr_article5506.html
+ *	define('_LOG_FILELINE', true);
+ * L'ecriture de log devient :
+ * spip_log("$debug1.", 'adhclub.' . _LOG_INFO_IMPORTANTE);
+ * 
  * logger les contenus suivant importance ou debug 
- * ADHCLUB_DEBUG definie dans adh_club_options.
+ * ADHCLUB_DEBUG definie dans adhclub_options.php.
  *
  * @param string $contenu
  * @param boolean $important
  * @return na
  */
-function adhclub_log($contenu, $important=false) {
+/* function adhclub_log($contenu, $important=false) {
 	if ($important
-			OR (defined('ADHCLUB_DEBUG') and ADHCLUB_DEBUG)) {
-		spip_log($contenu,'adhclub');
+		OR (defined('ADHCLUB_DEBUG') and ADHCLUB_DEBUG)) {
+		spip_log("$contenu.", 'adhclub.' . _LOG_INFO_IMPORTANTE);
 	}else{
-		spip_log($contenu);
+		spip_log("$contenu");
 	}
+} */
+
+/** ===============================================================================
+ *  Fonctions de configuration pour l'installation
+ *  ===============================================================================
+ */
+/**
+ * adhclub_configuration()
+ * teste et configure certaines options de spip pour adhclub.
+ * penser à incrementer la valeur de schema dans paquet.xml et celle de $maj
+ * 		dans adhclub_administrations.php en cas de mise à jour des mots cles.
+ */
+
+
+function adhclub_configuration(){
+	include_spip('inc/config');
+
+	// activer l'utilsation des mots clefs
+	$articles_mots = lire_config('articles_mots');
+	if($articles_mots == 'non')
+		ecrire_meta('articles_mots','oui');
 }
 
 
+/**
+ * Description du schema de groupes de mots et mots cles proposes de base
+ */
+function adhclub_schema_mc(){
+	$schema = array(
+		'groupes' => array(
+			array(  // creation du groupe Niveau_Encadrement
+				'titre'=>'Niveau_Encadrement',
+				'descriptif'=>'Defini les types de niveaux (encadrement, adherent, etc...',
+				'tables_liees'=>'adhnivs',
+				'unseul'=>'oui',
+				'obligatoire'=>'oui',
+				'minirezo'=>'oui',
+				'comite'=>'non',
+				'forum'=>'non'
+			),
+			array(  // creation du groupe Niveau_Technique
+				'titre'=>'Niveau_Technique',
+				'descriptif'=>'Defini les techniques pour chaque niveau (Plongee, Apnee, etc...',
+				'tables_liees'=>'adhnivs',
+				'unseul'=>'oui',
+				'obligatoire'=>'oui',
+				'minirezo'=>'oui',
+				'comite'=>'non',
+				'forum'=>'non'
+			),
+			array(  // creation du groupe Niveau_Trombi
+				'titre'=>'Niveau_Trombi',
+				'descriptif'=>'Qualification des adh&ecute;rents et crit&egrave;re de s&ecute;lection pour les articles constituants la structure du trombinoscope.
+Les mots-clés génériques (7 caractères) sont réservés pour la qualification des articles supports du Trombinoscope, surtout pour les comités directeurs.',
+				'tables_liees'=>'articles,adhnivs',
+				'unseul'=>'oui',
+				'obligatoire'=>'oui',
+				'minirezo'=>'oui',
+				'comite'=>'non',
+				'forum'=>'non'
+			),
+		),
+		'mots'=> array(
+			// Niveau_Encadrement
+			array(
+				'titre'=>'ADH',
+				'descriptif'=>'Niveaux adhérents',
+				'type'=>'Niveau_Encadrement'
+			),
+			array(
+				'titre'=>'COM',
+				'descriptif'=>'Comité, hors comité directeur',
+				'type'=>'Niveau_Encadrement'
+			),
+			array(
+				'titre'=>'DIR',
+				'descriptif'=>'Appartenance au bureau directeur',
+				'type'=>'Niveau_Encadrement'
+			),
+			array(
+				'titre'=>'ENC',
+				'descriptif'=>'Brevets d&rsquo;encadrement',
+				'type'=>'Niveau_Encadrement'
+			),
+			//Niveau_Technique
+			array(
+				'titre'=>'APN',
+				'descriptif'=>'Apnée',
+				'type'=>'Niveau_Technique'
+			),
+			array(
+				'titre'=>'CDH',
+				'descriptif'=>'Structure des Adjoints Hors Comité',
+				'type'=>'Niveau_Technique'
+			),
+			array(
+				'titre'=>'CDI',
+				'descriptif'=>'Structure du comité directeur',
+				'type'=>'Niveau_Technique'
+			),
+			array(
+				'titre'=>'PLG',
+				'descriptif'=>'Plongée scaphandre',
+				'type'=>'Niveau_Technique'
+			),
+			// Niveau_Trombi
+			array(
+				'titre'=>'APN_ADH_DEB',
+				'descriptif'=>'Les apnéistes débutants',
+				'type'=>'Niveau_Trombi'
+			),
+			array(
+				'titre'=>'APN_ENC_C2',
+				'descriptif'=>'Initiateur Entraineur Fédéral IE2',
+				'type'=>'Niveau_Trombi'
+			),
+			array(
+				'titre'=>'CD1_DIR',
+				'descriptif'=>'Direction du Club',
+				'type'=>'Niveau_Trombi'
+			),
+			array(
+				'titre'=>'CD1_SEC',
+				'descriptif'=>'Secrétaires du Club',
+				'type'=>'Niveau_Trombi'
+			),
+			array(
+				'titre'=>'CD2_COM_APN',
+				'descriptif'=>'Commission APNEE',
+				'type'=>'Niveau_Trombi'
+			),
+			array(
+				'titre'=>'CD2_COM_PLG',
+				'descriptif'=>'Commission PLONGEE Bouteille',
+				'type'=>'Niveau_Trombi'
+			),
+			array(
+				'titre'=>'PLG_ADH_N2',
+				'descriptif'=>'Adhérents en Plongée scaphandre',
+				'type'=>'Niveau_Trombi'
+			),
+			array(
+				'titre'=>'PLG_ENC_E3',
+				'descriptif'=>'E3 : Les Plongeurs Moniteurs fédéraux',
+				'type'=>'Niveau_Trombi'
+			),
+		)
+	);
+
+	return $schema;
+}
+
+// Fonction de mise a jour du schema
+/**function update_groupe_mots(){
+	include_spip('action/editer_objet');
+
+	// chargement du array des groupe et mots
+	$schema = shema_escal();
+
+	// en qu'elle version de escal est on ?
+	// si on a une meta escal_base_version, c'est qu'on est sur une version avec instalation auto
+	$meta = lire_config('escal_base_version');
+
+	// si la meta est présente
+	if($meta!=''){
+		// Maj des groupes
+		for ($i= 0 , $nbr_grp = count($schema['groupes']) ; $i < $nbr_grp ; ++$i){
+			// test si le groupe existe
+			$grp_titre = $schema['groupes'][$i]['titre'];
+			$id_grp = sql_getfetsel("id_groupe","spip_groupes_mots","titre='$grp_titre'");
+			// si pas d'id retournée on inssère
+			if($id_grp!=''){
+				//echo "Update le groupe existe déja : ".$id_grp."=> ".$grp_titre."\n";
+				sql_updateq('spip_groupes_mots', $schema['groupes'][$i], "id_groupe='$id_grp'");
+			}//sinon on met a jour
+			else{
+				//echo "Insert Le groupe n'éxiste pas => ".$grp_titre."\n";
+				$id = sql_insertq('spip_groupes_mots',$schema['groupes'][$i]);
+			}
+
+		}
+
+		//Maj des mots : on boucle sur le tableau mots
+		for ($i= 0 , $nbr_mot = count($schema['mots']) ; $i < $nbr_mot ; ++$i){
+			// test la présence du mot sur le champ titre
+			$titre = $schema['mots'][$i]['titre'];
+			$id_mot = sql_getfetsel("id_mot","spip_mots","titre='$titre'");
+			// le titre du mot est déjà présent
+			if($id_mot!=''){
+				// echo "Update le mot clef existe déja : ".$id_mot."=> ".$titre."\n";
+				$test = sql_updateq('spip_mots', $schema['mots'][$i], "titre='$titre'");
+				objet_modifier('mot',$id_mot,$schema['mots'][$i]);
+			}else{
+				// echo "Insert Le mot clef n'éxiste pas => ".$titre."\n";
+				// on extrait du array le groupe dont dépend le mot
+				$grp_titre = $schema['mots'][$i]['type'];
+				$id_grp = sql_getfetsel("id_groupe","spip_groupes_mots","titre='$grp_titre'");
+				$id_mot = objet_inserer('mot',$id_grp);
+				objet_modifier('mot',$id_mot,$schema['mots'][$i]);
+			}
+		}
+	}//si pas de meta_base on est sur une install plus ancienne
+	else{
+		// on verra plus tard ;-)
+	}
+} */
+
+
+/*
+ * function install_groupe_mot
+ * installe les groupes de mots techniques et leurs mots clefs
+ */
+/**function install_groupe_mots() {
+	include_spip('action/editer_objet');
+	// chargement du array des groupe et mots
+	$schema = shema_escal();
+	// installation des groupes
+	for ($i= 0 , $nbr_mot = count($schema['groupes']) ; $i < $nbr_mot ; ++$i){
+		$id = sql_insertq('spip_groupes_mots',$schema['groupes'][$i]);
+	}
+
+	// installation des mots
+	for ($i= 0 , $nbr_mot = count($schema['mots']) ; $i < $nbr_mot ; ++$i){
+		// on extrait du array le groupe dont dépend le mot
+		$grp_titre = $schema['mots'][$i]['type'];
+		$id_grp = sql_getfetsel("id_groupe","spip_groupes_mots","titre='$grp_titre'");
+		if($id_grp!=''){
+			$id_mot = objet_inserer('mot',$id_grp);
+			objet_modifier('mot',$id_mot,$schema['mots'][$i]);
+		}
+	}
+
+} */
+
+// Fonction de désinstalation des groupes et mots de Escal
+/**function uninstal_escal(){
+	// chargement du array des groupe et mots
+	$schema = shema_escal();
+	$id_grp = array();
+	// recuperer les id des groupes
+	for ($i= 0 , $nbr_mot = count($schema['groupes']) ; $i < $nbr_mot ; ++$i){
+		$grp_titre = $schema['groupes'][$i]['titre'];
+		$id_grp = sql_getfetsel("id_groupe","spip_groupes_mots","titre='$grp_titre'");
+		// désinstaller les mots correspondant a ce groupe
+		sql_delete("spip_mots","id_groupe='$id_grp'");
+		sql_delete("spip_groupes_mots","id_groupe='$id_grp'");
+	}
+} */
+
+
+/** ===============================================================================
+ *  Fonctions de gestion courante dynamique
+ *  ===============================================================================
+ */
 /**
  * Filtre pour tester l'appartenance 1 auteur a 1 assurance
  *
@@ -152,13 +415,14 @@ function filtre_adh_actif($id_auteur){
 			}
 		}
 	}
-	$debug1= "DEBUG adhclub JR : adhclub_fonctions filtre_adh_actif - Pt80 - ";
-	adhclub_log("$debug1.", true);
-	adhclub_log("adhfrom= implode(', ',$adhfrom).", true);
-	adhclub_log("adhwhere= implode(' AND ',$adhwhere).", true);
-	//adhclub_log("reponse_cot_sais= implode(', ',$reponse_cot_sais).", true);
-	adhclub_log("aut_actif= $aut_actif", true);
-	adhclub_log("$debug1 FIN.", true);
+	/*$debug1= "DEBUG adhclub JR - Pt80 - ";
+	spip_log("$debug1.", 'adhclub.' . _LOG_INFO_IMPORTANTE);
+	spip_log("adhfrom= implode(', ',$adhfrom).", 'adhclub.' . _LOG_INFO_IMPORTANTE);
+	spip_log("adhwhere= implode(' AND ',$adhwhere).", 'adhclub.' . _LOG_INFO_IMPORTANTE);
+	//spip_log("reponse_cot_sais= implode(', ',$reponse_cot_sais).", 'adhclub.' . _LOG_INFO_IMPORTANTE);
+	spip_log("aut_actif= $aut_actif", 'adhclub.' . _LOG_INFO_IMPORTANTE);
+	spip_log("FIN $debug1.", 'adhclub.' . _LOG_INFO_IMPORTANTE);
+	*/
 	
 return $aut_actif;
 }
@@ -302,11 +566,12 @@ function adhclub_auteurs_ds_niveaux($id_mot_tech=NULL, $id_mot_enc=NULL, $id_niv
 		}
 	}
 	
-	/*$debug1= "DEBUG adhclub JR : adhclub_fonctions adhclub_auteurs_ds_niveaux - Pt90 - ";
-	adhclub_log("$debug1.", true);
-	adhclub_log("adhfrom= implode(', ',$adhfrom).", true);
-	adhclub_log("adhwhere= implode(' AND ',$adhwhere).", true);
-	adhclub_log("$debug1 FIN.", true);*/
+	/*$debug1= "DEBUG adhclub JR - Pt90 - ";
+	spip_log("$debug1.", 'adhclub.' . _LOG_INFO_IMPORTANTE);
+	spip_log("adhfrom= implode(', ',$adhfrom).", 'adhclub.' . _LOG_INFO_IMPORTANTE);
+	spip_log("adhwhere= implode(' AND ',$adhwhere).", 'adhclub.' . _LOG_INFO_IMPORTANTE);
+	spip_log("FIN $debug1.", 'adhclub.' . _LOG_INFO_IMPORTANTE);
+	*/
 		
 }
 
@@ -352,28 +617,32 @@ function adh_recherche($ou, $quoi, $table, $id_saison, $techbase, $encadrant, $n
 
 	}
 	
-	/*$debug1= "DEBUG adhclub JR : adhclub_fonctions adh_recherche - Pt90 - ";
-	adhclub_log("$debug1.", true);
+	/*$debug1= "DEBUG adhclub JR - Pt90 - ";
+	spip_log("$debug1.", 'adhclub.' . _LOG_INFO_IMPORTANTE);
 	$count_auteurs = sql_countsel($adhfrom, $adhwhere, $adhgroupby, $adhlimit);
-	adhclub_log("count_auteurs=$count_auteurs.", true);
-	adhclub_log("$debug1 FIN.", true);*/
+	spip_log("count_auteurs=$count_auteurs.", 'adhclub.' . _LOG_INFO_IMPORTANTE);
+	spip_log("FIN $debug1.", 'adhclub.' . _LOG_INFO_IMPORTANTE);
+	*/
 	
-	$debug1= "DEBUG adhclub JR : adhclub_fonctions adh_recherche - Pt91 - ";
-	adhclub_log("$debug1.", true);
+	/*$debug1= "DEBUG adhclub JR - Pt91 - ";
+	spip_log("$debug1.", 'adhclub.' . _LOG_INFO_IMPORTANTE);
+	spip_log("criteres=$criteres.", 'adhclub.' . _LOG_INFO_IMPORTANTE);
 	$sql_adh_auteurs = sql_get_select($adhselect, $adhfrom, $adhwhere, $adhgroupby, $adhorderby, $adhlimit);
-	adhclub_log("sql_adh_auteurs=$sql_adh_auteurs.", true);
-	adhclub_log("$debug1 FIN.", true);
+	spip_log("sql_adh_auteurs=$sql_adh_auteurs.", 'adhclub.' . _LOG_INFO_IMPORTANTE);
+	spip_log("$debug1 FIN.", 'adhclub.' . _LOG_INFO_IMPORTANTE);
+	*/
 	
-	/*$debug1= "DEBUG adhclub JR : adhclub_fonctions adh_recherche - Pt92 - ";
-	adhclub_log("$debug1.", true);
+	/*$debug1= "DEBUG adhclub JR - Pt92 - ";
+	spip_log("$debug1.", 'adhclub.' . _LOG_INFO_IMPORTANTE);
 	$liste_adh_auteurs = sql_allfetsel('ca.id_auteur', $adhfrom, $adhwhere, $adhgroupby, $adhorderby, $adhlimit);
 	if(is_array($liste_adh_auteurs)){
 		foreach($liste_adh_auteurs as $un_adh){
 			$debug2 = implode(', ',$un_adh);
-			adhclub_log("$debug2.", true);
+			spip_log("$debug2.", 'adhclub.' . _LOG_INFO_IMPORTANTE);
 		}
 	}
-	adhclub_log("$debug1 FIN.", true);*/
+	spip_log("FIN $debug1.", 'adhclub.' . _LOG_INFO_IMPORTANTE);
+	*/
 	
 	$sql_adh_auteurs = sql_get_select($adhselect, $adhfrom, $adhwhere, $adhgroupby, $adhorderby, $adhlimit);
 	if($option){

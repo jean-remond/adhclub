@@ -1,5 +1,6 @@
 [(#REM) <!-- 
- * Permet le choix d'une saison reelle.
+ * Permet le choix d'une saison reelle ou generique.
+ *  Un choix 'saisons actives' a '99999' est propose en plus des saissons reelles.
  *
  * @plugin     Plugin adhclub : Adherent Club pour Spip 3.1
  * @copyright  2017
@@ -16,14 +17,14 @@
  * - cacher_option_intro : pas de premier option vide  (defaut:"")
  *	 
  * Exemple d'appel :
- *	[(#SAISIE{saisons,id_saison,,obligatoire=oui,
+ *	crochet(dieseSAISIE{saisons_plus,id_saison,,obligatoire=oui,
  *		label=<:adhsaison:choix_saison:>,
  *		explication=<:adhsaison:choix_saison_exp:>,
- *		class=chosen})] 
+ *		class=chosen})crochet
  * ----
  * @todo :
  * Fait:
- * JR-01/03/2017-Cree pour Spip 3.1.
+ * JR-30/04/2017-Cree pour Spip 3.1 pour la recherche d'adherents.
  --> ]
 
 [(#ENV{multiple}|oui)
@@ -40,7 +41,9 @@
 	[(#ENV{cacher_option_intro}|ou{#ENV{multiple}}|non)
 		<option value="">[(#ENV{option_intro})]</option>]
 
-	[(#REM) Proposition Saison a partir de la table 'ADHSAISONS'. ]
+	[(#REM) Proposition Saison a partir de la table 'ADHSAISONS' plus valeur generique de 'saison(s) active(s)'. ]
+	<B_saisons>
+		<option value=99999[(99999|=={#ENV{valeur,#ENV{defaut}}}|oui) selected="selected"]><:adhsaison:saison_activ:></option>
 	<BOUCLE_saisons(ADHSAISONS){par saison_deb}{inverse}{0,3}>
 		[(#ENV{multiple}|oui)
 		<option value="#ID_SAISONS"[(#ID_SAISONS|in_array{#ENV{valeur,#ENV{defaut,#ARRAY}}}|oui) selected="selected"]>#TITRE</option>]
