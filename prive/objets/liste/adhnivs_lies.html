@@ -1,17 +1,18 @@
 [(#REM) <-- 
  /**
- * Plugin adh_club : Adherent Club pour Spip 3.0
- * Licence GPL (c) 2011-2015 Jean Remond
+ * Plugin adh_club : Adherent Club pour Spip 3.1
+ * Licence GPL (c) 2011-2017 Jean Remond
  * ----------------------------------------------
  * Liste des niveaux du club liees a un objet
  * ----------------------------------------------
+ * @todo :
+ * Fait :
+ * JR-04/05/2017-Correction criteres de boucle et de l'action du tableau.
  * JR-29/01/2015-Adaptation spip 3.0.
  * JR-29/01/2015-Creation du squelette.
  */
 -->] 
 [(#SET{defaut_tri,#ARRAY{
-    techbase,1,
-    encadrant,1,
  	titre,1,
     }}
 )]
@@ -30,18 +31,36 @@
 		</tr>
 		</thead>
 		<tbody>
-		<BOUCLE_liste_nivs(ADHNIVS){statut==.*}{id_niveau?}{id_auteur?}{id_objet?}{objet}{where?}{tri #ENV{par,num titre},#GET{defaut_tri}}{par num titre,titre}{pagination #ENV{nb,10} nivl}>
+		<BOUCLE_liste_nivs(ADHNIVS){statut==.*}{id_niveau?}{id_objet?}{objet}{where?}{tri #ENV{par,num titre},#GET{defaut_tri}}{par num titre,titre}{pagination #ENV{nb,10} nivl}>
 		<tr class="[(#COMPTEUR_BOUCLE|alterner{row_odd,row_even})][(#ID_NIVEAU|=={#ENV{id_lien_ajoute}}|oui)append]">
 			<td class='picto'>[(#CHEMIN_IMAGE{adhniveau-24.png}|balise_img)]</td>
 			<td class='nom principale'>[(#LOGO_NIVEAU|image_reduire{20,26})]<a href="[(#ID_NIVEAU|generer_url_entite{adhniv})]" title="<:info_numero_abbreviation|attribut_html:> #ID_NIVEAU">#TITRE</a></td>
-			<td class='action'><button class="button link delete" name="supprimer_lien[adhniv-#ID_NIVEAU-#OBJET-#ID_OBJET]" value="X"><:adhniv:lien_retirer_adhniv:> [(#CHEMIN_IMAGE{supprimer-12.png}|balise_img{'X'})]</button></td>
+			<td class='action'>
+				<button 
+				type="submit"
+				class="button link delete" 
+				name="supprimer_lien[adhniv-#ID_NIVEAU-#OBJET-#ID_OBJET]" 
+				value="X"><:adhniv:lien_retirer_adhniv:>  
+				[(#CHEMIN_IMAGE{supprimer-12.png}|balise_img{'X'})]
+				</button>
+			</td>
 			<td class='id'>#ID_NIVEAU</td>
 		</tr>
 		</BOUCLE_liste_nivs>
 		</tbody>
 		</table>
 		[<p class='pagination'>(#PAGINATION{prive})</p>]
-		[(#GRAND_TOTAL|>{3}|oui)<div class="action"><button class="button link" name="supprimer_lien#EVAL{chr(91)}adhniv-*-#OBJET-#ID_OBJET#EVAL{chr(93)}" value="X"><:adhniv:lien_retirer_adhnivs:> [(#CHEMIN_IMAGE{supprimer-12.png}|balise_img{'X'})]</button></div>]
+		[(#GRAND_TOTAL|>{3}|oui)
+			<div class='action'>
+				<button 
+				type="submit"
+				class="button link delete" 
+				name="supprimer_lien#EVAL{chr(91)}adhniv-*-#OBJET-#ID_OBJET#EVAL{chr(93)}" 
+				value="X"><:adhniv:lien_retirer_adhnivs:>  
+				[(#CHEMIN_IMAGE{supprimer-12.png}|balise_img{'X'})]
+				</button>
+			</div>
+		]
 	</div>
 	</B_liste_nivs>
     	<div class="liste-objets liste-objets-lies adhniv caption-wrap">

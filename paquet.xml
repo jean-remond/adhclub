@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><paquet
 	prefix="adhclub"
 	categorie="squelette"
-	version="3.1.3"
+	version="3.1.5"
 	etat="test"
 	compatibilite="[3.0.17;3.1.*]"
 	logo="prive/themes/spip/images/adhclub-32.png"
-	schema="201703011400"
+	schema="201705041511"
 	documentation="https://contrib.spip.net/Adherents-Club"
 	>	
 <!--
  * @todo : JR-29/04/2017-Revoir l'export des donnees filtrees
  *
  * Fait : 
+ * JR-04/05/2017-V3.1.5-201705041511-Remise au standard des index primaires des liens.
+ * JR-02/05/2017-V3.1.4-201703011400-Correction pb gestion des liens.
  * JR-01/05/2017-V3.1.3-201703011400-Revue de l'export des donnees filtrees
  * JR-25/04/2017-V3.1.1-201703011400-Stabilisation du module.
  * JR-01/03/2017-V3.1.0-201703011400-Travail pour Spip 3.1.

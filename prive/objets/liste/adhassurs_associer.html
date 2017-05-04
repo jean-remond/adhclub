@@ -1,16 +1,19 @@
 [(#REM) <-- 
  /**
- * Plugin adh_club : Adherent Club pour Spip 3.0
- * Licence GPL (c) 2011-2015 Jean Remond
+ * Plugin adh_club : Adherent Club pour Spip 3.1
+ * Licence GPL (c) 2011-2017 Jean Remond
  * ----------------------------------------------
  * Liste des assurances du club associees a un objet.
  * ----------------------------------------------
+ * @todo :
+ * Fait :
+ * JR-02/05/2017-Correction de l'action du tableau.
  * JR-26/01/2015-Creation du squelette.
  */
 -->] 
 [(#SET{defaut_tri,#ARRAY{
-	statut,1,
     id_saison,-1,
+	statut,1,
     id_assur,-1,
 	multi titre,1,
 }})]
@@ -24,7 +27,7 @@
 
 </BOUCLE_nombreux>
 
-[(#REM) Pas beaucoup de chat ]
+[(#REM) Pas beaucoup d'assurances (inferieur a _MAX_ADHASSUR_LISTE) ]
 <B_adhassurs>
 	#ANCRE_PAGINATION
 	<div class="liste-objets liste-objets-associer adhassur">
@@ -44,7 +47,15 @@
 			<tr class="[(#COMPTEUR_BOUCLE|alterner{row_odd,row_even})]">
 				<td class='picto'>[(#CHEMIN_IMAGE{adhassur-24.png}|balise_img)]</td>
 				<td class='nom principale'>[(#LOGO_ASSUR|image_reduire{20,26})]<a href="[(#ID_ASSUR|generer_url_entite{adhassur})]" title="<:info_numero_abbreviation|attribut_html:> #ID_ASSUR">#TITRE</a></td>
-				<td class='action'><button class="button link" name="ajouter_lien[adhassur-#ID_ASSUR-#OBJET-#ID_OBJET]" value="+"><:adhassur:lien_ajouter_adhassur:> [(#CHEMIN_IMAGE{ajouter-12.png}|balise_img{'+'})]</button></td>
+				<td class='action'>
+					<button 
+					type="submit"
+					class="button link add" 
+					name="ajouter_lien[adhassur-#ID_ASSUR-#OBJET-#ID_OBJET]" 
+					value="+"><:adhassur:lien_ajouter_adhassur:> 
+					[(#CHEMIN_IMAGE{ajouter-12.png}|balise_img{'+'})]
+					</button>
+				</td>
 				<td class='id'>#ID_ASSUR</td>
 				<td class='id'>#ID_SAISON</td>
 			</tr>

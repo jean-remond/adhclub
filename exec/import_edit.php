@@ -8,6 +8,7 @@
  * @todo
  * 
  * Fait :
+ * JR-03/05/2017-ref_saisie force a null car perturbant pour les F(liens).
  * JR-31/01/2015-Adaptation a spip 3.0 et tables liens.
  * JR-22/04/2012-Revue pour inscription3 (seule la table auteurs existe).
  * 
@@ -38,12 +39,15 @@ include_spip('inc/presentation');
  * Integrer table adhintgs 
  * (action apres la saisie des infos du formulaires integ_adhintg)
  *
- * @param  string $ref_saisie[obligatoire]
+ * @param  string $ref_saisie[force a null]
  * @param  int $id_coti[obligatoire]
  * 
  * @return array
  */
-function exec_import_edit($ref_saisie, $id_coti){
+function exec_import_edit($ref_saisie = '', $id_coti){
+
+	// JR-03/05/2017-ref_saisie force a null
+	$ref_saisie = '';
 	
 	/*$debug1= "DEBUG adhclub JR : exec/import_edit - exec_import_edit - Pt01 - <br />";
 	echo "<br />", $debug1;
@@ -297,7 +301,7 @@ function exec_import_edit($ref_saisie, $id_coti){
 		
 		// si auteur_coti_ok n'est pas un nombre, c'est une creation de cette cotisation pour l'auteur.
 		if (!$auteur_coti_ok) {
-			adhclub_revision_adhcoti_objets_lies($id_coti, $id_auteur, 'auteur', 'add', $ref_saisie);
+			adhclub_revision_adhcoti_objets_lies($id_coti, $id_auteur, 'auteur', 'add', $ref_saisie = '');
 		}
 
 		// On supprime l'enregistrement adhintgs que l'on vient de traiter

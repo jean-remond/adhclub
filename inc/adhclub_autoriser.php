@@ -9,6 +9,7 @@
  * --
  * @todo : 
  * Fait:
+ * JR-02/05/2017-Revue des autorisations d'associer avec l'auteur
  * JR-31/08/2015-Ajout pour les champs extras du plugin.
  * JR-10/01/2015-adaptation spip 3.0.
  */
@@ -276,7 +277,7 @@ function autoriser_adhcoti_retirer($faire,$quoi,$id,$qui,$opts){
 	return false;
 }
 /**
- * Autorisation a affecter les cotisations a un auteur
+ * Autorisation a associer les cotisations a un auteur
  * si un id_coti passe dans opts, cela concerne plus particulierement le droit d'affecter cette cotisation
  *
  * @param unknown_type $faire
@@ -286,7 +287,7 @@ function autoriser_adhcoti_retirer($faire,$quoi,$id,$qui,$opts){
  * @param unknown_type $opts
  * @return unknown
  */
-function autoriser_auteur_affectercotis_dist($faire,$quoi,$id,$qui,$opts){
+function autoriser_auteur_associercotis_dist($faire,$quoi,$id,$qui,$opts){
 	if (!autoriser('modifier','auteur',$id)) return false;
 	if ($qui['statut']=='0minirezo')
 		return true;
