@@ -8,7 +8,8 @@
  * @todo : JR-25/04/2017-Finaliser le schema de configuration
  * 
  * Fait :
- * JR-25/04/2017-Pre-chargement des mots-cles.
+ * JR-04/05/2017-V3.1.5-201705041511-Remise au standard des index primaires des liens.
+ * JR-25/04/2017-V3.1.1-201703011400-Pre-chargement des mots-cles(non finalise).
  */
 
 //include_spip('inc/cextras');
@@ -22,8 +23,6 @@ function adhclub_upgrade($nom_meta_base_version, $version_cible){
 	include_spip('inc/config');
 	include_spip('action/editer_objet');
 	
-/*	$maj['create'] = array_merge(
-		$maj['create'], */
 	$maj['create'] = array( 
 		array(
 			'maj_tables',array( 
@@ -37,19 +36,30 @@ function adhclub_upgrade($nom_meta_base_version, $version_cible){
 				'spip_adhnivs_liens',
 				)
 			),
-		array('install_groupe_mots'),
+		/*array('install_groupe_mots'),
 		array('adhclub_configuration'),
-				
+		*/	
  		);
 
 	$cextraok = cextras_api_upgrade(adhclub_declarer_champs_extras(), $maj['create']);	
 
-/*	$debug1= "DEBUG adhclub JR : /adhclub_administrations.php - adhclub_upgrade - Pt99 - <br />";
+	$maj['201705041511'] = array(
+		 array(
+			'maj_tables', array(
+			'spip_adhassurs_liens',
+			'spip_adhcotis_liens',
+			'spip_adhnivs_liens',
+			)
+		),
+	);
+
+	/*	$debug1= "DEBUG adhclub JR : /adhclub_administrations.php - adhclub_upgrade - Pt99 - <br />";
 	echo "<br />", $debug1;
 	echo "cextraok = <br />"; $cextraok; echo ".<br />";
 	echo "maj= <br />"; var_dump($maj); echo ".<br />";
 	echo "FIN ", $debug1;
-*/
+	*/
+	
  	/*$maj['201703011400'] = array(	
     	array(
     		'maj_tables', array(

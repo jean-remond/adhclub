@@ -1,7 +1,7 @@
 <?php
 /**
- * Plugin adhclub : Adherent Club pour Spip 3.0
- * Licence GPL (c) 2011-2015 Jean Remond
+ * Plugin adhclub : Adherent Club pour Spip 3.1
+ * Licence GPL (c) 2011-2017 Jean Remond
  *----------------------------------------------
  * Formulaire d'integration des donnees de la table adhintgs 
  *	vers les tables auteurs et adhcotis_liens.
@@ -9,6 +9,7 @@
  * @todo-JR-20120216-Verifier l'affichage des erreurs car c'est une liste
  * 
  * Fait :
+ * JR-03/05/2017-ref_saisie force a null car perturbant pour les F(liens).
  * JR-31/01/2015-Adaptation a spip 3.0
  */ 
 
@@ -26,9 +27,7 @@ include_spip('inc/editer');
  *  @return array 
  *  	int id_saison : 
  *  		No de la saison correspondant a 'titre saison' si encours.
- *  	string ref_saisie : 
- *  		Valeur numerique de la derniere reference trouvee 
- *  		pour la saison, incrementee de 1. 
+ *  @param string $ref_saisie force a null car perturbant pour les F(liens).
 */
 function formulaires_integ_adhintg_charger_dist($titre_saison){
 	//// INFO / RAPPEL :
@@ -49,13 +48,13 @@ function formulaires_integ_adhintg_charger_dist($titre_saison){
         $erreurs['message_erreur'] = _T('adhsaison:info_aucun_adhsaison_integ',array('titre_saison'=>$titre_saison));
         return $erreurs;
         }
-    else {
+    /*else {
         
         /* Retrouver la derniere reference utilisee pour la saison courante dans la table 'adhcotis_liens'.
             - Si reference identifiee, faire +1,
             - Si pas de reference, forcer la valeur par defaut = 1.
         */
-        $adhfrom = "spip_adhcotis_liens, spip_adhcotis";
+    /*    $adhfrom = "spip_adhcotis_liens, spip_adhcotis";
         $adhwhere = array(
         	"id_saison =".intval($id_saison),
         	"objet = 'auteur'",
@@ -70,7 +69,7 @@ function formulaires_integ_adhintg_charger_dist($titre_saison){
         else {
             $ref_saisie = intval($ref_saisie) + 1;
             }
-        
+     */
         /* Retourner les valeurs du formulaire.
         */
         $valeurs = array('id_saison'=>intval($id_saison),'ref_saisie'=>$ref_saisie,'id_coti'=>'');
@@ -91,7 +90,7 @@ function formulaires_integ_adhintg_verifier_dist(){
 	$erreurs = array();
     
     // Verifier que les champs obligatoires sont bien presents :
-    foreach(array('ref_saisie', 'id_coti') as $obligatoire)
+    foreach(array('id_coti') as $obligatoire)
         if (!_request($obligatoire)) $erreurs[$obligatoire] = 'Ce champ est obligatoire';
 
     if(count($erreurs))
@@ -107,7 +106,8 @@ function formulaires_integ_adhintg_verifier_dist(){
 */
 function formulaires_integ_adhintg_traiter_dist($titre_saison, $retour='', $config_fonc='integ_adhintg_edit_config', $row=array(), $hidden=''){
 
-	$ref_saisie = _request('ref_saisie');
+	// JR-03/05/2017-ref_saisie force a null
+	$ref_saisie = '';
 	$id_coti = intval(_request('id_coti'));
 
 	$message = "";

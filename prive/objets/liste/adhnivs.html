@@ -39,7 +39,7 @@
 		</tr>
 		</thead>
 		<tbody>
-		<BOUCLE_liste_nivs(ADHNIVS){id_niveau?}{id_mot?}{where?}{statut?}{recherche?}{tri #ENV{par,num nom},#GET{defaut_tri}}{pagination #ENV{nb,10}}>
+		<BOUCLE_liste_nivs(ADHNIVS){id_niveau?}{where?}{statut?}{recherche?}{tri #ENV{par,num titre},#GET{defaut_tri}}{pagination #ENV{nb,10}}>
 		<tr class="[(#COMPTEUR_BOUCLE|alterner{row_odd,row_even})]">
 			<td class='picto'>[(#CHEMIN_IMAGE{adhniveau-24.png}|balise_img)]</td>
 			<td class='nom principale'>[(#LOGO_NIV|image_reduire{20,26})]<a href="[(#ID_NIVEAU|generer_url_entite{adhniveau})]" title="<:info_numero_abbreviation|attribut_html:> #ID_NIVEAU">#TITRE</a></td>

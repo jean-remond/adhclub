@@ -3,6 +3,9 @@
  * Plugin adhclub : Adherent Club pour Spip 3.0
  * Licence GPL (c) 2011-2015 Jean Remond
  *
+ * @todo :
+ * Fait :
+ * JR-02/05/2017-Revue des autorisations d'associer avec l'auteur
  * JR-10/01/2015-adaptation spip 3.0.
  */
 
@@ -29,7 +32,7 @@ function adhclub_affiche_milieu($flux){
 			)
 		){
 		// adhassur sur les auteurs
-		$texte = recuperer_fond('prive/objets/editer/liens', array(
+		$texte .= recuperer_fond('prive/objets/editer/liens', array(
 			'table_source' => 'adhassur',
 			'objet' => $e['type'],
 			'id_objet' => $id_auteur,
@@ -37,22 +40,21 @@ function adhclub_affiche_milieu($flux){
 			));
 
 		// adhcoti sur les auteurs
-		$texte = $texte
-			. recuperer_fond('prive/objets/editer/liens', array(
+		$texte .= recuperer_fond('prive/objets/editer/liens', array(
 			'table_source' => 'adhcoti',
 			'objet' => $e['type'],
 			'id_objet' => $id_auteur,
-			#'editable'=>autoriser('associercotis',$e['type'],$e['id_objet'])?'oui':'non'
+			'editable'=>autoriser('associercotis',$e['type'],$e['id_objet'])?'oui':'non'
 			));
 
 		// adhniv sur les auteurs
-		$texte = $texte
-			. recuperer_fond('prive/objets/editer/liens', array(
+		$texte .= recuperer_fond('prive/objets/editer/liens', array(
 			'table_source' => 'adhniv',
 			'objet' => $e['type'],
 			'id_objet' => $id_auteur,
 			#'editable'=>autoriser('associernivs',$e['type'],$e['id_objet'])?'oui':'non'
 			));
+			
 	}
 		
 	if ($texte) {

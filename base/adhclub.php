@@ -5,6 +5,7 @@
  *
  * @todo-JR-23/08/2015-Rechercher la syntaxe des icone_objet.
  * Fait :
+ * JR-04/05/2017-201705041511-Remise au standard des index primaires des liens.
  * JR-01/10/2015-Liste champs en recherhe pour admnivs.
  * JR-01/09/2015-Revue des exceptions sur les champs extras.
  */
@@ -340,7 +341,7 @@ $tables['spip_adhassurs_liens'] = array(
 		"vu"			=> "VARCHAR(6) DEFAULT 'non' NOT NULL",
 		),
 	'key' => array(
-		"PRIMARY KEY" 	=> "id_assur, objet, id_objet",
+		"PRIMARY KEY" 	=> "id_assur, id_objet", objet,
 		"KEY id_assur"	=> "id_assur",
 		),
 	);
@@ -355,7 +356,7 @@ $tables['spip_adhcotis_liens'] = array(
 		"ref_saisie" 	=> "VARCHAR(10) DEFAULT '' NULL",
 		),
     'key' => array(
-    	"PRIMARY KEY" 	=> "id_coti, objet, id_objet",
+    	"PRIMARY KEY" 	=> "id_coti, id_objet", objet,
 		"KEY id_coti" 	=> "id_coti",
     	),
     );
@@ -369,7 +370,7 @@ $tables['spip_adhnivs_liens'] = array(
 		"vu"			=> "VARCHAR(6) DEFAULT 'non' NOT NULL",
 		),
     'key' => array(
-   		"PRIMARY KEY" 	=> "id_niveau, objet, id_objet",
+   		"PRIMARY KEY" 	=> "id_niveau, id_objet", objet,
 		"KEY id_niveau" => "id_niveau",
     	),
     );

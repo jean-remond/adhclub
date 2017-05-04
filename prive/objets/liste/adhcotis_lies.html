@@ -1,20 +1,23 @@
 [(#REM) <-- 
  /**
- * Plugin adh_club : Adherent Club pour Spip 3.0
- * Licence GPL (c) 2011-2015 Jean Remond
+ * Plugin adh_club : Adherent Club pour Spip 3.1
+ * Licence GPL (c) 2011-2017 Jean Remond
  * ----------------------------------------------
- * Liste des cotisations du club liees a un objet
+ * Liste des cotisations du club associees a un objet
  * ----------------------------------------------
+ * @todo :
+ * Fait :
+ * JR-04/05/2017-Correction criteres de boucle et de l'action du tableau.
  * JR-29/01/2015-Adaptation spip 3.0.
  * JR-29/01/2015-Creation du squelette.
  */
 -->] 
 [(#SET{defaut_tri,#ARRAY{
- 	titre,1,
-    id_coti,1,
     id_saison,-1,
-    }}
-)]
+	statut,1,
+    id_coti,-1,
+	multi titre,1,
+}})]
 <input type="hidden" name="debutcotil" value='#ENV{debutcotil,#EVAL{_request("debutcotil");}}' />
 <B_liste_cotis>
     #ANCRE_PAGINATION
@@ -31,11 +34,28 @@
 		</tr>
 		</thead>
 		<tbody>
-		<BOUCLE_liste_cotis(ADHCOTIS){statut==.*}{id_coti?}{id_auteur?}{id_objet?}{objet}{where?}{tri #ENV{par,num titre},#GET{defaut_tri}}{par num titre,titre}{pagination #ENV{nb,10} cotil}>
+		<BOUCLE_liste_cotis(ADHCOTIS)
+			{statut==.*}
+			{id_coti?}
+			{id_objet?}
+			{objet}
+			{where?}
+			{tri #ENV{par, id_saison, num titre},#GET{defaut_tri}}
+			{par num titre,titre}
+			{pagination #ENV{nb,10} cotil}
+		>
 		<tr class="[(#COMPTEUR_BOUCLE|alterner{row_odd,row_even})][(#ID_COTI|=={#ENV{id_lien_ajoute}}|oui)append]">
 			<td class='picto'>[(#CHEMIN_IMAGE{adhcoti-24.png}|balise_img)]</td>
 			<td class='nom principale'>[(#LOGO_COTI|image_reduire{20,26})]<a href="[(#ID_COTI|generer_url_entite{adhcoti})]" title="<:info_numero_abbreviation|attribut_html:> #ID_COTI">#TITRE</a></td>
-			<td class='action'><button class="button link delete" name="supprimer_lien[adhcoti-#ID_COTI-#OBJET-#ID_OBJET]" value="X"><:adhcoti:lien_retirer_adhcoti:> [(#CHEMIN_IMAGE{supprimer-12.png}|balise_img{'X'})]</button></td>
+			<td class='action'>
+				<button 
+				type="submit"
+				class="button link delete" 
+				name="supprimer_lien[adhcoti-#ID_COTI-#OBJET-#ID_OBJET]" 
+				value="X"><:adhcoti:lien_retirer_adhcoti:> 
+				[(#CHEMIN_IMAGE{supprimer-12.png}|balise_img{'X'})]
+				</button>
+			</td>
 			<td class='id'>#ID_COTI</td>
 			<td class='id'>#ID_SAISON</td>
 		</tr>
@@ -43,7 +63,17 @@
 		</tbody>
 		</table>
 		[<p class='pagination'>(#PAGINATION{prive})</p>]
-		[(#GRAND_TOTAL|>{3}|oui)<div class="action"><button class="button link" name="supprimer_lien#EVAL{chr(91)}adhcoti-*-#OBJET-#ID_OBJET#EVAL{chr(93)}" value="X"><:adhcoti:lien_retirer_adhcotis:> [(#CHEMIN_IMAGE{supprimer-12.png}|balise_img{'X'})]</button></div>]
+		[(#GRAND_TOTAL|>{3}|oui)
+			<div class="action">
+				<button 
+				type="submit"
+				class="button link" 
+				name="supprimer_lien#EVAL{chr(91)}adhcoti-*-#OBJET-#ID_OBJET#EVAL{chr(93)}" 
+				value="X"><:adhcoti:lien_retirer_adhcotis:> 
+				[(#CHEMIN_IMAGE{supprimer-12.png}|balise_img{'X'})]
+				</button>
+			</div>
+		]
 	</div>
 	</B_liste_cotis>
     	<div class="liste-objets liste-objets-lies adhcopti caption-wrap">

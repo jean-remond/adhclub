@@ -1,10 +1,13 @@
 [(#REM) <-- 
  /**
- * Plugin adh_club : Adherent Club pour Spip 3.0
- * Licence GPL (c) 2011-2015 Jean Remond
+ * Plugin adh_club : Adherent Club pour Spip 3.1
+ * Licence GPL (c) 2011-2017 Jean Remond
  * ----------------------------------------------
  * Liste des niveaux du club associees a un objet.
  * ----------------------------------------------
+ * @todo :
+ * Fait :
+ * JR-02/05/2017-Correction de l'action du tableau.
  * JR-29/01/2015-Creation du squelette.
  */
 -->] 
@@ -23,7 +26,7 @@
 
 </BOUCLE_nombreux>
 
-[(#REM) Pas beaucoup de niveaux ]
+[(#REM) Pas beaucoup d'assurances (inferieur a _MAX_ADHNIV_LISTE) ]
 <B_adhnivs>
 	#ANCRE_PAGINATION
 	<div class="liste-objets liste-objets-associer adhniv">
@@ -42,7 +45,15 @@
 			<tr class="[(#COMPTEUR_BOUCLE|alterner{row_odd,row_even})]">
 				<td class='picto'>[(#CHEMIN_IMAGE{adhniv-24.png}|balise_img)]</td>
 				<td class='nom principale'>[(#LOGO_NIVEAU|image_reduire{20,26})]<a href="[(#ID_NIVEAU|generer_url_entite{adhniv})]" title="<:info_numero_abbreviation|attribut_html:> #ID_NIVEAU">#TITRE</a></td>
-				<td class='action'><button class="button link" name="ajouter_lien[adhniv-#ID_NIVEAU-#OBJET-#ID_OBJET]" value="+"><:adhniv:lien_ajouter_adhniv:> [(#CHEMIN_IMAGE{ajouter-12.png}|balise_img{'+'})]</button></td>
+				<td class='action'>
+					<button 
+					type="submit"
+					class="button link add" 
+					name="ajouter_lien[adhniv-#ID_NIVEAU-#OBJET-#ID_OBJET]" 
+					value="+"><:adhniv:lien_ajouter_adhniv:>  
+					[(#CHEMIN_IMAGE{ajouter-12.png}|balise_img{'+'})]
+					</button>
+				</td>
 				<td class='id'>#ID_NIVEAU</td>
 			</tr>
 		</BOUCLE_adhnivs>

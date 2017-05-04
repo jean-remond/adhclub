@@ -1,15 +1,17 @@
 <?php
 /**
- * Plugin adhclub : Adherent Club pour Spip 3.0
- * Licence GPL (c) 2011-2015 Jean Remond
+ * Plugin adhclub : Adherent Club pour Spip 3.1
+ * Licence GPL (c) 2011-2017 Jean Remond
  * ----------------------------------------------
  * Actions de l'environnement cotisations.
  * ----------------------------------------------
  * @todo-JR-30/01/2015-Confirmer le besoin. Lie a /formulaire/ ?
  * 
  * Fait:
+ * JR-03/05/2017-ref_saisie force a null car perturbant pour les F(liens).
+ * JR-02/05/2017-Revue des autorisations d'associer avec l'auteur
  * JR-30/01/2015-adaptation spip 3.0.
-*/
+ */
 
 if (!defined("_ECRIRE_INC_VERSION")) return;
 
@@ -76,11 +78,15 @@ function action_adhcoti_set($id_coti){
  * @param int/array $cotis
  * @param int/array $ids
  * @param string $type
+ * @param string $operation
+ * @param string $ref_saisie force a null car perturbant pour les F(liens).
  */
-function adhclub_revision_adhcoti_objets_lies($cotis,$ids,$type,$operation = 'add',$ref_saisie = 'direct'){
+function adhclub_revision_adhcoti_objets_lies($cotis,$ids,$type,$operation = 'add',$ref_saisie = ''){
 
             //echo "<br />.debug JR.<br />";
             //echo "action/editer_adhcoti Action-Pt0.<br />";
+	// JR-03/05/2017-ref_saisie force a null
+	$ref_saisie = '';
 
 	include_spip('inc/autoriser');
 	$in = "";
@@ -130,7 +136,7 @@ function adhclub_revision_adhcoti_objets_lies($cotis,$ids,$type,$operation = 'ad
 			$deja = array_map('reset',sql_allfetsel("id_objet","spip_adhcotis_liens",$adhwhere));
 			$add = array_diff($ids,$deja);
 			foreach ($add as $id) {
-				if (autoriser('affectercotis',$type,$id,null,array('id_coti'=>$row['id_coti']))){
+				if (autoriser('associercotis',$type,$id,null,array('id_coti'=>$row['id_coti']))){
 					$adhvaleur=array(
 						'id_coti'	=> $row['id_coti'],
 						'objet'		=> $type,

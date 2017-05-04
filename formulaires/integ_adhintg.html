@@ -13,6 +13,11 @@
  * Fait
  * 	- Apres integration, la table adhintgs sera videe.
  * ----------------------------------------------
+ * @todo
+ * 
+ * Fait :
+ * JR-03/05/2017-ref_saisie rendu inactif (obligatoire=non en attendant sa suppression)
+ *  $ref_saisie (force a null car perturbant pour les F(liens)).
  * JR-17/01/2012-Creation du formulaire.
  */
 -->] 
@@ -32,7 +37,7 @@
 
 		<input type="hidden" name='id_saison' value='#ENV{id_saison}' />
 
-        [(#SAISIE{input,ref_saisie,obligatoire=oui}
+        [(#SAISIE{input,ref_saisie,obligatoire=non}
             {label=<:adhintg:ref_saisie:>}
 			{explication=<:adhintg:ref_saisie_exp:>}
             )]
