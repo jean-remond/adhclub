@@ -3,10 +3,11 @@
  * Plugin adh_club : Adherent Club pour Spip 3.1
  * Licence GPL (c) 2011-2017 Jean Remond
  * ----------------------------------------------
- * Liste des niveaux du club associees a un objet.
+ * Liste des niveaux du club associes a un objet.
  * ----------------------------------------------
  * @todo :
  * Fait :
+ * JR-06/05/2017-Revue de la boucle de lecture.
  * JR-02/05/2017-Correction de l'action du tableau.
  * JR-29/01/2015-Creation du squelette.
  */
@@ -41,7 +42,12 @@
 			</tr>
 		</thead>
 		<tbody>
-		<BOUCLE_adhnivs(ADHNIVS){doublons 2}{tri #ENV{par, num titre}{inverse},#GET{defaut_tri}}{par num titre, titre}{pagination 10}>
+		<BOUCLE_adhnivs(ADHNIVS)
+			{doublons 2}
+			{tri #ENV{par, num titre},#GET{defaut_tri}}
+			{par num titre, titre}
+			{pagination 10}
+		>
 			<tr class="[(#COMPTEUR_BOUCLE|alterner{row_odd,row_even})]">
 				<td class='picto'>[(#CHEMIN_IMAGE{adhniv-24.png}|balise_img)]</td>
 				<td class='nom principale'>[(#LOGO_NIVEAU|image_reduire{20,26})]<a href="[(#ID_NIVEAU|generer_url_entite{adhniv})]" title="<:info_numero_abbreviation|attribut_html:> #ID_NIVEAU">#TITRE</a></td>

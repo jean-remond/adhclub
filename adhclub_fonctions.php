@@ -210,9 +210,9 @@ Les mots-clés génériques (7 caractères) sont réservés pour la qualificatio
 	include_spip('action/editer_objet');
 
 	// chargement du array des groupe et mots
-	$schema = shema_escal();
+	$schema = adhclub_schema_mc();
 
-	// en qu'elle version de escal est on ?
+	// en quelle version de adhclub est on ?
 	// si on a une meta escal_base_version, c'est qu'on est sur une version avec instalation auto
 	$meta = lire_config('escal_base_version');
 

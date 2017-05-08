@@ -1,9 +1,9 @@
 [(#REM) 
 
- * Plugin adh_club : Adherent Club pour Spip 2.1
- * Licence GPL (c) 2011-2012 Jean Remond
+ * Plugin adh_club : Adherent Club pour Spip 3.1
+ * Licence GPL (c) 2011-2017 Jean Remond
 
- * Permet l'affectation d'un niveau sur le site PUBLIC.
+ * Permet la selection d'un niveau parmi l'ensemble.
 
   Parametres :
   - class : classe(s) css ajoutes au select
@@ -14,17 +14,25 @@
   - cacher_option_intro : pas de premier option vide  (defaut:"")
 	 
   Exemple d'appel :
-	[(#SAISIE{niveaux,acces,
-		label=<:plugin:niveaux_acces:>,
-		multiple=oui})] 
+	Crochet(DieseSAISIE{niveaux,acces,
+		label=<:adhniv:niveau:>,
+		obligatoire=non,
+		option_intro=" ",
+		class='choix'})Crochet
 ]
-<select name="#ENV{nom}[(#ENV{multiple}|?{[(#VAL{&#91;&#93;}|html_entity_decode)]})]" id="champ_#ENV{nom}"[ class="(#ENV{class})"][(#ENV{multiple}|oui) multiple="multiple"][ disabled="(#ENV{disable})"][ readonly="(#ENV{readonly})"] >
+<select name="#ENV{nom}[(#ENV{multiple}|?{[(#VAL{&#91;&#93;}|html_entity_decode)]})]" 
+	id="champ_#ENV{nom}"
+	[ class="(#ENV{class})"]
+	[(#ENV{multiple}|oui) multiple="multiple"]
+	[ disabled="(#ENV{disable})"]
+	[ readonly="(#ENV{readonly})"] 
+	>
 	[(#ENV{cacher_option_intro}|ou{#ENV{multiple}}|non)
 		<option value="">[(#ENV{option_intro})]</option>]
-	<BOUCLE_niveaux_affectes(ADHNIVS){par num titre, titre}>
+	<BOUCLE_niveaux(ADHNIVS){par num titre, titre}>
 		[(#ENV{multiple}|oui)
-		<option value="#ID_NIVEAU"[(#ID_NIVEAU|in_array{#ENV{valeur,#ENV{defaut,#ARRAY}}}|oui) selected="selected"]>#TITRE</option>]
+		<option value="#ID_NIVEAUX"[(#ID_NIVEAUX|in_array{#ENV{valeur,#ENV{defaut,#ARRAY}}}|oui) selected="selected"]>#TITRE</option>]
 		[(#ENV{multiple}|non)
 		<option value="#ID_NIVEAU"[(#ID_NIVEAU|=={#ENV{valeur,#ENV{defaut}}}|oui) selected="selected"]>#TITRE</option>]
-	</BOUCLE_niveaux_affectes>
+	</BOUCLE_niveaux>
 </select>
