@@ -7,6 +7,7 @@
  * ----------------------------------------------
  * @todo :
  * Fait :
+ * JR-06/05/2017-Revue de la boucle de lecture.
  * JR-02/05/2017-Correction de l'action du tableau.
  * JR-29/01/2015-Creation du squelette.
  */
@@ -41,7 +42,13 @@
 		</tr>
 		</thead>
 		<tbody>
-		<BOUCLE_liste_coti(ADHCOTIS){doublons 2}{recherche #GET{recherche}}{tri #ENV{par, id_saison, num titre}{inverse},#GET{defaut_tri}}{par num titre, titre}{pagination 10 cotia}>
+		<BOUCLE_liste_coti(ADHCOTIS)
+			{doublons 2}
+			{recherche #GET{recherche}}
+			{tri #ENV{par, id_saison, num titre},#GET{defaut_tri}}
+			{par num titre, titre}
+			{pagination 10 cotia}
+		>
 		<tr class="[(#COMPTEUR_BOUCLE|alterner{row_odd,row_even})]">
 			<td class='picto'>[(#CHEMIN_IMAGE{adhcoti-24.png}|balise_img)]</td>
 			<td class='nom principale'>[(#LOGO_COTI|image_reduire{20,26})]<a href="[(#ID_COTI|generer_url_entite{adhcoti})]" title="<:info_numero_abbreviation|attribut_html:> #ID_COTI">#TITRE</a></td>

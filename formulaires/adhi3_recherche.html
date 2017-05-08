@@ -8,7 +8,8 @@
  * ----------------------------------------------
  * @todo : JR-22/10/2015-Revoir att obligatoire et html5 pour selection
  * Fait
- * JR-30/04/2014-Implementation du script de saisie de la saison.
+ * JR-06/05/2017-Implementation du script de saisie pour ts les champs.
+ * JR-30/04/2017-Implementation du script de saisie de la saison.
  * JR-30/04/2014-Retour vers le formulaire prive/inscription3_recherche_cas.html.
  * JR-30/04/2014-Extraction des liste du formulaire.
  * JR-20/09/2015-Revue code des saisies.
@@ -38,57 +39,34 @@
 				
 					[(#REM) gestion de la saison ]
 					[(#SAISIE{saisons_plus,id_saison,
-					label=<:adhsaison:choix_saison:>,
-					option_intro=" ",
-					class='choix'
+						label=<:adhsaison:choix_saison:>,
+						option_intro=" ",
+						class='choix'
 					})]
 
-
-					[(#REM) sur le site http://www.spip-contrib.net/Reference-des-saisies en date du 23/04/2011 par par Fred Montessinos.]
 					[(#REM) A partir du mot_cle 'Niveau_Technique'.]
-					#SET{datastechbase,#ARRAY}
-					<B_techbase>
-					<BOUCLE_techbase(GROUPES_MOTS){titre='Niveau_Technique'}>
-		        			#SET{groupetechbase, #ID_GROUPE}
-					</BOUCLE_techbase>
-					</B_techbase>
-
-					[(#SAISIE{mot, techbase, 
+					[(#SAISIE{techbase, techbase, 
 						label=<:adhniv:niveau_techbase:>,
 						obligatoire=non,
-						id_groupe=#GET{groupetechbase}}
-					)]
+						option_intro=" ",
+						class='choix'
+					})]
        
-        
 					[(#REM) A partir du mot_cle 'Niveau_Encadrement'.]
-					#SET{datasencad,#ARRAY}
-					<B_encad>
-					<BOUCLE_encad(GROUPES_MOTS){titre='Niveau_Encadrement'}>
-		        		#SET{groupeencad, #ID_GROUPE}
-					</BOUCLE_encad>
-					</B_encad>
-
-					[(#SAISIE{mot, encadrant, 
+					[(#SAISIE{encadrant, encadrant, 
 						label=<:adhniv:niveau_encadrant:>,
 						obligatoire=non,
-						id_groupe=#GET{groupeencad}}
-					)]
+						option_intro=" ",
+						class='choix'
+					})]
         
-
 					[(#REM) A partir des 'Niveaux'.]
-					#SET{datasniv,#ARRAY}
-					<B_niv>
-					<BOUCLE_niv(ADHNIVS){par techbase, num titre}>
-		        		#SET{datasniv, #GET{datasniv}|array_merge{#ARRAY{#TITRE,#ID_NIVEAU}}}
-					</BOUCLE_niv>
-						#SET{datasniv, #GET{datasniv}|array_flip}      
-					</B_niv>
-
-					[(#SAISIE{selection, niveau, 
+					[(#SAISIE{niveau, niveau, 
 						label=<:adhniv:niveau:>,
-						datas=#GET{datasniv}}
-					)]
-
+						obligatoire=non,
+						option_intro=" ",
+						class='choix'
+					})]
 
 					[(#REM) Relation des 'Niveaux'.]
 					#SET{datasniv_rel,
