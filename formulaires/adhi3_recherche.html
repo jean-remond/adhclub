@@ -41,23 +41,25 @@
 					[(#SAISIE{saisons_plus,id_saison,
 						label=<:adhsaison:choix_saison:>,
 						option_intro=" ",
-						class='choix'
+						class='chosen'
 					})]
 
 					[(#REM) A partir du mot_cle 'Niveau_Technique'.]
-					[(#SAISIE{techbase, techbase, 
+					[(#SAISIE{mots1groupe,techbase,
+						titre_groupe='Niveau_Technique',
 						label=<:adhniv:niveau_techbase:>,
 						obligatoire=non,
 						option_intro=" ",
-						class='choix'
+						class='chosen'
 					})]
        
 					[(#REM) A partir du mot_cle 'Niveau_Encadrement'.]
-					[(#SAISIE{encadrant, encadrant, 
+					[(#SAISIE{mots1groupe,encadrant,
+						titre_groupe='Niveau_Encadrement',
 						label=<:adhniv:niveau_encadrant:>,
 						obligatoire=non,
 						option_intro=" ",
-						class='choix'
+						class='chosen'
 					})]
         
 					[(#REM) A partir des 'Niveaux'.]
@@ -65,7 +67,7 @@
 						label=<:adhniv:niveau:>,
 						obligatoire=non,
 						option_intro=" ",
-						class='choix'
+						class='chosen'
 					})]
 
 					[(#REM) Relation des 'Niveaux'.]
