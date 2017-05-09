@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><paquet
 	prefix="adhclub"
 	categorie="squelette"
-	version="3.1.6"
+	version="3.1.7"
 	etat="test"
 	compatibilite="[3.0.17;3.1.*]"
 	logo="prive/themes/spip/images/adhclub-32.png"
@@ -12,7 +12,8 @@
  * @todo : JR-29/04/2017-Revoir l'export des donnees filtrees
  *
  * Fait : 
- * JR-07/05/2017-V3.1.6-201705041511-Remise en conformité des saisies pour la recherche adhérents.
+ * JR-09/05/2017-V3.1.7-201705041511-Remise en conformité des saisies pour les mots-cles.
+ * JR-07/05/2017-V3.1.6-201705041511-Remise en conformité des saisies pour la recherche adherents.
  * JR-04/05/2017-V3.1.5-201705041511-Remise au standard des index primaires des liens.
  * JR-02/05/2017-V3.1.4-201703011400-Correction pb gestion des liens.
  * JR-01/05/2017-V3.1.3-201703011400-Revue de l'export des donnees filtrees

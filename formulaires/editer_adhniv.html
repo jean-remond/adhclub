@@ -44,56 +44,28 @@
 
 
 		<li>
-		[(#REM) sur le site http://www.spip-contrib.net/Reference-des-saisies en date du 23/04/2011 par par Fred Montessinos.]
 		[(#REM) A partir du mot_cle 'Niveau_Technique'.]
-		#SET{datastechbase,#ARRAY}
-		<B_techbase>
-		<BOUCLE_techbase(MOTS){type='Niveau_Technique'}>
-		        #SET{datastechbase, #GET{datastechbase}|array_merge{#ARRAY{#TITRE,#ID_MOT}}}
-		</BOUCLE_techbase>
-			#SET{datastechbase, #GET{datastechbase}|array_flip}      
-		</B_techbase>
-
-		[(#SAISIE{selection, techbase, obligatoire=oui}
+		[(#SAISIE{mots1groupe, techbase, titre_groupe='Niveau_Technique', obligatoire=oui}
 			{label=<:adhniv:niveau_techbase:>}
 			{explication=<:adhniv:niveau_techbase_exp:>}
-			{datas=#GET{datastechbase}}
 		)]
 	    </li>
         
         
 		<li>
 		[(#REM) A partir du mot_cle 'Niveau_Encadrement'.]
-		#SET{datasencad,#ARRAY}
-		<B_encad>
-		<BOUCLE_encad(MOTS){type='Niveau_Encadrement'}>
-		        #SET{datasencad, #GET{datasencad}|array_merge{#ARRAY{#TITRE,#ID_MOT}}}
-		</BOUCLE_encad>
-			#SET{datasencad, #GET{datasencad}|array_flip}      
-		</B_encad>
-
-		[(#SAISIE{selection, encadrant, obligatoire=oui}
+		[(#SAISIE{mots1groupe, encadrant, titre_groupe='Niveau_Encadrement', obligatoire=oui}
 			{label=<:adhniv:niveau_encadrant:>}
 			{explication=<:adhniv:niveau_encadrant_exp:>}
-			{datas=#GET{datasencad}}
 		)]
 	    </li>
 
 
 		<li>
 		[(#REM) A partir du mot_cle Niveau_Trombi.]
-		#SET{datastrombi,#ARRAY}
-		<B_trombi>
-		<BOUCLE_trombi(MOTS){type='Niveau_Trombi'}>
-		        #SET{datastrombi, #GET{datastrombi}|array_merge{#ARRAY{#TITRE,#ID_MOT}}}
-		</BOUCLE_trombi>
-			#SET{datastrombi, #GET{datastrombi}|array_flip}      
-		</B_trombi>
-
-		[(#SAISIE{selection, id_trombi, obligatoire=oui}
+		[(#SAISIE{mots1groupe, id_trombi, titre_groupe='Niveau_Trombi', obligatoire=oui}
 			{label=<:adhniv:niveau_trombi:>}
 			{explication=<:adhniv:niveau_trombi_exp:>}
-			{datas=#GET{datastrombi}}
 		)]
 	    </li>
 
