@@ -8,6 +8,7 @@
  * @todo : JR-25/04/2017-Finaliser le schema de configuration
  * 
  * Fait :
+ * JR-16/05/2017-V3.2.0-201705041511-Ajout F(configurer) avec valeurs initiales.
  * JR-04/05/2017-V3.1.5-201705041511-Remise au standard des index primaires des liens.
  * JR-25/04/2017-V3.1.1-201703011400-Pre-chargement des mots-cles(non finalise).
  */
@@ -36,8 +37,12 @@ function adhclub_upgrade($nom_meta_base_version, $version_cible){
 				'spip_adhnivs_liens',
 				)
 			),
-		/*array('install_groupe_mots'),
-		array('adhclub_configuration'),
+		array('ecrire_config','adhclub/max_adhniv_liste', '20'),
+		array('ecrire_config','adhclub/max_adhcoti_liste', '20'),
+		array('ecrire_config','adhclub/max_adhassur_liste', '20'),
+				
+			/*array('install_groupe_mots'),
+			 	
 		*/	
  		);
 
@@ -118,6 +123,10 @@ function adhclub_vider_tables($nom_meta_base_version) {
 
 	cextras_api_vider_tables(adhclub_declarer_champs_extras());
 
+	effacer_config('adhclub/max_adhniv_liste');
+	effacer_config('adhclub/max_adhcoti_liste');
+	effacer_config('adhclub/max_adhassur_liste');
+	
 	effacer_meta($nom_meta_base_version);
 }
 ?>

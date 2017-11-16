@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><paquet
 	prefix="adhclub"
-	categorie="squelette"
-	version="3.1.7"
+	categorie="divers"
+	version="3.3.0"
 	etat="test"
 	compatibilite="[3.0.17;3.1.*]"
 	logo="prive/themes/spip/images/adhclub-32.png"
@@ -12,6 +12,10 @@
  * @todo : JR-29/04/2017-Revoir l'export des donnees filtrees
  *
  * Fait : 
+ * JR-16/05/2017-V3.3.0-201705041511-Ajout tri par defaut sur la date maj auteur pour affichage standard.
+ * JR-16/05/2017-V3.2.0-201705041511-Ajout F(configurer).
+ * JR-12/05/2017-V3.1.9-201705041511-Correction de la boucle de recherche Cotisations.
+ * JR-11/05/2017-V3.1.8-201705041511-Changement de categorie du plugin.
  * JR-09/05/2017-V3.1.7-201705041511-Remise en conformité des saisies pour les mots-cles.
  * JR-07/05/2017-V3.1.6-201705041511-Remise en conformité des saisies pour la recherche adherents.
  * JR-04/05/2017-V3.1.5-201705041511-Remise au standard des index primaires des liens.

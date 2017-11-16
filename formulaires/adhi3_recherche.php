@@ -165,7 +165,7 @@ function formulaires_adhi3_recherche_traiter_dist($type_objet, $id_objet){
 		$criteres = $criteres . '|' . _request('niveau');
 		$criteres = $criteres . '|' . _request('niv_rel');
 
-		$debug1= "DEBUG adhclub JR - Pt65 -";
+		/*$debug1= "DEBUG adhclub JR - Pt65 -";
 		spip_log($debug1, 'adhclub.' . _LOG_INFO_IMPORTANTE);
 		if(is_array($criteres)){
 			spip_log("criteres=", 'adhclub.' . _LOG_INFO_IMPORTANTE);
@@ -175,7 +175,7 @@ function formulaires_adhi3_recherche_traiter_dist($type_objet, $id_objet){
 			spip_log("criteres=$criteres.", 'adhclub.' . _LOG_INFO_IMPORTANTE);
 		}
 		spip_log("FIN $debug1.", 'adhclub.' . _LOG_INFO_IMPORTANTE);
-		
+		*/
 		$retour['redirect'] = generer_url_ecrire("adhauteurs_export","criteres=$criteres&retour=".urlencode(self()));
 		
 	}

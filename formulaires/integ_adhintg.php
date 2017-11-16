@@ -74,8 +74,8 @@ function formulaires_integ_adhintg_charger_dist($titre_saison){
         */
         $valeurs = array('id_saison'=>intval($id_saison),'ref_saisie'=>$ref_saisie,'id_coti'=>'');
         
-        }
-        
+        /*}
+        */
  	return $valeurs;
 }
 
