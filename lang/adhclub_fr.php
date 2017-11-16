@@ -50,6 +50,12 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'champ_err' => 'La donn&eacute;e en erreur est @cher@',
 	'champs_oblig' => 'Champ obligatoire',
 	'code_postal_pro_label' => 'Code postal (naissance)',
+	'configurer_adhclub' => 'Configurer la Gestion des Adhérents du Club',
+	'config_desc' => '<strong>Adhclub</strong> permet la gestion des Adhérents d\'un Club',
+	'config_max_adhassur_liste' => 'Nbre maxi d\'items dans la liste des assurances (avant recherche)',
+	'config_max_adhcotis_liste' => 'Nbre maxi d\'items dans la liste des cotisations (avant recherche)',
+	'config_max_adhniv_liste' => 'Nbre maxi d\'items dans la liste des niveaux (avant recherche)',
+	'config_titre' => 'Limiter les listes d\'affectations',
 	// D
     'demande_photo'=>'D&eacute;p&eacute;chez-vous de lui demander sa photo..',
 	'descriptif' => 'Descriptif',

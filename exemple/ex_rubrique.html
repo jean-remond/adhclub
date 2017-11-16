@@ -4,7 +4,10 @@
 
  * Plugin adh_club : Adherent Club pour Spip 2.1
  * Licence GPL (c) 2011-2012 Jean Remond
+@todo : JR-11/06/2017-Valider ce script vs Escal et spip3.1
 
+Fait :
+JR-11/06/2017-Remplacement du Mot_cle 'Squelette' par 'Saison'.
 JR-15/04/2012-Revue test des Mot_cle via php.
 -->] 
 
@@ -46,8 +49,8 @@ JR-15/04/2012-Revue test des Mot_cle via php.
 			<INCLURE{fond=inc-rubriques}{id_rubrique}>
 
 			[(#REM) Menu de navigation mots-cles ]
-			[(#REM) JR-04/04/2009-Liste des Mots des groupes "Squelette.." pour les soustraire a l'affichage. ]
-			<BOUCLE_motinvisible(MOTS) {type==^[Squelette]} {doublons LstMots}>
+			[(#REM) JR-04/04/2009-Liste des Mots des groupes "Saison.." pour les soustraire a l'affichage. ]
+			<BOUCLE_motinvisible(MOTS) {type==^[Saison]} {doublons LstMots}>
 				[(#REM) <h3 class="titre"><a href="#URL_MOT">[(#TITRE)]</a></h3> ]
 			</BOUCLE_motinvisible>
 

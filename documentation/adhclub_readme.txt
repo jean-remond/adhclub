@@ -202,11 +202,12 @@ Procedure de gestion des adherents
 ==========================
 Gestion des imports de donnees et maj des fiches adherents :
 ------------------------------
+A valider-JR-11/06/2017
 Ajouter dans le Groupe de mots-cle "Squelette_rubrique" les mots-cle suivant
 - "adh_ges_ffessm" pour Gestion des importations de donnees depuis la fede.
 - "adh_ges_adh" pour Gestion des fiches adherents sur le site public.
 Ces mots-cle sont utilise par le squelette dans rubrique.html.
-
+Fin A valider-JR-11/06/2017
 
 Les adherents font l'objet, de par la licence, d'une inscription a la Fédération (ici FFESSM).
 Pour cette inscription, il n'y a qu'une possibilite : la saisie sur le site fédéral (!!).

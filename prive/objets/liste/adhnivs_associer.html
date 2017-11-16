@@ -7,6 +7,7 @@
  * ----------------------------------------------
  * @todo :
  * Fait :
+ * JR-16/09/2017-Les variables limitant la liste sont dans #CONFIG.
  * JR-06/05/2017-Revue de la boucle de lecture.
  * JR-02/05/2017-Correction de l'action du tableau.
  * JR-29/01/2015-Creation du squelette.
@@ -17,11 +18,11 @@
     id_niveau,-1,
 	multi titre,1,
 }})]
-[(#SET{_MAX_ADHNIV_LISTE,[(#VAL{_MAX_ADHNIV_LISTE}|defined|?{[(#VAL{_MAX_ADHNIV_LISTE}|constant)],50})]})]
+
 <BOUCLE_exclus(ADHNIVS){tout}{id_objet}{objet}{doublons 1}{doublons 2} />
 <BOUCLE_nb_adhnivs(ADHNIVS){tout}{doublons 1} />#SET{total,#TOTAL_BOUCLE}<//B_nb_adhnivs>
 
-<BOUCLE_nombreux(CONDITION){si #GET{total}|>{#GET{_MAX_ADHNIV_LISTE}}}>
+<BOUCLE_nombreux(CONDITION){si #GET{total}|>{#CONFIG{adhclub/max_adhniv_liste}}}>
 
 	[(#INCLURE{fond=prive/objets/liste/adhnivs_associer-recherche,env,doublons})]
 

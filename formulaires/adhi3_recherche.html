@@ -8,6 +8,7 @@
  * ----------------------------------------------
  * @todo : JR-22/10/2015-Revoir att obligatoire et html5 pour selection
  * Fait
+ * JR-18/09/2017-Ajout tri par defaut sur la date maj auteur pour affichage standard.
  * JR-06/05/2017-Implementation du script de saisie pour ts les champs.
  * JR-30/04/2017-Implementation du script de saisie de la saison.
  * JR-30/04/2014-Retour vers le formulaire prive/inscription3_recherche_cas.html.
@@ -108,9 +109,8 @@
 			<INCLURE{fond=prive/objets/liste/adh_auteur_recherche}{ajax}{ordre}{env}>
 		]
 		[(#ENV{id_saison}|ou{#ENV{techbase}}|ou{#ENV{encadrant}}|ou{#ENV{valeur}}|ou{#ENV{niveau}}|non)
-			<INCLURE{fond=prive/table_adherent_auteur}{ajax}{ordre}{env}>
+			<INCLURE{fond=prive/table_adherent_auteur}{ajax}{ordre=maj}{env}>
 		]
-		
 		<p class="boutons">
 			[(#REM) <--
 				JR-07/04/2013-Tester si l'espace est public ou prive pour Bt export sur prive slt.

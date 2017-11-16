@@ -7,6 +7,7 @@
  * ----------------------------------------------
  * @todo :
  * Fait :
+ * JR-16/09/2017-Les variables limitant la liste sont dans #CONFIG.
  * JR-06/05/2017-Revue de la boucle de lecture.
  * JR-02/05/2017-Correction de l'action du tableau.
  * JR-26/01/2015-Creation du squelette.
@@ -18,11 +19,11 @@
     id_assur,-1,
 	multi titre,1,
 }})]
-[(#SET{_MAX_ADHASSUR_LISTE,[(#VAL{_MAX_ADHASSUR_LISTE}|defined|?{[(#VAL{_MAX_ADHASSUR_LISTE}|constant)],50})]})]
+
 <BOUCLE_exclus(ADHASSURS){tout}{id_objet}{objet}{doublons 1}{doublons 2} />
 <BOUCLE_nb_adhassurs(ADHASSURS){tout}{doublons 1} />#SET{total,#TOTAL_BOUCLE}<//B_nb_adhassurs>
 
-<BOUCLE_nombreux(CONDITION){si #GET{total}|>{#GET{_MAX_ADHASSUR_LISTE}}}>
+<BOUCLE_nombreux(CONDITION){si #GET{total}|>{#CONFIG{adhclub/max_adhassur_liste}}}>
 
 	[(#INCLURE{fond=prive/objets/liste/adhassurs_associer-recherche,env,doublons})]
 

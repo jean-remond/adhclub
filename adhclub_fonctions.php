@@ -223,13 +223,13 @@ Les mots-clés génériques (7 caractères) sont réservés pour la qualificatio
 			// test si le groupe existe
 			$grp_titre = $schema['groupes'][$i]['titre'];
 			$id_grp = sql_getfetsel("id_groupe","spip_groupes_mots","titre='$grp_titre'");
-			// si pas d'id retournée on inssère
+			// si pas d'id retournee on insere
 			if($id_grp!=''){
 				//echo "Update le groupe existe déja : ".$id_grp."=> ".$grp_titre."\n";
 				sql_updateq('spip_groupes_mots', $schema['groupes'][$i], "id_groupe='$id_grp'");
 			}//sinon on met a jour
 			else{
-				//echo "Insert Le groupe n'éxiste pas => ".$grp_titre."\n";
+				//echo "Insert Le groupe n'existe pas => ".$grp_titre."\n";
 				$id = sql_insertq('spip_groupes_mots',$schema['groupes'][$i]);
 			}
 
@@ -237,16 +237,16 @@ Les mots-clés génériques (7 caractères) sont réservés pour la qualificatio
 
 		//Maj des mots : on boucle sur le tableau mots
 		for ($i= 0 , $nbr_mot = count($schema['mots']) ; $i < $nbr_mot ; ++$i){
-			// test la présence du mot sur le champ titre
+			// test la presence du mot sur le champ titre
 			$titre = $schema['mots'][$i]['titre'];
 			$id_mot = sql_getfetsel("id_mot","spip_mots","titre='$titre'");
-			// le titre du mot est déjà présent
+			// le titre du mot est déjà present
 			if($id_mot!=''){
-				// echo "Update le mot clef existe déja : ".$id_mot."=> ".$titre."\n";
+				// echo "Update le mot clef existe deja : ".$id_mot."=> ".$titre."\n";
 				$test = sql_updateq('spip_mots', $schema['mots'][$i], "titre='$titre'");
 				objet_modifier('mot',$id_mot,$schema['mots'][$i]);
 			}else{
-				// echo "Insert Le mot clef n'éxiste pas => ".$titre."\n";
+				// echo "Insert Le mot clef n'existe pas => ".$titre."\n";
 				// on extrait du array le groupe dont dépend le mot
 				$grp_titre = $schema['mots'][$i]['type'];
 				$id_grp = sql_getfetsel("id_groupe","spip_groupes_mots","titre='$grp_titre'");
